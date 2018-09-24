@@ -16,6 +16,7 @@ public class beamController : MonoBehaviour {
 		Vector3 p5 = new Vector3(1,0,1);
 		Vector3 p6 = new Vector3(1,1,0);
 		Vector3 p7 = new Vector3(1,1,1);
+		Vector3 p8 = new Vector3(4,3,2);
 		
 		createBeam(origin, p1);
 		createBeam(origin, p2);
@@ -24,6 +25,7 @@ public class beamController : MonoBehaviour {
 		createBeam(origin, p5);
 		createBeam(origin, p6);
 		createBeam(origin, p7);
+		createBeam(origin, p8);
 
 }
 		
