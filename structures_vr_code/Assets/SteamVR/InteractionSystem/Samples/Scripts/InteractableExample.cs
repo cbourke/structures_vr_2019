@@ -26,9 +26,8 @@ namespace Valve.VR.InteractionSystem.Sample
 		//-------------------------------------------------
 		void Awake()
 		{
-			textMesh = GetComponentInChildren<TextMesh>();
-			textMesh.text = "No Hand Hovering";
-
+            textMesh = GetComponentInChildren<TextMesh>();
+            textMesh.text = "No Hand Hovering";
             interactable = this.GetComponent<Interactable>();
 		}
 
@@ -38,7 +37,7 @@ namespace Valve.VR.InteractionSystem.Sample
 		//-------------------------------------------------
 		private void OnHandHoverBegin( Hand hand )
 		{
-			textMesh.text = "Hovering hand: " + hand.name;
+            textMesh.text = "Hovering hand: " + hand.name;
 		}
 
 
@@ -111,6 +110,7 @@ namespace Valve.VR.InteractionSystem.Sample
 		//-------------------------------------------------
 		private void HandAttachedUpdate( Hand hand )
 		{
+			textMesh.text = "Attached to hand: " + hand.name + "\nAttached time: " + ( Time.time - attachTime ).ToString( "F2" );
 			textMesh.text = "Attached to hand: " + hand.name + "\nAttached time: " + ( Time.time - attachTime ).ToString( "F2" );
 		}
 

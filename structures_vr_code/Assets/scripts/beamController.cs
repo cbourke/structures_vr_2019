@@ -5,30 +5,30 @@ using UnityEngine;
 public class beamController : MonoBehaviour {
 
 	public GameObject beam;
+    Vector3 p1;
+    Vector3 p2;
+    bool hasPoint = false;
 
 	// Use this for initialization
 	void Start () {
-		Vector3 origin = new Vector3(0,0,0);
-		Vector3 p1 = new Vector3(0,0,1);
-		Vector3 p2 = new Vector3(0,1,0);
-		Vector3 p3 = new Vector3(0,1,1);
-		Vector3 p4 = new Vector3(1,0,0);
-		Vector3 p5 = new Vector3(1,0,1);
-		Vector3 p6 = new Vector3(1,1,0);
-		Vector3 p7 = new Vector3(1,1,1);
-		Vector3 p8 = new Vector3(4,3,2);
-		
-		createBeam(origin, p1);
-		createBeam(origin, p2);
-		createBeam(origin, p3);
-		createBeam(origin, p4);
-		createBeam(origin, p5);
-		createBeam(origin, p6);
-		createBeam(origin, p7);
-		createBeam(origin, p8);
+    }
 
-}
-		
+    public void setPoint(Vector3 point)
+    {
+        if(!hasPoint)
+        {
+            p1 = point;
+            hasPoint = true;
+        } else
+        {
+            if(p1 != point)
+            {
+                p2 = point;
+                createBeam(p1, p2);
+                hasPoint = false;
+            }
+        }
+    }
 	
 	void createBeam(Vector3 pA, Vector3 pB) {
     	Vector3 between = pB - pA;
