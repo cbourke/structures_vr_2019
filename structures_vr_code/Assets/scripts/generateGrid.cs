@@ -10,8 +10,8 @@ public class generateGrid : MonoBehaviour {
 
 	void Start () {
 		
+		// Generates the grid
 		grid = new Cell[gridX, gridY, gridZ];
-
 		for(int i=0; i<gridX; i++) {
 			for(int j=0; j<gridY; j++) {
 				for(int k=0; k<gridZ; k++) {
@@ -20,21 +20,13 @@ public class generateGrid : MonoBehaviour {
 				}
 			}
 		}
-		
-		foreach (Cell item in grid) {
-			//Debug.Log(item.ToString());
-		}
-		Debug.Log("drawing now");
 		spawnNodes(grid);
 	}
 
 	void spawnNodes(Cell[, ,] grid) {
 		foreach(Cell item in grid) {
 			Instantiate(node, item.position, Quaternion.identity);
-		}
-
-
-			
+		}	
     }
 	
 	// Update is called once per frame
@@ -43,11 +35,20 @@ public class generateGrid : MonoBehaviour {
 }	
 public class Cell { 
 	public Vector3 position {get; set;}
+	private bool isActive;
 
 	public Cell(Vector3 pos) {
 		position = pos;
+		isActive = true;
 	}
 
+	public void disable() {
+		isActive = false;
+	}
+
+	public void enable() {
+		isActive = true;
+	}
 	public override string ToString()
     {
         return "(" + position.x + ", " + position.y + ", " + position.z + ")";
