@@ -15,14 +15,9 @@ public class constructorController : MonoBehaviour {
     //List<Floor> floorList = new List<Floor>();
     //List<Wall> wallList = new List<Wall>();
 
-    static GameObject Grid;
-    generateGrid gridScript;
 
     // Use this for initialization
-    void Start () {
-        Grid = GameObject.Find("Grid"); ;
-        gridScript = Grid.GetComponent<generateGrid>();
-        
+    void Start () {        
         /*
 		TESETING CODE
 		Vector3 origin = new Vector3(0,0,0);
@@ -43,26 +38,21 @@ public class constructorController : MonoBehaviour {
 
     public void setPoint(Vector3 point, buildingObjects type)
     {
-        if (generateGrid.grid[(int)point.x, (int)point.y, (int)point.z].isActive())
+        if (!hasPoint)
         {
-            if (!hasPoint)
-            {
-                p1 = point;
-                hasPoint = true;
-            }
-            else
-            {
-                if (p1 != point)
-                {
-                    p2 = point;
-                    createBeam(p1, p2);
-                    hasPoint = false;
-                }
-            }
-        } else
-        {
-          Debug.Log("Not active");
+            p1 = point;
+            hasPoint = true;
         }
+        else
+        {
+            if (p1 != point)
+            {
+                p2 = point;
+                createBeam(p1, p2);
+                hasPoint = false;
+            }
+        }
+        
     }
 	
 	void createBeam(Vector3 pA, Vector3 pB) {

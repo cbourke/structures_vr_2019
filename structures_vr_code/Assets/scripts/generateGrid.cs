@@ -36,25 +36,11 @@ public class generateGrid : MonoBehaviour {
 
 public class gridNode { 
 	public Vector3 position {get; set;}
-	private bool active;
 
 	public gridNode(Vector3 pos) {
 		position = pos;
-        active = false;
 	}
 
-	public void disable() {
-		active = false;
-	}
-
-	public void enable() {
-		active = true;
-	}
-
-    public bool isActive()
-    {
-        return active;
-    }
 	public override string ToString()
     {
         return "(" + position.x + ", " + position.y + ", " + position.z + ")";
