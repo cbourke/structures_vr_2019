@@ -61,8 +61,9 @@ namespace Valve.VR.InteractionSystem.Sample
 
             if (startingGrabType != GrabTypes.None)
             {
+                // User "grabs" a grid node
                 Debug.Log("grab end: " + gameObject.transform.position);
-                beamController.GetComponent<beamController>().setPoint(gameObject.transform.position);
+                beamController.GetComponent<constructorController>().setPoint(gameObject.transform.position, buildingObjects.Beam);
             }
         }
 

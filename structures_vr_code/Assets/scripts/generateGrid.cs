@@ -6,25 +6,25 @@ public class generateGrid : MonoBehaviour {
 
 	public int gridX, gridY, gridZ;
 	public GameObject node;
-	Cell[, ,] grid;
+	public static gridNode[, ,] grid;
 
 	void Start () {
 		
 		// Generates the grid
-		grid = new Cell[gridX, gridY, gridZ];
+		grid = new gridNode[gridX, gridY, gridZ];
 		for(int i=0; i<gridX; i++) {
 			for(int j=0; j<gridY; j++) {
 				for(int k=0; k<gridZ; k++) {
 					Vector3 pos = new Vector3(i,j,k);
-					grid[i,j,k] = new Cell(pos);
+					grid[i,j,k] = new gridNode(pos);
 				}
 			}
 		}
 		spawnNodes(grid);
 	}
 
-	void spawnNodes(Cell[, ,] grid) {
-		foreach(Cell item in grid) {
+	void spawnNodes(gridNode[, ,] grid) {
+		foreach(gridNode item in grid) {
 			Instantiate(node, item.position, Quaternion.identity);
 		}	
     }
@@ -33,22 +33,28 @@ public class generateGrid : MonoBehaviour {
 	void Update () {
 	}
 }	
-public class Cell { 
-	public Vector3 position {get; set;}
-	private bool isActive;
 
-	public Cell(Vector3 pos) {
+public class gridNode { 
+	public Vector3 position {get; set;}
+	private bool active;
+
+	public gridNode(Vector3 pos) {
 		position = pos;
-		isActive = true;
+        active = false;
 	}
 
 	public void disable() {
-		isActive = false;
+		active = false;
 	}
 
 	public void enable() {
-		isActive = true;
+		active = true;
 	}
+
+    public bool isActive()
+    {
+        return active;
+    }
 	public override string ToString()
     {
         return "(" + position.x + ", " + position.y + ", " + position.z + ")";

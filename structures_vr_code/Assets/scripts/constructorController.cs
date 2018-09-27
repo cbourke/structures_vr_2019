@@ -2,17 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class beamController : MonoBehaviour {
+public class constructorController : MonoBehaviour {
 
 	public GameObject beamGameObject;
+    //public GameObject floorGameObject;
+    //public GameObject wallGameObject;
+
     Vector3 p1;
     Vector3 p2;
     bool hasPoint = false;
 	List<Beam> beamList = new List<Beam>();
+    //List<Floor> floorList = new List<Floor>();
+    //List<Wall> wallList = new List<Wall>();
 
-	// Use this for initialization
-	void Start () {
-		/*
+    static GameObject Grid;
+    generateGrid gridScript;
+
+    // Use this for initialization
+    void Start () {
+        Grid = GameObject.Find("Grid"); ;
+        gridScript = Grid.GetComponent<generateGrid>();
+        
+        /*
 		TESETING CODE
 		Vector3 origin = new Vector3(0,0,0);
 		Vector3 p1 = new Vector3(0,0,1);
@@ -30,20 +41,27 @@ public class beamController : MonoBehaviour {
 		 */
     }
 
-    public void setPoint(Vector3 point)
+    public void setPoint(Vector3 point, buildingObjects type)
     {
-        if(!hasPoint)
+        if (generateGrid.grid[(int)point.x, (int)point.y, (int)point.z].isActive())
         {
-            p1 = point;
-            hasPoint = true;
+            if (!hasPoint)
+            {
+                p1 = point;
+                hasPoint = true;
+            }
+            else
+            {
+                if (p1 != point)
+                {
+                    p2 = point;
+                    createBeam(p1, p2);
+                    hasPoint = false;
+                }
+            }
         } else
         {
-            if(p1 != point)
-            {
-                p2 = point;
-                createBeam(p1, p2);
-                hasPoint = false;
-            }
+          Debug.Log("Not active");
         }
     }
 	
@@ -52,6 +70,9 @@ public class beamController : MonoBehaviour {
 		beamList.Add(beam);
 		Instantiate(beamGameObject, beam.getTransform().position, beam.getTransform().rotation);
 	}
+
+    //void createWall(){}
+    //void createFloor(){}
 }
 
 public class Beam { 
@@ -95,3 +116,5 @@ public class Beam {
 	}
 }
 
+//public class Wall {}
+//public class Floor {}
