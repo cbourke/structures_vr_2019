@@ -4,13 +4,30 @@ using UnityEngine;
 
 public class beamController : MonoBehaviour {
 
-	public GameObject beam;
+	public GameObject beamGameObject;
     Vector3 p1;
     Vector3 p2;
     bool hasPoint = false;
+	List<Beam> beamList = new List<Beam>();
 
 	// Use this for initialization
 	void Start () {
+		/*
+		TESETING CODE
+		Vector3 origin = new Vector3(0,0,0);
+		Vector3 p1 = new Vector3(0,0,1);
+		Vector3 p2 = new Vector3(2,2,2);
+		Vector3 p3 = new Vector3(1,1,1);
+		Vector3 p4 = new Vector3(1,0,1);
+		Vector3 p5 = new Vector3(3,0,1);
+		Vector3 p6 = new Vector3(0,2,1);
+		
+		createBeam(origin, p1);
+		createBeam(origin, p3);
+		createBeam(origin, p4);
+		createBeam(origin, p5);
+		createBeam(origin, p6);
+		 */
     }
 
     public void setPoint(Vector3 point)
@@ -31,37 +48,50 @@ public class beamController : MonoBehaviour {
     }
 	
 	void createBeam(Vector3 pA, Vector3 pB) {
-    	Vector3 between = pB - pA;
-
-    	float distance = between.magnitude;
-		Vector3 angle = new Vector3(Vector3.Angle(between, transform.right), Vector3.Angle(between, transform.up), Vector3.Angle(between, transform.forward));
-		Transform trans = beam.transform;
-
-    	trans.position = pA + (between / 2.0f);
-		trans.Rotate(angle);
-    	trans.LookAt(pB);
-		trans.localScale = new Vector3(.05f, .05f, distance);
-
-		Instantiate(beam, trans.position, trans.rotation);
-	}
-	// Update is called once per frame
-	void Update () {
-		
+		Beam beam = new Beam(pA, pB, beamGameObject);
+		beamList.Add(beam);
+		Instantiate(beamGameObject, beam.getTransform().position, beam.getTransform().rotation);
 	}
 }
 
 public class Beam { 
-	public Vector3 startPos {get; set;}
-	public Vector3 endPos {get; set;}
+	private Vector3 startPos;
+	private Vector3 endPos;
 	private Vector3 direction;
+	private float length;
+	private Vector3 angle;
+	private GameObject beam;
+	private Transform trans;
 
-	public Beam(Vector3 start, Vector3 end) {
-		direction = start - end;
+	public Beam(Vector3 start, Vector3 end, GameObject beam) {
+		startPos = start;
+		endPos = end;
+
+		Vector3 between = end - start;
+    	float distance = between.magnitude;
+		length = distance;
+
+		Vector3 angletest = new Vector3(Vector3.Angle(between, beam.transform.right), Vector3.Angle(between, beam.transform.up), Vector3.Angle(between, beam.transform.forward));
+
+		trans = beam.transform;
+
+    	trans.position = start + (between / 2.0f);
+		trans.Rotate(angletest);
+    	trans.LookAt(end);
+		trans.localScale = new Vector3(.05f, .05f, distance);
 	}
 
-	public override string ToString()
-    {
-		return "string";
-    }
+	public Transform getTransform() {
+		return trans;
+	}
+	public Vector3 getDirection() {
+		return direction;
+	}
+	public Vector3 getStartPos() {
+		return startPos;
+	}
+	public Vector3 getEndPos() {
+		return endPos;
+	}
 }
 
