@@ -51,4 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5601f614038af04a87a5f06dee61779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beam: {fileID: 1792658920625122, guid: cabe915ffd810d94c840604b5e7847ff, type: 2}
+  beamGameObject: {fileID: 1792658920625122, guid: cabe915ffd810d94c840604b5e7847ff,
+    type: 2}
