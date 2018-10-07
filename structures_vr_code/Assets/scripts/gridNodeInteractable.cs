@@ -13,7 +13,7 @@ namespace Valve.VR.InteractionSystem.Sample
     [RequireComponent(typeof(Interactable))]
     public class gridNodeInteractable : MonoBehaviour
     {
-        public GameObject beamController;
+        public GameObject constructorController;
 
         //private TextMesh textMesh;
         private Vector3 oldPosition;
@@ -62,7 +62,7 @@ namespace Valve.VR.InteractionSystem.Sample
             {
                 // User "grabs" a grid node
                 Debug.Log("grab end: " + gameObject.transform.position);
-                beamController.GetComponent<constructorController>().setPoint(gameObject.transform.position, buildingObjects.Beam);
+                constructorController.GetComponent<constructorController>().setPoint(gameObject.transform.position, buildingObjects.Frame);
             }
         }
 

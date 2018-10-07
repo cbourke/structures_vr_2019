@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 135984659520981654}
   - component: {fileID: 114062195676073066}
   m_Layer: 0
-  m_Name: gridNode
+  m_Name: gridNodePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be25425b1051b54abe5472ca3eb86f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beamController: {fileID: 1083761685088332, guid: 02ec97572a78fe3429d4aad824366914,
+  constructorController: {fileID: 1083761685088332, guid: 02ec97572a78fe3429d4aad824366914,
     type: 2}
 --- !u!114 &114436965585919976
 MonoBehaviour:

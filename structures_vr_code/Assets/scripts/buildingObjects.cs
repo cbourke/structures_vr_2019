@@ -4,7 +4,6 @@ using UnityEngine;
 
 
 public enum buildingObjects{
-    Beam,
-    Wall,
-    Floor
+    Frame,
+    Area
 }
