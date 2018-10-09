@@ -58,7 +58,7 @@ namespace Valve.VR.InteractionSystem.Sample
         {
             GrabTypes startingGrabType = hand.GetGrabStarting();
 
-            if (startingGrabType != GrabTypes.None)
+            if (startingGrabType == GrabTypes.Pinch)
             {
                 // User "grabs" a grid node
                 Debug.Log("grab end: " + gameObject.transform.position);
