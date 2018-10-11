@@ -33,6 +33,7 @@ public class pointer : MonoBehaviour {
 	}
  
 	void ShootLaserFromTargetPosition( Vector3 targetPosition, Vector3 direction, float length ) {
+		direction.y = direction.y - .5f;
 		Ray ray = new Ray( targetPosition, direction );
 		RaycastHit sphereHit;
 		Vector3 endPosition = targetPosition + ( length * direction );
@@ -45,9 +46,6 @@ public class pointer : MonoBehaviour {
 
             if (startingGrabType == GrabTypes.Pinch && sphereHit.collider.CompareTag("Grid")) {
                 // User "grabs" a grid node
-                Debug.Log("x: " + nodePoint.x);
-				Debug.Log("y: " + nodePoint.y);
-				Debug.Log("z: " + nodePoint.z);
                 constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
             }
 		}
