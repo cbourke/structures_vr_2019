@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Valve.VR.InteractionSystem{
+
 
 public class pointer : MonoBehaviour {
     private RaycastHit vision;
@@ -14,6 +16,8 @@ public class pointer : MonoBehaviour {
 	
 
 	public LineRenderer laserLineRenderer;
+	public Hand hand;
+	public GameObject constructorController;
 
 	void Start() {
 	Vector3[] initLaserPositions = new Vector3[ 2 ] { Vector3.zero, Vector3.zero };
@@ -23,12 +27,6 @@ public class pointer : MonoBehaviour {
 	laserLineRenderer.enabled = true;
 	}
  
- 	void FixedUpdate() {
-        Vector3 fwd = transform.TransformDirection(Vector3.forward);
-
-        //if (Physics.Raycast(transform.position, fwd, 10))
-        //    print("There is something in front of the object!");
-    }
 
 	void Update() {
 		ShootLaserFromTargetPosition( transform.position, transform.forward, rayLength );
@@ -38,13 +36,25 @@ public class pointer : MonoBehaviour {
 		Ray ray = new Ray( targetPosition, direction );
 		RaycastHit sphereHit;
 		Vector3 endPosition = targetPosition + ( length * direction );
+		Vector3 nodePoint;
+		GrabTypes startingGrabType = hand.GetGrabStarting();
 
 		if(Physics.SphereCast(ray, rayRadius, out sphereHit, rayLength)) {
-			Debug.Log("WOW! SOMETHING HIT!" + sphereHit.point);
 			endPosition = sphereHit.point;
+			nodePoint = sphereHit.transform.position;
+
+            if (startingGrabType == GrabTypes.Pinch && sphereHit.collider.CompareTag("Grid")) {
+                // User "grabs" a grid node
+                Debug.Log("x: " + nodePoint.x);
+				Debug.Log("y: " + nodePoint.y);
+				Debug.Log("z: " + nodePoint.z);
+                constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
+            }
 		}
 
 		laserLineRenderer.SetPosition( 0, targetPosition );
 		laserLineRenderer.SetPosition( 1, endPosition );
 	}
+}
+
 }

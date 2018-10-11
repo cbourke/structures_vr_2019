@@ -15,8 +15,8 @@ public class constructorController : MonoBehaviour {
 	List<Vector3> areaPoints = new List<Vector3>();
 	
 
-    public void setPoint(Vector3 point, buildingObjects type)
-    {
+    public void setPoint(Vector3 point, buildingObjects type) {
+		Debug.Log("Setpoint: " + point);
 		if (type == buildingObjects.Frame) {
 			if(framePoints.Count == 1) {
 
@@ -36,6 +36,7 @@ public class constructorController : MonoBehaviour {
     }
 	
 	void createFrame(Vector3 pA, Vector3 pB) {
+		Debug.Log("FrameponitsS: " + pA + " 2: " + pB);
 		Frame frame = new Frame(pA, pB, frameGameObject);
 		frameList.Add(frame);
 		Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
