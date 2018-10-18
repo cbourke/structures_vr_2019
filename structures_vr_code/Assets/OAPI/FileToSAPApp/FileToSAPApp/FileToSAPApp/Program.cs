@@ -170,18 +170,15 @@ namespace FileToSAPApp
             string temp_string2 = FrameName[0];
 
             ret = mySapModel.FrameObj.AddByCoord(0, 0, 0, 0, 0, 10, ref temp_string1, "R1", "1", "Global");
-
             FrameName[0] = temp_string1;
 
             ret = mySapModel.FrameObj.AddByCoord(0, 0, 10, 8, 0, 16, ref temp_string1, "R1", "2", "Global");
-
             FrameName[1] = temp_string1;
 
             ret = mySapModel.FrameObj.AddByCoord(-4, 0, 10, 0, 0, 10, ref temp_string1, "R1", "3", "Global");
-
             FrameName[2] = temp_string1;
 
-
+            /*
             //assign point object restraint at base
             string[] PointName = new string[2];
             bool[] Restraint = new bool[6];
@@ -206,19 +203,13 @@ namespace FileToSAPApp
         
             //assign point object restraint at top
             for (i = 0; i <= 1; i++)
-
             {
-
                 Restraint[i] = true;
-
             }
 
             for (i = 2; i <= 5; i++)
-
             {
-
                 Restraint[i] = false;
-
             }
 
             ret = mySapModel.FrameObj.GetPoints(FrameName[1], ref temp_string1, ref temp_string2);
@@ -227,14 +218,13 @@ namespace FileToSAPApp
             PointName[1] = temp_string2;
 
             ret = mySapModel.PointObj.SetRestraint(PointName[1], ref Restraint, 0);
-
+            */
 
             //refresh view, update (initialize) zoom
             bool temp_bool = false;
-
             ret = mySapModel.View.RefreshView(0, temp_bool);
 
-
+            /*
             //add load patterns
             temp_bool = true;
 
@@ -290,7 +280,7 @@ namespace FileToSAPApp
 
             //assign loading for load pattern 7
             ret = mySapModel.FrameObj.SetLoadPoint(FrameName[1], "7", 1, 2, 0.5, -15, "Local", System.Convert.ToBoolean(-1), System.Convert.ToBoolean(-1), 0);
-
+            */
 
             //switch to k-in units
             ret = mySapModel.SetPresentUnits(eUnits.kip_in_F);
@@ -299,7 +289,7 @@ namespace FileToSAPApp
             //save model
             ret = mySapModel.File.Save(ModelPath);
 
-
+            /*
             //run model (this will create the analysis model)
             ret = mySapModel.Analyze.RunAnalysis();
 
@@ -427,6 +417,7 @@ namespace FileToSAPApp
 
             Console.WriteLine(msg);
             Console.ReadKey();
+            */
 
             //EXAMPLE CODE END
         }
