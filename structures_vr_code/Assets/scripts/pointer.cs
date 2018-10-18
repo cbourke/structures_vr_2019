@@ -7,8 +7,8 @@ namespace Valve.VR.InteractionSystem{
 
 public class pointer : MonoBehaviour {
     private RaycastHit vision;
-    public float rayLength;
-	public float rayRadius;
+    public float rayLength = 5;
+	public float rayRadius = .05f;
 	public float laserWidth = 0.01f;
 
 	private bool isGrabbed;
