@@ -72,7 +72,7 @@ public class Frame {
     	trans.position = start + (between / 2.0f);
 		trans.Rotate(angletest);
     	trans.LookAt(end);
-		trans.localScale = new Vector3(.05f, .05f, distance);
+		trans.localScale = new Vector3(.03f, .03f, distance);
 	}
 
 	public Transform getTransform() {

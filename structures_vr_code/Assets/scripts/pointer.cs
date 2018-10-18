@@ -33,18 +33,20 @@ public class pointer : MonoBehaviour {
 	}
  
 	void ShootLaserFromTargetPosition( Vector3 targetPosition, Vector3 direction, float length ) {
-		direction.y = direction.y - .5f;
+		direction.y = direction.y - .5f; //adjust the angle of the laser down
+
 		Ray ray = new Ray( targetPosition, direction );
 		RaycastHit sphereHit;
 		Vector3 endPosition = targetPosition + ( length * direction );
 		Vector3 nodePoint;
 		GrabTypes startingGrabType = hand.GetGrabStarting();
 
-		if(Physics.SphereCast(ray, rayRadius, out sphereHit, rayLength)) {
-			endPosition = sphereHit.point;
+		int layerMask = 1 << 8;	//gets layer 8
+		if(Physics.SphereCast(ray, rayRadius, out sphereHit, rayLength, layerMask)) {
 			nodePoint = sphereHit.transform.position;
+			endPosition = sphereHit.point;
 
-            if (startingGrabType == GrabTypes.Pinch && sphereHit.collider.CompareTag("Grid")) {
+            if (startingGrabType == GrabTypes.Pinch) {
                 // User "grabs" a grid node
                 constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
             }

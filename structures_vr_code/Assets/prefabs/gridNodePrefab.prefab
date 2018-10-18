@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 23418367759141898}
   - component: {fileID: 114436965585919976}
   - component: {fileID: 135984659520981654}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: gridNodePrefab
-  m_TagString: Grid
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
