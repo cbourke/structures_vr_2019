@@ -35,9 +35,11 @@ public class pointer : MonoBehaviour {
 	void ShootLaserFromTargetPosition( Vector3 targetPosition, Vector3 direction, float length ) {
 		direction.y = direction.y - .5f; //adjust the angle of the laser down
 
-		Ray ray = new Ray( targetPosition, direction );
-		RaycastHit sphereHit;
+		Vector3 startPosition = targetPosition - (.2f * direction);
 		Vector3 endPosition = targetPosition + ( length * direction );
+
+		Ray ray = new Ray( startPosition, direction );
+		RaycastHit sphereHit;
 		Vector3 nodePoint;
 		GrabTypes startingGrabType = hand.GetGrabStarting();
 
