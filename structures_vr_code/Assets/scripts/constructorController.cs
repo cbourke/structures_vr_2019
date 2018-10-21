@@ -6,24 +6,31 @@ public class constructorController : MonoBehaviour {
 
 	public GameObject frameGameObject;
     public GameObject areaGameObject;
+    public LineRenderer tempLineRenderer;
 
 
-	List<Frame> frameList = new List<Frame>();
+
+    List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
 
 	List<Vector3> framePoints = new List<Vector3>();
 	List<Vector3> areaPoints = new List<Vector3>();
-	
+
 
     public void setPoint(Vector3 point, buildingObjects type) {
-		Debug.Log("Setpoint: " + point);
+        tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
+        Debug.Log("Setpoint: " + point);
 		if (type == buildingObjects.Frame) {
 			if(framePoints.Count == 1) {
-
 				createFrame(framePoints[0], point);
 				framePoints.Clear();
-			} else {
+                tempLineRenderer.enabled = false;
+            }
+            else {
 				framePoints.Add(point);
+
+                tempLineRenderer.enabled = true;
+                tempLineRenderer.SetPosition(0, point);
 			}
 		} else if (type == buildingObjects.Area) {
 			if(framePoints[0] == point) {
