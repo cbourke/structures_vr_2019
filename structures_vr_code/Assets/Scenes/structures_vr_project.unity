@@ -158,6 +158,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1792658920625122, guid: cabe915ffd810d94c840604b5e7847ff,
         type: 2}
+    - target: {fileID: 114684068836615846, guid: 02ec97572a78fe3429d4aad824366914,
+        type: 2}
+      propertyPath: structureSaveFileName
+      value: structure1.xml
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02ec97572a78fe3429d4aad824366914, type: 2}
   m_IsPrefabAsset: 0

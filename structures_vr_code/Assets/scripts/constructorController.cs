@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Xml.Serialization;
+using System.IO;
 public class constructorController : MonoBehaviour {
 
 	public GameObject frameGameObject;
     public GameObject areaGameObject;
+    public string structureSaveFileName;
 
-
-	List<Frame> frameList = new List<Frame>();
+    StructuralElementsLists elementsListsForXML = new StructuralElementsLists();
+    List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
 
 	List<Vector3> framePoints = new List<Vector3>();
 	List<Vector3> areaPoints = new List<Vector3>();
-	
+
 
     public void setPoint(Vector3 point, buildingObjects type) {
 		Debug.Log("Setpoint: " + point);
@@ -38,24 +40,43 @@ public class constructorController : MonoBehaviour {
 	void createFrame(Vector3 pA, Vector3 pB) {
 		Debug.Log("FrameponitsS: " + pA + " 2: " + pB);
 		Frame frame = new Frame(pA, pB, frameGameObject);
-		frameList.Add(frame);
+        frameList.Add(frame);
+        elementsListsForXML.frameForXMLList.Add(new FrameForXML(pA, pB));
 		Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
-	}
+        saveToXML();
+
+    }
 
 	void createArea(List<Vector3> points) {
 		//TODO
 		Debug.Log("Create Area not implimented yet!");
 	}
+
+    void saveToXML() {
+        XmlSerializer serializer = new XmlSerializer(typeof(StructuralElementsLists));
+        string filepath = Application.persistentDataPath + "/" + "structure1.xml";
+        Debug.Log(filepath);
+        TextWriter writer = new StreamWriter(filepath);
+        serializer.Serialize(writer, elementsListsForXML);
+        writer.Close();
+    }
 }
 
+public class StructuralElementsLists
+{
+    [XmlArray("frameListForXML"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
+    public List<FrameForXML> frameForXMLList = new List<FrameForXML>();
+}
+
+[XmlRoot("StructuralElementsLists")]
 public class Frame { 
-	private Vector3 startPos;
-	private Vector3 endPos;
-	private Vector3 direction;
-	private float length;
-	private Vector3 angle;
-	private GameObject frame;
-	private Transform trans;
+	public Vector3 startPos;
+    public Vector3 endPos;
+    public Vector3 direction;
+    public float length;
+    public Vector3 angle;
+    public GameObject frame;
+    public Transform trans;
 
 	public Frame(Vector3 start, Vector3 end, GameObject frame) {
 		startPos = start;
@@ -89,4 +110,21 @@ public class Frame {
 	}
 }
 
-public class Area {}
+public class FrameForXML
+{
+    public Vector3 startPos { get; set; }
+    public Vector3 endPos { get; set; }
+    
+    public FrameForXML()
+    {
+
+    }
+    public FrameForXML(Vector3 pointA, Vector3 pointB)
+    {
+        startPos = pointA;
+        endPos = pointB;
+    }
+    
+}
+
+public class Area { }
