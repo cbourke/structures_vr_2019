@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 //using System.Threading.Tasks;
 using SAP2000v19;
+using UnityEngine;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace FileToSAPApp
 {
@@ -164,6 +167,7 @@ namespace FileToSAPApp
 
 
             //add frame object by coordinates
+/*
             string[] FrameName = new string[3];
 
             string temp_string1 = FrameName[0];
@@ -177,7 +181,7 @@ namespace FileToSAPApp
 
             ret = mySapModel.FrameObj.AddByCoord(-4, 0, 10, 0, 0, 10, ref temp_string1, "R1", "3", "Global");
             FrameName[2] = temp_string1;
-
+*/
             /*
             //assign point object restraint at base
             string[] PointName = new string[2];
@@ -420,6 +424,43 @@ namespace FileToSAPApp
             */
 
             //EXAMPLE CODE END
+            string input;
+            while (true)
+            {
+                input = Console.ReadLine();
+                
+            }
+            string[] FrameName = new string[1];
+
+            string temp_string1 = FrameName[0];
+
+            ret = mySapModel.FrameObj.AddByCoord(0, 0, 0, 0, 0, 10, ref temp_string1, "R1", "1", "Global");
+            FrameName[0] = temp_string1;
+
         }
+    }
+
+    public class StructuralElementsLists
+    {
+        [XmlArray("frameListForXML"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
+        public List<FrameForXML> frameForXMLList = new List<FrameForXML>();
+    }
+
+    [XmlRoot("StructuralElementsLists")]
+    public class FrameForXML
+    {
+        public Vector3 startPos { get; set; }
+        public Vector3 endPos { get; set; }
+
+        public FrameForXML()
+        {
+
+        }
+        public FrameForXML(Vector3 pointA, Vector3 pointB)
+        {
+            startPos = pointA;
+            endPos = pointB;
+        }
+
     }
 }

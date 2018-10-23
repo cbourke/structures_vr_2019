@@ -161,7 +161,12 @@ Prefab:
     - target: {fileID: 114684068836615846, guid: 02ec97572a78fe3429d4aad824366914,
         type: 2}
       propertyPath: structureSaveFileName
-      value: structure1.xml
+      value: testStructure
+      objectReference: {fileID: 0}
+    - target: {fileID: 114684068836615846, guid: 02ec97572a78fe3429d4aad824366914,
+        type: 2}
+      propertyPath: frameGameObject
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02ec97572a78fe3429d4aad824366914, type: 2}

@@ -53,8 +53,9 @@ public class constructorController : MonoBehaviour {
 	}
 
     void saveToXML() {
+        structureSaveFileName = "testStructure";
         XmlSerializer serializer = new XmlSerializer(typeof(StructuralElementsLists));
-        string filepath = Application.persistentDataPath + "/" + "structure1.xml";
+        string filepath = Application.persistentDataPath + "/" + structureSaveFileName.ToString() + ".xml";
         Debug.Log(filepath);
         TextWriter writer = new StreamWriter(filepath);
         serializer.Serialize(writer, elementsListsForXML);
@@ -68,11 +69,10 @@ public class StructuralElementsLists
     public List<FrameForXML> frameForXMLList = new List<FrameForXML>();
 }
 
-[XmlRoot("StructuralElementsLists")]
+
 public class Frame {
     private Vector3 startPos;
     private Vector3 endPos;
-    private FrameForXML;
     private Vector3 direction;
     private float length;
     private Vector3 angle;
@@ -110,6 +110,7 @@ public class Frame {
 	}
 }
 
+[XmlRoot("StructuralElementsLists")]
 public class FrameForXML
 {
     public Vector3 startPos { get; set; }
