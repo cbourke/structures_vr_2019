@@ -69,20 +69,20 @@ public class StructuralElementsLists
 }
 
 [XmlRoot("StructuralElementsLists")]
-public class Frame { 
-	public Vector3 startPos;
-    public Vector3 endPos;
-    public Vector3 direction;
-    public float length;
-    public Vector3 angle;
-    public GameObject frame;
-    public Transform trans;
+public class Frame {
+    private Vector3 startPos;
+    private Vector3 endPos;
+    private FrameForXML;
+    private Vector3 direction;
+    private float length;
+    private Vector3 angle;
+    private GameObject frame;
+    private Transform trans;
 
 	public Frame(Vector3 start, Vector3 end, GameObject frame) {
-		startPos = start;
-		endPos = end;
-
-		Vector3 between = end - start;
+        startPos = start;
+        endPos = end;
+        Vector3 between = end - start;
     	float distance = between.magnitude;
 		length = distance;
 
