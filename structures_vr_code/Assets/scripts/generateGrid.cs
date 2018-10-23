@@ -6,45 +6,38 @@ public class generateGrid : MonoBehaviour {
 
 	public int gridX, gridY, gridZ;
 	public GameObject node;
-	Cell[, ,] grid;
+	public static gridNode[, ,] grid;
 
 	void Start () {
 		
-		grid = new Cell[gridX, gridY, gridZ];
-
+		// Generates the grid
+		grid = new gridNode[gridX, gridY, gridZ];
 		for(int i=0; i<gridX; i++) {
 			for(int j=0; j<gridY; j++) {
 				for(int k=0; k<gridZ; k++) {
 					Vector3 pos = new Vector3(i,j,k);
-					grid[i,j,k] = new Cell(pos);
+					grid[i,j,k] = new gridNode(pos);
 				}
 			}
 		}
-		
-		foreach (Cell item in grid) {
-			//Debug.Log(item.ToString());
-		}
-		Debug.Log("drawing now");
 		spawnNodes(grid);
 	}
 
-	void spawnNodes(Cell[, ,] grid) {
-		foreach(Cell item in grid) {
+	void spawnNodes(gridNode[, ,] grid) {
+		foreach(gridNode item in grid) {
 			Instantiate(node, item.position, Quaternion.identity);
-		}
-
-
-			
+		}	
     }
 	
 	// Update is called once per frame
 	void Update () {
 	}
 }	
-public class Cell { 
+
+public class gridNode { 
 	public Vector3 position {get; set;}
 
-	public Cell(Vector3 pos) {
+	public gridNode(Vector3 pos) {
 		position = pos;
 	}
 

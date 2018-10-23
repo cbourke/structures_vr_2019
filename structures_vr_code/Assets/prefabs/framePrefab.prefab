@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23469897172847512}
   - component: {fileID: 65375359515092648}
   m_Layer: 0
-  m_Name: beam
+  m_Name: framePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,9 +35,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1792658920625122}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3, y: 1.5, z: 3}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 1.4142135}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
