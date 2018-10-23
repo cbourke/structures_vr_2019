@@ -7,7 +7,6 @@ public class constructorController : MonoBehaviour {
 	public GameObject frameGameObject;
     public GameObject areaGameObject;
 
-
 	List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
 
@@ -34,7 +33,18 @@ public class constructorController : MonoBehaviour {
 			}
 		}
     }
-	
+
+    public void clearPoint(Vector3 point, ) {
+
+    }
+
+    /*Delete frame function to delete the frame*/
+    void deleteFrame(Vector3 pA, Vector3 pB) {
+        Frame frame = new Frame(pA, pB, frameGameObject);
+        frameList.Remove(frame);
+        Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
+    }
+    
 	void createFrame(Vector3 pA, Vector3 pB) {
 		Debug.Log("FrameponitsS: " + pA + " 2: " + pB);
 		Frame frame = new Frame(pA, pB, frameGameObject);
