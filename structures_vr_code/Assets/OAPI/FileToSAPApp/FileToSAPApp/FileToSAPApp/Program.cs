@@ -12,7 +12,7 @@ namespace FileToSAPApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] args) //args[0] should be the xml file path to pull structure from
         {
             //EXAMPLE CODE START
 
@@ -162,26 +162,53 @@ namespace FileToSAPApp
             ret = mySapModel.PropFrame.SetModifiers("R1", ref ModValue);
 
 
-            //switch to k-ft units
-            ret = mySapModel.SetPresentUnits(eUnits.kip_ft_F);
+            //switch to kN-m units
+            ret = mySapModel.SetPresentUnits(eUnits.kN_m_C);
 
+            //Read xml file
+            XmlSerializer serializer = new XmlSerializer(typeof(StructuralElementsLists));
+            try
+            {
+                string xmlfilepath = args[0];
+                StreamReader reader = new StreamReader(xmlfilepath);
+                StructuralElementsLists elementsLists = (StructuralElementsLists)serializer.Deserialize(reader);
+                reader.Close();
+
+                foreach (FrameForXML frame in elementsLists.frameForXMLList)
+                {
+                    //string[] FrameName = new string[1];
+                    Console.WriteLine("Attempting to add frame:");
+                    string temp_string1 = ""; //FrameName[0];
+                    ret = mySapModel.FrameObj.AddByCoord(frame.startPos.x, frame.startPos.z, frame.startPos.y, frame.endPos.x, frame.endPos.z, frame.endPos.y, ref temp_string1, "R1", "1", "Global");
+                    //FrameName[0] = temp_string1;
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            
+
+            
+
+            
 
             //add frame object by coordinates
-/*
-            string[] FrameName = new string[3];
+            /*
+                        string[] FrameName = new string[3];
 
-            string temp_string1 = FrameName[0];
-            string temp_string2 = FrameName[0];
+                        string temp_string1 = FrameName[0];
+                        string temp_string2 = FrameName[0];
 
-            ret = mySapModel.FrameObj.AddByCoord(0, 0, 0, 0, 0, 10, ref temp_string1, "R1", "1", "Global");
-            FrameName[0] = temp_string1;
+                        ret = mySapModel.FrameObj.AddByCoord(0, 0, 0, 0, 0, 10, ref temp_string1, "R1", "1", "Global");
+                        FrameName[0] = temp_string1;
 
-            ret = mySapModel.FrameObj.AddByCoord(0, 0, 10, 8, 0, 16, ref temp_string1, "R1", "2", "Global");
-            FrameName[1] = temp_string1;
+                        ret = mySapModel.FrameObj.AddByCoord(0, 0, 10, 8, 0, 16, ref temp_string1, "R1", "2", "Global");
+                        FrameName[1] = temp_string1;
 
-            ret = mySapModel.FrameObj.AddByCoord(-4, 0, 10, 0, 0, 10, ref temp_string1, "R1", "3", "Global");
-            FrameName[2] = temp_string1;
-*/
+                        ret = mySapModel.FrameObj.AddByCoord(-4, 0, 10, 0, 0, 10, ref temp_string1, "R1", "3", "Global");
+                        FrameName[2] = temp_string1;
+            */
             /*
             //assign point object restraint at base
             string[] PointName = new string[2];
@@ -287,7 +314,7 @@ namespace FileToSAPApp
             */
 
             //switch to k-in units
-            ret = mySapModel.SetPresentUnits(eUnits.kip_in_F);
+           //ret = mySapModel.SetPresentUnits(eUnits.kip_in_F);
 
 
             //save model
@@ -424,18 +451,8 @@ namespace FileToSAPApp
             */
 
             //EXAMPLE CODE END
-            string input;
-            while (true)
-            {
-                input = Console.ReadLine();
-                
-            }
-            string[] FrameName = new string[1];
 
-            string temp_string1 = FrameName[0];
-
-            ret = mySapModel.FrameObj.AddByCoord(0, 0, 0, 0, 0, 10, ref temp_string1, "R1", "1", "Global");
-            FrameName[0] = temp_string1;
+            Console.ReadKey();
 
         }
     }

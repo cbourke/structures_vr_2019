@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Xml.Serialization;
 using System.IO;
+
 public class constructorController : MonoBehaviour {
 
 	public GameObject frameGameObject;
     public GameObject areaGameObject;
-    public string structureSaveFileName;
+    public string structureSaveFileName = "testStructure";
 
     StructuralElementsLists elementsListsForXML = new StructuralElementsLists();
     List<Frame> frameList = new List<Frame>();
@@ -16,6 +17,18 @@ public class constructorController : MonoBehaviour {
 	List<Vector3> framePoints = new List<Vector3>();
 	List<Vector3> areaPoints = new List<Vector3>();
 
+    void Update()
+    { //DEBUG CODE TO TEST FileToSAPApp.exe
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            saveToXML();
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            sendFileToSap();
+        }
+
+    }
 
     public void setPoint(Vector3 point, buildingObjects type) {
 		Debug.Log("Setpoint: " + point);
@@ -53,20 +66,50 @@ public class constructorController : MonoBehaviour {
 	}
 
     void saveToXML() {
-        structureSaveFileName = "testStructure";
+        //structureSaveFileName = "testStructure";
         XmlSerializer serializer = new XmlSerializer(typeof(StructuralElementsLists));
-        string filepath = Application.persistentDataPath + "/" + structureSaveFileName.ToString() + ".xml";
+        string filepath = Application.persistentDataPath + "/newTest.xml";
         Debug.Log(filepath);
-        TextWriter writer = new StreamWriter(filepath);
+        TextWriter writer = new StreamWriter(filepath, false);
         serializer.Serialize(writer, elementsListsForXML);
         writer.Close();
     }
-}
 
+
+    public void sendFileToSap() //If no filename supplied, default to that of the currently open structure
+    {
+        //structureSaveFileName = "testStructure";
+        string filePath = Application.persistentDataPath + "/newTest.xml";
+        string appPath = Application.streamingAssetsPath + "/FileToSAPApp.exe";
+        System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
+        myProcess.StartInfo.FileName = appPath;
+        myProcess.StartInfo.Arguments = filePath;
+        myProcess.Start();
+    }
+}
+[XmlRoot(ElementName = "StructuralElementsLists")]
 public class StructuralElementsLists
 {
     [XmlArray("frameListForXML"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
     public List<FrameForXML> frameForXMLList = new List<FrameForXML>();
+}
+
+[XmlRoot("StructuralElementsLists")]
+public class FrameForXML
+{
+    public Vector3 startPos { get; set; }
+    public Vector3 endPos { get; set; }
+
+    public FrameForXML()
+    {
+
+    }
+    public FrameForXML(Vector3 pointA, Vector3 pointB)
+    {
+        startPos = pointA;
+        endPos = pointB;
+    }
+
 }
 
 
@@ -110,22 +153,8 @@ public class Frame {
 	}
 }
 
-[XmlRoot("StructuralElementsLists")]
-public class FrameForXML
-{
-    public Vector3 startPos { get; set; }
-    public Vector3 endPos { get; set; }
-    
-    public FrameForXML()
-    {
-
-    }
-    public FrameForXML(Vector3 pointA, Vector3 pointB)
-    {
-        startPos = pointA;
-        endPos = pointB;
-    }
-    
-}
-
 public class Area { }
+
+
+
+
