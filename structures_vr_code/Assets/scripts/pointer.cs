@@ -14,17 +14,20 @@ public class pointer : MonoBehaviour {
 	private bool isGrabbed;
 	private Rigidbody grabbedObject;
 	
+    public LineRenderer tempLineRenderer;
 
 	public LineRenderer laserLineRenderer;
 	public Hand hand;
 	public GameObject constructorController;
 
 	void Start() {
-	Vector3[] initLaserPositions = new Vector3[ 2 ] { Vector3.zero, Vector3.zero };
-	laserLineRenderer.SetPositions( initLaserPositions );
-	laserLineRenderer.startWidth = laserWidth;
-	laserLineRenderer.endWidth = laserWidth;
-	laserLineRenderer.enabled = true;
+            tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
+
+            Vector3[] initLaserPositions = new Vector3[ 2 ] { Vector3.zero, Vector3.zero };
+	        laserLineRenderer.SetPositions( initLaserPositions );
+	        laserLineRenderer.startWidth = laserWidth;
+	        laserLineRenderer.endWidth = laserWidth;
+	        laserLineRenderer.enabled = true;
 	}
  
 
@@ -56,6 +59,7 @@ public class pointer : MonoBehaviour {
 			// used to hit the grid nodes
 			nodePoint = rayHit.transform.position;
 			endPosition = rayHit.point;
+			tempLineRenderer.SetPosition(1, endPosition);
 
             if (startingGrabType == GrabTypes.Pinch) {
                 // User "grabs" a grid node
@@ -64,6 +68,7 @@ public class pointer : MonoBehaviour {
 		}
 		laserLineRenderer.SetPosition( 0, targetPosition );
 		laserLineRenderer.SetPosition( 1, endPosition );
+
 	}
 }
 
