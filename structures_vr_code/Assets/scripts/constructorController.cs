@@ -87,11 +87,17 @@ public class constructorController : MonoBehaviour {
         myProcess.Start();
     }
 }
-[XmlRoot(ElementName = "StructuralElementsLists")]
+//[XmlRoot(ElementName = "StructuralElementsLists")]
 public class StructuralElementsLists
 {
     [XmlArray("frameListForXML"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
-    public List<FrameForXML> frameForXMLList = new List<FrameForXML>();
+    public List<FrameForXML> frameForXMLList { get; set; }
+    
+    public StructuralElementsLists()
+    {
+        frameForXMLList = new List<FrameForXML>();
+    }
+    
 }
 
 [XmlRoot("StructuralElementsLists")]
