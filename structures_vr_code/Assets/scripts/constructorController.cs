@@ -55,7 +55,8 @@ public class constructorController : MonoBehaviour {
         */
         foreach (Frame frame in frameList)
         {
-            if (frame.GetInstanceID() == frameID ) {
+            if (frame.getFrame().GetInstanceID() == frameID ) {
+                Object.Destroy(frame.getFrame());
                 frameList.Remove(frame);
             }
         }
@@ -80,7 +81,7 @@ public class Frame {
 	private Vector3 direction;
 	private float length;
 	private Vector3 angle;
-	private GameObject frame;
+    private GameObject frame;
 	private Transform trans;
 
 	public Frame(Vector3 start, Vector3 end, GameObject frame) {
@@ -113,6 +114,10 @@ public class Frame {
 	public Vector3 getEndPos() {
 		return endPos;
 	}
+    public GameObject getFrame()
+    {
+        return frame;
+    }
 }
 
 public class Area {}
