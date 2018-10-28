@@ -59,11 +59,11 @@ public class constructorController : MonoBehaviour {
         foreach (Frame frameElement in frameList)
         {
             Debug.Log("Checking frameList to delete ID = " + frameID);
-            GameObject frameObject = frameElement.instance;
+            GameObject frameObject = frameElement.GetGameObject();
             Debug.Log("Element object ID: " + frameObject.GetInstanceID());
 
             if (frameObject.GetInstanceID() == frameID) {
-                frameElement.setFrame(null);
+                frameElement.SetGameObject(null);
                 Object.Destroy(frameObject);
                 Debug.Log("Deleted frame GameObject.");
                 frameList.Remove(frameElement);
@@ -79,8 +79,8 @@ public class constructorController : MonoBehaviour {
 		frame.SetGameObject(newFrame);
 		frameList.Add(frame);
 
-		GameObject newInstance = Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
-        frame.frameObject = newInstance;
+		//GameObject newInstance = Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
+        //frame.SetGameObject(newInstance);
 
 
 	}
