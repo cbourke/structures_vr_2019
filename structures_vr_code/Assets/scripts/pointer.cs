@@ -7,7 +7,7 @@ namespace Valve.VR.InteractionSystem{
 
 public class pointer : MonoBehaviour {
     private RaycastHit vision;
-    public float rayLength = 5;
+    public float maxRayLength = 5;
 	public float rayRadius = .05f;
 	public float laserWidth = 0.01f;
 
@@ -32,43 +32,51 @@ public class pointer : MonoBehaviour {
  
 
 	void Update() {
-		    ShootLaserFromTargetPosition( transform.position, transform.forward, rayLength );
+		ShootLaserFromTargetPosition( transform.position, transform.forward, maxRayLength );
 	}
  
-	void ShootLaserFromTargetPosition( Vector3 targetPosition, Vector3 direction, float length ) {
-		    direction.y = direction.y - .5f; //adjust the angle of the laser down
+	void ShootLaserFromTargetPosition( Vector3 targetPosition, Vector3 direction, float maxLength ) {
+		direction.y = direction.y - .5f; //adjust the angle of the laser down
 
-		    Vector3 startPosition = targetPosition - (.2f * direction);
-		    Vector3 endPosition = targetPosition + ( length * direction );
+		Vector3 startPosition = targetPosition - (.2f * direction);
+		Vector3 endPosition = targetPosition + ( maxLength * direction );
 
-		    Ray ray = new Ray( startPosition, direction );
-		    RaycastHit sphereHit;
-		    Vector3 nodePoint;
-		    GrabTypes startingGrabType = hand.GetGrabStarting();
+		Ray ray = new Ray( startPosition, direction );
+		RaycastHit rayHit;
+		Vector3 nodePoint;
+		GrabTypes startingGrabType = hand.GetGrabStarting();
 
-		    int layerMask = 1 << 8; //gets layer 8
+		int gridLayer = 1 << 8;
+		int uiLayer = 1 << 5;
+		if(Physics.Raycast(ray, out rayHit, maxLength, uiLayer)) {
+			// used to hit UI elents
+			nodePoint = rayHit.transform.position;
+			endPosition = rayHit.point;
+			if(rayHit.collider.isTrigger && startingGrabType == GrabTypes.Pinch) {
+				rayHit.collider.gameObject.GetComponent<uiCollider>().uiHit();
+			}	
+		} else if(Physics.SphereCast(ray, rayRadius, out rayHit, maxLength, gridLayer)) {
+			// used to hit the grid nodes
+			nodePoint = rayHit.transform.position;
+			endPosition = rayHit.point;
+			tempLineRenderer.SetPosition(1, endPosition);
 
-            if (Physics.SphereCast(ray, rayRadius, out sphereHit, rayLength, layerMask)) {
-			    nodePoint = sphereHit.transform.position;
-			    endPosition = sphereHit.point;
-
-                tempLineRenderer.SetPosition(1, endPosition);
-
-                if (startingGrabType == GrabTypes.Pinch && sphereHit.collider.CompareTag("Grid")) {
-                    // User "grabs" a grid node
-                    constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
-                }
-
-                /*this if statement is for the frame_mask*/
-
-                else if (startingGrabType == GrabTypes.Pinch && sphereHit.collider.CompareTag("Frame")) {
-                    int frameTransform = sphereHit.transform.gameObject.GetInstanceID();
-                    constructorController.GetComponent<constructorController>().deleteFrame(frameTransform);
-                }
+            if (startingGrabType == GrabTypes.Pinch) {
+                // User "grabs" a grid node
+				if (rayHit.collider.CompareTag("Grid")) {
+					constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
+				}
+				// User "grabs" a frame
+				else if (sphereHit.collider.CompareTag("Frame")){
+					int frameID = sphereHit.transform.gameObject.GetInstanceID();
+                    constructorController.GetComponent<constructorController>().deleteFrame(frameID);
+				}
+                
             }
+		}
+		laserLineRenderer.SetPosition( 0, targetPosition );
+		laserLineRenderer.SetPosition( 1, endPosition );
 
-		    laserLineRenderer.SetPosition( 0, targetPosition );
-		    laserLineRenderer.SetPosition( 1, endPosition );
 	}
 }
 
