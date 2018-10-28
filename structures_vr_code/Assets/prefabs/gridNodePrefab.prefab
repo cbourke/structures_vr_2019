@@ -23,9 +23,8 @@ GameObject:
   - component: {fileID: 23418367759141898}
   - component: {fileID: 114436965585919976}
   - component: {fileID: 135984659520981654}
-  - component: {fileID: 114062195676073066}
-  m_Layer: 0
-  m_Name: gridNode
+  m_Layer: 8
+  m_Name: gridNodePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,26 +85,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572682032358450}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114062195676073066
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1572682032358450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1be25425b1051b54abe5472ca3eb86f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  beamController: {fileID: 1083761685088332, guid: 02ec97572a78fe3429d4aad824366914,
-    type: 2}
 --- !u!114 &114436965585919976
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572682032358450}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b93b6a877adcbf94c89a9d6e0c0e844d, type: 3}
   m_Name: 
