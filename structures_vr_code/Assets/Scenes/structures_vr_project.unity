@@ -621,25 +621,14 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 65819215073127244, guid: f5dc407da51463c4da7b623699d7c6ef,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5dc407da51463c4da7b623699d7c6ef, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1383005887 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1886030231682418, guid: f5dc407da51463c4da7b623699d7c6ef,
-    type: 2}
-  m_PrefabInternal: {fileID: 1383005886}
---- !u!114 &1383005888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1383005887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f96d97990b7ace642a9004d0fa732bed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1471876374
 GameObject:
   m_ObjectHideFlags: 0

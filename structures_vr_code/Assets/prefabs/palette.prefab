@@ -105,6 +105,8 @@ GameObject:
   - component: {fileID: 222718751600372280}
   - component: {fileID: 114673898185986062}
   - component: {fileID: 114643450159765402}
+  - component: {fileID: 65819215073127244}
+  - component: {fileID: 114383623635943756}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -209,6 +211,7 @@ GameObject:
   - component: {fileID: 223439900565541788}
   - component: {fileID: 114031734863430156}
   - component: {fileID: 114527956312524448}
+  - component: {fileID: 114854974135317572}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -245,6 +248,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65819215073127244
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1261408578744224}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 100, y: 100, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114031734863430156
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,6 +447,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Toggle
+--- !u!114 &114383623635943756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1261408578744224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e797f482c44a76d458d5afe2220162d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114445345238765574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -711,6 +737,17 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
+--- !u!114 &114854974135317572
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1886030231682418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f96d97990b7ace642a9004d0fa732bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114977738426246624
 MonoBehaviour:
   m_ObjectHideFlags: 1

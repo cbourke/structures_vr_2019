@@ -7,7 +7,7 @@ namespace Valve.VR.InteractionSystem{
 
 public class pointer : MonoBehaviour {
     private RaycastHit vision;
-    public float rayLength = 5;
+    public float maxRayLength = 5;
 	public float rayRadius = .05f;
 	public float laserWidth = 0.01f;
 
@@ -29,31 +29,39 @@ public class pointer : MonoBehaviour {
  
 
 	void Update() {
-		ShootLaserFromTargetPosition( transform.position, transform.forward, rayLength );
+		ShootLaserFromTargetPosition( transform.position, transform.forward, maxRayLength );
 	}
  
-	void ShootLaserFromTargetPosition( Vector3 targetPosition, Vector3 direction, float length ) {
+	void ShootLaserFromTargetPosition( Vector3 targetPosition, Vector3 direction, float maxLength ) {
 		direction.y = direction.y - .5f; //adjust the angle of the laser down
 
 		Vector3 startPosition = targetPosition - (.2f * direction);
-		Vector3 endPosition = targetPosition + ( length * direction );
+		Vector3 endPosition = targetPosition + ( maxLength * direction );
 
 		Ray ray = new Ray( startPosition, direction );
-		RaycastHit sphereHit;
+		RaycastHit rayHit;
 		Vector3 nodePoint;
 		GrabTypes startingGrabType = hand.GetGrabStarting();
 
-		int layerMask = 1 << 8;	//gets layer 8
-		if(Physics.SphereCast(ray, rayRadius, out sphereHit, rayLength, layerMask)) {
-			nodePoint = sphereHit.transform.position;
-			endPosition = sphereHit.point;
+		int gridLayer = 1 << 8;
+		int uiLayer = 1 << 5;
+		if(Physics.Raycast(ray, out rayHit, maxLength, uiLayer)) {
+			// used to hit UI elents
+			nodePoint = rayHit.transform.position;
+			endPosition = rayHit.point;
+			if(rayHit.collider.isTrigger && startingGrabType == GrabTypes.Pinch) {
+				rayHit.collider.gameObject.GetComponent<uiCollider>().uiHit();
+			}	
+		} else if(Physics.SphereCast(ray, rayRadius, out rayHit, maxLength, gridLayer)) {
+			// used to hit the grid nodes
+			nodePoint = rayHit.transform.position;
+			endPosition = rayHit.point;
 
             if (startingGrabType == GrabTypes.Pinch) {
                 // User "grabs" a grid node
                 constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
             }
 		}
-
 		laserLineRenderer.SetPosition( 0, targetPosition );
 		laserLineRenderer.SetPosition( 1, endPosition );
 	}
