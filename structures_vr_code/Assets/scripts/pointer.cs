@@ -46,18 +46,26 @@ public class pointer : MonoBehaviour {
 		    Vector3 nodePoint;
 		    GrabTypes startingGrabType = hand.GetGrabStarting();
 
-		    int layerMask = 1 << 8;	//gets layer 8
-		    if(Physics.SphereCast(ray, rayRadius, out sphereHit, rayLength, layerMask)) {
+		    int layerMask = 1 << 8; //gets layer 8
+
+            if (Physics.SphereCast(ray, rayRadius, out sphereHit, rayLength, layerMask)) {
 			    nodePoint = sphereHit.transform.position;
 			    endPosition = sphereHit.point;
 
                 tempLineRenderer.SetPosition(1, endPosition);
 
-                if (startingGrabType == GrabTypes.Pinch) {
+                if (startingGrabType == GrabTypes.Pinch && sphereHit.collider.CompareTag("Grid") {
                     // User "grabs" a grid node
                     constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
                 }
-		    }
+
+                /*this if statement is for the frame_mask*/
+
+                else if (startingGrabType == GrabTypes.Pinch && sphereHit.collider.CompareTag("Frame") {
+                    int frameID = sphereHit.transform.GetInstanceID();
+                    constructorController.GetComponent<constructorController>().deleteFrame(frameID);
+                }
+            }
 
 		    laserLineRenderer.SetPosition( 0, targetPosition );
 		    laserLineRenderer.SetPosition( 1, endPosition );

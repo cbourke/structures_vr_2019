@@ -40,15 +40,25 @@ public class constructorController : MonoBehaviour {
 		}
     }
 
-    public void clearPoint(Vector3 point, ) {
+    public void clearPoint() {
 
     }
 
     /*Delete frame function to delete the frame*/
-    void deleteFrame(Vector3 pA, Vector3 pB) {
-        Frame frame = new Frame(pA, pB, frameGameObject);
-        frameList.Remove(frame);
-        Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
+    public void deleteFrame(int frameID) {
+        /*
+        for (int i = 0; i < frameList.Count; i++) {
+            if (frameList.get.GetInstanceID == frameID)
+                frameList.RemoveAt(i--);
+            
+        }
+        */
+        foreach (Frame frame in frameList)
+        {
+            if (frame.GetInstanceID() == frameID ) {
+                frameList.Remove(frame);
+            }
+        }
     }
     
 	void createFrame(Vector3 pA, Vector3 pB) {
