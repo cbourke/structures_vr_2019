@@ -59,6 +59,10 @@ public class constructorController : MonoBehaviour {
 		material = (buildingMaterials) newMaterial;
 		Debug.Log("new material: " + material);
 	}
+	public void changeDraw(bool change) {
+		// for debugging
+		Debug.Log("draw: " + change);
+	}
 }
 
 public class Frame { 
