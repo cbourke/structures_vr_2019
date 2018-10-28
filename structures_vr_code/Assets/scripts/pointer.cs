@@ -54,16 +54,16 @@ public class pointer : MonoBehaviour {
 
                 tempLineRenderer.SetPosition(1, endPosition);
 
-                if (startingGrabType == GrabTypes.Pinch && sphereHit.collider.CompareTag("Grid") {
+                if (startingGrabType == GrabTypes.Pinch && sphereHit.collider.CompareTag("Grid")) {
                     // User "grabs" a grid node
                     constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
                 }
 
                 /*this if statement is for the frame_mask*/
 
-                else if (startingGrabType == GrabTypes.Pinch && sphereHit.collider.CompareTag("Frame") {
-                    int frameID = sphereHit.transform.GetInstanceID();
-                    constructorController.GetComponent<constructorController>().deleteFrame(frameID);
+                else if (startingGrabType == GrabTypes.Pinch && sphereHit.collider.CompareTag("Frame")) {
+                    int frameTransform = sphereHit.transform.gameObject.GetInstanceID();
+                    constructorController.GetComponent<constructorController>().deleteFrame(frameTransform);
                 }
             }
 

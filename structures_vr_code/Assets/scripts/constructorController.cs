@@ -53,11 +53,21 @@ public class constructorController : MonoBehaviour {
             
         }
         */
-        foreach (Frame frame in frameList)
+
+        Debug.Log("Attempting to delete frame...");
+        foreach (Frame frameElement in frameList)
         {
-            if (frame.getFrame().GetInstanceID() == frameID ) {
-                Object.Destroy(frame.getFrame());
-                frameList.Remove(frame);
+            Debug.Log("Checking frameList to delete ID = " + frameID);
+            GameObject frameObject = frameElement.instance;
+            Debug.Log("Element object ID: " + frameObject.GetInstanceID());
+
+            if (frameObject.GetInstanceID() == frameID) {
+                frameElement.setFrame(null);
+                Object.Destroy(frameObject);
+                Debug.Log("Deleted frame GameObject.");
+                frameList.Remove(frameElement);
+                Debug.Log("Deleted frameList element.");
+                break;
             }
         }
     }
@@ -66,7 +76,8 @@ public class constructorController : MonoBehaviour {
 		Debug.Log("FrameponitsS: " + pA + " 2: " + pB);
 		Frame frame = new Frame(pA, pB, frameGameObject);
 		frameList.Add(frame);
-		Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
+		GameObject newInstance = Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
+        frame.instance = newInstance;
 	}
 
 	void createArea(List<Vector3> points) {
@@ -81,7 +92,8 @@ public class Frame {
 	private Vector3 direction;
 	private float length;
 	private Vector3 angle;
-    private GameObject frame;
+    public GameObject frame;
+    public GameObject instance;
 	private Transform trans;
 
 	public Frame(Vector3 start, Vector3 end, GameObject frame) {
@@ -100,6 +112,8 @@ public class Frame {
 		trans.Rotate(angletest);
     	trans.LookAt(end);
 		trans.localScale = new Vector3(.03f, .03f, distance);
+
+        this.frame = frame;
 	}
 
 	public Transform getTransform() {
@@ -117,6 +131,10 @@ public class Frame {
     public GameObject getFrame()
     {
         return frame;
+    }
+    public void setFrame(GameObject newFrame)
+    {
+        frame = newFrame;
     }
 }
 
