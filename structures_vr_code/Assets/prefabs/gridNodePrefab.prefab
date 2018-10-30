@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 23418367759141898}
   - component: {fileID: 114436965585919976}
   - component: {fileID: 135984659520981654}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: gridNodePrefab
-  m_TagString: Grid
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572682032358450}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b93b6a877adcbf94c89a9d6e0c0e844d, type: 3}
   m_Name: 
