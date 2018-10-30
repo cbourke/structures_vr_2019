@@ -28,9 +28,11 @@ public class constructorController : MonoBehaviour {
         Debug.Log("Setpoint: " + point);
 		if (type == buildingObjects.Frame) {
 			if(framePoints.Count == 1) {
-				createFrame(framePoints[0], point);
-				framePoints.Clear();
-                tempLineRenderer.enabled = false;
+				if(point != framePoints[0]) {
+					createFrame(framePoints[0], point);
+					framePoints.Clear();
+					tempLineRenderer.enabled = false;
+				}
             }
             else {
 				framePoints.Add(point);
