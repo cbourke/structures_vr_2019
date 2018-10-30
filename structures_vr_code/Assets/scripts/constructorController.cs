@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Xml.Serialization;
 using System.IO;
+using System.Text.RegularExpressions;
 
 public class constructorController : MonoBehaviour {
 	public GameObject frameGameObject;
@@ -82,8 +83,34 @@ public class constructorController : MonoBehaviour {
 		saveToXML();
 	}
 
+    public void deleteFrame(int frameObjectID)
+    {
+        foreach (Frame frameElement in frameList)
+        {
+            GameObject frameObject = frameElement.GetGameObject();
+            if (frameObject.GetInstanceID() == frameObjectID)
+            {
+                Vector3 deletionStartPos = frameElement.getStartPos();
+                Vector3 deletionEndPos = frameElement.getEndPos();
+                foreach(FrameForXML frameForXMLElement in elementsListsForXML.frameForXMLList) {
+                    if (frameForXMLElement.startPos == deletionStartPos && frameForXMLElement.endPos == deletionEndPos)
+                    {
+                        elementsListsForXML.frameForXMLList.Remove(frameForXMLElement);
+                        break;
+                    }
+                    
+                }
 
-	void createArea(List<Vector3> points) {
+                frameElement.SetGameObject(null);
+                Object.Destroy(frameObject);
+                frameList.Remove(frameElement);
+                break;
+            }
+        }
+        saveToXML();
+    }
+
+    void createArea(List<Vector3> points) {
 		//TODO
 		Debug.Log("Create Area not implimented yet!");
 	}
@@ -100,18 +127,44 @@ public class constructorController : MonoBehaviour {
     void saveToXML() {
         //structureSaveFileName = "testStructure";
         XmlSerializer serializer = new XmlSerializer(typeof(StructuralElementsLists));
-        string filepath = Application.persistentDataPath + "/newTest.xml";
-        Debug.Log(filepath);
-        TextWriter writer = new StreamWriter(filepath, false);
+        string filePath = Application.persistentDataPath + "/" + structureSaveFileName + ".xml";
+        Debug.Log("Structure was serialized to " + filePath);
+        TextWriter writer = new StreamWriter(filePath, false);
         serializer.Serialize(writer, elementsListsForXML);
         writer.Close();
     }
 
+    void loadFromXML(string filePath)
+    {
+        XmlSerializer serializer = new XmlSerializer(typeof(StructuralElementsLists));
+        StreamReader reader = new StreamReader(filePath);
+        this.elementsListsForXML = (StructuralElementsLists)serializer.Deserialize(reader);
+        reader.Close();
+        Debug.Log("Structure was deserialized from = " + filePath);
+
+        structureSaveFileName = Regex.Match(filePath, "[^<>:\"/|? *\\]*.xml$").ToString();
+        structureSaveFileName = structureSaveFileName.Substring(0, structureSaveFileName.Length - 4);
+
+        this.frameList = new List<Frame>();
+        this.areaList = new List<Area>();
+        this.framePoints = new List<Vector3>();
+        this.areaPoints = new List<Vector3>();
+
+        foreach (FrameForXML frameFromXML in elementsListsForXML.frameForXMLList)
+        {
+            Frame frame = new Frame(frameFromXML.startPos, frameFromXML.endPos, frameGameObject);
+            GameObject newFrame = Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
+            frame.SetGameObject(newFrame);
+            frameList.Add(frame);
+        }
+
+
+    }
 
     public void sendFileToSap() //If no filename supplied, default to that of the currently open structure
     {
         //structureSaveFileName = "testStructure";
-        string filePath = Application.persistentDataPath + "/newTest.xml";
+        string filePath = Application.persistentDataPath + "/" + structureSaveFileName + ".xml";
         string appPath = Application.streamingAssetsPath + "/SapTranslator.exe";
         System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
         myProcess.StartInfo.FileName = appPath;
