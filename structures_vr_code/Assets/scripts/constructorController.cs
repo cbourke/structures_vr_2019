@@ -23,7 +23,7 @@ public class constructorController : MonoBehaviour {
         //{
         //    saveToXML();
         //}
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             sendFileToSap();
         }
