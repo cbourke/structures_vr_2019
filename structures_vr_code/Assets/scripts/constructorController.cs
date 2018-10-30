@@ -3,27 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class constructorController : MonoBehaviour {
-
 	public GameObject frameGameObject;
     public GameObject areaGameObject;
     public LineRenderer tempLineRenderer;
 
-	List<Frame> frameList = new List<Frame>();
+    List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
 
 	List<Vector3> framePoints = new List<Vector3>();
 	List<Vector3> areaPoints = new List<Vector3>();
 	buildingMaterials material = buildingMaterials.Steel;
 
+	void Awake() {
+		// TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
+        tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
+		tempLineRenderer.enabled = false;
+	}
 
     public void setPoint(Vector3 point, buildingObjects type) {
+		// TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
         tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
         Debug.Log("Setpoint: " + point);
 		if (type == buildingObjects.Frame) {
 			if(framePoints.Count == 1) {
-				createFrame(framePoints[0], point);
-				framePoints.Clear();
-                tempLineRenderer.enabled = false;
+				if(point != framePoints[0]) {
+					createFrame(framePoints[0], point);
+					framePoints.Clear();
+					tempLineRenderer.enabled = false;
+				}
             }
             else {
 				framePoints.Add(point);
