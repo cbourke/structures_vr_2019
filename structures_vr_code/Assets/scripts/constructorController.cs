@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class constructorController : MonoBehaviour {
-
 	public GameObject frameGameObject;
     public GameObject areaGameObject;
-    public LineRenderer tempLineRenderer;
 
+    private LineRenderer tempLineRenderer;
 
 
     List<Frame> frameList = new List<Frame>();
@@ -17,9 +16,13 @@ public class constructorController : MonoBehaviour {
 	List<Vector3> areaPoints = new List<Vector3>();
 	buildingMaterials material = buildingMaterials.Steel;
 
+	void Start() {
+		// TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
+        tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
+		tempLineRenderer.enabled = false;
+	}
 
     public void setPoint(Vector3 point, buildingObjects type) {
-        tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
         Debug.Log("Setpoint: " + point);
 		if (type == buildingObjects.Frame) {
 			if(framePoints.Count == 1) {

@@ -6,28 +6,27 @@ namespace Valve.VR.InteractionSystem{
 
 
 public class pointer : MonoBehaviour {
-    private RaycastHit vision;
     public float maxRayLength = 5;
 	public float rayRadius = .05f;
 	public float laserWidth = 0.01f;
-
-	private bool isGrabbed;
-	private Rigidbody grabbedObject;
-	
-    public LineRenderer tempLineRenderer;
 
 	public LineRenderer laserLineRenderer;
 	public Hand hand;
 	public GameObject constructorController;
 
+    private RaycastHit vision;
+	private bool isGrabbed;
+	private Rigidbody grabbedObject;
+    private LineRenderer tempLineRenderer;
+	
 	void Start() {
-            tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
-
-            Vector3[] initLaserPositions = new Vector3[ 2 ] { Vector3.zero, Vector3.zero };
-	        laserLineRenderer.SetPositions( initLaserPositions );
-	        laserLineRenderer.startWidth = laserWidth;
-	        laserLineRenderer.endWidth = laserWidth;
-	        laserLineRenderer.enabled = true;
+		// TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
+		tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
+		Vector3[] initLaserPositions = new Vector3[ 2 ] { Vector3.zero, Vector3.zero };
+		laserLineRenderer.SetPositions( initLaserPositions );
+		laserLineRenderer.startWidth = laserWidth;
+		laserLineRenderer.endWidth = laserWidth;
+		laserLineRenderer.enabled = true;
 	}
  
 
