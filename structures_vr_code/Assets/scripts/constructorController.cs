@@ -19,10 +19,10 @@ public class constructorController : MonoBehaviour {
 
     void Update()
     { //DEBUG CODE TO TEST FileToSAPApp.exe
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            saveToXML();
-        }
+        //if (Input.GetKeyDown(KeyCode.DownArrow))
+        //{
+        //    saveToXML();
+        //}
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             sendFileToSap();
@@ -88,6 +88,7 @@ public class constructorController : MonoBehaviour {
     }
 }
 //[XmlRoot(ElementName = "StructuralElementsLists")]
+[XmlRoot("StructuralElementsLists")]
 public class StructuralElementsLists
 {
     [XmlArray("frameListForXML"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
@@ -100,7 +101,8 @@ public class StructuralElementsLists
     
 }
 
-[XmlRoot("StructuralElementsLists")]
+
+[XmlType("FrameForXML")]
 public class FrameForXML
 {
     public Vector3 startPos { get; set; }
