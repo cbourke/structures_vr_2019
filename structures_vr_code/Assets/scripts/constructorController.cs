@@ -24,18 +24,18 @@ public class constructorController : MonoBehaviour {
 	List<Vector3> areaPoints = new List<Vector3>();
 
 
-    void Update()
-    { //DEBUG CODE TO TEST FileToSAPApp.exe
+    //void Update()
+    //{ //DEBUG CODE TO TEST FileToSAPApp.exe
         //if (Input.GetKeyDown(KeyCode.DownArrow))
         //{
         //    saveToXML();
         //}
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            sendFileToSap();
-        }
+        //if (Input.GetKeyDown(KeyCode.RightArrow))
+        //{
+        //    sendFileToSap();
+        //}
 
-    }
+    //}
 
 	buildingMaterials material = buildingMaterials.Steel;
 
