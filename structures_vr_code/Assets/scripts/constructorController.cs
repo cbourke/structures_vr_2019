@@ -168,7 +168,7 @@ public class constructorController : MonoBehaviour {
         string appPath = Application.streamingAssetsPath + "/SapTranslator.exe";
         System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
         myProcess.StartInfo.FileName = appPath;
-        myProcess.StartInfo.Arguments = filePath;
+        myProcess.StartInfo.Arguments = "\"" + filePath + "\"";
         myProcess.Start();
     }
 }
