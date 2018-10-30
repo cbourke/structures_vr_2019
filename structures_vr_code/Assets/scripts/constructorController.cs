@@ -112,7 +112,7 @@ public class constructorController : MonoBehaviour {
     {
         //structureSaveFileName = "testStructure";
         string filePath = Application.persistentDataPath + "/newTest.xml";
-        string appPath = Application.streamingAssetsPath + "/FileToSAPApp.exe";
+        string appPath = Application.streamingAssetsPath + "/SapTranslator.exe";
         System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
         myProcess.StartInfo.FileName = appPath;
         myProcess.StartInfo.Arguments = filePath;
