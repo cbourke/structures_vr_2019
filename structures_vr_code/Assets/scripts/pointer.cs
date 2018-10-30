@@ -59,7 +59,6 @@ public class pointer : MonoBehaviour {
 			// used to hit the grid nodes
 			nodePoint = rayHit.transform.position;
 			endPosition = rayHit.point;
-			//tempLineRenderer.SetPosition(1, endPosition);
             tempLineRenderer.SetPosition(1, nodePoint);
 
             if (startingGrabType == GrabTypes.Pinch) {

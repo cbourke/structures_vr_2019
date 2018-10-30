@@ -41,33 +41,14 @@ public class constructorController : MonoBehaviour {
 		}
     }
 
-    public void clearPoint() {
-
-    }
-
-    /*Delete frame function to delete the frame*/
     public void deleteFrame(int frameID) {
-        /*
-        for (int i = 0; i < frameList.Count; i++) {
-            if (frameList.get.GetInstanceID == frameID)
-                frameList.RemoveAt(i--);
-            
-        }
-        */
-
-        Debug.Log("Attempting to delete frame...");
         foreach (Frame frameElement in frameList)
         {
-            Debug.Log("Checking frameList to delete ID = " + frameID);
             GameObject frameObject = frameElement.GetGameObject();
-            Debug.Log("Element object ID: " + frameObject.GetInstanceID());
-
             if (frameObject.GetInstanceID() == frameID) {
                 frameElement.SetGameObject(null);
                 Object.Destroy(frameObject);
-                Debug.Log("Deleted frame GameObject.");
                 frameList.Remove(frameElement);
-                Debug.Log("Deleted frameList element.");
                 break;
             }
         }
