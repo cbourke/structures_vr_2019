@@ -58,11 +58,19 @@ public class pointer : MonoBehaviour {
 			// used to hit the grid nodes
 			nodePoint = rayHit.transform.position;
 			endPosition = rayHit.point;
-			tempLineRenderer.SetPosition(1, endPosition);
+            tempLineRenderer.SetPosition(1, nodePoint);
 
             if (startingGrabType == GrabTypes.Pinch) {
                 // User "grabs" a grid node
-                constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
+				if (rayHit.collider.CompareTag("Grid")) {
+					constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
+				}
+				// User "grabs" a frame
+				else if (rayHit.collider.CompareTag("Frame")){
+					int frameID = rayHit.transform.gameObject.GetInstanceID();
+                    constructorController.GetComponent<constructorController>().deleteFrame(frameID);
+				}
+                
             }
 		}
 		laserLineRenderer.SetPosition( 0, targetPosition );
