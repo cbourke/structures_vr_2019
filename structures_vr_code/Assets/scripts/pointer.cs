@@ -101,6 +101,7 @@ public class pointer : MonoBehaviour {
                             break;
                     }
                 }
+
                 
             }
 		laserLineRenderer.SetPosition( 0, targetPosition );

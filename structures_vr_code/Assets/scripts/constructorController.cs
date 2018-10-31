@@ -15,8 +15,6 @@ public class constructorController : MonoBehaviour {
 
     public LineRenderer tempLineRenderer;
 
-
-
     List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
 
@@ -73,7 +71,20 @@ public class constructorController : MonoBehaviour {
 			}
 		}
     }
-	
+
+    public void deleteFrame(int frameID) {
+        foreach (Frame frameElement in frameList)
+        {
+            GameObject frameObject = frameElement.GetGameObject();
+            if (frameObject.GetInstanceID() == frameID) {
+                frameElement.SetGameObject(null);
+                Object.Destroy(frameObject);
+                frameList.Remove(frameElement);
+                break;
+            }
+        }
+    }
+    
 	void createFrame(Vector3 pA, Vector3 pB) {
 		Frame frame = new Frame(pA, pB, frameGameObject);
 		GameObject newFrame = Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
@@ -81,6 +92,7 @@ public class constructorController : MonoBehaviour {
 		frameList.Add(frame);
 		elementsListsForXML.frameForXMLList.Add(new FrameForXML(pA, pB));
 		saveToXML();
+
 	}
 
     public void deleteFrame(int frameObjectID)
@@ -214,8 +226,10 @@ public class Frame {
 	private Vector3 direction;
 	private float length;
 	private Vector3 angle;
+
 	private GameObject frame;
 	private GameObject frameObject;
+
 	private Transform trans;
 
 	public Frame(Vector3 start, Vector3 end, GameObject frame) {
@@ -234,6 +248,8 @@ public class Frame {
 		trans.Rotate(angletest);
     	trans.LookAt(end);
 		trans.localScale = new Vector3(.03f, .03f, distance);
+
+        this.frame = frame;
 	}
 
 	public Transform getTransform() {
@@ -248,12 +264,14 @@ public class Frame {
 	public Vector3 getEndPos() {
 		return endPos;
 	}
+
 	public GameObject GetGameObject() {
 		return frameObject;
 	}
 	public void SetGameObject(GameObject obj) {
 		frameObject = obj;
 	}
+
 }
 
 public class Area { }
