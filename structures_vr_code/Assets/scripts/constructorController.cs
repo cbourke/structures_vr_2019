@@ -71,19 +71,6 @@ public class constructorController : MonoBehaviour {
 			}
 		}
     }
-
-    public void deleteFrame(int frameID) {
-        foreach (Frame frameElement in frameList)
-        {
-            GameObject frameObject = frameElement.GetGameObject();
-            if (frameObject.GetInstanceID() == frameID) {
-                frameElement.SetGameObject(null);
-                Object.Destroy(frameObject);
-                frameList.Remove(frameElement);
-                break;
-            }
-        }
-    }
     
 	void createFrame(Vector3 pA, Vector3 pB) {
 		Frame frame = new Frame(pA, pB, frameGameObject);

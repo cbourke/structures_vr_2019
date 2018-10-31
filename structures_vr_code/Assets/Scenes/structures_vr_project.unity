@@ -154,14 +154,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114684068836615846, guid: 02ec97572a78fe3429d4aad824366914,
         type: 2}
-      propertyPath: beamGameObject
+      propertyPath: tempLineRenderer
       value: 
-      objectReference: {fileID: 1792658920625122, guid: cabe915ffd810d94c840604b5e7847ff,
-        type: 2}
-    - target: {fileID: 1083761685088332, guid: 02ec97572a78fe3429d4aad824366914, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 425715893}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02ec97572a78fe3429d4aad824366914, type: 2}
   m_IsPrefabAsset: 0
@@ -377,8 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef2e356e4ce3d43aa895adf5db5cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constructorControllerPrefab: {fileID: 1083761685088332, guid: 02ec97572a78fe3429d4aad824366914,
-    type: 2}
+  constructorControllerPrefab: {fileID: 0}
 --- !u!4 &295299418
 Transform:
   m_ObjectHideFlags: 0
@@ -1028,9 +1022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424851ecc2ef5664dbda27407cb3f945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridX: 4
-  gridY: 4
-  gridZ: 4
+  gridX: 8
+  gridY: 8
+  gridZ: 8
   node: {fileID: 1572682032358450, guid: 7f5ddc3c38711f74f9246f022b4819e2, type: 2}
 --- !u!4 &897730285
 Transform:
