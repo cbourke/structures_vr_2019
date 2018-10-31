@@ -62,6 +62,8 @@ public class pointer : MonoBehaviour {
             }
             else
             {
+                // we might want to rewrite this to be able to handle more than 2 pointer modes
+                // and be more modular (lots of code is copied)
                 switch(isEraser)
                 {
                     case true:
