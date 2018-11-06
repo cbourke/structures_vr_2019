@@ -843,7 +843,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   markerActive: 1
-  grid: {fileID: 897730284}
 --- !u!64 &519564934
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1092,9 +1091,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424851ecc2ef5664dbda27407cb3f945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridX: 7
-  gridY: 7
-  gridZ: 7
+  gridX: 4
+  gridY: 4
+  gridZ: 4
   node: {fileID: 1572682032358450, guid: 7f5ddc3c38711f74f9246f022b4819e2, type: 2}
 --- !u!4 &897730285
 Transform:
@@ -1212,7 +1211,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1653815872}
+      - m_Target: {fileID: 1653815871}
         m_MethodName: toggleModelMode
         m_Mode: 1
         m_Arguments:
@@ -1669,9 +1668,8 @@ GameObject:
   - component: {fileID: 1471876377}
   - component: {fileID: 1471876376}
   - component: {fileID: 1471876375}
-  - component: {fileID: 1471876379}
   m_Layer: 0
-  m_Name: Ground
+  m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1740,24 +1738,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1471876374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.5, y: 0, z: 1.5}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1471876379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1471876374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 878d4771f2414dd418303f4b2715bd62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 897730284}
 --- !u!1 &1588415732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,18 +1832,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 62370589}
   rightHand: {fileID: 236438458}
-  isModel: 0
---- !u!114 &1653815872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1653815868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e55b14850e66ee14d8c86bf03dee9502, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   isModel: 0
 --- !u!1 &1983815469
 GameObject:
