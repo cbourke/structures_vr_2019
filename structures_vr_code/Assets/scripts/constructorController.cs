@@ -8,8 +8,8 @@ using System.Text.RegularExpressions;
 public class constructorController : MonoBehaviour
 {
     public GameObject myXmlController;
-    public GameObject frameGameObject;
-    public GameObject areaGameObject;
+    public GameObject framePrefab;
+    public GameObject areaPrefab;
     public string structureSaveFileName = "testStructure";
 
 
@@ -74,8 +74,8 @@ public class constructorController : MonoBehaviour
 
     void createFrame(Vector3 pA, Vector3 pB)
     {
-        Frame frame = new Frame(pA, pB, frameGameObject);
-        GameObject newFrame = Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
+        Frame frame = new Frame(pA, pB, framePrefab);
+        GameObject newFrame = Instantiate(framePrefab, frame.getTransform().position, frame.getTransform().rotation);
         frame.SetGameObject(newFrame);
         frameList.Add(frame);
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB);
@@ -152,12 +152,12 @@ public class Frame {
 	private float length;
 	private Vector3 angle;
 
-	private GameObject frame;
+	private GameObject framePrefab;
 	private GameObject frameObject;
 
 	private Transform trans;
 
-	public Frame(Vector3 start, Vector3 end, GameObject frame) {
+	public Frame(Vector3 start, Vector3 end, GameObject framePrefab) {
 		startPos = start;
 		endPos = end;
 		
@@ -165,16 +165,16 @@ public class Frame {
     	float distance = between.magnitude;
 		length = distance;
 
-		Vector3 angletest = new Vector3(Vector3.Angle(between, frame.transform.right), Vector3.Angle(between, frame.transform.up), Vector3.Angle(between, frame.transform.forward));
+		Vector3 angletest = new Vector3(Vector3.Angle(between, framePrefab.transform.right), Vector3.Angle(between, framePrefab.transform.up), Vector3.Angle(between, framePrefab.transform.forward));
 
-		trans = frame.transform;
+		trans = framePrefab.transform;
 
     	trans.position = start + (between / 2.0f);
 		trans.Rotate(angletest);
     	trans.LookAt(end);
 		trans.localScale = new Vector3(.03f, .03f, distance);
 
-        this.frame = frame;
+        this.framePrefab = framePrefab;
 	}
 
 	public Transform getTransform() {
