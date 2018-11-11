@@ -5,82 +5,82 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Text.RegularExpressions;
 
-public class constructorController : MonoBehaviour {
-	public GameObject frameGameObject;
+public class constructorController : MonoBehaviour
+{
+    public GameObject myXmlController;
+    public GameObject frameGameObject;
     public GameObject areaGameObject;
     public string structureSaveFileName = "testStructure";
 
 
-    StructuralElementsLists elementsListsForXML = new StructuralElementsLists();
+    //StructuralElementsLists elementsListsForXML = new StructuralElementsLists();
 
     public LineRenderer tempLineRenderer;
 
     List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
 
-	List<Vector3> framePoints = new List<Vector3>();
-	List<Vector3> areaPoints = new List<Vector3>();
+    List<Vector3> framePoints = new List<Vector3>();
+    List<Vector3> areaPoints = new List<Vector3>();
 
 
-    //void Update()
-    //{ //DEBUG CODE TO TEST FileToSAPApp.exe
-        //if (Input.GetKeyDown(KeyCode.DownArrow))
-        //{
-        //    saveToXML();
-        //}
-        //if (Input.GetKeyDown(KeyCode.RightArrow))
-        //{
-        //    sendFileToSap();
-        //}
+    buildingMaterials material = buildingMaterials.Steel;
 
-    //}
-
-	buildingMaterials material = buildingMaterials.Steel;
-
-	void Awake() {
-		// TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
+    void Awake()
+    {
+        // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
         tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
-		tempLineRenderer.enabled = false;
-	}
+        tempLineRenderer.enabled = false;
+    }
 
 
-    public void setPoint(Vector3 point, buildingObjects type) {
-		// TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
+    public void setPoint(Vector3 point, buildingObjects type)
+    {
+        // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
         tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
         Debug.Log("Setpoint: " + point);
-		if (type == buildingObjects.Frame) {
-			if(framePoints.Count == 1) {
-				if(point != framePoints[0]) {
-					createFrame(framePoints[0], point);
-					framePoints.Clear();
-					tempLineRenderer.enabled = false;
-				}
+        if (type == buildingObjects.Frame)
+        {
+            if (framePoints.Count == 1)
+            {
+                if (point != framePoints[0])
+                {
+                    createFrame(framePoints[0], point);
+                    framePoints.Clear();
+                    tempLineRenderer.enabled = false;
+                }
             }
-            else {
-				framePoints.Add(point);
+            else
+            {
+                framePoints.Add(point);
 
                 tempLineRenderer.enabled = true;
                 tempLineRenderer.SetPosition(0, point);
-			}
-		} else if (type == buildingObjects.Area) {
-			if(framePoints[0] == point) {
-				createArea(areaPoints);
-				areaPoints.Clear();
-			} else {
-				areaPoints.Add(point);
-			}
-		}
+            }
+        }
+        else if (type == buildingObjects.Area)
+        {
+            if (framePoints[0] == point)
+            {
+                createArea(areaPoints);
+                areaPoints.Clear();
+            }
+            else
+            {
+                areaPoints.Add(point);
+            }
+        }
     }
-    
-	void createFrame(Vector3 pA, Vector3 pB) {
-		Frame frame = new Frame(pA, pB, frameGameObject);
-		GameObject newFrame = Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
-		frame.SetGameObject(newFrame);
-		frameList.Add(frame);
-		elementsListsForXML.frameForXMLList.Add(new FrameForXML(pA, pB));
-		saveToXML();
 
-	}
+    void createFrame(Vector3 pA, Vector3 pB)
+    {
+        Frame frame = new Frame(pA, pB, frameGameObject);
+        GameObject newFrame = Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
+        frame.SetGameObject(newFrame);
+        frameList.Add(frame);
+        myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB);
+
+    }
 
     public void deleteFrame(int frameObjectID)
     {
@@ -89,16 +89,9 @@ public class constructorController : MonoBehaviour {
             GameObject frameObject = frameElement.GetGameObject();
             if (frameObject.GetInstanceID() == frameObjectID)
             {
-                Vector3 deletionStartPos = frameElement.getStartPos();
-                Vector3 deletionEndPos = frameElement.getEndPos();
-                foreach(FrameForXML frameForXMLElement in elementsListsForXML.frameForXMLList) {
-                    if (frameForXMLElement.startPos == deletionStartPos && frameForXMLElement.endPos == deletionEndPos)
-                    {
-                        elementsListsForXML.frameForXMLList.Remove(frameForXMLElement);
-                        break;
-                    }
-                    
-                }
+                Vector3 pA = frameElement.getStartPos();
+                Vector3 pB = frameElement.getEndPos();
+                myXmlController.GetComponent<xmlController>().deleteFrameFromXMLList(pA, pB);
 
                 frameElement.SetGameObject(null);
                 Object.Destroy(frameObject);
@@ -106,105 +99,50 @@ public class constructorController : MonoBehaviour {
                 break;
             }
         }
-        saveToXML();
     }
 
-    void createArea(List<Vector3> points) {
-		//TODO
-		Debug.Log("Create Area not implimented yet!");
-	}
-	
-	public void changeMaterial(int newMaterial) {
-		material = (buildingMaterials) newMaterial;
-		Debug.Log("new material: " + material);
-	}
-	public void changeDraw(bool change) {
-		// for debugging
-		Debug.Log("draw: " + change);
-	}
-
-    void saveToXML() {
-        //structureSaveFileName = "testStructure";
-        XmlSerializer serializer = new XmlSerializer(typeof(StructuralElementsLists));
-        string filePath = Application.persistentDataPath + "/" + structureSaveFileName + ".xml";
-        Debug.Log("Structure was serialized to " + filePath);
-        TextWriter writer = new StreamWriter(filePath, false);
-        serializer.Serialize(writer, elementsListsForXML);
-        writer.Close();
-    }
-
-    void loadFromXML(string filePath)
+    public void deleteAll()
     {
-        XmlSerializer serializer = new XmlSerializer(typeof(StructuralElementsLists));
-        StreamReader reader = new StreamReader(filePath);
-        this.elementsListsForXML = (StructuralElementsLists)serializer.Deserialize(reader);
-        reader.Close();
-        Debug.Log("Structure was deserialized from = " + filePath);
+        framePoints.Clear();
+        tempLineRenderer.enabled = false;
 
-        structureSaveFileName = Regex.Match(filePath, "[^<>:\"/|? *\\]*.xml$").ToString();
-        structureSaveFileName = structureSaveFileName.Substring(0, structureSaveFileName.Length - 4);
-
-        this.frameList = new List<Frame>();
-        this.areaList = new List<Area>();
-        this.framePoints = new List<Vector3>();
-        this.areaPoints = new List<Vector3>();
-
-        foreach (FrameForXML frameFromXML in elementsListsForXML.frameForXMLList)
+        foreach (Frame frameElement in frameList)
         {
-            Frame frame = new Frame(frameFromXML.startPos, frameFromXML.endPos, frameGameObject);
-            GameObject newFrame = Instantiate(frameGameObject, frame.getTransform().position, frame.getTransform().rotation);
-            frame.SetGameObject(newFrame);
-            frameList.Add(frame);
+            GameObject frameObject = frameElement.GetGameObject();
+            frameElement.SetGameObject(null);
+            Object.Destroy(frameObject);
+            frameList.Remove(frameElement);
         }
-
-
     }
 
-    public void sendFileToSap() //If no filename supplied, default to that of the currently open structure
+    public void constructFromXmlElementsLists(StructuralElementsLists elementsListsForXML)
     {
-        //structureSaveFileName = "testStructure";
-        string filePath = Application.persistentDataPath + "/" + structureSaveFileName + ".xml";
-        string appPath = Application.streamingAssetsPath + "/SapTranslator.exe";
-        System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
-        myProcess.StartInfo.FileName = appPath;
-        myProcess.StartInfo.Arguments = "\"" + filePath + "\"";
-        myProcess.Start();
+        deleteAll();
+        foreach (FrameForXML frameForXML in elementsListsForXML.frameForXMLList)
+        {
+            Vector3 pA = frameForXML.startPos;
+            Vector3 pB = frameForXML.endPos;
+            createFrame(pA, pB);
+        }
+    }
+
+    void createArea(List<Vector3> points)
+    {
+        //TODO
+        Debug.Log("Create Area not implimented yet!");
+    }
+
+    public void changeMaterial(int newMaterial)
+    {
+        material = (buildingMaterials)newMaterial;
+        Debug.Log("new material: " + material);
+    }
+    public void changeDraw(bool change)
+    {
+        // for debugging
+        Debug.Log("draw: " + change);
     }
 }
-//[XmlRoot(ElementName = "StructuralElementsLists")]
-[XmlRoot("StructuralElementsLists")]
-public class StructuralElementsLists
-{
-    [XmlArray("frameListForXML"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
-    public List<FrameForXML> frameForXMLList { get; set; }
-    
-    public StructuralElementsLists()
-    {
-        frameForXMLList = new List<FrameForXML>();
-    }
-    
-}
-
-
-[XmlType("FrameForXML")]
-public class FrameForXML
-{
-    public Vector3 startPos { get; set; }
-    public Vector3 endPos { get; set; }
-
-    public FrameForXML()
-    {
-
-    }
-    public FrameForXML(Vector3 pointA, Vector3 pointB)
-    {
-        startPos = pointA;
-        endPos = pointB;
-    }
-
-}
-
-
 
 
 public class Frame { 
