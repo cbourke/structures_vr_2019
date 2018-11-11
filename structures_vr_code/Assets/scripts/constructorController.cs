@@ -10,6 +10,7 @@ public class constructorController : MonoBehaviour
     public GameObject myXmlController;
     public GameObject framePrefab;
     public GameObject areaPrefab;
+    public GameObject jointRestraintPrefab;
     public string structureSaveFileName = "testStructure";
 
 
@@ -19,6 +20,7 @@ public class constructorController : MonoBehaviour
 
     List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
+    List<jointRestraint> jointRestraintList = new List<jointRestraint>();
 
     List<Vector3> framePoints = new List<Vector3>();
     List<Vector3> areaPoints = new List<Vector3>();
@@ -78,6 +80,12 @@ public class constructorController : MonoBehaviour
         GameObject newFrame = Instantiate(framePrefab, frame.getTransform().position, frame.getTransform().rotation);
         frame.SetGameObject(newFrame);
         frameList.Add(frame);
+
+        //Placeholder test ONLY: Create joint at point A of this frame (just for testing, delete this later!)
+        createJointRestraint(pA, 'r');
+        createJointRestraint(pB, 'f');
+        // Test  Section End
+
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB);
 
     }
@@ -101,6 +109,53 @@ public class constructorController : MonoBehaviour
         }
     }
 
+
+    public void createJointRestraint(Vector3 position, char type)
+    {
+        deleteJointRestraint(position); // Overwrite any joint restraint already at the target point
+        jointRestraint newRestraint = new jointRestraint(position, type, jointRestraintPrefab);
+        jointRestraintList.Add(newRestraint);
+        myXmlController.GetComponent<xmlController>().addJointRestraintToXMLList(newRestraint.GetPosition(), newRestraint.GetTransX(), newRestraint.GetTransY(), newRestraint.GetTransZ(), newRestraint.GetRotX(), newRestraint.GetRotY(), newRestraint.GetRotZ());
+    }
+
+    public void deleteJointRestraint(int jointRestraintObjectID)
+    {
+        foreach (jointRestraint jointRestraintElement in jointRestraintList)
+        {
+            GameObject jointRestraintObject = jointRestraintElement.GetGameObject();
+            if (jointRestraintObject.GetInstanceID() == jointRestraintObjectID)
+            {
+                Vector3 position = jointRestraintElement.GetPosition();
+                myXmlController.GetComponent<xmlController>().deleteJointRestraintFromXMLList(position);
+
+                jointRestraintElement.SetGameObject(null);
+                Object.Destroy(jointRestraintObject);
+                jointRestraintList.Remove(jointRestraintElement);
+                break;
+            }
+        }
+    }
+
+    public void deleteJointRestraint(Vector3 targetPosition)
+    {
+        foreach (jointRestraint jointRestraintElement in jointRestraintList)
+        {
+            GameObject jointRestraintObject = jointRestraintElement.GetGameObject();
+            Vector3 checkPosition = jointRestraintElement.GetPosition();
+            if (checkPosition == targetPosition)
+            {
+                myXmlController.GetComponent<xmlController>().deleteJointRestraintFromXMLList(targetPosition);
+
+                jointRestraintElement.SetGameObject(null);
+                Object.Destroy(jointRestraintObject);
+                jointRestraintList.Remove(jointRestraintElement);
+                break;
+            }
+        }
+    }
+
+
+
     public void deleteAll()
     {
         framePoints.Clear();
@@ -112,6 +167,14 @@ public class constructorController : MonoBehaviour
             frameElement.SetGameObject(null);
             Object.Destroy(frameObject);
             frameList.Remove(frameElement);
+        }
+
+        foreach (jointRestraint jointRestraintElement in jointRestraintList)
+        {
+            GameObject jointRestraintObject = jointRestraintElement.GetGameObject();
+            jointRestraintElement.SetGameObject(null);
+            Object.Destroy(jointRestraintObject);
+            jointRestraintList.Remove(jointRestraintElement);
         }
     }
 
@@ -201,6 +264,119 @@ public class Frame {
 
 public class Area { }
 
+public class jointRestraint {
 
+    Vector3 position;
+    bool transX;
+    bool transY;
+    bool transZ;
+    bool rotX;
+    bool rotY;
+    bool rotZ;
+
+    GameObject jointRestraintGameObject;
+
+
+    public jointRestraint(Vector3 position, char type, GameObject jointRestraintPrefab)
+    {
+        this.position = position;
+        jointRestraintGameObject = GameObject.Instantiate(jointRestraintPrefab, position, new Quaternion());
+        setType(type);
+    }
+
+    public void setType(char type)
+    {
+        switch (type)
+        {
+            case 'r': //roller restraint
+                {
+                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(0, 0, 0); // rectangle
+                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(0, 0, 0); // triangle
+                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(1, 1, 1); // circle
+
+                    transX = false;
+                    transY = false;
+                    transZ = false;
+                    rotX = true;
+                    rotY = true;
+                    rotZ = true;
+                    break;
+                }
+            case 'p': //pin restraint
+                {
+                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(0, 0, 0); // rectangle
+                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(1, 1, 1); // triangle
+                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(0, 0, 0); // circle
+
+                    transX = true;
+                    transY = false;
+                    transZ = true;
+                    rotX = true;
+                    rotY = true;
+                    rotZ = true;
+                    break;
+                }
+            default: //default to fixed restraint
+                {
+                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(1, 1, 1); // rectangle
+                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(0, 0, 0); // triangle
+                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(0, 0, 0); // circle
+
+                    transX = false;
+                    transY = false;
+                    transZ = false;
+                    rotX = false;
+                    rotY = false;
+                    rotZ = false;
+                    break;
+                }
+        }
+    }
+
+    public Vector3 GetPosition()
+    {
+        return position;
+    }
+
+    public bool GetTransX()
+    {
+        return transX;
+    }
+
+    public bool GetTransY()
+    {
+        return transY;
+    }
+
+    public bool GetTransZ()
+    {
+        return transZ;
+    }
+
+    public bool GetRotX()
+    {
+        return rotX;
+    }
+
+    public bool GetRotY()
+    {
+        return rotY;
+    }
+
+    public bool GetRotZ()
+    {
+        return rotZ;
+    }
+
+    public GameObject GetGameObject()
+    {
+        return jointRestraintGameObject;
+    }
+
+    public void SetGameObject(GameObject newObject)
+    {
+        jointRestraintGameObject = newObject;
+    }
+}
 
 
