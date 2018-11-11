@@ -82,8 +82,8 @@ public class constructorController : MonoBehaviour
         frameList.Add(frame);
 
         //Placeholder test ONLY: Create joint at point A of this frame (just for testing, delete this later!)
-        createJointRestraint(pA, 'r');
-        createJointRestraint(pB, 'f');
+        //createJointRestraint(pA, 'r');
+        //createJointRestraint(pB, 'f');
         // Test  Section End
 
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB);
