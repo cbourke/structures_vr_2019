@@ -1092,9 +1092,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424851ecc2ef5664dbda27407cb3f945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridX: 7
-  gridY: 7
-  gridZ: 7
+  gridX: 5
+  gridY: 5
+  gridZ: 5
   node: {fileID: 1572682032358450, guid: 7f5ddc3c38711f74f9246f022b4819e2, type: 2}
 --- !u!4 &897730285
 Transform:
