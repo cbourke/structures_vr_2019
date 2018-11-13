@@ -24,6 +24,11 @@ public class debugDrawing : MonoBehaviour {
 		
 		constructorControllerPrefab.GetComponent<constructorController>().setPoint(p3, buildingObjects.Frame);
 		constructorControllerPrefab.GetComponent<constructorController>().setPoint(p6, buildingObjects.Frame);
+
+		constructorControllerPrefab.GetComponent<constructorController>().setPoint(origin, buildingObjects.Frame);
+		constructorControllerPrefab.GetComponent<constructorController>().setPoint(p2, buildingObjects.Frame);
+
+		
 		
 
 
