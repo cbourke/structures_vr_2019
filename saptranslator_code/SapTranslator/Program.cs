@@ -175,23 +175,71 @@ namespace SapTranslator
                 StructuralElementsLists elementsLists = (StructuralElementsLists)serializer.Deserialize(reader);
                 reader.Close();
 
-                foreach (FrameForXML frame in elementsLists.frameForXMLList)
+                // Put Frames in:
+
+                int numberOfFrames = elementsLists.frameForXMLList.Count();
+
+                //foreach (FrameForXML frame in elementsLists.frameForXMLList)
+                string[] FrameName = new string[numberOfFrames];
+                for (i = 0; i < numberOfFrames; i++)
                 {
-                    //string[] FrameName = new string[1];
-                    Console.WriteLine("Attempting to add a frame...");
-                    string temp_string1 = ""; //FrameName[0];
+                    FrameForXML frame = elementsLists.frameForXMLList.ElementAt(i);
+                    Console.WriteLine("Adding frame " + (i + 1) + " of " + numberOfFrames + "...");
+                    string temp_string1 = "";
                     ret = mySapModel.FrameObj.AddByCoord(frame.startPos.x, frame.startPos.z, frame.startPos.y, frame.endPos.x, frame.endPos.z, frame.endPos.y, ref temp_string1, "R1", "1", "Global");
-                    //FrameName[0] = temp_string1;
+                    FrameName[i] = temp_string1;
                 }
+
+                // Put Joint Restraints in:
+                //foreach (jointRestraintForXML jr in elementsLists.jointRestraintForXMLList)
+                int numberOfJointRestraints = elementsLists.jointRestraintForXMLList.Count();
+                for(i = 0; i < numberOfJointRestraints; i++)
+                {
+                    jointRestraintForXML jr = elementsLists.jointRestraintForXMLList.ElementAt(i);
+
+                    bool[] dof = new bool[6]; // dof = degrees of freedom
+                    dof[0] = !jr.transX;
+                    dof[1] = !jr.transZ;
+                    dof[2] = !jr.transY;
+                    dof[3] = !jr.rotX;
+                    dof[4] = !jr.rotZ;
+                    dof[5] = !jr.rotY;
+
+                    Vector3 restraintCoordinates = jr.position;
+
+                    string targetPointObjectName = "";
+                    string[] pointObjectName = { "", "" };
+                    double x1 = 0.0;
+                    double y1 = 0.0;
+                    double z1 = 0.0;
+                    for (int j = 0; j < FrameName.Length; j++)
+                    {
+                        ret = mySapModel.FrameObj.GetPoints(FrameName[j], ref pointObjectName[0], ref pointObjectName[1]);
+
+                        for (int k = 0; k < pointObjectName.Length; k++) {
+                            ret = mySapModel.PointObj.GetCoordCartesian(pointObjectName[k], ref x1, ref y1, ref z1, "Global");
+                            if (restraintCoordinates.x == x1 && restraintCoordinates.y == z1 && restraintCoordinates.z == y1)
+                            {
+                                targetPointObjectName = pointObjectName[k];
+                                break;
+                            }
+                        }
+                        if(!targetPointObjectName.Equals(""))
+                        {
+                            break;
+                        }
+                    }
+
+                    ret = mySapModel.PointObj.SetRestraint(targetPointObjectName, ref dof);
+                    Console.WriteLine("Adding joint restraint " + (i + 1) + " of " + numberOfJointRestraints + "...");
+                }
+
             }
             catch (Exception e)
             {
                 Console.Write("Exception was thrown when trying to deserialzie XML file.");
                 Console.WriteLine(e.ToString());
             }
-
-
-
 
 
 

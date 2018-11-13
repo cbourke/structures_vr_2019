@@ -37,6 +37,25 @@ public class xmlController : MonoBehaviour
         saveToXML();
     }
 
+    public void addJointRestraintToXMLList(Vector3 pos, bool tX, bool tY, bool tZ, bool rX, bool rY, bool rZ)
+    {
+        elementsListsForXML.jointRestraintForXMLList.Add(new jointRestraintForXML(pos, tX, tY, tZ, rX, rY, rZ));
+        saveToXML();
+    }
+
+    public void deleteJointRestraintFromXMLList(Vector3 pos)
+    {
+        foreach (jointRestraintForXML jointRestraintForXMLElement in elementsListsForXML.jointRestraintForXMLList)
+        {
+            if (jointRestraintForXMLElement.position == pos)
+            {
+                elementsListsForXML.jointRestraintForXMLList.Remove(jointRestraintForXMLElement);
+                break;
+            }
+        }
+        saveToXML();
+    }
+
     public void saveToXML()
     {
         //structureSaveFileName = "testStructure";
@@ -82,16 +101,18 @@ public class xmlController : MonoBehaviour
 [XmlRoot("StructuralElementsLists")]
 public class StructuralElementsLists
 {
-    [XmlArray("frameListForXML"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
+    [XmlArray("frameForXMLArray"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
     public List<FrameForXML> frameForXMLList { get; set; }
+
+    [XmlArray("jointRestraintForXMLArray"), XmlArrayItem(typeof(jointRestraintForXML), ElementName = "jointRestraintForXML")]
+    public List<jointRestraintForXML> jointRestraintForXMLList { get; set; }
 
     public StructuralElementsLists()
     {
         frameForXMLList = new List<FrameForXML>();
+        jointRestraintForXMLList = new List<jointRestraintForXML>();
     }
-
 }
-
 
 [XmlType("FrameForXML")]
 public class FrameForXML
@@ -101,12 +122,39 @@ public class FrameForXML
 
     public FrameForXML()
     {
-
+        // Empty constructor needed for XML serialization
     }
     public FrameForXML(Vector3 pointA, Vector3 pointB)
     {
         startPos = pointA;
         endPos = pointB;
     }
+}
 
+[XmlType("jointRestraintForXML")]
+public class jointRestraintForXML
+{
+    public Vector3 position { get; set; }
+    public bool transX { get; set; }
+    public bool transY { get; set; }
+    public bool transZ { get; set; }
+    public bool rotX { get; set; }
+    public bool rotY { get; set; }
+    public bool rotZ { get; set; }
+
+    public jointRestraintForXML()
+    {
+        // Empty constructor needed for XML serialization
+    }
+
+    public jointRestraintForXML(Vector3 pos, bool tX, bool tY, bool tZ, bool rX, bool rY, bool rZ)
+    {
+        position = pos;
+        transX = tX;
+        transY = tY;
+        transZ = tZ;
+        rotX = rX;
+        rotY = rY;
+        rotZ = rZ;
+    }
 }
