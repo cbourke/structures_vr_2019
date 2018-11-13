@@ -377,7 +377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &295299417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,7 +389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef2e356e4ce3d43aa895adf5db5cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constructorControllerPrefab: {fileID: 0}
+  constructorController: {fileID: 1807594933}
+  xmlController: {fileID: 463976302}
 --- !u!4 &295299418
 Transform:
   m_ObjectHideFlags: 0

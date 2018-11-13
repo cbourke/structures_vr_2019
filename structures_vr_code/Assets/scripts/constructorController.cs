@@ -80,12 +80,6 @@ public class constructorController : MonoBehaviour
         GameObject newFrame = Instantiate(framePrefab, frame.getTransform().position, frame.getTransform().rotation);
         frame.SetGameObject(newFrame);
         frameList.Add(frame);
-
-        //Placeholder test ONLY: Create joint at point A of this frame (just for testing, delete this later!)
-        createJointRestraint(pA, 'r');
-        createJointRestraint(pB, 'p');
-        // Test  Section End
-
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB);
 
     }
