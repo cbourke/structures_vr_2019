@@ -4,4 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/structures_vr_project.unity
+    guid: a83bd68dc59cf4e4da7a2c4e644d314f
+  - enabled: 0
+    path: Assets/__DELETED_GUID_Trash/73a0e9231d754d845beb661b7c813ce6
+    guid: 73a0e9231d754d845beb661b7c813ce6
+  m_configObjects: {}
