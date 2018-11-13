@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -162,6 +162,12 @@ Prefab:
       propertyPath: tempLineRenderer
       value: 
       objectReference: {fileID: 425715893}
+    - target: {fileID: 114368873468224284, guid: 02ec97572a78fe3429d4aad824366914,
+        type: 2}
+      propertyPath: framePrefab
+      value: 
+      objectReference: {fileID: 1792658920625122, guid: cabe915ffd810d94c840604b5e7847ff,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02ec97572a78fe3429d4aad824366914, type: 2}
   m_IsPrefabAsset: 0
@@ -434,7 +440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &295299417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ef2e356e4ce3d43aa895adf5db5cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constructorControllerPrefab: {fileID: 0}
+  constructorControllerPrefab: {fileID: 1807594933}
 --- !u!4 &295299418
 Transform:
   m_ObjectHideFlags: 0
@@ -1906,6 +1912,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isModel: 0
+--- !u!1 &1807594933 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1199048741078900, guid: 02ec97572a78fe3429d4aad824366914,
+    type: 2}
+  m_PrefabInternal: {fileID: 27241327}
 --- !u!1 &1983815469
 GameObject:
   m_ObjectHideFlags: 0
@@ -1981,12 +1992,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1983815469}
   m_CullTransparentMesh: 0
---- !u!1 &1807594933 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1199048741078900, guid: 02ec97572a78fe3429d4aad824366914,
-    type: 2}
-  m_PrefabInternal: {fileID: 27241327}
-
 --- !u!1001 &2006286445
 Prefab:
   m_ObjectHideFlags: 0

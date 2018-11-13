@@ -4,7 +4,8 @@ using UnityEngine;
 
 
 public enum buildingMaterials{
-    Steel,
-    Wood,
-	Aluminum
+    A992,
+    A500_Grade_B,
+    A500_Grade_C,
+    A36
 }
