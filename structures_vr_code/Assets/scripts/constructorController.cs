@@ -82,8 +82,8 @@ public class constructorController : MonoBehaviour
         frameList.Add(frame);
 
         //Placeholder test ONLY: Create joint at point A of this frame (just for testing, delete this later!)
-        //createJointRestraint(pA, 'r');
-        //createJointRestraint(pB, 'f');
+        createJointRestraint(pA, 'r');
+        createJointRestraint(pB, 'p');
         // Test  Section End
 
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB);
@@ -97,13 +97,53 @@ public class constructorController : MonoBehaviour
             GameObject frameObject = frameElement.GetGameObject();
             if (frameObject.GetInstanceID() == frameObjectID)
             {
+                //Deletion code
                 Vector3 pA = frameElement.getStartPos();
                 Vector3 pB = frameElement.getEndPos();
+
+
+
+
+
                 myXmlController.GetComponent<xmlController>().deleteFrameFromXMLList(pA, pB);
 
                 frameElement.SetGameObject(null);
                 Object.Destroy(frameObject);
                 frameList.Remove(frameElement);
+
+
+                // Delete any orphaned joint restraints
+                bool deleteJointRestraintAtA = true;
+                bool deleteJointRestraintAtB = true;
+                foreach (Frame f in frameList)
+                {
+                    if (deleteJointRestraintAtA && (f.getStartPos() == pA || f.getEndPos() == pA)) //If any frame remaining still ends on pA
+                    {
+                        deleteJointRestraintAtA = false; //Protect the joint restraint at pA, if it exists
+                    }
+
+                    if (deleteJointRestraintAtB && (f.getStartPos() == pB || f.getEndPos() == pB)) //If any frame remaining still ends on pB
+                    {
+                        deleteJointRestraintAtB = false; //Protect the joint restraint at pB, if it exists
+                    }
+
+                    if (!deleteJointRestraintAtA && !deleteJointRestraintAtB)
+                    {
+                        break; //If we protected both points then don't waste more time looping
+                    }
+                }
+
+                if (deleteJointRestraintAtA)
+                {
+                    deleteJointRestraint(pA);
+                }
+
+                if (deleteJointRestraintAtB)
+                {
+                    deleteJointRestraint(pB);
+                }
+
+
                 break;
             }
         }
@@ -113,9 +153,24 @@ public class constructorController : MonoBehaviour
     public void createJointRestraint(Vector3 position, char type)
     {
         deleteJointRestraint(position); // Overwrite any joint restraint already at the target point
-        jointRestraint newRestraint = new jointRestraint(position, type, jointRestraintPrefab);
-        jointRestraintList.Add(newRestraint);
-        myXmlController.GetComponent<xmlController>().addJointRestraintToXMLList(newRestraint.GetPosition(), newRestraint.GetTransX(), newRestraint.GetTransY(), newRestraint.GetTransZ(), newRestraint.GetRotX(), newRestraint.GetRotY(), newRestraint.GetRotZ());
+
+        //Check to make sure a frame endpoint is at "position"
+        bool frameEndPoint = false;
+        foreach (Frame f in frameList)
+        {
+            if ((f.getStartPos() == position || f.getEndPos() == position)) //If any frame remaining still ends on pA
+            {
+                frameEndPoint = true; //Protect the joint restraint at pA, if it exists
+                break;
+            }
+        }
+
+        if (frameEndPoint) // only create a joint restraint if the target position is an endpoint of at least one frame
+        {
+            jointRestraint newRestraint = new jointRestraint(position, type, jointRestraintPrefab);
+            jointRestraintList.Add(newRestraint);
+            myXmlController.GetComponent<xmlController>().addJointRestraintToXMLList(newRestraint.GetPosition(), newRestraint.GetTransX(), newRestraint.GetTransY(), newRestraint.GetTransZ(), newRestraint.GetRotX(), newRestraint.GetRotY(), newRestraint.GetRotZ());
+        }
     }
 
     public void deleteJointRestraint(int jointRestraintObjectID)
@@ -290,9 +345,9 @@ public class jointRestraint {
         {
             case 'r': //roller restraint
                 {
-                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(0, 0, 0); // rectangle
-                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(0, 0, 0); // triangle
-                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(1, 1, 1); // circle
+                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(1, 1, 1);
+                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(0, 0, 0);
+                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(0, 0, 0);
 
                     transX = false;
                     transY = false;
@@ -304,9 +359,9 @@ public class jointRestraint {
                 }
             case 'p': //pin restraint
                 {
-                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(0, 0, 0); // rectangle
-                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(1, 1, 1); // triangle
-                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(0, 0, 0); // circle
+                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(0, 0, 0);
+                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(1, 1, 1);
+                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(0, 0, 0);
 
                     transX = true;
                     transY = false;
@@ -318,9 +373,9 @@ public class jointRestraint {
                 }
             default: //default to fixed restraint
                 {
-                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(1, 1, 1); // rectangle
-                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(0, 0, 0); // triangle
-                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(0, 0, 0); // circle
+                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(0, 0, 0);
+                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(0, 0, 0);
+                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(1, 1, 1);
 
                     transX = false;
                     transY = false;
