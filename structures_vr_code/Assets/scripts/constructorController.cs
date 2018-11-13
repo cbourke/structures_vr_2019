@@ -349,9 +349,10 @@ public class jointRestraint {
                     jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(0, 0, 0);
                     jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(0, 0, 0);
 
-                    transX = false;
+                    
+                    transX = true;
                     transY = false;
-                    transZ = false;
+                    transZ = true;
                     rotX = true;
                     rotY = true;
                     rotZ = true;
@@ -363,9 +364,9 @@ public class jointRestraint {
                     jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(1, 1, 1);
                     jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(0, 0, 0);
 
-                    transX = true;
+                    transX = false;
                     transY = false;
-                    transZ = true;
+                    transZ = false;
                     rotX = true;
                     rotY = true;
                     rotZ = true;
