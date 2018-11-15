@@ -11,7 +11,7 @@ public class Frame : MonoBehaviour {
 	private Vector3 angle;
 
 	private GameObject frameObject;
-    private buildingMaterials material;
+    //private buildingMaterials material;
 
 
 	private Transform trans;
@@ -56,14 +56,14 @@ public class Frame : MonoBehaviour {
     {
 		return frameObject;
 	}
-    public buildingMaterials GetMaterial()
-    {
-        return material;
-    }
-    public void SetMaterial(buildingMaterials material)
-    {
-		this.material = material;
-    }
+    //public buildingMaterials GetMaterial()
+   // {
+    //    return material;
+   // }
+    //public void SetMaterial(buildingMaterials material)
+   // {
+	//	this.material = material;
+   // }
 
 }
 

@@ -24,7 +24,7 @@ public class constructorController : MonoBehaviour
     List<Vector3> areaPoints = new List<Vector3>();
 
 
-    buildingMaterials material = buildingMaterials.A36;
+    steelMaterials material = steelMaterials.A36_Grade_36;
 
     void Awake()
     {
@@ -130,7 +130,7 @@ public class constructorController : MonoBehaviour
 
     public void changeMaterial(int newMaterial)
     {
-        material = (buildingMaterials)newMaterial;
+        material = (steelMaterials)newMaterial;
         Debug.Log("new material: " + material);
     }
     public void changeDraw(bool change)
