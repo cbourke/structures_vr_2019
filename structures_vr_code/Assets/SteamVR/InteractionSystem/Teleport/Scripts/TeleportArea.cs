@@ -25,9 +25,6 @@ namespace Valve.VR.InteractionSystem
 		private Color lockedTintColor = Color.clear;
 		private bool highlighted = false;
 
-		public generateGrid grid;
-		float groundX, groundZ, scaleX, scaleZ;
-
 		//-------------------------------------------------
 		public void Awake()
 		{
@@ -45,15 +42,6 @@ namespace Valve.VR.InteractionSystem
 			visibleTintColor = Teleport.instance.areaVisibleMaterial.GetColor( tintColorId );
 			highlightedTintColor = Teleport.instance.areaHighlightedMaterial.GetColor( tintColorId );
 			lockedTintColor = Teleport.instance.areaLockedMaterial.GetColor( tintColorId );
-
-			groundX = (grid.gridX - 1f) / 2f;
-			groundZ = (grid.gridZ - 1f) / 2f;
-
-			scaleX = (grid.gridX / 9.5f);
-			scaleZ = (grid.gridZ / 9.5f);
-
-			transform.position = new Vector3(groundX, 0f, groundZ);
-			transform.localScale = new Vector3 (scaleX, 1, scaleZ);
 		}
 
 

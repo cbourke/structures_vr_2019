@@ -6,6 +6,7 @@ namespace Valve.VR.InteractionSystem{
 
 
     public class pointer : MonoBehaviour {
+        /*
         public float maxRayLength = 5;
 	    public float rayRadius = .05f;
 	    public float laserWidth = 0.01f;
@@ -119,5 +120,6 @@ namespace Valve.VR.InteractionSystem{
         {
             workingElement = type;
         }
+         */
     }
 }

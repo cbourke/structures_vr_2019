@@ -28,6 +28,7 @@ public class ZoomByGrabbing : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        /*
         if ((leftHand.GetComponent<Hand>().grabGripAction.GetState(leftHand.GetComponent<Hand>().handType)
             && rightHand.GetComponent<Hand>().grabGripAction.GetStateDown(rightHand.GetComponent<Hand>().handType))
 
@@ -57,5 +58,6 @@ public class ZoomByGrabbing : MonoBehaviour {
             }
 
         }
+         */
     }   
 }
