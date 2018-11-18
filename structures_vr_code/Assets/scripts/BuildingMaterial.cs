@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingMaterial {
-    public string userDefinedName = "Default_Material_Name";
+    private string userDefinedName = "Default_Material_Name";
     private int region = BuildingMaterialAttributes.Regions.UNITEDSTATES;
     private int type = BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL;
     private int standard = BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A992;
