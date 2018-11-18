@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 15
-  productGUID: 00000000000000000000000000000000
+  productGUID: 10120691353543d4f83b2ceae916deab
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -697,10 +697,10 @@ PlayerSettings:
     Purchasing: 0
     UNet: 0
     Unity_Ads: 0
-  facebookSdkVersion: 
+  facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: 94aedf06-cc00-4824-a021-39ccf820a8cb
-  projectName: 
+  projectName: structures_vr (1)
   organizationId: kcinesser
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
