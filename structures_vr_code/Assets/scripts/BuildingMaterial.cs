@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingMaterial : MonoBehaviour {
+public class BuildingMaterial {
     public string userDefinedName = "Default_Material_Name";
     private int region = BuildingMaterialAttributes.Regions.UNITEDSTATES;
     private int type = BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL;
