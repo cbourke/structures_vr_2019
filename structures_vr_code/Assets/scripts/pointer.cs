@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
-namespace Valve.VR.InteractionSystem{
+//namespace Valve.VR.InteractionSystem{
 
 
     public class pointer : MonoBehaviour {
-        /*
+        
         public float maxRayLength = 5;
 	    public float rayRadius = .05f;
 	    public float laserWidth = 0.01f;
@@ -14,7 +15,7 @@ namespace Valve.VR.InteractionSystem{
         public string workingElement = "frame";
 
 	    public LineRenderer laserLineRenderer;
-	    public Hand hand;
+	    public Valve.VR.InteractionSystem.Hand hand;
 	    public GameObject constructorController;
 
         private RaycastHit vision;
@@ -22,15 +23,24 @@ namespace Valve.VR.InteractionSystem{
 	    private Rigidbody grabbedObject;
         private LineRenderer tempLineRenderer;
 
-	
+
+
 	    void Start() {
 		    // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
+            if(hand.controller == null)
+            {
+                Debug.Log("hand null");
+            }
 		    tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
-		    Vector3[] initLaserPositions = new Vector3[ 2 ] { Vector3.zero, Vector3.zero };
+		    //laserLineRenderer = GetComponent<LineRenderer>();
+            
+            Vector3[] initLaserPositions = new Vector3[ 2 ] { Vector3.zero, Vector3.zero };
 		    laserLineRenderer.SetPositions( initLaserPositions );
 		    laserLineRenderer.startWidth = laserWidth;
 		    laserLineRenderer.endWidth = laserWidth;
 		    laserLineRenderer.enabled = true;
+
+
 	    }
  
 
@@ -39,6 +49,24 @@ namespace Valve.VR.InteractionSystem{
 	    }
  
 	    void ShootLaserFromTargetPosition( Vector3 targetPosition, Vector3 direction, float maxLength ) {
+
+            if (hand.controller == null) return;
+            // Change the ButtonMask to access other inputs
+            if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
+            {
+                Debug.Log("Trigger down");
+            }
+            if (hand.controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
+            {
+                Debug.Log("Trigger still down");
+            }
+
+            if (hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
+            {
+                Debug.Log("Trigger released");
+            }
+
+
 		    direction.y = direction.y - .5f; //adjust the angle of the laser down
 
 		    Vector3 startPosition = targetPosition - (.2f * direction);
@@ -47,7 +75,7 @@ namespace Valve.VR.InteractionSystem{
 		    Ray ray = new Ray( startPosition, direction );
 		    RaycastHit rayHit;
 		    Vector3 nodePoint;
-		    GrabTypes startingGrabType = hand.GetGrabStarting();
+		    //GrabTypes startingGrabType = hand.GetGrabStarting();
 
 		    int gridLayer = 1 << 8;
 		    int uiLayer = 1 << 5;
@@ -57,7 +85,7 @@ namespace Valve.VR.InteractionSystem{
                     // used to hit UI elents
                     nodePoint = rayHit.transform.position;
                     endPosition = rayHit.point;
-                    if (rayHit.collider.isTrigger && startingGrabType == GrabTypes.Pinch)
+                    if (rayHit.collider.isTrigger && hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
                     {
                         rayHit.collider.gameObject.GetComponent<uiCollider>().uiHit();
                     }
@@ -77,7 +105,7 @@ namespace Valve.VR.InteractionSystem{
                                 endPosition = rayHit.point;
                                 tempLineRenderer.SetPosition(1, endPosition);
 
-                                if (startingGrabType == GrabTypes.Pinch)
+                                if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
                                 {
                                     // User "grabs" a grid node
                                     constructorController.GetComponent<constructorController>().deleteFrame(rayHit.transform.gameObject.GetInstanceID());
@@ -94,7 +122,7 @@ namespace Valve.VR.InteractionSystem{
                                     endPosition = rayHit.point;
                                     tempLineRenderer.SetPosition(1, nodePoint);
 
-                                    if (startingGrabType == GrabTypes.Pinch)
+                                    if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
                                     {
                                         // User "grabs" a grid node
                                         constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
@@ -120,6 +148,6 @@ namespace Valve.VR.InteractionSystem{
         {
             workingElement = type;
         }
-         */
+        
     }
-}
+//}
