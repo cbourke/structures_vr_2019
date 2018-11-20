@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
-//namespace Valve.VR.InteractionSystem{
 
 
     public class pointer : MonoBehaviour {
@@ -27,12 +26,7 @@ using Valve.VR.InteractionSystem;
 
 	    void Start() {
 		    // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
-            if(hand.controller == null)
-            {
-                Debug.Log("hand null");
-            }
 		    tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
-		    //laserLineRenderer = GetComponent<LineRenderer>();
             
             Vector3[] initLaserPositions = new Vector3[ 2 ] { Vector3.zero, Vector3.zero };
 		    laserLineRenderer.SetPositions( initLaserPositions );
@@ -49,24 +43,6 @@ using Valve.VR.InteractionSystem;
 	    }
  
 	    void ShootLaserFromTargetPosition( Vector3 targetPosition, Vector3 direction, float maxLength ) {
-
-            if (hand.controller == null) return;
-            // Change the ButtonMask to access other inputs
-            if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
-            {
-                Debug.Log("Trigger down");
-            }
-            if (hand.controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
-            {
-                Debug.Log("Trigger still down");
-            }
-
-            if (hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
-            {
-                Debug.Log("Trigger released");
-            }
-
-
 		    direction.y = direction.y - .5f; //adjust the angle of the laser down
 
 		    Vector3 startPosition = targetPosition - (.2f * direction);
@@ -75,14 +51,13 @@ using Valve.VR.InteractionSystem;
 		    Ray ray = new Ray( startPosition, direction );
 		    RaycastHit rayHit;
 		    Vector3 nodePoint;
-		    //GrabTypes startingGrabType = hand.GetGrabStarting();
 
 		    int gridLayer = 1 << 8;
 		    int uiLayer = 1 << 5;
             int framesLayer = 1 << 9;
                 if (Physics.Raycast(ray, out rayHit, maxLength, uiLayer))
                 {
-                    // used to hit UI elents
+                    // used to hit UI elements
                     nodePoint = rayHit.transform.position;
                     endPosition = rayHit.point;
                     if (rayHit.collider.isTrigger && hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
@@ -136,7 +111,6 @@ using Valve.VR.InteractionSystem;
                 }
 		    laserLineRenderer.SetPosition( 0, targetPosition );
 		    laserLineRenderer.SetPosition( 1, endPosition );
-
 	    }
 
         public void toggleEraserMode()
@@ -150,4 +124,3 @@ using Valve.VR.InteractionSystem;
         }
         
     }
-//}
