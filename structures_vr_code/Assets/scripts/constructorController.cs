@@ -11,6 +11,7 @@ public class constructorController : MonoBehaviour
     public GameObject framePrefab;
     public GameObject areaPrefab;
     public GameObject jointRestraintPrefab;
+
     public string structureSaveFileName = "testStructure";
 
 
@@ -26,7 +27,7 @@ public class constructorController : MonoBehaviour
     List<Vector3> areaPoints = new List<Vector3>();
 
 
-    buildingMaterials material = buildingMaterials.Steel;
+    steelMaterials material = steelMaterials.A36_Grade_36;
 
     void Awake()
     {
@@ -77,8 +78,6 @@ public class constructorController : MonoBehaviour
     void createFrame(Vector3 pA, Vector3 pB)
     {
         Frame frame = new Frame(pA, pB, framePrefab);
-        GameObject newFrame = Instantiate(framePrefab, frame.getTransform().position, frame.getTransform().rotation);
-        frame.SetGameObject(newFrame);
         frameList.Add(frame);
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB);
 
@@ -101,7 +100,6 @@ public class constructorController : MonoBehaviour
 
                 myXmlController.GetComponent<xmlController>().deleteFrameFromXMLList(pA, pB);
 
-                frameElement.SetGameObject(null);
                 Object.Destroy(frameObject);
                 frameList.Remove(frameElement);
 
@@ -213,7 +211,6 @@ public class constructorController : MonoBehaviour
         foreach (Frame frameElement in frameList)
         {
             GameObject frameObject = frameElement.GetGameObject();
-            frameElement.SetGameObject(null);
             Object.Destroy(frameObject);
             frameList.Remove(frameElement);
         }
@@ -246,7 +243,7 @@ public class constructorController : MonoBehaviour
 
     public void changeMaterial(int newMaterial)
     {
-        material = (buildingMaterials)newMaterial;
+        material = (steelMaterials)newMaterial;
         Debug.Log("new material: " + material);
     }
     public void changeDraw(bool change)
@@ -254,61 +251,6 @@ public class constructorController : MonoBehaviour
         // for debugging
         Debug.Log("draw: " + change);
     }
-}
-
-
-public class Frame { 
-	private Vector3 startPos;
-	private Vector3 endPos;
-	private Vector3 direction;
-	private float length;
-	private Vector3 angle;
-
-	private GameObject framePrefab;
-	private GameObject frameObject;
-
-	private Transform trans;
-
-	public Frame(Vector3 start, Vector3 end, GameObject framePrefab) {
-		startPos = start;
-		endPos = end;
-		
-		Vector3 between = end - start;
-    	float distance = between.magnitude;
-		length = distance;
-
-		Vector3 angletest = new Vector3(Vector3.Angle(between, framePrefab.transform.right), Vector3.Angle(between, framePrefab.transform.up), Vector3.Angle(between, framePrefab.transform.forward));
-
-		trans = framePrefab.transform;
-
-    	trans.position = start + (between / 2.0f);
-		trans.Rotate(angletest);
-    	trans.LookAt(end);
-		trans.localScale = new Vector3(.03f, .03f, distance);
-
-        this.framePrefab = framePrefab;
-	}
-
-	public Transform getTransform() {
-		return trans;
-	}
-	public Vector3 getDirection() {
-		return direction;
-	}
-	public Vector3 getStartPos() {
-		return startPos;
-	}
-	public Vector3 getEndPos() {
-		return endPos;
-	}
-
-	public GameObject GetGameObject() {
-		return frameObject;
-	}
-	public void SetGameObject(GameObject obj) {
-		frameObject = obj;
-	}
-
 }
 
 public class Area { }
