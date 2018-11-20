@@ -27,7 +27,7 @@ public class constructorController : MonoBehaviour
     List<Vector3> areaPoints = new List<Vector3>();
 
 
-    steelMaterials material = steelMaterials.A36_Grade_36;
+    
 
     void Awake()
     {
@@ -243,8 +243,8 @@ public class constructorController : MonoBehaviour
 
     public void changeMaterial(int newMaterial)
     {
-        material = (steelMaterials)newMaterial;
-        Debug.Log("new material: " + material);
+        //TODO: This function will be replaced entirely soon
+        Debug.Log("Change Material not implimented!");
     }
     public void changeDraw(bool change)
     {
