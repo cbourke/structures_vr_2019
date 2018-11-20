@@ -45,9 +45,10 @@ public class IFrameSection : FrameSection
 
     }
 
-    public IFrameSection(string name)
+    public IFrameSection(string name, BuildingMaterial material)
     {
         SetName(name);
+        SetMaterial(material);
     }
 
     public IFrameSection(string name, BuildingMaterial material, double outsideHeight, double topFlangeWidth, double topFlangeThickness, double webThickness, double bottomFlangeWidth, double bottomFlangeThickness)
@@ -133,9 +134,10 @@ public class PipeFrameSection : FrameSection
 
     }
 
-    public PipeFrameSection(string name)
+    public PipeFrameSection(string name, BuildingMaterial material)
     {
         SetName(name);
+        SetMaterial(material);
     }
 
     public PipeFrameSection(string name, double outsideDiameter, double wallThickness)
@@ -187,9 +189,10 @@ public class TubeFrameSection : FrameSection
 
     }
 
-    public TubeFrameSection(string name)
+    public TubeFrameSection(string name, BuildingMaterial material)
     {
         SetName(name);
+        SetMaterial(material);
     }
 
     public TubeFrameSection(string name, double outsideDepth, double outsideWidth, double flangeThickness, double webThickness)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -174,6 +174,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1096227065537474, guid: a00f7491a7d448f49a8ff7a9a16f2895,
         type: 2}
+    - target: {fileID: 114368873468224284, guid: 02ec97572a78fe3429d4aad824366914,
+        type: 2}
+      propertyPath: sectionController
+      value: 
+      objectReference: {fileID: 259498341}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02ec97572a78fe3429d4aad824366914, type: 2}
   m_IsPrefabAsset: 0
@@ -431,6 +436,47 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &259498341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 259498343}
+  - component: {fileID: 259498342}
+  m_Layer: 0
+  m_Name: sectionController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &259498342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 259498341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eea703156df4b34a800f31117dd5dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xmlController: {fileID: 463976302}
+--- !u!4 &259498343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 259498341}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.20847858, y: 0.87223756, z: 1.999291}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &295299416
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +637,47 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
+--- !u!1 &401961635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 401961637}
+  - component: {fileID: 401961636}
+  m_Layer: 0
+  m_Name: materialsController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &401961636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 401961635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f3d04655c67a64d9c557795f68c9ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xmlController: {fileID: 463976302}
+--- !u!4 &401961637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 401961635}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.20847858, y: 0.87223756, z: 1.999291}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &425715891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,6 +1503,11 @@ Prefab:
       propertyPath: constructorController
       value: 
       objectReference: {fileID: 1807594933}
+    - target: {fileID: 114316207108217750, guid: 49a8e40c72eab184caaae8a6ca7d3378,
+        type: 2}
+      propertyPath: structureSaveFileName
+      value: defaultStructure
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49a8e40c72eab184caaae8a6ca7d3378, type: 2}
   m_IsPrefabAsset: 0

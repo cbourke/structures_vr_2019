@@ -11,13 +11,14 @@ public class Frame : MonoBehaviour {
 	private Vector3 angle;
 
 	private GameObject frameObject;
-    //private buildingMaterials material;
+    private FrameSection sectionProperty;
 
 
 	private Transform trans;
 
-	public Frame(Vector3 start, Vector3 end, GameObject framePrefab)
+	public Frame(Vector3 start, Vector3 end, GameObject framePrefab, FrameSection section)
     {
+        sectionProperty = section;
 		frameObject = Instantiate(framePrefab);
 
 		startPos = start;
@@ -56,14 +57,15 @@ public class Frame : MonoBehaviour {
     {
 		return frameObject;
 	}
-    //public buildingMaterials GetMaterial()
-   // {
-    //    return material;
-   // }
-    //public void SetMaterial(buildingMaterials material)
-   // {
-	//	this.material = material;
-   // }
+    public Section getSectionProperty()
+    {
+        return sectionProperty;
+    }
+
+    public void setSectionProperty(FrameSection section)
+    {
+        sectionProperty = section;
+    }
 
 }
 

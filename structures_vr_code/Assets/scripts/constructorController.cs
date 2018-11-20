@@ -7,13 +7,13 @@ using System.Text.RegularExpressions;
 
 public class constructorController : MonoBehaviour
 {
+    public GameObject sectionController;
     public GameObject myXmlController;
     public GameObject framePrefab;
     public GameObject areaPrefab;
     public GameObject jointRestraintPrefab;
 
     public string structureSaveFileName = "testStructure";
-
 
     //StructuralElementsLists elementsListsForXML = new StructuralElementsLists();
 
@@ -22,6 +22,8 @@ public class constructorController : MonoBehaviour
     List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
     List<jointRestraint> jointRestraintList = new List<jointRestraint>();
+    List<BuildingMaterial> buildingMaterial = new List<BuildingMaterial>();
+    List<Section> sectionList = new List<Section>();
 
     List<Vector3> framePoints = new List<Vector3>();
     List<Vector3> areaPoints = new List<Vector3>();
@@ -77,7 +79,7 @@ public class constructorController : MonoBehaviour
 
     void createFrame(Vector3 pA, Vector3 pB)
     {
-        Frame frame = new Frame(pA, pB, framePrefab);
+        Frame frame = new Frame(pA, pB, framePrefab, sectionController.GetComponent<sectionController>().currentFrameSection);
         frameList.Add(frame);
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB);
 
