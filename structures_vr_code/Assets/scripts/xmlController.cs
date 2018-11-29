@@ -17,9 +17,49 @@ public class xmlController : MonoBehaviour
         //constructorController = transform.parent.gameObject;
     }
 
-    public void addFrameToXMLList(Vector3 pA, Vector3 pB)
+    public void addBuildingMaterialToXMLList(BuildingMaterial buildingMaterial)
     {
-        elementsListsForXML.frameForXMLList.Add(new FrameForXML(pA, pB));
+        elementsListsForXML.buildingMaterialForXMLList.Add(buildingMaterial);
+        saveToXML();
+    }
+
+    public void deletebuildingMaterialFromXMLList(BuildingMaterial buildingMaterial)
+    {
+        foreach (BuildingMaterial existingbuildingMaterial in elementsListsForXML.buildingMaterialForXMLList)
+        {
+            if (existingbuildingMaterial.GetName() == buildingMaterial.GetName())
+            {
+                elementsListsForXML.buildingMaterialForXMLList.Remove(buildingMaterial);
+                break;
+            }
+
+        }
+        saveToXML();
+    }
+
+    public void addFrameSectionToXMLList(FrameSection frameSection)
+    {
+        elementsListsForXML.frameSectionForXMLList.Add(frameSection);
+        saveToXML();
+    }
+
+    public void deleteFrameFromXMLList(FrameSection frameSection)
+    {
+        foreach (FrameSection existingFrameSection in elementsListsForXML.frameSectionForXMLList)
+        {
+            if (existingFrameSection.GetName() == frameSection.GetName())
+            {
+                elementsListsForXML.frameSectionForXMLList.Remove(existingFrameSection);
+                break;
+            }
+
+        }
+        saveToXML();
+    }
+
+    public void addFrameToXMLList(Vector3 pA, Vector3 pB, string sectionName)
+    {
+        elementsListsForXML.frameForXMLList.Add(new FrameForXML(pA, pB, sectionName));
         saveToXML();
     }
 
@@ -101,6 +141,12 @@ public class xmlController : MonoBehaviour
 [XmlRoot("StructuralElementsLists")]
 public class StructuralElementsLists
 {
+    [XmlArray("buildingMaterialForXMLArray"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
+    public List<BuildingMaterial> buildingMaterialForXMLList { get; set; }
+
+    [XmlArray("frameSectionForXMLArray"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
+    public List<FrameSection> frameSectionForXMLList { get; set; }
+
     [XmlArray("frameForXMLArray"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
     public List<FrameForXML> frameForXMLList { get; set; }
 
@@ -125,7 +171,7 @@ public class FrameForXML
     {
         // Empty constructor needed for XML serialization
     }
-    public FrameForXML(Vector3 pointA, Vector3 pointB)
+    public FrameForXML(Vector3 pointA, Vector3 pointB, string sectionName)
     {
         startPos = pointA;
         endPos = pointB;

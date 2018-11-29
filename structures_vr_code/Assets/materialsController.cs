@@ -37,6 +37,6 @@ public class materialsController : MonoBehaviour {
     public void addBuildingMaterial(BuildingMaterial newMaterial)
     {
         buildingMaterials.Add(newMaterial);
-        //xmlController.GetComponent<xmlController>().addMaterialToXMLList(newMaterial);
+        xmlController.GetComponent<xmlController>().addBuildingMaterialToXMLList(newMaterial);
     }
 }

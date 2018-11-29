@@ -101,7 +101,7 @@ public class BuildingMaterial {
         }
     }
 
-    public string GetUserDefinedName()
+    public string GetName()
     {
         return userDefinedName;
     }

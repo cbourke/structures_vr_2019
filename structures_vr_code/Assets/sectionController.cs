@@ -15,6 +15,6 @@ public class sectionController : MonoBehaviour {
         currentFrameSection = defaultFrameSection;
 	}
 
-    public
+    
 	
 }

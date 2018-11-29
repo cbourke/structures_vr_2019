@@ -11,14 +11,14 @@ public class Frame : MonoBehaviour {
 	private Vector3 angle;
 
 	private GameObject frameObject;
-    private FrameSection sectionProperty;
+    private string sectionPropertyName;
 
 
 	private Transform trans;
 
 	public Frame(Vector3 start, Vector3 end, GameObject framePrefab, FrameSection section)
     {
-        sectionProperty = section;
+        sectionPropertyName = section.GetName();
 		frameObject = Instantiate(framePrefab);
 
 		startPos = start;
@@ -57,14 +57,14 @@ public class Frame : MonoBehaviour {
     {
 		return frameObject;
 	}
-    public Section getSectionProperty()
+    public string getSectionPropertyName()
     {
-        return sectionProperty;
+        return sectionPropertyName;
     }
 
     public void setSectionProperty(FrameSection section)
     {
-        sectionProperty = section;
+        sectionPropertyName = section.GetName();
     }
 
 }
