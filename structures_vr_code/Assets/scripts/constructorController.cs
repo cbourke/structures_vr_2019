@@ -22,8 +22,6 @@ public class constructorController : MonoBehaviour
     List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
     List<jointRestraint> jointRestraintList = new List<jointRestraint>();
-    List<BuildingMaterial> buildingMaterial = new List<BuildingMaterial>();
-    List<Section> sectionList = new List<Section>();
 
     List<Vector3> framePoints = new List<Vector3>();
     List<Vector3> areaPoints = new List<Vector3>();

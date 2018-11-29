@@ -119,6 +119,7 @@ public class FrameForXML
 {
     public Vector3 startPos { get; set; }
     public Vector3 endPos { get; set; }
+    public string sectionPropertyName { get; set; }
 
     public FrameForXML()
     {

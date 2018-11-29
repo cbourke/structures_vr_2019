@@ -7,7 +7,7 @@ namespace Valve.VR.InteractionSystem{
 
     public class pointer : MonoBehaviour {
         public float maxRayLength = 5;
-	    public float rayRadius = .05f;
+        public float rayRadius = .05f;
 	    public float laserWidth = 0.01f;
         public bool isEraser = false;
         public string workingElement = "frame";
@@ -34,8 +34,9 @@ namespace Valve.VR.InteractionSystem{
  
 
 	    void Update() {
-		    ShootLaserFromTargetPosition( transform.position, transform.forward, maxRayLength );
-	    }
+            float scaledRayLength = maxRayLength * transform.lossyScale.x;
+            ShootLaserFromTargetPosition(transform.position, transform.forward, scaledRayLength);
+        }
  
 	    void ShootLaserFromTargetPosition( Vector3 targetPosition, Vector3 direction, float maxLength ) {
 		    direction.y = direction.y - .5f; //adjust the angle of the laser down

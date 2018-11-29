@@ -8,9 +8,13 @@ public class sectionController : MonoBehaviour {
 
     private static FrameSection defaultFrameSection = new IFrameSection("FSEC1", materialsController.defaultBuildingMaterial);
 
+    private 
+
 	// Use this for initialization
 	void Start () {
         currentFrameSection = defaultFrameSection;
 	}
+
+    public
 	
 }
