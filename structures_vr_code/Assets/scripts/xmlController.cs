@@ -43,6 +43,17 @@ public class xmlController : MonoBehaviour
         saveToXML();
     }
 
+    public void deleteBuildingMaterialWithName(string name)
+    {
+        foreach (BuildingMaterial bm in elementsListsForXML.buildingMaterialForXMLList)
+        {
+            if (bm.GetName() == name)
+            {
+                elementsListsForXML.buildingMaterialForXMLList.Remove(bm);
+            }
+        }
+    }
+
     public void deleteFrameFromXMLList(FrameSection frameSection)
     {
         foreach (FrameSection existingFrameSection in elementsListsForXML.frameSectionForXMLList)

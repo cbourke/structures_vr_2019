@@ -39,4 +39,27 @@ public class materialsController : MonoBehaviour {
         buildingMaterials.Add(newMaterial);
         xmlController.GetComponent<xmlController>().addBuildingMaterialToXMLList(newMaterial);
     }
+
+    public BuildingMaterial findBuildingMaterialWithName(string name)
+    {
+        foreach(BuildingMaterial bm in buildingMaterials)
+        {
+            if (bm.GetName() == name) {
+                return bm;
+            }
+        }
+        return null;
+    }
+
+    public void deleteBuildingMaterialWithName(string name)
+    {
+        xmlController.GetComponent<xmlController>().deleteBuildingMaterialWithName(name);
+        foreach (BuildingMaterial bm in buildingMaterials)
+        {
+            if (bm.GetName() == name)
+            {
+                buildingMaterials.Remove(bm);
+            }
+        }
+    }
 }
