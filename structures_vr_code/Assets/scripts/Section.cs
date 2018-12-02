@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Section {
-    private string userDefinedName = "Default_Section_Name";
+    protected string userDefinedName = "Default_Section_Name";
 
     public void SetName(string newName) {
         userDefinedName = newName;
@@ -18,230 +18,154 @@ public class Section {
 
 public class FrameSection : Section
 {
-    private BuildingMaterial material;
+    //private BuildingMaterial material;
+    // We only need a reference to the name of a BuildingMaterial, this makes serialization easier
+    private string buildingMaterialName;
+    private FrameSectionType type;
+    private double[] dimensions = new double[6];
+
+    public FrameSection(string name, BuildingMaterial buildingMaterial, FrameSectionType type)
+    {
+        userDefinedName = name;
+        buildingMaterialName = buildingMaterial.GetName();
+        this.type = type;
+
+        switch (type)
+        {
+            case FrameSectionType.I:
+                {
+                    SetIDimensions(0.3048, 0.127, 0.009652, 0.006350, 0.127, 0.009652);
+                    break;
+                }
+            case FrameSectionType.Pipe:
+                {
+                    SetPipeDimensions(0.1524, 0.00635);
+                    break;
+                }
+            case FrameSectionType.Tube:
+                {
+                    SetTubeDimensions(0.1524, 0.1016, 0.006350, 0.006350);
+                    break;
+                }
+        }
+    }
 
     public void SetMaterial(BuildingMaterial newMaterial) {
-        material = newMaterial;
+        buildingMaterialName = newMaterial.GetName();
     }
-    public BuildingMaterial GetMaterial() {
-        return material;
-    }
-}
-
-
-
-
-public class IFrameSection : FrameSection
-{
-    private double outsideHeight = 0.3048; //SAP's default value in meters
-    private double topFlangeWidth = 0.127; //SAP's default value in meters
-    private double topFlangeThickness = 0.009652; //SAP's default value in meters
-    private double webThickness = 0.006350; //SAP's default value in meters
-    private double bottomFlangeWidth = 0.127; //SAP's default value in meters
-    private double bottomFlangeThickness = 0.009652; //SAP's default value in meters
-
-    public IFrameSection()
+    public void SetMaterial(string newMaterialName)
     {
-
+        buildingMaterialName = newMaterialName;
+    }
+    public string GetMaterialName() {
+        return buildingMaterialName;
     }
 
-    public IFrameSection(string name, BuildingMaterial material)
+    public void SetIDimensions(double outsideHeight, double topFlangeWidth, double topFlangeThickness, double webThickness, double bottomFlangeWidth, double bottomFlangeThickness)
     {
-        SetName(name);
-        SetMaterial(material);
+        dimensions[0] = outsideHeight;
+        dimensions[1] = topFlangeWidth;
+        dimensions[2] = topFlangeThickness;
+        dimensions[3] = webThickness;
+        dimensions[4] = bottomFlangeWidth;
+        dimensions[5] = bottomFlangeThickness;
+    }
+    public void SetPipeDimensions(double outsideDiameter, double wallThickness)
+    {
+        dimensions[0] = outsideDiameter;
+        dimensions[1] = wallThickness;
+        dimensions[2] = 0.0;
+        dimensions[3] = 0.0;
+        dimensions[4] = 0.0;
+        dimensions[5] = 0.0;
+    }
+    public void SetTubeDimensions(double outsideDepth, double outsideWidth, double flangeThickness, double webThickness)
+    {
+        dimensions[0] = outsideDepth;
+        dimensions[1] = outsideWidth;
+        dimensions[2] = flangeThickness;
+        dimensions[3] = webThickness;
+        dimensions[4] = 0.0;
+        dimensions[5] = 0.0;
+    }
+    public void SetRawDimensions(double dim0, double dim1, double dim2, double dim3, double dim4, double dim5)
+    {
+        dimensions[0] = dim0;
+        dimensions[1] = dim1;
+        dimensions[2] = dim2;
+        dimensions[3] = dim3;
+        dimensions[4] = dim4;
+        dimensions[5] = dim5;
     }
 
-    public IFrameSection(string name, BuildingMaterial material, double outsideHeight, double topFlangeWidth, double topFlangeThickness, double webThickness, double bottomFlangeWidth, double bottomFlangeThickness)
+    public double[] GetDimensions()
     {
-        SetName(name);
-        SetMaterial(material);
-        SetDimensions(outsideHeight, topFlangeWidth, topFlangeThickness, webThickness, bottomFlangeWidth, bottomFlangeThickness);
-    }
-
-
-    public void SetDimensions(double outsideHeight, double topFlangeWidth, double topFlangeThickness, double webThickness, double bottomFlangeWidth, double bottomFlangeThickness)
-    {
-        SetOutsideHeight(outsideHeight);
-        SetTopFlangeWidth(topFlangeWidth);
-        SetTopFlangeThickness(topFlangeThickness);
-        SetWebThickness(webThickness);
-        SetBottomFlangeWidth(bottomFlangeWidth);
-        SetBottomFlangeThickness(bottomFlangeThickness);
-    }
-
-
-    public void SetOutsideHeight(double newOutsideHeight)
-    {
-        outsideHeight = newOutsideHeight;
-    }
-    public void SetTopFlangeWidth(double newTopFlangeWidth)
-    {
-        topFlangeWidth = newTopFlangeWidth;
-    }
-    public void SetTopFlangeThickness(double newTopFlangeThickness)
-    {
-        topFlangeThickness = newTopFlangeThickness;
-    }
-    public void SetWebThickness(double newWebThickness)
-    {
-        webThickness = newWebThickness;
-    }
-    public void SetBottomFlangeWidth(double newBottomFlangeWidth)
-    {
-        bottomFlangeWidth = newBottomFlangeWidth;
-    }
-    public void SetBottomFlangeThickness(double newBottomFlangeThickness)
-    {
-        bottomFlangeThickness = newBottomFlangeThickness;
-    }
-
-    public double GetOutsideHeight()
-    {
-        return outsideHeight;
-    }
-    public double GetTopFlangeWidth()
-    {
-        return topFlangeWidth;
-    }
-    public double GetTopFlangeThickness()
-    {
-        return topFlangeThickness;
-    }
-    public double GetWebThickness()
-    {
-        return webThickness;
-    }
-    public double GetBottomFlangeWidth()
-    {
-        return bottomFlangeWidth;
-    }
-    public double GetBottomFlangeThickness()
-    {
-        return bottomFlangeThickness;
-    }
-}
-
-
-
-
-public class PipeFrameSection : FrameSection
-{
-    private double outsideDiameter = 0.1524; //SAP's default value in meters
-    private double wallThickness = 0.00635; //SAP's default value in meters
-
-    public PipeFrameSection()
-    {
-
-    }
-
-    public PipeFrameSection(string name, BuildingMaterial material)
-    {
-        SetName(name);
-        SetMaterial(material);
-    }
-
-    public PipeFrameSection(string name, double outsideDiameter, double wallThickness)
-    {
-        SetName(name);
-        SetDimensions(outsideDiameter, wallThickness);
+        return dimensions;
     }
 
 
-    public void SetDimensions(double outsideDiameter, double wallThickness)
+    public double GetIOutsideHeight()
     {
-        SetOutsideDiameter(outsideDiameter);
-        SetWallThickness(wallThickness);
+        if (type == FrameSectionType.I) return dimensions[0];
+        else return 0.0;
+    }
+    public double GetITopFlangeWidth()
+    {
+        if (type == FrameSectionType.I) return dimensions[1];
+        else return 0.0;
+    }
+    public double GetITopFlangeThickness()
+    {
+        if (type == FrameSectionType.I) return dimensions[2];
+        else return 0.0;
+    }
+    public double GetIWebThickness()
+    {
+        if (type == FrameSectionType.I) return dimensions[3];
+        else return 0.0;
+    }
+    public double GetIBottomFlangeWidth()
+    {
+        if (type == FrameSectionType.I) return dimensions[4];
+        else return 0.0;
+    }
+    public double GetIBottomFlangeThickness()
+    {
+        if (type == FrameSectionType.I) return dimensions[5];
+        else return 0.0;
     }
 
 
-    public void SetOutsideDiameter(double newOutsideDiameter)
+    public double GetPipeOutsideDiameter()
     {
-        outsideDiameter = newOutsideDiameter;
+        if (type == FrameSectionType.Pipe) return dimensions[0];
+        else return 0.0;
     }
-    public void SetWallThickness(double newWallThickness)
+    public double GetPipeWallThickness()
     {
-        wallThickness = newWallThickness;
-    }
-
-    public double GetOutsideDiameter()
-    {
-        return outsideDiameter;
-    }
-    public double GetWallThickness()
-    {
-        return wallThickness;
-    }
-
-}
-
-
-
-
-public class TubeFrameSection : FrameSection
-{
-    private double outsideDepth = 0.1524; //SAP's default value in meters
-    private double outsideWidth = 0.1016; //SAP's default value in meters
-    private double flangeThickness = 0.006350; //SAP's default value in meters
-    private double webThickness = 0.006350; //SAP's default value in meters
-
-    public TubeFrameSection()
-    {
-
-    }
-
-    public TubeFrameSection(string name, BuildingMaterial material)
-    {
-        SetName(name);
-        SetMaterial(material);
-    }
-
-    public TubeFrameSection(string name, double outsideDepth, double outsideWidth, double flangeThickness, double webThickness)
-    {
-        SetName(name);
-        SetDimensions(outsideDepth, outsideWidth, flangeThickness, webThickness);
+        if (type == FrameSectionType.Pipe) return dimensions[1];
+        else return 0.0;
     }
 
 
-    public void SetDimensions(double outsideDepth, double outsideWidth, double flangeThickness, double webThickness)
+    public double GetTubeOutsideDepth()
     {
-        SetOutsideDepth(outsideDepth);
-        SetOutsideWidth(outsideWidth);
-        SetFlangeThickness(flangeThickness);
-        SetWebThickness(webThickness);
+        if (type == FrameSectionType.Tube) return dimensions[0];
+        else return 0.0;
     }
-
-
-    public void SetOutsideDepth(double newOutsideDepth)
+    public double GetTubeOutsideWidth()
     {
-        outsideDepth = newOutsideDepth;
+        if (type == FrameSectionType.Tube) return dimensions[1];
+        else return 0.0;
     }
-    public void SetOutsideWidth(double newOutsideWidth)
+    public double GetTubeFlangeThickness()
     {
-        outsideWidth = newOutsideWidth;
+        if (type == FrameSectionType.Tube) return dimensions[2];
+        else return 0.0;
     }
-    public void SetFlangeThickness(double newFlangeThickness)
+    public double GetTubeWebThickness()
     {
-        flangeThickness = newFlangeThickness;
-    }
-    public void SetWebThickness(double newWebThickness)
-    {
-        webThickness = newWebThickness;
-    }
-
-    public double GetOutsideDepth()
-    {
-        return outsideDepth;
-    }
-    public double GetOutsideWidth()
-    {
-        return outsideWidth;
-    }
-    public double GetFlangeThickness()
-    {
-        return flangeThickness;
-    }
-    public double GetWebThickness()
-    {
-        return webThickness;
+        if (type == FrameSectionType.Tube) return dimensions[3];
+        else return 0.0;
     }
 }
