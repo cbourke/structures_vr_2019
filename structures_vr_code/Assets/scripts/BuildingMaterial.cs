@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BuildingMaterial {
     private string userDefinedName = "Default_Material_Name";
-    private int region = BuildingMaterialAttributes.Regions.UNITEDSTATES;
-    private int type = BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL;
-    private int standard = BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A992;
-    private int grade = BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A992Grades.GRADE_50;
+    private string region = BuildingMaterialAttributes.Regions.UNITEDSTATES;
+    private string type = BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL;
+    private string standard = BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A992;
+    private string grade = BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A992Grades.GRADE_50;
 
     public BuildingMaterial() // If constructed with no arguments (This is needed for xml serialization, I think?)
     {
@@ -19,13 +19,13 @@ public class BuildingMaterial {
         SetName(givenName);
     }
 
-    public BuildingMaterial(string givenName, int region, int type, int standard, int grade)
+    public BuildingMaterial(string givenName, string region, string type, string standard, string grade)
     {
         SetName(givenName);
         SetAttributes(region, type, standard, grade);
     }
 
-    public void SetAttributes(int region, int type, int standard, int grade)
+    public void SetAttributes(string region, string type, string standard, string grade)
     {
         SetRegion(region);
         if (region == this.region) // If setRegion was successful
@@ -56,49 +56,24 @@ public class BuildingMaterial {
         userDefinedName = newName;
     }
 
-    public void SetRegion(int newRegion) // Must be valid in BuildingMaterialAttributes.cs
+    public void SetRegion(string newRegion) // Must be valid in BuildingMaterialAttributes.cs
     {
-        if(System.Array.BinarySearch(BuildingMaterialAttributes.Regions.members, newRegion) >= 0) {
-            region = newRegion;
-            type = region + 1000;
-            standard = type + 100;
-            grade = standard + 10;
-        } else {
-            Debug.Log("Could not change region of material \"" + userDefinedName + "\".");
-        }
+        region = newRegion;
     }
 
-    public void SetType(int newType) // We only need to check validity within domain of defined constants, not all numbers...
+    public void SetType(string newType) // We only need to check validity within domain of defined constants, not all numbers...
     {
-        // Check that the 5th digit from right is the same for type and region (using integer division)
-        if (newType / 10000 == region / 10000) {
-            type = newType;
-            standard = type + 100;
-            grade = standard + 10;
-        } else {
-            Debug.Log("Could not change type of material \"" + userDefinedName + "\".");
-        }
+        type = newType;
     }
 
-    public void SetStandard(int newStandard)
+    public void SetStandard(string newStandard)
     {
-        // Check that the 5th and 4th digits from right are the same for standard and type (using integer division)
-        if (newStandard / 1000 == type / 1000) {
-            standard = newStandard;
-            grade = standard + 10;
-        } else {
-            Debug.Log("Could not change standard of material \"" + userDefinedName + "\".");
-        }
+        standard = newStandard;
     }
 
-    public void SetGrade(int newGrade)
+    public void SetGrade(string newGrade)
     {
-        // Check that the 5th, 4th, and 3rd digits from right are the same for grade and standard (using integer division)
-        if (newGrade / 100 == standard / 100) {
-            grade = newGrade;
-        } else {
-            Debug.Log("Could not change grade of material \"" + userDefinedName + "\".");
-        }
+        grade = newGrade;
     }
 
     public string GetName()
@@ -106,22 +81,22 @@ public class BuildingMaterial {
         return userDefinedName;
     }
 
-    public int GetRegion()
+    public string GetRegion()
     {
         return region;
     }
 
-    public int GetMaterialType()
+    public string GetMaterialType()
     {
         return type;
     }
 
-    public int GetStandard()
+    public string GetStandard()
     {
         return standard;
     }
 
-    public int GetGrade()
+    public string GetGrade()
     {
         return grade;
     }

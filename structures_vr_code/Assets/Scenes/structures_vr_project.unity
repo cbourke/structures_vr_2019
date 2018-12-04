@@ -464,6 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xmlController: {fileID: 463976302}
+  materialsController: {fileID: 401961635}
 --- !u!4 &259498343
 Transform:
   m_ObjectHideFlags: 0
@@ -506,6 +507,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   constructorController: {fileID: 1807594933}
   xmlController: {fileID: 463976302}
+  materialController: {fileID: 401961635}
+  sectionController: {fileID: 259498341}
 --- !u!4 &295299418
 Transform:
   m_ObjectHideFlags: 0

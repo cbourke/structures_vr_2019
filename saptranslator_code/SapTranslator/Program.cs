@@ -133,7 +133,7 @@ namespace SapTranslator
             //create new blank model
             ret = mySapModel.File.NewBlank();
 
-
+            /*
             //define material property
             ret = mySapModel.PropMaterial.SetMaterial("CONC", eMatType.Concrete, -1, "", "");
 
@@ -160,7 +160,7 @@ namespace SapTranslator
             ModValue[2] = 0;
 
             ret = mySapModel.PropFrame.SetModifiers("R1", ref ModValue);
-
+            */
 
             //switch to kN-m units
             ret = mySapModel.SetPresentUnits(eUnits.kN_m_C);
@@ -175,18 +175,62 @@ namespace SapTranslator
                 StructuralElementsLists elementsLists = (StructuralElementsLists)serializer.Deserialize(reader);
                 reader.Close();
 
+                // Define material properties:
+                foreach (BuildingMaterialForXML mat in elementsLists.buildingMaterialForXMLList)
+                {
+                    eMatType sapType = eMatType.Steel;
+                    switch (mat.type)
+                    {
+                        case "steel": { sapType = eMatType.Steel; break; }
+                        case "concrete": { sapType = eMatType.Concrete; break; }
+                        case "aluminum": { sapType = eMatType.Aluminum; break; }
+                        case "coldformed": { sapType = eMatType.ColdFormed; break; }
+                        case "rebar": { sapType = eMatType.Rebar; break; }
+                        case "tendon": { sapType = eMatType.Tendon; break; }
+                    }
+                    string retName = "";
+                    ret = mySapModel.PropMaterial.AddMaterial(ref retName, sapType, mat.region, mat.standard, mat.grade, mat.name);
+                    Console.WriteLine("Adding material \"" + mat.name + "\"...");
+                }
+
+
+                // Define section properties:
+                foreach (FrameSectionForXML fsec in elementsLists.frameSectionForXMLList)
+                {
+                    switch (fsec.type)
+                    {
+                        case (int)FrameSectionType.I:
+                            {
+                                mySapModel.PropFrame.SetISection(fsec.name, fsec.buildingMaterialName, fsec.dimensions[0], fsec.dimensions[1], fsec.dimensions[2], fsec.dimensions[3], fsec.dimensions[4], fsec.dimensions[5]);
+                                break;
+                            }
+                        case (int)FrameSectionType.Pipe:
+                            {
+                                mySapModel.PropFrame.SetPipe(fsec.name, fsec.buildingMaterialName, fsec.dimensions[0], fsec.dimensions[1]);
+                                break;
+                            }
+                        case (int)FrameSectionType.Tube:
+                            {
+                                mySapModel.PropFrame.SetTube(fsec.name, fsec.buildingMaterialName, fsec.dimensions[0], fsec.dimensions[1], fsec.dimensions[2], fsec.dimensions[3]);
+                                break;
+                            }
+                    }
+                    Console.WriteLine("Adding section \"" +  fsec.name + "\"...");
+                }
+
                 // Put Frames in:
 
                 int numberOfFrames = elementsLists.frameForXMLList.Count();
 
                 //foreach (FrameForXML frame in elementsLists.frameForXMLList)
                 string[] FrameName = new string[numberOfFrames];
+                int i;
                 for (i = 0; i < numberOfFrames; i++)
                 {
                     FrameForXML frame = elementsLists.frameForXMLList.ElementAt(i);
                     Console.WriteLine("Adding frame " + (i + 1) + " of " + numberOfFrames + "...");
                     string temp_string1 = "";
-                    ret = mySapModel.FrameObj.AddByCoord(frame.startPos.x, frame.startPos.z, frame.startPos.y, frame.endPos.x, frame.endPos.z, frame.endPos.y, ref temp_string1, "R1", "1", "Global");
+                    ret = mySapModel.FrameObj.AddByCoord(frame.startPos.x, frame.startPos.z, frame.startPos.y, frame.endPos.x, frame.endPos.z, frame.endPos.y, ref temp_string1, frame.sectionPropertyName, "", "Global");
                     FrameName[i] = temp_string1;
                 }
 
@@ -546,6 +590,7 @@ namespace SapTranslator
         {
             startPos = pointA;
             endPos = pointB;
+            sectionPropertyName = sectionName;
         }
     }
 
@@ -581,17 +626,17 @@ namespace SapTranslator
     public class BuildingMaterialForXML
     {
         public string name { get; set; }
-        public int region { get; set; }
-        public int type { get; set; }
-        public int standard { get; set; }
-        public int grade { get; set; }
+        public string region { get; set; }
+        public string type { get; set; }
+        public string standard { get; set; }
+        public string grade { get; set; }
 
         public BuildingMaterialForXML() // If constructed with no arguments (This is needed for xml serialization, I think?)
         {
             // Empty constructor needed for XML serialization
         }
 
-        public BuildingMaterialForXML(string givenName, int region, int type, int standard, int grade)
+        public BuildingMaterialForXML(string givenName, string region, string type, string standard, string grade)
         {
             name = givenName;
             this.region = region;
@@ -626,4 +671,20 @@ namespace SapTranslator
             }
         }
     }
+
+    public enum FrameSectionType
+    {
+        I,
+        Channel,
+        Tee,
+        Angle,
+        DoubleAngle,
+        DoubleChannel,
+        Pipe,
+        Tube,
+        Rectangular,
+        Circular
+    }
+
 }
+

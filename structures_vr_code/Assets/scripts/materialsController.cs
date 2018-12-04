@@ -12,7 +12,7 @@ public class materialsController : MonoBehaviour {
 
     private void Start()
     {
-        addBuildingMaterial(defaultBuildingMaterial);
+       // addBuildingMaterial(defaultBuildingMaterial);
         currentMaterial = defaultBuildingMaterial;
     }
 
@@ -28,7 +28,7 @@ public class materialsController : MonoBehaviour {
         addBuildingMaterial(newMaterial);
     }
 
-    public void addBuildingMaterial(string givenName, int region, int type, int standard, int grade)
+    public void addBuildingMaterial(string givenName, string region, string type, string standard, string grade)
     {
         BuildingMaterial newMaterial = new BuildingMaterial(givenName, region, type, standard, grade);
         addBuildingMaterial(newMaterial);
@@ -42,10 +42,14 @@ public class materialsController : MonoBehaviour {
 
     public BuildingMaterial findBuildingMaterialWithName(string name)
     {
-        foreach(BuildingMaterial bm in buildingMaterials)
+        if (buildingMaterials.Count > 0)
         {
-            if (bm.GetName() == name) {
-                return bm;
+            foreach (BuildingMaterial bm in buildingMaterials)
+            {
+                if (bm.GetName().Equals(name))
+                {
+                    return bm;
+                }
             }
         }
         return null;
@@ -61,7 +65,21 @@ public class materialsController : MonoBehaviour {
         }
         if (buildingMaterials.Count == 0)
         {
-            addBuildingMaterial(defaultBuildingMaterial);
+            //addBuildingMaterial(defaultBuildingMaterial);
         }
+    }
+
+    public void setCurrentMaterial(string name)
+    {
+        BuildingMaterial bm = findBuildingMaterialWithName(name);
+        if (bm != null)
+        {
+            currentMaterial = bm;
+        }
+    }
+
+    public BuildingMaterial GetCurrentBuildingMaterial()
+    {
+        return currentMaterial;
     }
 }

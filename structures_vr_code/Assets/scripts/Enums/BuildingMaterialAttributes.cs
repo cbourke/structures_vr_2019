@@ -6,99 +6,99 @@ public static class BuildingMaterialAttributes
     public static class Regions
     {
 
-        public const int CHINA = 10000; // Not yet implemented
-        public const int EUROPE = 20000; // Not yet implemented
-        public const int INDIA = 30000; // Not yet implemented
-        public const int ITALY = 40000; // Not yet implemented
-        public const int NEWZEALAND = 50000; // Not yet implemented
-        public const int RUSSIA = 60000; // Not yet implemented
-        public const int SPAIN = 70000; // Not yet implemented
-        public const int UNITEDSTATES = 80000;
-        public const int VIETNAM = 90000; // Not yet implemented
-        public static int[] members = { CHINA, EUROPE, INDIA, ITALY, NEWZEALAND, RUSSIA, SPAIN, UNITEDSTATES, VIETNAM };
+        public const string CHINA = "China"; // Not yet implemented
+        public const string EUROPE = "Europe"; // Not yet implemented
+        public const string INDIA = "India"; // Not yet implemented
+        public const string ITALY = "Italy"; // Not yet implemented
+        public const string NEWZEALAND = "New Zealand"; // Not yet implemented
+        public const string RUSSIA = "Russia"; // Not yet implemented
+        public const string SPAIN = "Spain"; // Not yet implemented
+        public const string UNITEDSTATES = "United States";
+        public const string VIETNAM = "Vietnam"; // Not yet implemented
+        public static string[] members = { CHINA, EUROPE, INDIA, ITALY, NEWZEALAND, RUSSIA, SPAIN, UNITEDSTATES, VIETNAM };
 
         public static class UnitedStatesTypes
         {
-            public const int STEEL = 81000;
-            public const int CONCRETE = 82000;
-            public const int ALUMINUM = 83000;
-            public const int COLDFORMED = 84000;
-            public const int REBAR = 85000;
-            public const int TENDON = 85000;
-            public static int[] members = { STEEL, CONCRETE, ALUMINUM, COLDFORMED, REBAR, TENDON };
+            public const string STEEL = "steel";
+            public const string CONCRETE = "concrete";
+            public const string ALUMINUM = "aluminum";
+            public const string COLDFORMED = "coldformed";
+            public const string REBAR = "rebar";
+            public const string TENDON = "tendon";
+            public static string[] members = { STEEL, CONCRETE, ALUMINUM, COLDFORMED, REBAR, TENDON };
 
             public static class SteelStandards
             {
-                public const int A36 = 81100;
-                public const int A53 = 81200;
-                public const int A500 = 81300;
-                public const int A572 = 81400;
-                public const int A913 = 81500;
-                public const int A992 = 81600;
-                public const int A702 = 81700;
-                public static int[] members = { A36, A53, A500, A572, A913, A992, A702 };
+                public const string A36 = "ASTM A36";
+                public const string A53 = "ASTM A53";
+                public const string A500 = "ASTM A500";
+                public const string A572 = "ASTM A572";
+                public const string A913 = "ASTM A913";
+                public const string A992 = "ASTM A992";
+                public const string A709 = "ASTM A709";
+                public static string[] members = { A36, A53, A500, A572, A913, A992, A709 };
 
                 public static class A36Grades
                 {
-                    public const int GRADE_36 = 81110;
-                    public static int[] members = { GRADE_36 };
+                    public const string GRADE_36 = "Grade 36";
+                    public static string[] members = { GRADE_36 };
                 }
                 public static class A53Grades
                 {
-                    public const int GRADE_B = 81210;
-                    public static int[] members = { GRADE_B };
+                    public const string GRADE_B = "Grade B";
+                    public static string[] members = { GRADE_B };
                 }
                 public static class A500Grades
                 {
-                    public const int GRADE_B_fy_42 = 81310;
-                    public const int GRADE_B_fy_46 = 81320;
-                    public const int GRADE_C = 81330;
-                    public static int[] members = { GRADE_B_fy_42, GRADE_B_fy_46, GRADE_C };
+                    public const string GRADE_B_fy_42 = "Grade B, Fy 42 (HSS Round)";
+                    public const string GRADE_B_fy_46 = "Grade B, Fy 46 (HSS Rect.)";
+                    public const string GRADE_C = "Grade C";
+                    public static string[] members = { GRADE_B_fy_42, GRADE_B_fy_46, GRADE_C };
                 }
                 public static class A572Grades
                 {
-                    public const int GRADE_50 = 81410;
-                    public static int[] members = { GRADE_50 };
+                    public const string GRADE_50 = "Grade 50";
+                    public static string[] members = { GRADE_50 };
                 }
                 public static class A913Grades
                 {
-                    public const int GRADE_50 = 81510;
-                    public static int[] members = { GRADE_50 };
+                    public const string GRADE_50 = "Grade 50";
+                    public static string[] members = { GRADE_50 };
                 }
                 public static class A992Grades
                 {
-                    public const int GRADE_50 = 81610;
-                    public static int[] members = { GRADE_50 };
+                    public const string GRADE_50 = "Grade 50";
+                    public static string[] members = { GRADE_50 };
                 }
                 public static class A709Grades
                 {
-                    public const int GRADE_36 = 81610;
-                    public const int GRADE_50 = 81620;
-                    public const int GRADE_50S = 81630;
-                    public const int GRADE_50W = 81640;
-                    public const int GRADE_HPS_50W = 81650;
-                    public const int GRADE_HPS_70W = 81660;
-                    public const int GRADE_HPS_100W = 81670;
-                    public static int[] members = { GRADE_36, GRADE_50, GRADE_50S, GRADE_50W, GRADE_HPS_50W, GRADE_HPS_70W, GRADE_HPS_100W };
+                    public const string GRADE_36 = "Grade 36";
+                    public const string GRADE_50 = "Grade 50";
+                    public const string GRADE_50S = "Grade 50S";
+                    public const string GRADE_50W = "Grade 50W";
+                    public const string GRADE_HPS_50W = "Grade HPS 50W";
+                    public const string GRADE_HPS_70W = "Grade HPS 70W";
+                    public const string GRADE_HPS_100W = "Grade HPS 100W";
+                    public static string[] members = { GRADE_36, GRADE_50, GRADE_50S, GRADE_50W, GRADE_HPS_50W, GRADE_HPS_70W, GRADE_HPS_100W };
                 }
             }
 
             public static class ConcreteStandards
             {
-                public const int CUSTOMARY = 82100;
-                public static int[] members = { CUSTOMARY };
+                public const string CUSTOMARY = "Customary";
+                public static string[] members = { CUSTOMARY };
 
                 public static class CustomaryGrades
                 {
-                    public const int GRADE_fc3000psi = 82110;
-                    public const int GRADE_fc4000psi = 82120;
-                    public const int GRADE_fc5000psi = 82130;
-                    public const int GRADE_fc6000psi = 82140;
-                    public const int GRADE_fc3000psi_Lightweight = 82150;
-                    public const int GRADE_fc4000psi_Lightweight = 82160;
-                    public const int GRADE_fc5000psi_Lightweight = 82170;
-                    public const int GRADE_fc6000psi_Lightweight = 82180;
-                    public static int[] members = { GRADE_fc3000psi, GRADE_fc4000psi, GRADE_fc5000psi, GRADE_fc6000psi,
+                    public const string GRADE_fc3000psi = "f'c 3000 psi";
+                    public const string GRADE_fc4000psi = "f'c 4000 psi";
+                    public const string GRADE_fc5000psi = "f'c 5000 psi";
+                    public const string GRADE_fc6000psi = "f'c 6000 psi";
+                    public const string GRADE_fc3000psi_Lightweight = "f'c 3000 psi Lightweight";
+                    public const string GRADE_fc4000psi_Lightweight = "f'c 4000 psi Lightweight";
+                    public const string GRADE_fc5000psi_Lightweight = "f'c 5000 psi Lightweight";
+                    public const string GRADE_fc6000psi_Lightweight = "f'c 6000 psi Lightweight";
+                    public static string[] members = { GRADE_fc3000psi, GRADE_fc4000psi, GRADE_fc5000psi, GRADE_fc6000psi,
                     GRADE_fc3000psi_Lightweight, GRADE_fc4000psi_Lightweight,
                     GRADE_fc5000psi_Lightweight, GRADE_fc6000psi_Lightweight };
                 }
@@ -106,68 +106,68 @@ public static class BuildingMaterialAttributes
 
             public static class AluminumStandards
             {
-                public const int ASTM = 83100;
-                public static int[] members = { ASTM };
+                public const string ASTM = "ASTM";
+                public static string[] members = { ASTM };
 
                 public static class ASTMGrades
                 {
-                    public const int GRADE_Alloy_6061_T6 = 83110;
-                    public const int GRADE_Alloy_6063_T6 = 83120;
-                    public const int GRADE_Alloy_5052_H34 = 83130;
-                    public static int[] members = { GRADE_Alloy_6061_T6, GRADE_Alloy_6063_T6, GRADE_Alloy_5052_H34 };
+                    public const string GRADE_Alloy_6061_T6 = "Alloy 6061 T6";
+                    public const string GRADE_Alloy_6063_T6 = "Alloy 6063 T6";
+                    public const string GRADE_Alloy_5052_H34 = "Alloy 5052 H34";
+                    public static string[] members = { GRADE_Alloy_6061_T6, GRADE_Alloy_6063_T6, GRADE_Alloy_5052_H34 };
                 }
             }
 
             public static class ColdformedStandards
             {
-                public const int ASTM_A653 = 84100;
-                public static int[] members = { ASTM_A653 };
+                public const string ASTM_A653 = "ASTM A653";
+                public static string[] members = { ASTM_A653 };
 
                 public static class ASTM_A653Grades
                 {
-                    public const int GRADE_SQ_Grade_33 = 84110;
-                    public const int GRADE_SQ_Grade_50 = 84120;
-                    public static int[] members = { GRADE_SQ_Grade_33, GRADE_SQ_Grade_50 };
+                    public const string GRADE_SQ_Grade_33 = "SQ Grade 33";
+                    public const string GRADE_SQ_Grade_50 = "SQ Grade 50";
+                    public static string[] members = { GRADE_SQ_Grade_33, GRADE_SQ_Grade_50 };
                 }
             }
 
             public static class RebarStandards
             {
-                public const int ASTM_A615 = 85100;
-                public const int ASTM_A706 = 85200;
-                public static int[] members = { ASTM_A615, ASTM_A706 };
+                public const string ASTM_A615 = "ASTM A615";
+                public const string ASTM_A706 = "ASTM A706";
+                public static string[] members = { ASTM_A615, ASTM_A706 };
 
                 public static class ASTM_A615Grades
                 {
-                    public const int GRADE_40 = 85110;
-                    public const int GRADE_60 = 85120;
-                    public const int GRADE_75 = 85130;
-                    public static int[] members = { GRADE_40, GRADE_60, GRADE_75 };
+                    public const string GRADE_40 = "Grade 40";
+                    public const string GRADE_60 = "Grade 60";
+                    public const string GRADE_75 = "Grade 75";
+                    public static string[] members = { GRADE_40, GRADE_60, GRADE_75 };
                 }
                 public static class ASTM_A706Grades
                 {
-                    public const int GRADE_60 = 85210;
-                    public static int[] members = { GRADE_60 };
+                    public const string GRADE_60 = "Grade 60";
+                    public static string[] members = { GRADE_60 };
                 }
             }
 
             public static class TendonStandards
             {
-                public const int ASTM_A416 = 86100;
-                public const int ASTM_A722 = 86200;
-                public static int[] members = { ASTM_A416, ASTM_A722 };
+                public const string ASTM_A416 = "ASTM A416";
+                public const string ASTM_A722 = "ASTM A722";
+                public static string[] members = { ASTM_A416, ASTM_A722 };
 
                 public static class ASTM_A416Grades
                 {
-                    public const int GRADE_250 = 86110;
-                    public const int GRADE_270 = 86120;
-                    public static int[] members = { GRADE_250, GRADE_270 };
+                    public const string GRADE_250 = "Grade 250";
+                    public const string GRADE_270 = "Grade 270";
+                    public static string[] members = { GRADE_250, GRADE_270 };
                 }
                 public static class ASTM_A722Grades
                 {
-                    public const int GRADE_150_Plain_Type_1 = 86210;
-                    public const int GRADE_150_Deformed_Type_2 = 86220;
-                    public static int[] members = { GRADE_150_Plain_Type_1, GRADE_150_Deformed_Type_2 };
+                    public const string GRADE_150_Plain_Type_1 = "Grade 150 - Plain (Type I)";
+                    public const string GRADE_150_Deformed_Type_2 = "Grade 150 - Deformed (Type II)";
+                    public static string[] members = { GRADE_150_Plain_Type_1, GRADE_150_Deformed_Type_2 };
                 }
             }
         }

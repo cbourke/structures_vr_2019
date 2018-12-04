@@ -31,3 +31,12 @@ C:\Users\vradmin\Documents\GitHub\saptranslator_code\SapTranslator\obj\Debug\Sap
 C:\Users\vradmin\Documents\GitHub\saptranslator_code\SapTranslator\obj\Debug\SapTranslator.csproj.CopyComplete
 C:\Users\vradmin\Documents\GitHub\saptranslator_code\SapTranslator\obj\Debug\SapTranslator.exe
 C:\Users\vradmin\Documents\GitHub\saptranslator_code\SapTranslator\obj\Debug\SapTranslator.pdb
+C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\obj\Debug\SapTranslator.csprojAssemblyReference.cache
+C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\obj\Debug\SapTranslator.csproj.CoreCompileInputs.cache
+C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\obj\Debug\SapTranslator.exe
+C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\obj\Debug\SapTranslator.pdb
+C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\bin\Debug\SapTranslator.exe.config
+C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\bin\Debug\SapTranslator.exe
+C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\bin\Debug\SapTranslator.pdb
+C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\bin\Debug\UnityEngine.xml
+C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\obj\Debug\SapTranslator.csproj.CopyComplete

@@ -94,13 +94,14 @@ namespace Valve.VR.InteractionSystem{
                                     endPosition = rayHit.point;
                                     tempLineRenderer.SetPosition(1, nodePoint);
 
-                                    if (startingGrabType == GrabTypes.Pinch)
-                                    {
-                                        // User "grabs" a grid node
-                                        constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
-                                    }
+                                    
                                 }
-                                break;
+                            if (startingGrabType == GrabTypes.Pinch)
+                            {
+                                // User "grabs" a grid node
+                                constructorController.GetComponent<constructorController>().setPoint(tempLineRenderer.GetPosition(1), buildingObjects.Frame);
+                            }
+                            break;
                         }
                     }
 

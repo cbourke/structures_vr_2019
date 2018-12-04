@@ -168,6 +168,8 @@ public class StructuralElementsLists
 
     public StructuralElementsLists()
     {
+        buildingMaterialForXMLList = new List<BuildingMaterialForXML>();
+        frameSectionForXMLList = new List<FrameSectionForXML>();
         frameForXMLList = new List<FrameForXML>();
         jointRestraintForXMLList = new List<jointRestraintForXML>();
     }
@@ -188,6 +190,7 @@ public class FrameForXML
     {
         startPos = pointA;
         endPos = pointB;
+        sectionPropertyName = sectionName;
     }
 }
 
@@ -223,17 +226,17 @@ public class jointRestraintForXML
 public class BuildingMaterialForXML
 {
     public string name { get; set; }
-    public int region { get; set; }
-    public int type { get; set; }
-    public int standard { get; set; }
-    public int grade { get; set; }
+    public string region { get; set; }
+    public string type { get; set; }
+    public string standard { get; set; }
+    public string grade { get; set; }
 
     public BuildingMaterialForXML() // If constructed with no arguments (This is needed for xml serialization, I think?)
     {
         // Empty constructor needed for XML serialization
     }
 
-    public BuildingMaterialForXML(string givenName, int region, int type, int standard, int grade)
+    public BuildingMaterialForXML(string givenName, string region, string type, string standard, string grade)
     {
         name = givenName;
         this.region = region;

@@ -17,10 +17,10 @@ public class FrameSection
 
     }
 
-    public FrameSection(string name, BuildingMaterial buildingMaterial, FrameSectionType type)
+    public FrameSection(string name, string buildingMaterialName, FrameSectionType type)
     {
         this.name = name;
-        buildingMaterialName = buildingMaterial.GetName();
+        this.buildingMaterialName = buildingMaterialName;
         this.type = type;
 
         switch (type)
