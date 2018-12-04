@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
-
+using VRTK;
 
 
     public class pointer : MonoBehaviour {
-        
+
         public float maxRayLength = 5;
 	    public float rayRadius = .05f;
 	    public float laserWidth = 0.01f;
         public bool isEraser = false;
         public string workingElement = "frame";
 
+        public VRTK_ControllerEvents controllerEvents;
 	    public LineRenderer laserLineRenderer;
-	    public Valve.VR.InteractionSystem.Hand hand;
 	    public GameObject constructorController;
 
         private RaycastHit vision;
@@ -22,7 +22,7 @@ using Valve.VR.InteractionSystem;
 	    private Rigidbody grabbedObject;
         private LineRenderer tempLineRenderer;
 
-
+        bool CNT_gripped = false;
 
 	    void Start() {
 		    // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
@@ -33,12 +33,17 @@ using Valve.VR.InteractionSystem;
 		    laserLineRenderer.startWidth = laserWidth;
 		    laserLineRenderer.endWidth = laserWidth;
 		    laserLineRenderer.enabled = true;
+    
 
 
 	    }
- 
+  
 
 	    void Update() {
+            if(controllerEvents.triggerClicked) {
+                Debug.Log("trigger");
+            }
+
 		    ShootLaserFromTargetPosition( transform.position, transform.forward, maxRayLength );
 	    }
  
@@ -55,60 +60,49 @@ using Valve.VR.InteractionSystem;
 		    int gridLayer = 1 << 8;
 		    int uiLayer = 1 << 5;
             int framesLayer = 1 << 9;
-                if (Physics.Raycast(ray, out rayHit, maxLength, uiLayer))
-                {
-                    // used to hit UI elements
-                    nodePoint = rayHit.transform.position;
-                    endPosition = rayHit.point;
-                    if (rayHit.collider.isTrigger && hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
-                    {
-                        rayHit.collider.gameObject.GetComponent<uiCollider>().uiHit();
-                    }
-                }
-                else
-                {
-                    // we might want to rewrite this to be able to handle more than 2 pointer modes
-                    // and be more modular (lots of code is copied)
-                    switch(isEraser)
-                    {
-                        case true:
-                        {
-                            if (Physics.SphereCast(ray, rayRadius, out rayHit, maxLength, framesLayer))
-                            {
-                                // used to hit existing frames for deletion
-                                nodePoint = rayHit.transform.position;
-                                endPosition = rayHit.point;
-                                tempLineRenderer.SetPosition(1, endPosition);
-
-                                if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
-                                {
-                                    // User "grabs" a grid node
-                                    constructorController.GetComponent<constructorController>().deleteFrame(rayHit.transform.gameObject.GetInstanceID());
-                                }
-                            }
-                            break;
-                        }
-                        case false:
-                        {
-                                if (Physics.SphereCast(ray, rayRadius, out rayHit, maxLength, gridLayer))
-                                {
-                                    // used to hit the grid nodes
-                                    nodePoint = rayHit.transform.position;
-                                    endPosition = rayHit.point;
-                                    tempLineRenderer.SetPosition(1, nodePoint);
-
-                                    if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
-                                    {
-                                        // User "grabs" a grid node
-                                        constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
-                                    }
-                                }
-                                break;
-                        }
-                    }
-
                 
+            // we might want to rewrite this to be able to handle more than 2 pointer modes
+            // and be more modular (lots of code is copied)
+            switch(isEraser)
+            {
+                case true:
+                {
+                    if (Physics.SphereCast(ray, rayRadius, out rayHit, maxLength, framesLayer))
+                    {
+                        // used to hit existing frames for deletion
+                        nodePoint = rayHit.transform.position;
+                        endPosition = rayHit.point;
+                        tempLineRenderer.SetPosition(1, endPosition);
+
+                        if (controllerEvents.triggerClicked)
+                        {
+                            // User "grabs" a grid node
+                            constructorController.GetComponent<constructorController>().deleteFrame(rayHit.transform.gameObject.GetInstanceID());
+                        }
+                    }
+                    break;
                 }
+                case false:
+                {
+                        if (Physics.SphereCast(ray, rayRadius, out rayHit, maxLength, gridLayer))
+                        {
+                            // used to hit the grid nodes
+                            nodePoint = rayHit.transform.position;
+                            endPosition = rayHit.point;
+                            tempLineRenderer.SetPosition(1, nodePoint);
+
+                            if (controllerEvents.triggerClicked)
+                            {
+                                // User "grabs" a grid node
+                                constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
+                            }
+                        }
+                        break;
+                }
+            }
+
+        
+                
 		    laserLineRenderer.SetPosition( 0, targetPosition );
 		    laserLineRenderer.SetPosition( 1, endPosition );
 	    }
