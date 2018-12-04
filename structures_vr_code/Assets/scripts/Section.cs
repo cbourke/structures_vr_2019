@@ -2,31 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Section {
-    protected string userDefinedName = "Default_Section_Name";
-
-    public void SetName(string newName) {
-        userDefinedName = newName;
-    }
-    public string GetName() {
-        return userDefinedName;
-    }
-}
-
-
-
-
-public class FrameSection : Section
+public class FrameSection
 {
     //private BuildingMaterial material;
     // We only need a reference to the name of a BuildingMaterial, this makes serialization easier
-    private string buildingMaterialName;
-    private FrameSectionType type;
-    private double[] dimensions = new double[6];
+    public string name;
+    public string buildingMaterialName;
+    public FrameSectionType type;
+    public double[] dimensions = new double[6];
+
+
+    public FrameSection()
+    {
+
+    }
 
     public FrameSection(string name, BuildingMaterial buildingMaterial, FrameSectionType type)
     {
-        userDefinedName = name;
+        this.name = name;
         buildingMaterialName = buildingMaterial.GetName();
         this.type = type;
 
@@ -48,6 +41,15 @@ public class FrameSection : Section
                     break;
                 }
         }
+    }
+
+    public void SetName(string newName)
+    {
+        name = newName;
+    }
+    public string GetName()
+    {
+        return name;
     }
 
     public void SetMaterial(BuildingMaterial newMaterial) {
@@ -167,5 +169,15 @@ public class FrameSection : Section
     {
         if (type == FrameSectionType.Tube) return dimensions[3];
         else return 0.0;
+    }
+
+    public void SetFrameSectionType(FrameSectionType type)
+    {
+        this.type = type;
+    }
+
+    public FrameSectionType GetFrameSectionType()
+    {
+        return type;
     }
 }

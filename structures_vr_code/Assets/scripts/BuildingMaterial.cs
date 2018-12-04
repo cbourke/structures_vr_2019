@@ -9,7 +9,7 @@ public class BuildingMaterial {
     private int standard = BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A992;
     private int grade = BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A992Grades.GRADE_50;
 
-    public BuildingMaterial() // If constructed with no arguments (This is needed for xml serialization)
+    public BuildingMaterial() // If constructed with no arguments (This is needed for xml serialization, I think?)
     {
 
     }

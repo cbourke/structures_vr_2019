@@ -12,19 +12,73 @@ public class sectionController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        addFrameSection(defaultFrameSection);
         currentFrameSection = defaultFrameSection;
 	}
 
-    public void addFrameSection(FrameSection frameSection)
+    public FrameSection findFrameSection(string name)
     {
-        frameSections.Add(frameSection);
+        FrameSection output = null;
+        foreach (FrameSection fs in frameSections)
+        {
+            if (fs.GetName() == name)
+            {
+                output = fs;
+            }
+        }
+        return output;
     }
 
-    public void addIFrameSection(/* I frame dimension parameters */)
+    public int addFrameSection(FrameSection frameSection)
     {
-        //TODO: Create a new iframe-type framesection and then add it to frameSections list
+        if (findFrameSection(frameSection.GetName()) == null)
+        {
+            frameSections.Add(frameSection);
+            xmlController.GetComponent<xmlController>().addFrameSectionToXMLList(frameSection);
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+        
     }
 
-    
-	
+    public int addIFrameSection(string name, BuildingMaterial buildingMaterial, double outsideHeight, double topFlangeWidth, double topFlangeThickness, double webThickness, double bottomFlangeWidth, double bottomFlangeThickness)
+    {
+        //Create a new iframe-type framesection and then add it to frameSections list
+        FrameSection newFrameSection = new FrameSection(name, buildingMaterial, FrameSectionType.I);
+        newFrameSection.SetIDimensions(outsideHeight, topFlangeWidth, topFlangeThickness, webThickness, bottomFlangeWidth, bottomFlangeThickness);
+        return addFrameSection(newFrameSection);
+    }
+
+    public int addPipeFrameSection(string name, BuildingMaterial buildingMaterial, double outsideDiameter, double wallThickness)
+    {
+        FrameSection newFrameSection = new FrameSection(name, buildingMaterial, FrameSectionType.Pipe);
+        newFrameSection.SetPipeDimensions(outsideDiameter, wallThickness);
+        return addFrameSection(newFrameSection);
+    }
+
+    public int addTubeFrameSection(string name, BuildingMaterial buildingMaterial, double outsideDepth, double outsideWidth, double flangeThickness, double webThickness)
+    {
+        FrameSection newFrameSection = new FrameSection(name, buildingMaterial, FrameSectionType.Tube);
+        newFrameSection.SetTubeDimensions(outsideDepth, outsideWidth, flangeThickness, webThickness);
+        return addFrameSection(newFrameSection);
+    }
+
+    public void deleteFrameSection(string name)
+    {
+        FrameSection targetFrameSection = findFrameSection(name);
+        if (targetFrameSection != null)
+        {
+            frameSections.Remove(targetFrameSection);
+            xmlController.GetComponent<xmlController>().deleteFrameSectionFromXMLList(name);
+        }
+        if (frameSections.Count == 0)
+        {
+            int success = addFrameSection(defaultFrameSection);
+        }
+    }
+
+
 }

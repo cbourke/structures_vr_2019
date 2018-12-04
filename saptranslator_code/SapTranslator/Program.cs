@@ -193,7 +193,7 @@ namespace SapTranslator
                 // Put Joint Restraints in:
                 //foreach (jointRestraintForXML jr in elementsLists.jointRestraintForXMLList)
                 int numberOfJointRestraints = elementsLists.jointRestraintForXMLList.Count();
-                for(i = 0; i < numberOfJointRestraints; i++)
+                for (i = 0; i < numberOfJointRestraints; i++)
                 {
                     jointRestraintForXML jr = elementsLists.jointRestraintForXMLList.ElementAt(i);
 
@@ -216,7 +216,8 @@ namespace SapTranslator
                     {
                         ret = mySapModel.FrameObj.GetPoints(FrameName[j], ref pointObjectName[0], ref pointObjectName[1]);
 
-                        for (int k = 0; k < pointObjectName.Length; k++) {
+                        for (int k = 0; k < pointObjectName.Length; k++)
+                        {
                             ret = mySapModel.PointObj.GetCoordCartesian(pointObjectName[k], ref x1, ref y1, ref z1, "Global");
                             if (restraintCoordinates.x == x1 && restraintCoordinates.y == z1 && restraintCoordinates.z == y1)
                             {
@@ -224,7 +225,7 @@ namespace SapTranslator
                                 break;
                             }
                         }
-                        if(!targetPointObjectName.Equals(""))
+                        if (!targetPointObjectName.Equals(""))
                         {
                             break;
                         }
@@ -507,9 +508,16 @@ namespace SapTranslator
         }
     }
 
+    //[XmlRoot(ElementName = "StructuralElementsLists")]
     [XmlRoot("StructuralElementsLists")]
     public class StructuralElementsLists
     {
+        [XmlArray("buildingMaterialForXMLArray"), XmlArrayItem(typeof(BuildingMaterialForXML), ElementName = "BuildingMaterialForXML")]
+        public List<BuildingMaterialForXML> buildingMaterialForXMLList { get; set; }
+
+        [XmlArray("frameSectionForXMLArray"), XmlArrayItem(typeof(FrameSectionForXML), ElementName = "FrameSectionForXML")]
+        public List<FrameSectionForXML> frameSectionForXMLList { get; set; }
+
         [XmlArray("frameForXMLArray"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
         public List<FrameForXML> frameForXMLList { get; set; }
 
@@ -528,12 +536,13 @@ namespace SapTranslator
     {
         public Vector3 startPos { get; set; }
         public Vector3 endPos { get; set; }
+        public string sectionPropertyName { get; set; }
 
         public FrameForXML()
         {
             // Empty constructor needed for XML serialization
         }
-        public FrameForXML(Vector3 pointA, Vector3 pointB)
+        public FrameForXML(Vector3 pointA, Vector3 pointB, string sectionName)
         {
             startPos = pointA;
             endPos = pointB;
@@ -565,6 +574,56 @@ namespace SapTranslator
             rotX = rX;
             rotY = rY;
             rotZ = rZ;
+        }
+    }
+
+    [XmlType("BuildingMaterialForXML")]
+    public class BuildingMaterialForXML
+    {
+        public string name { get; set; }
+        public int region { get; set; }
+        public int type { get; set; }
+        public int standard { get; set; }
+        public int grade { get; set; }
+
+        public BuildingMaterialForXML() // If constructed with no arguments (This is needed for xml serialization, I think?)
+        {
+            // Empty constructor needed for XML serialization
+        }
+
+        public BuildingMaterialForXML(string givenName, int region, int type, int standard, int grade)
+        {
+            name = givenName;
+            this.region = region;
+            this.type = type;
+            this.standard = standard;
+            this.grade = grade;
+        }
+    }
+
+    [XmlType("FrameSectionForXML")]
+    public class FrameSectionForXML
+    {
+        public string name;
+        public string buildingMaterialName;
+        public int type;
+        public double[] dimensions = new double[6];
+
+
+        public FrameSectionForXML()
+        {
+
+        }
+
+        public FrameSectionForXML(string name, string buildingMaterialName, int type, double[] dimensions)
+        {
+            this.name = name;
+            this.buildingMaterialName = buildingMaterialName;
+            this.type = type;
+            for (int i = 0; i < 6; i++)
+            {
+                this.dimensions[i] = dimensions[i];
+            }
         }
     }
 }

@@ -53,13 +53,15 @@ public class materialsController : MonoBehaviour {
 
     public void deleteBuildingMaterialWithName(string name)
     {
-        xmlController.GetComponent<xmlController>().deleteBuildingMaterialWithName(name);
-        foreach (BuildingMaterial bm in buildingMaterials)
+        BuildingMaterial bm = findBuildingMaterialWithName(name);
+        if (bm != null)
         {
-            if (bm.GetName() == name)
-            {
-                buildingMaterials.Remove(bm);
-            }
+            buildingMaterials.Remove(bm);
+            xmlController.GetComponent<xmlController>().deletebuildingMaterialFromXMLList(name);
+        }
+        if (buildingMaterials.Count == 0)
+        {
+            addBuildingMaterial(defaultBuildingMaterial);
         }
     }
 }

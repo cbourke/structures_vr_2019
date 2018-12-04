@@ -19,51 +19,50 @@ public class xmlController : MonoBehaviour
 
     public void addBuildingMaterialToXMLList(BuildingMaterial buildingMaterial)
     {
-        elementsListsForXML.buildingMaterialForXMLList.Add(buildingMaterial);
+        BuildingMaterialForXML newElement = new BuildingMaterialForXML(buildingMaterial.GetName(), buildingMaterial.GetRegion(), buildingMaterial.GetMaterialType(), buildingMaterial.GetStandard(), buildingMaterial.GetGrade());
+        elementsListsForXML.buildingMaterialForXMLList.Add(newElement);
         saveToXML();
     }
 
     public void deletebuildingMaterialFromXMLList(BuildingMaterial buildingMaterial)
     {
-        foreach (BuildingMaterial existingbuildingMaterial in elementsListsForXML.buildingMaterialForXMLList)
+        deletebuildingMaterialFromXMLList(buildingMaterial.GetName());
+    }
+
+    public void deletebuildingMaterialFromXMLList(string name)
+    {
+        foreach (BuildingMaterialForXML bmfxml in elementsListsForXML.buildingMaterialForXMLList)
         {
-            if (existingbuildingMaterial.GetName() == buildingMaterial.GetName())
+            if (bmfxml.name == name)
             {
-                elementsListsForXML.buildingMaterialForXMLList.Remove(buildingMaterial);
+                elementsListsForXML.buildingMaterialForXMLList.Remove(bmfxml);
                 break;
             }
-
         }
         saveToXML();
     }
 
     public void addFrameSectionToXMLList(FrameSection frameSection)
     {
-        elementsListsForXML.frameSectionForXMLList.Add(frameSection);
+        FrameSectionForXML newElement = new FrameSectionForXML(frameSection.GetName(), frameSection.GetMaterialName(), (int)frameSection.GetFrameSectionType(), frameSection.GetDimensions());
+        elementsListsForXML.frameSectionForXMLList.Add(newElement);
         saveToXML();
     }
 
-    public void deleteBuildingMaterialWithName(string name)
+    public void deleteFrameSectionFromXMLList(FrameSection frameSection)
     {
-        foreach (BuildingMaterial bm in elementsListsForXML.buildingMaterialForXMLList)
-        {
-            if (bm.GetName() == name)
-            {
-                elementsListsForXML.buildingMaterialForXMLList.Remove(bm);
-            }
-        }
+        deleteFrameSectionFromXMLList(frameSection.GetName());
     }
 
-    public void deleteFrameFromXMLList(FrameSection frameSection)
+    public void deleteFrameSectionFromXMLList(string name)
     {
-        foreach (FrameSection existingFrameSection in elementsListsForXML.frameSectionForXMLList)
+        foreach (FrameSectionForXML fsfxml in elementsListsForXML.frameSectionForXMLList)
         {
-            if (existingFrameSection.GetName() == frameSection.GetName())
+            if (fsfxml.name == name)
             {
-                elementsListsForXML.frameSectionForXMLList.Remove(existingFrameSection);
+                elementsListsForXML.frameSectionForXMLList.Remove(fsfxml);
                 break;
             }
-
         }
         saveToXML();
     }
@@ -121,6 +120,8 @@ public class xmlController : MonoBehaviour
 
     public void loadFromXML(string filePath)
     {
+        // TODO: This function needs to be completed and tested.
+        /*
         saveToXML();
         XmlSerializer serializer = new XmlSerializer(typeof(StructuralElementsLists));
         StreamReader reader = new StreamReader(filePath);
@@ -132,6 +133,7 @@ public class xmlController : MonoBehaviour
         structureSaveFileName = structureSaveFileName.Substring(0, structureSaveFileName.Length - 4);
 
         constructorController.GetComponent<constructorController>().constructFromXmlElementsLists(elementsListsForXML);
+        */
     }
 
 
@@ -152,11 +154,11 @@ public class xmlController : MonoBehaviour
 [XmlRoot("StructuralElementsLists")]
 public class StructuralElementsLists
 {
-    [XmlArray("buildingMaterialForXMLArray"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
-    public List<BuildingMaterial> buildingMaterialForXMLList { get; set; }
+    [XmlArray("buildingMaterialForXMLArray"), XmlArrayItem(typeof(BuildingMaterialForXML), ElementName = "BuildingMaterialForXML")]
+    public List<BuildingMaterialForXML> buildingMaterialForXMLList { get; set; }
 
-    [XmlArray("frameSectionForXMLArray"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
-    public List<FrameSection> frameSectionForXMLList { get; set; }
+    [XmlArray("frameSectionForXMLArray"), XmlArrayItem(typeof(FrameSectionForXML), ElementName = "FrameSectionForXML")]
+    public List<FrameSectionForXML> frameSectionForXMLList { get; set; }
 
     [XmlArray("frameForXMLArray"), XmlArrayItem(typeof(FrameForXML), ElementName = "FrameForXML")]
     public List<FrameForXML> frameForXMLList { get; set; }
@@ -214,5 +216,55 @@ public class jointRestraintForXML
         rotX = rX;
         rotY = rY;
         rotZ = rZ;
+    }
+}
+
+[XmlType("BuildingMaterialForXML")]
+public class BuildingMaterialForXML
+{
+    public string name { get; set; }
+    public int region { get; set; }
+    public int type { get; set; }
+    public int standard { get; set; }
+    public int grade { get; set; }
+
+    public BuildingMaterialForXML() // If constructed with no arguments (This is needed for xml serialization, I think?)
+    {
+        // Empty constructor needed for XML serialization
+    }
+
+    public BuildingMaterialForXML(string givenName, int region, int type, int standard, int grade)
+    {
+        name = givenName;
+        this.region = region;
+        this.type = type;
+        this.standard = standard;
+        this.grade = grade;
+    }
+}
+
+[XmlType("FrameSectionForXML")]
+public class FrameSectionForXML
+{
+    public string name;
+    public string buildingMaterialName;
+    public int type;
+    public double[] dimensions = new double[6];
+
+
+    public FrameSectionForXML()
+    {
+
+    }
+
+    public FrameSectionForXML(string name, string buildingMaterialName, int type, double[] dimensions)
+    {
+        this.name = name;
+        this.buildingMaterialName = buildingMaterialName;
+        this.type = type;
+        for (int i = 0; i < 6; i++)
+        {
+            this.dimensions[i] = dimensions[i];
+        }
     }
 }
