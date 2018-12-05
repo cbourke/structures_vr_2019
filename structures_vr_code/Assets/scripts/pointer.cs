@@ -58,7 +58,14 @@ using VRTK;
 		    int gridLayer = 1 << 8;
 		    int uiLayer = 1 << 5;
             int framesLayer = 1 << 9;
-                
+            
+            // sets the end of the pointer to the UI canvas
+            if (Physics.Raycast(ray, out rayHit, maxLength, uiLayer))
+            {
+                nodePoint = rayHit.transform.position;
+                endPosition = rayHit.point;   
+            }
+
             // we might want to rewrite this to be able to handle more than 2 pointer modes
             // and be more modular (lots of code is copied)
             switch(isEraser)
