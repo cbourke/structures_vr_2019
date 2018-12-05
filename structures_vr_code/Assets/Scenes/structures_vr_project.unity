@@ -5590,7 +5590,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1388622113}
   - component: {fileID: 1388622112}
-  - component: {fileID: 1388622111}
   - component: {fileID: 1388622110}
   - component: {fileID: 1388622109}
   - component: {fileID: 1388622108}
@@ -5637,7 +5636,7 @@ MonoBehaviour:
   activateOnEnable: 0
   activationDelay: 0
   selectionButton: 10
-  selectOnPress: 0
+  selectOnPress: 1
   selectionDelay: 0
   selectAfterHoverDuration: 0
   interactWithObjects: 0
@@ -5760,37 +5759,6 @@ MonoBehaviour:
   gripSenseAxisChanged: 0
   gripSensePressed: 0
   controllerVisible: 1
---- !u!114 &1388622111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1388622105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fc65878c7102524bb8c2bcfbefff497, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playareaCursor: {fileID: 0}
-  directionIndicator: {fileID: 0}
-  customRaycast: {fileID: 0}
-  pointerOriginSmoothingSettings:
-    smoothsPosition: 1
-    maxAllowedPerFrameDistanceDifference: 0.5
-    smoothsRotation: 1
-    maxAllowedPerFrameAngleDifference: 1.5
-  validCollisionColor: {r: 0.16642629, g: 0.13585795, b: 0.6698113, a: 1}
-  invalidCollisionColor: {r: 1, g: 0, b: 0, a: 1}
-  tracerVisibility: 0
-  cursorVisibility: 0
-  maximumLength: 100
-  scaleFactor: 0.002
-  cursorScaleMultiplier: 25
-  cursorMatchTargetRotation: 0
-  cursorDistanceRescale: 0
-  maximumCursorScale: {x: Infinity, y: Infinity, z: Infinity}
-  customTracer: {fileID: 0}
-  customCursor: {fileID: 0}
 --- !u!114 &1388622112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5804,7 +5772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableTeleport: 0
   targetListPolicy: {fileID: 0}
-  pointerRenderer: {fileID: 1388622111}
+  pointerRenderer: {fileID: 0}
   activationButton: 0
   holdButtonToActivate: 0
   activateOnEnable: 1
@@ -5813,8 +5781,8 @@ MonoBehaviour:
   selectOnPress: 0
   selectionDelay: 0
   selectAfterHoverDuration: 0
-  interactWithObjects: 1
-  grabToPointerTip: 1
+  interactWithObjects: 0
+  grabToPointerTip: 0
   attachedTo: {fileID: 0}
   controllerEvents: {fileID: 0}
   interactUse: {fileID: 0}

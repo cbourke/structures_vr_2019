@@ -21,6 +21,7 @@ using VRTK;
 	    private bool isGrabbed;
 	    private Rigidbody grabbedObject;
         private LineRenderer tempLineRenderer;
+        private bool clicked = false;
 
         bool CNT_gripped = false;
 
@@ -34,21 +35,18 @@ using VRTK;
 		    laserLineRenderer.endWidth = laserWidth;
 		    laserLineRenderer.enabled = true;
     
-
+            controllerEvents.TriggerClicked += DoTriggerClicked;
+            controllerEvents.TriggerUnclicked += DoTriggerUnclicked;
 
 	    }
   
 
 	    void Update() {
-            if(controllerEvents.triggerClicked) {
-                Debug.Log("trigger");
-            }
-
 		    ShootLaserFromTargetPosition( transform.position, transform.forward, maxRayLength );
 	    }
  
 	    void ShootLaserFromTargetPosition( Vector3 targetPosition, Vector3 direction, float maxLength ) {
-		    direction.y = direction.y - .5f; //adjust the angle of the laser down
+		    //direction.y = direction.y - .5f; //adjust the angle of the laser down
 
 		    Vector3 startPosition = targetPosition - (.2f * direction);
 		    Vector3 endPosition = targetPosition + ( maxLength * direction );
@@ -74,7 +72,7 @@ using VRTK;
                         endPosition = rayHit.point;
                         tempLineRenderer.SetPosition(1, endPosition);
 
-                        if (controllerEvents.triggerClicked)
+                        if (clicked)
                         {
                             // User "grabs" a grid node
                             constructorController.GetComponent<constructorController>().deleteFrame(rayHit.transform.gameObject.GetInstanceID());
@@ -91,8 +89,9 @@ using VRTK;
                             endPosition = rayHit.point;
                             tempLineRenderer.SetPosition(1, nodePoint);
 
-                            if (controllerEvents.triggerClicked)
+                            if (clicked)
                             {
+                                clicked = false;
                                 // User "grabs" a grid node
                                 constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
                             }
@@ -117,4 +116,14 @@ using VRTK;
             workingElement = type;
         }
         
+         private void DoTriggerClicked(object sender, ControllerInteractionEventArgs e)
+        {
+            clicked = true;
+        }
+
+        private void DoTriggerUnclicked(object sender, ControllerInteractionEventArgs e)
+        {
+            clicked = false;
+        }
+
     }
