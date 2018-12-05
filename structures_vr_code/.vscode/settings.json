@@ -52,5 +52,7 @@
         "ProjectSettings/":true,
         "temp/":true,
         "Temp/":true
-    }
+    },
+    "typescript.disableAutomaticTypeAcquisition": true,
+    "editor.codeLens": false
 }

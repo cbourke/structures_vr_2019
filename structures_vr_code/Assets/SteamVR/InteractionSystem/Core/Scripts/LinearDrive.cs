@@ -20,24 +20,19 @@ namespace Valve.VR.InteractionSystem
 		public bool maintainMomemntum = true;
 		public float momemtumDampenRate = 5.0f;
 
-        private Hand.AttachmentFlags attachmentFlags = Hand.AttachmentFlags.DetachFromOtherHand;
-
-        private float initialMappingOffset;
+		private float initialMappingOffset;
 		private int numMappingChangeSamples = 5;
 		private float[] mappingChangeSamples;
 		private float prevMapping = 0.0f;
 		private float mappingChangeRate;
 		private int sampleCount = 0;
 
-        private Interactable interactable;
 
-
-        //-------------------------------------------------
-        void Awake()
-        {
-            mappingChangeSamples = new float[numMappingChangeSamples];
-            interactable = this.GetComponent<Interactable>();
-        }
+		//-------------------------------------------------
+		void Awake()
+		{
+			mappingChangeSamples = new float[numMappingChangeSamples];
+		}
 
 
 		//-------------------------------------------------
@@ -64,31 +59,24 @@ namespace Valve.VR.InteractionSystem
 
 		//-------------------------------------------------
 		private void HandHoverUpdate( Hand hand )
-        {
-            GrabTypes startingGrabType = hand.GetGrabStarting();
-            bool isGrabEnding = hand.IsGrabEnding(this.gameObject);
+		{
+			if ( hand.GetStandardInteractionButtonDown() )
+			{
+				hand.HoverLock( GetComponent<Interactable>() );
 
-            if (startingGrabType != GrabTypes.None)
-            {
-                hand.HoverLock(interactable);
-
-                initialMappingOffset = linearMapping.value - CalculateLinearMapping( hand.transform );
+				initialMappingOffset = linearMapping.value - CalculateLinearMapping( hand.transform );
 				sampleCount = 0;
 				mappingChangeRate = 0.0f;
-
-                hand.AttachObject(gameObject, startingGrabType, attachmentFlags);
-            }
-
-			if ( isGrabEnding )
-			{
-				hand.HoverUnlock(interactable);
-
-                hand.DetachObject(gameObject);
-
-                CalculateMappingChangeRate();
 			}
 
-			if ( hand.currentAttachedObject == interactable.gameObject )
+			if ( hand.GetStandardInteractionButtonUp() )
+			{
+				hand.HoverUnlock( GetComponent<Interactable>() );
+
+				CalculateMappingChangeRate();
+			}
+
+			if ( hand.GetStandardInteractionButton() )
 			{
 				UpdateLinearMapping( hand.transform );
 			}
