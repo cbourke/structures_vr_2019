@@ -56,8 +56,9 @@ MonoBehaviour:
   rayRadius: 0.05
   laserWidth: 0.01
   isEraser: 0
+  workingElement: frame
+  controllerEvents: {fileID: 0}
   laserLineRenderer: {fileID: 120914410685351982}
-  hand: {fileID: 0}
   constructorController: {fileID: 0}
 --- !u!120 &120914410685351982
 LineRenderer:
