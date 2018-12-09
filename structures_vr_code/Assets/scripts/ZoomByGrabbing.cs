@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
+using UnityEngine.SceneManagement;
 
 public class ZoomByGrabbing : MonoBehaviour {
     public GameObject leftHand;
@@ -14,6 +15,9 @@ public class ZoomByGrabbing : MonoBehaviour {
     Vector2 pivotToTransformPosition;
     Vector3 originalScale;
     GameObject VRCamera;
+    public bool isModel;
+
+
     // Use this for initialization
     void Start () {
         Vector3 originalScale = this.transform.localScale;
@@ -24,6 +28,7 @@ public class ZoomByGrabbing : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        /*
         if ((leftHand.GetComponent<Hand>().grabGripAction.GetState(leftHand.GetComponent<Hand>().handType)
             && rightHand.GetComponent<Hand>().grabGripAction.GetStateDown(rightHand.GetComponent<Hand>().handType))
 
@@ -45,11 +50,14 @@ public class ZoomByGrabbing : MonoBehaviour {
         {
             currentDistanceBetweenHands = Vector3.Distance(leftHand.transform.position, rightHand.transform.position);
             scale = Mathf.Sqrt((originalDistanceBetweenHands / currentDistanceBetweenHands));
-            this.transform.localScale = new Vector3(originalScale.x * scale, originalScale.y * scale, originalScale.z * scale);
-            this.transform.position = new Vector3(pivot.x + (scale * pivotToTransformPosition.x), this.transform.position.y, pivot.y + (scale * pivotToTransformPosition.y));
-
+            this.transform.localScale = new Vector3(Mathf.Clamp(originalScale.x * scale, 0.25f, 3f), 
+                                                    Mathf.Clamp(originalScale.y * scale, 0.25f, 3f),
+                                                    Mathf.Clamp(originalScale.z * scale, 0.25f, 3f));
+            if (transform.localScale.x < 3f) {
+                this.transform.position = new Vector3(pivot.x + (scale * pivotToTransformPosition.x), this.transform.position.y, pivot.y + (scale * pivotToTransformPosition.y));
+            }
 
         }
-
-    }
+         */
+    }   
 }
