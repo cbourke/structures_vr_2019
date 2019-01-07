@@ -7,7 +7,7 @@ public class PositionController : MonoBehaviour {
 
     public bool isModel;
 
-	private ZoomByGrabbing zoomComponent;
+	//private ZoomByGrabbing zoomComponent;
 	private Teleport teleportComponent;
 	private GameObject teleportObject;
 
@@ -19,10 +19,10 @@ public class PositionController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		teleportObject = GameObject.Find("Teleporting");
+		//teleportObject = GameObject.Find("Teleporting");
 
-		zoomComponent = this.GetComponent<ZoomByGrabbing>();
-		teleportComponent = teleportObject.GetComponentInChildren<Teleport>();
+		//zoomComponent = this.GetComponent<ZoomByGrabbing>();
+		//teleportComponent = teleportObject.GetComponentInChildren<Teleport>();
 	}
 	
 	// Update is called once per frame
@@ -30,17 +30,18 @@ public class PositionController : MonoBehaviour {
 		
 	}
 
+
 	public void toggleModelMode() {
 		isModel = !isModel;
 
 		if(isModel) {
-			zoomComponent.enabled = false;
-			teleportComponent.enabled = false;
+			//zoomComponent.enabled = false;
+			//teleportComponent.enabled = false;
 			SetPosition(modelPosition, modelScale);
 		}
 		else if (!isModel) {
-			zoomComponent.enabled = true;
-			teleportComponent.enabled = true;
+			//zoomComponent.enabled = true;
+			//teleportComponent.enabled = true;
 			SetPosition(originalPosition, originalScale);
 		}
     }

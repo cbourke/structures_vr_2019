@@ -1,0 +1,7 @@
+﻿   at System.Windows.Forms.Control.CreateHandle()
+   at System.Windows.Forms.Control.get_Handle()
+   at System.Windows.Forms.Control.get_HostedInWin32DialogManager()
+   at System.Windows.Forms.Control.get_HostedInWin32DialogManager()
+   at System.Windows.Forms.ContainerControl.WmSetFocus(Message& m)
+   at System.Windows.Forms.Form.WndProc(Message& m)
+   at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
