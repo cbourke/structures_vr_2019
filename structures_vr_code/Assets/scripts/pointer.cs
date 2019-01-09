@@ -35,8 +35,8 @@ using VRTK;
 		    laserLineRenderer.endWidth = laserWidth;
 		    laserLineRenderer.enabled = true;
     
-            controllerEvents.TriggerClicked += DoTriggerClicked;
-            controllerEvents.TriggerUnclicked += DoTriggerUnclicked;
+            controllerEvents.TriggerPressed += DoTriggerPressed;
+            controllerEvents.TriggerReleased += DoTriggerReleased;
 
 	    }
   
@@ -82,6 +82,7 @@ using VRTK;
 
                         if (clicked)
                         {
+                            clicked = false;
                             // User "grabs" a grid node
                             constructorController.GetComponent<constructorController>().deleteFrame(rayHit.transform.gameObject.GetInstanceID());
                         }
@@ -124,12 +125,12 @@ using VRTK;
             workingElement = type;
         }
         
-         private void DoTriggerClicked(object sender, ControllerInteractionEventArgs e)
+         private void DoTriggerPressed(object sender, ControllerInteractionEventArgs e)
         {
             clicked = true;
         }
 
-        private void DoTriggerUnclicked(object sender, ControllerInteractionEventArgs e)
+        private void DoTriggerReleased(object sender, ControllerInteractionEventArgs e)
         {
             clicked = false;
         }
