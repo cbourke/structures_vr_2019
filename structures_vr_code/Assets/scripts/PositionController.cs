@@ -33,7 +33,7 @@ public class PositionController : MonoBehaviour {
 
 	public void toggleModelMode() {
 		isModel = !isModel;
-
+		Debug.Log("toggle");
 		if(isModel) {
 			//zoomComponent.enabled = false;
 			//teleportComponent.enabled = false;
