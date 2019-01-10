@@ -3761,6 +3761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424851ecc2ef5664dbda27407cb3f945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  constructorController: {fileID: 1807594933}
+  previewLineRenderer: {fileID: 425715893}
   gridX: 4
   gridY: 4
   gridZ: 4
@@ -5583,6 +5585,7 @@ GameObject:
   - component: {fileID: 1388622107}
   - component: {fileID: 1388622108}
   - component: {fileID: 1388622114}
+  - component: {fileID: 1388622120}
   m_Layer: 0
   m_Name: RightController
   m_TagString: Untagged
@@ -5603,11 +5606,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playareaCursor: {fileID: 0}
   directionIndicator: {fileID: 0}
-  customRaycast: {fileID: 0}
+  customRaycast: {fileID: 1388622120}
   pointerOriginSmoothingSettings:
     smoothsPosition: 0
     maxAllowedPerFrameDistanceDifference: 0.003
-    smoothsRotation: 0
+    smoothsRotation: 1
     maxAllowedPerFrameAngleDifference: 1.5
   validCollisionColor: {r: 0, g: 1, b: 0, a: 1}
   invalidCollisionColor: {r: 1, g: 0, b: 0, a: 1}
@@ -5786,7 +5789,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1388622105}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ec704cceb26f6f49b6c900fc83d8d18, type: 3}
   m_Name: 
@@ -5876,10 +5879,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2aa1a29b92ca4f84a26a5f6e9218b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  operation: 1
+  operation: 0
   checkType: 1
   identifiers:
-  - Grid
+  - Frame
 --- !u!114 &1388622118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5894,7 +5897,7 @@ MonoBehaviour:
   enableTeleport: 0
   targetListPolicy: {fileID: 1388622117}
   pointerRenderer: {fileID: 1388622106}
-  activationButton: 0
+  activationButton: 14
   holdButtonToActivate: 0
   activateOnEnable: 1
   activationDelay: 0
@@ -5920,10 +5923,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2aa1a29b92ca4f84a26a5f6e9218b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  operation: 1
+  operation: 0
   checkType: 1
   identifiers:
-  - Frame
+  - Grid
+--- !u!114 &1388622120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1388622105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3942f053b21854fbc5d1227c94120b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 260
+  triggerInteraction: 0
 --- !u!4 &1417068822 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 475244, guid: 7a135b1a2cb9c8f488d4dd00c55ab283,
