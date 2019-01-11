@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33889472907821152}
   - component: {fileID: 23469897172847512}
   - component: {fileID: 65375359515092648}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: framePrefab
   m_TagString: Frame
   m_Icon: {fileID: 0}

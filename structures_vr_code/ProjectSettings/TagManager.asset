@@ -9,6 +9,14 @@ TagManager:
   - Grid
   - Frame
   - floor
+  - Leg
+  - SnapCube
+  - Arm
+  - SnapCylinder
+  - Saucers
+  - ExcludeTeleport
+  - Torso
+  - Head
   layers:
   - Default
   - TransparentFX
@@ -18,8 +26,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Frames
+  - Grid
   - 
   - 
   - 
