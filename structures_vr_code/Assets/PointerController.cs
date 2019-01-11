@@ -56,5 +56,10 @@ public class PointerController : MonoBehaviour {
             default: { break; }
         }
     }
+
+    public void toggleFramesOrNodes(){
+        framePointer.GetComponent<VRTK.VRTK_Pointer>().Toggle(!framePointer.GetComponent<VRTK.VRTK_Pointer>().isActiveAndEnabled);
+        gridNodePointer.GetComponent<VRTK.VRTK_Pointer>().Toggle(!gridNodePointer.GetComponent<VRTK.VRTK_Pointer>().isActiveAndEnabled);
+    }
     
 }

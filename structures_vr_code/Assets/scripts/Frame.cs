@@ -12,6 +12,7 @@ public class Frame : MonoBehaviour {
 
 	private GameObject frameObject;
     private string sectionPropertyName;
+	private string groupName;
 
 
 	private Transform trans;
@@ -67,5 +68,14 @@ public class Frame : MonoBehaviour {
         sectionPropertyName = section.GetName();
     }
 
+	public string getGroupName()
+    {
+        return groupName;
+    }
+
+    public void setGroupName(string newGroupName)
+    {
+        groupName = newGroupName;
+    }
 }
 
