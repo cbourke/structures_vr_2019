@@ -51,6 +51,9 @@ public class constructorController : MonoBehaviour
                     createFrame(framePoints[0], point);
                     framePoints.Clear();
                     tempLineRenderer.enabled = false;
+                } else
+                {
+                    framePoints.Clear();
                 }
             }
             else
@@ -59,6 +62,7 @@ public class constructorController : MonoBehaviour
 
                 tempLineRenderer.enabled = true;
                 tempLineRenderer.SetPosition(0, point);
+                tempLineRenderer.SetPosition(1, point);
             }
         }
         else if (type == buildingObjects.Area)

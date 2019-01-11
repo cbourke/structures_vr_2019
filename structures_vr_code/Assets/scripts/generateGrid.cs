@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class generateGrid : MonoBehaviour {
-
+    public GameObject constructorController;
+    public LineRenderer previewLineRenderer;
 	public int gridX, gridY, gridZ;
 	public GameObject node;
 	public static gridNode[, ,] grid;
@@ -24,9 +25,12 @@ public class generateGrid : MonoBehaviour {
 	}
 
 	void spawnNodes(gridNode[, ,] grid) {
-		foreach(gridNode item in grid) {
-			Instantiate(node, item.position, Quaternion.identity);
-		}	
+        GameObject nodeInstance;
+        foreach (gridNode item in grid) {
+			nodeInstance = Instantiate(node, item.position, Quaternion.identity);
+            nodeInstance.GetComponent<GridNodeBehavior>().setConstructorController(constructorController);
+            nodeInstance.GetComponent<GridNodeBehavior>().setPreviewLineRenderer(previewLineRenderer);
+        }	
     }
 	
 	// Update is called once per frame
