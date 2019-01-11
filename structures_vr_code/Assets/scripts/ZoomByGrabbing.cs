@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 using VRTK;
 
 public class ZoomByGrabbing : MonoBehaviour {
-    bool gripClickedLeft = false;
-    bool gripClickedRight = false;
     public VRTK_ControllerEvents controllerEventsLeft;
     public VRTK_ControllerEvents controllerEventsRight;
     public GameObject leftHand;
@@ -27,29 +25,22 @@ public class ZoomByGrabbing : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Vector3 originalScale = this.transform.localScale;
-        VRCamera = GameObject.Find("VRCamera");
+        VRCamera = GameObject.Find("Camera (eye)");
         pivot = new Vector2(VRCamera.transform.position.x, VRCamera.transform.position.y);
         pivotToTransformPosition = new Vector2(this.transform.position.x - VRCamera.transform.position.x, this.transform.position.y - VRCamera.transform.position.y);
     
-        Debug.Log("ttest");
         controllerEventsLeft.GripClicked += GripClickedLeft;
-        controllerEventsLeft.GripUnclicked += GripUnclickedLeft;
         controllerEventsRight.GripClicked += GripClickedRight;
-        controllerEventsRight.GripUnclicked += GripUnclickedRight;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
-        if (gripClickedLeft && gripClickedRight)
+
+        if (controllerEventsLeft.gripPressed && controllerEventsRight.gripPressed)
         {
             isScaling = true;
-            originalDistanceBetweenHands = Vector3.Distance(leftHand.transform.position, rightHand.transform.position);
-            originalScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
-            pivot = new Vector2(VRCamera.transform.position.x, VRCamera.transform.position.z);
-            pivotToTransformPosition = new Vector2(this.transform.position.x - VRCamera.transform.position.x, this.transform.position.z - VRCamera.transform.position.z);
         } 
-        else if (!gripClickedLeft || !gripClickedRight)
+        else
         {
             isScaling = false;
         }
@@ -67,24 +58,29 @@ public class ZoomByGrabbing : MonoBehaviour {
         }
     }   
 
+    private void initializeControllerDistance(){
+        originalDistanceBetweenHands = Vector3.Distance(leftHand.transform.position, rightHand.transform.position);
+            originalScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+            pivot = new Vector2(VRCamera.transform.position.x, VRCamera.transform.position.z);
+            pivotToTransformPosition = new Vector2(this.transform.position.x - VRCamera.transform.position.x, this.transform.position.z - VRCamera.transform.position.z);
+    }
+
 
     private void GripClickedLeft(object sender, ControllerInteractionEventArgs e)
     {
-        gripClickedLeft = true;
-        Debug.Log("clickleft");
+        if(controllerEventsRight.gripPressed)
+        {
+            initializeControllerDistance();
+        }
     }
-    private void GripUnclickedLeft(object sender, ControllerInteractionEventArgs e)
-    {
-        gripClickedLeft = false;
-    }
+
     private void GripClickedRight(object sender, ControllerInteractionEventArgs e)
     {
-        Debug.Log("clickright");
-        gripClickedRight = true;
+        if(controllerEventsLeft.gripPressed)
+        {
+            initializeControllerDistance();
+        }
     }
-    private void GripUnclickedRight(object sender, ControllerInteractionEventArgs e)
-    {
-        gripClickedRight = false;
-    }
+
 
 }
