@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114895300637319060}
   - component: {fileID: 114477079678662038}
   - component: {fileID: 114480514770625882}
+  - component: {fileID: 114749686113930428}
   m_Layer: 9
   m_Name: gridNodePrefab
   m_TagString: Grid
@@ -146,6 +147,7 @@ MonoBehaviour:
   linkedObject: {fileID: 114347606821000098}
   constructorController: {fileID: 0}
   previewLineRenderer: {fileID: 0}
+  pointerController: {fileID: 0}
 --- !u!114 &114480514770625882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -271,6 +273,23 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: VRTK.UnityEventHelper.VRTK_InteractableObject_UnityEvents+InteractableObjectEvent,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &114749686113930428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572682032358450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08517e04830d6d44a13c5ea5f574181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  unhighlightOnDisable: 1
+  thickness: 1
+  customOutlineModels: []
+  customOutlineModelPaths: []
+  enableSubmeshHighlight: 0
 --- !u!114 &114895300637319060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -288,7 +307,7 @@ MonoBehaviour:
   useHighlight: {r: 0.033018887, g: 0.5981862, b: 1, a: 0}
   objectToMonitor: {fileID: 0}
   objectToHighlight: {fileID: 0}
-  objectHighlighter: {fileID: 0}
+  objectHighlighter: {fileID: 114749686113930428}
   objectToAffect: {fileID: 0}
 --- !u!135 &135984659520981654
 SphereCollider:

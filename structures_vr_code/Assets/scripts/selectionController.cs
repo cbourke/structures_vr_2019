@@ -10,7 +10,7 @@ public enum selectionBehaviors {
 public class selectionController : MonoBehaviour {
 	private selectionBehaviors selectionBehavior = selectionBehaviors.reset;
 	private List<Frame> selectedFrames = new List<Frame>();
-	private List<gridNode> selectedNodes = new List<gridNode>();
+	private List<GridNodeBehavior> selectedNodes = new List<GridNodeBehavior>();
 
 	// Selection tool functions
 
@@ -20,9 +20,9 @@ public class selectionController : MonoBehaviour {
 		singletonFrameList.Add(targetFrame);
 		select(singletonFrameList);
 	}
-	public void select(gridNode targetNode)
+	public void select(GridNodeBehavior targetNode)
 	{
-		List<gridNode> singletonNodeList = new List<gridNode>();
+		List<GridNodeBehavior> singletonNodeList = new List<GridNodeBehavior>();
 		singletonNodeList.Add(targetNode);
 		select(singletonNodeList);
 	}
@@ -44,7 +44,7 @@ public class selectionController : MonoBehaviour {
 			}
 		}
 	}
-	public void select(List<gridNode> targetNodeList)
+	public void select(List<GridNodeBehavior> targetNodeList)
 	{
 		switch(selectionBehavior)
 		{
@@ -68,22 +68,23 @@ public class selectionController : MonoBehaviour {
 		{
             if(!selectedFrames.Contains(targetFrame))
             {
-                targetFrame.GetComponent<Frame>().setSelected(true);
+                targetFrame.setSelected(true);
                 selectedFrames.Add(targetFrame);
             }
             
 		}
 	}
-	private void addListToSelection(List<gridNode> targetNodeList)
+	private void addListToSelection(List<GridNodeBehavior> targetNodeList)
 	{
-		foreach(gridNode targetNode in targetNodeList)
+		foreach(GridNodeBehavior targetNode in targetNodeList)
 		{
             if (!selectedNodes.Contains(targetNode))
             {
-                targetNode.GetComponent<GridNodeBehavior>().setSelected(false);
+                targetNode.setSelected(false);
                 selectedNodes.Add(targetNode);
             }
 		}
+		Debug.Log("Grid Node(s) added to selection.");
 	}
 
     public void deselect(Frame targetFrame)
@@ -92,9 +93,9 @@ public class selectionController : MonoBehaviour {
         singletonFrameList.Add(targetFrame);
         deselect(singletonFrameList);
     }
-    public void deselect(gridNode targetNode)
+    public void deselect(GridNodeBehavior targetNode)
     {
-        List<gridNode> singletonNodeList = new List<gridNode>();
+        List<GridNodeBehavior> singletonNodeList = new List<GridNodeBehavior>();
         singletonNodeList.Add(targetNode);
         deselect(singletonNodeList);
     }
@@ -111,7 +112,7 @@ public class selectionController : MonoBehaviour {
                 }
         }
     }
-    public void deselect(List<gridNode> targetNodeList)
+    public void deselect(List<GridNodeBehavior> targetNodeList)
     {
         switch (selectionBehavior)
         {
@@ -130,19 +131,19 @@ public class selectionController : MonoBehaviour {
         {
             if (selectedFrames.Contains(targetFrame))
             {
-                targetFrame.GetComponent<Frame>().setSelected(false);
+                targetFrame.setSelected(false);
                 selectedFrames.Remove(targetFrame);
             }
 
         }
     }
-    private void removeListFromSelection(List<gridNode> targetNodeList)
+    private void removeListFromSelection(List<GridNodeBehavior> targetNodeList)
     {
-        foreach (gridNode targetNode in targetNodeList)
+        foreach (GridNodeBehavior targetNode in targetNodeList)
         {
             if (selectedNodes.Contains(targetNode))
             {
-                targetNode.GetComponent<GridNodeBehavior>().setSelected(false);
+                targetNode.setSelected(false);
                 selectedNodes.Remove(targetNode);
             }
         }
@@ -160,8 +161,9 @@ public class selectionController : MonoBehaviour {
 		return selectedFrames;
 	}
 
-	List<gridNode> GetSelectedNodes()
+	List<GridNodeBehavior> GetSelectedNodes()
 	{
 		return selectedNodes;
 	}
+
 }

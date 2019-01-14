@@ -5186,6 +5186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   constructorController: {fileID: 1807594933}
   previewLineRenderer: {fileID: 425715893}
+  pointerController: {fileID: 1388622114}
   gridX: 4
   gridY: 4
   gridZ: 4
@@ -7691,7 +7692,8 @@ MonoBehaviour:
   gridNodePointer: {fileID: 1388622118}
   TeleportPointer: {fileID: 1388622107}
   UIPointer: {fileID: 1388622109}
-  defaultPointerMode: 0
+  selectionController: {fileID: 326410190}
+  defaultPointerMode: 1
 --- !u!114 &1388622115
 MonoBehaviour:
   m_ObjectHideFlags: 0
