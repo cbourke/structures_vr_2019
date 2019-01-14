@@ -328,7 +328,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1143770081456806
 GameObject:
   m_ObjectHideFlags: 1
@@ -831,7 +831,7 @@ GameObject:
   - component: {fileID: 114903203793916746}
   - component: {fileID: 114127990764196694}
   m_Layer: 5
-  m_Name: Send To SAP button
+  m_Name: grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -886,7 +886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1508588982884734
 GameObject:
   m_ObjectHideFlags: 1
@@ -1280,8 +1280,9 @@ GameObject:
   - component: {fileID: 222996938967536868}
   - component: {fileID: 114644694428369012}
   - component: {fileID: 114375315481489740}
+  - component: {fileID: 114827705435661952}
   m_Layer: 5
-  m_Name: Dropdown
+  m_Name: DefineSelection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1355,7 +1356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1723662424834598
 GameObject:
   m_ObjectHideFlags: 1
@@ -1417,7 +1418,7 @@ GameObject:
   - component: {fileID: 114756191825134704}
   - component: {fileID: 114411116859853204}
   m_Layer: 5
-  m_Name: Send To SAP button
+  m_Name: Draw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1643,7 +1644,7 @@ GameObject:
   - component: {fileID: 114275946839766028}
   - component: {fileID: 114869522748088686}
   m_Layer: 5
-  m_Name: Send To SAP button
+  m_Name: loads/joints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1756,7 +1757,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002705873435420}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.04, y: 3.51, z: 0.768}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224581104735875612}
@@ -2149,7 +2150,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Send structure to SAP
+  m_Text: Draw
 --- !u!114 &114127990764196694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2429,7 +2430,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Send structure to SAP
+  m_Text: Grid offset
 --- !u!114 &114170049248917992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3797,7 +3798,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Send structure to SAP
+  m_Text: Loads/joints
 --- !u!114 &114537272392291824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5082,6 +5083,18 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
+--- !u!114 &114827705435661952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1652934471614280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9ed69e867825147855ed0d2b0e7462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 114980383908388634}
 --- !u!114 &114835276908729536
 MonoBehaviour:
   m_ObjectHideFlags: 1
