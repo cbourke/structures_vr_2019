@@ -12,6 +12,8 @@ public class Frame : MonoBehaviour {
 
 	private GameObject frameObject;
     private string sectionPropertyName;
+	private List<string> groupNames;
+	private bool isSelected = false;
 
 
 	private Transform trans;
@@ -67,5 +69,26 @@ public class Frame : MonoBehaviour {
         sectionPropertyName = section.GetName();
     }
 
+	public List<string> getGroupNames()
+    {
+        return groupNames;
+    }
+
+    public void addGroupName(string newGroupName)
+    {
+        groupNames.Add(newGroupName);
+    }
+
+	public void removeGroupName(string targetGroupName){
+		groupNames.Remove(targetGroupName);
+	}
+
+	public bool getSelected(){
+		return isSelected;
+	}
+
+	public void setSelected(bool selected) {
+		isSelected = selected;
+	}
 }
 
