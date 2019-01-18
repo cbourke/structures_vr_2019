@@ -20,7 +20,7 @@ public class createNewProject : MonoBehaviour {
 		}
 	}
 	public void clickNew() {
-		//constructorController.GetComponent<constructorController>().deleteAll();
+		constructorController.GetComponent<constructorController>().deleteAll();
  		float spacing = float.Parse(spacingText.text);
 		int x = int.Parse(xText.text);
 		int y = int.Parse(yText.text);

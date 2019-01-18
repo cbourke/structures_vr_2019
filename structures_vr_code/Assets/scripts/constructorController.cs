@@ -216,9 +216,8 @@ public class constructorController : MonoBehaviour
         {
             GameObject frameObject = frameElement.GetGameObject();
             Object.Destroy(frameObject);
-            frameList.Remove(frameElement);
         }
-
+        frameList.Clear();
         foreach (jointRestraint jointRestraintElement in jointRestraintList)
         {
             GameObject jointRestraintObject = jointRestraintElement.GetGameObject();
