@@ -10,7 +10,9 @@ public class generateGrid : MonoBehaviour {
 	public static gridNode[, ,] grid;
 
 	void Start() {
-		createGrid(3,3,3,0.3048f);
+		//createGrid(3,3,3,0.3048f);
+		//destroyNodes();
+		//createGrid(1,1,3,0.3048f);
 	}
 
 	public void createGrid(int gridX, int gridY, int gridZ, float spacing) {
@@ -24,7 +26,9 @@ public class generateGrid : MonoBehaviour {
 				}
 			}
 		}
+		destroyNodes();
 		spawnNodes(grid);
+
 	}
 
 	void spawnNodes(gridNode[, ,] grid) {
@@ -34,9 +38,16 @@ public class generateGrid : MonoBehaviour {
             nodeInstance.GetComponent<GridNodeBehavior>().setConstructorController(constructorController);
             nodeInstance.GetComponent<GridNodeBehavior>().setPreviewLineRenderer(previewLineRenderer);
 			nodeInstance.GetComponent<GridNodeBehavior>().setPointerController(pointerController);
+			nodeInstance.transform.parent = gameObject.transform;
 		
 		}	
     }
+
+	void destroyNodes() {
+		foreach (Transform child in gameObject.transform) {
+			GameObject.Destroy(child.gameObject);
+		}
+	}
 }	
 
 
