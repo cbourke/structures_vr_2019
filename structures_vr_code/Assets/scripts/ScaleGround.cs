@@ -9,6 +9,7 @@ public class ScaleGround : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		/*
 		groundX = (grid.gridX - 1f) / 2f;
 		groundZ = (grid.gridZ - 1f) / 2f;
 
@@ -17,6 +18,7 @@ public class ScaleGround : MonoBehaviour {
 
 		transform.position = new Vector3(groundX, 0f, groundZ);
 		transform.localScale = new Vector3 (scaleX, 1, scaleZ);
+		 */
 	}
 	
 	// Update is called once per frame
