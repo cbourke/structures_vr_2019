@@ -34,6 +34,9 @@ public class materialsUIdropdown : MonoBehaviour {
         });
 		
 		region.ClearOptions();
+		public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> materialCollection = BuildingMaterialAttributes1.getDict();
+		List<string> keyList = new List<string>(BuildingMaterialAttributes1.materialCollection.Keys);
+		//region.AddOptions(convertToList(BuildingMaterialAttributes.Regions.members));
 		region.AddOptions(convertToList(BuildingMaterialAttributes.Regions.members));
 
 		// this sets the value to US. it probably shouldn't be hardcoded like this, but oh well
