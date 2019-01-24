@@ -25,6 +25,7 @@ public class debugDrawing : MonoBehaviour {
         materialController.GetComponent<materialsController>().addBuildingMaterial("Steel01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53Grades.GRADE_B);
         materialController.GetComponent<materialsController>().addBuildingMaterial("Steel02", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500Grades.GRADE_B_fy_46);
         materialController.GetComponent<materialsController>().addBuildingMaterial("Aluminum01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.ALUMINUM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTMGrades.GRADE_Alloy_6063_T6);
+ */
 
         sectionController.GetComponent<sectionController>().addIFrameSection("Sec_Steel_I", "Steel01", 0.3, 0.12, 0.01, 0.007, 0.12, 0.01);
         sectionController.GetComponent<sectionController>().addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2, 0.01);
@@ -60,7 +61,6 @@ public class debugDrawing : MonoBehaviour {
         constructorController.GetComponent<constructorController>().createJointRestraint(p6, 'f'); // This is meant to fail, as there is no frame endpoint here
 
         xmlController.GetComponent<xmlController>().sendFileToSap(); //send to SAP2000
- */
 
         // Testing BuildingMaterial objects:
         /* 

@@ -14,8 +14,8 @@ public class materialsUIdropdown : MonoBehaviour {
 	public TMP_Dropdown type;
 	public TMP_Dropdown standard;
 	public TMP_Dropdown grade;
+	public TMP_InputField name;
 	
-	List<string> m_DropOptions = new List<string> { "Option 1", "Option 2"};
 	Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> materialDict;
 
 	void Start()
@@ -83,16 +83,31 @@ public class materialsUIdropdown : MonoBehaviour {
 		standardType = standard.options[standard.value].text;
 
 		List<string> gradeList = new List<string>(materialDict[regionType][typeType][standardType]);
-		foreach(string str in gradeList)
-		{
-			Debug.Log(str);
-		}
 		setDropdownValues(grade, gradeList);
     }
 
-	void setDropdownValues(TMP_Dropdown dropdown, List<string> list) {
+	void setDropdownValues(TMP_Dropdown dropdown, List<string> list)
+	{
 		dropdown.ClearOptions();
 		dropdown.AddOptions(list);
 		dropdown.value = 0;
 	}
+
+	public void createMaterialClick() {
+		string regionType;
+		string typeType;
+		string standardType;
+		string gradeType;
+		regionType = region.options[region.value].text;
+		typeType = type.options[type.value].text;
+		standardType = standard.options[standard.value].text;
+		gradeType = grade.options[grade.value].text;
+		if(name.text != null) {
+        	materialController.GetComponent<materialsController>().addBuildingMaterial(name.text, regionType, typeType, standardType, gradeType);
+			Debug.Log("material " + name.text + " created");
+		} else
+		{
+			Debug.LogError("Input a name for the material!");
+		}
+    }
 }

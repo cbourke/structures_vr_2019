@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class defineDropDown : MonoBehaviour {
+public class sectionsDropDown : MonoBehaviour {
 
     TMP_Dropdown m_Dropdown;
-    public GameObject material;
-    public GameObject section;
-    public GameObject group;
+    public GameObject iFrame;
+    public GameObject pipe;
+    public GameObject tube;
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class defineDropDown : MonoBehaviour {
         m_Dropdown.onValueChanged.AddListener(delegate {
             DropdownValueChanged(m_Dropdown);
         });
-        material.SetActive(true);
+        iFrame.SetActive(true);
     }
 
     //Ouput the new value of the Dropdown into Text
@@ -26,19 +26,19 @@ public class defineDropDown : MonoBehaviour {
     {
         if (change.value == 0)
         {
-            material.SetActive(true);
-            section.SetActive(false);
-            group.SetActive(false);
+            iFrame.SetActive(true);
+            pipe.SetActive(false);
+            tube.SetActive(false);
         } else if (change.value == 1)
         {
-            material.SetActive(false);
-            section.SetActive(true);
-            group.SetActive(false);
+            iFrame.SetActive(false);
+            pipe.SetActive(true);
+            tube.SetActive(false);
         } else
         {
-            material.SetActive(false);
-            section.SetActive(false);
-            group.SetActive(true);
+            iFrame.SetActive(false);
+            pipe.SetActive(false);
+            tube.SetActive(true);
         }
     }
 }
