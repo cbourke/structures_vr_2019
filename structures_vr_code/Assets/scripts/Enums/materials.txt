@@ -3,6 +3,16 @@ United States	steel	ASTM A53	Grade B
 United States	steel	ASTM A500	Grade B, Fy 42 (HSS Round)
 United States	steel	ASTM A500	Grade B, Fy 46 (HSS Rect.)
 United States	steel	ASTM A500	Grade C
+United States	steel	ASTM A572	Grade 50
+United States	steel	ASTM A913	Grade 50
+United States	steel	ASTM A992	Grade 50
+United States	steel	ASTM A709	Grade 36
+United States	steel	ASTM A709	Grade 50
+United States	steel	ASTM A709	Grade 50S
+United States	steel	ASTM A709	Grade 50W
+United States	steel	ASTM A709	Grade HPS 50W
+United States	steel	ASTM A709	Grade HPS 70W
+United States	steel	ASTM A709	Grade HPS 100W
 United States	concrete	Customary	f'c 3000 psi
 United States	concrete	Customary	f'c 4000 psi	
 United States	concrete	Customary	f'c 5000 psi	
@@ -10,12 +20,17 @@ United States	concrete	Customary	f'c 6000 psi
 United States	concrete	Customary	f'c 3000 psi Lightweight	
 United States	concrete	Customary	f'c 4000 psi Lightweight	
 United States	concrete	Customary	f'c 5000 psi Lightweight	
-United States	concrete	Customary	f'c 6000 psi Lightweight	
-China	none	none	none
-Europe	none	none	none
-India	none	none	none
-Italy	none	none	none
-New Zealand	none	none	none
-Russia	none	none	none
-Spain	none	none	none
-Vietnam	none	none	none
+United States	concrete	Customary	f'c 6000 psi Lightweight
+United States	aluminum	ASTM	Alloy 6061 T6
+United States	aluminum	ASTM	Alloy 6063 T6
+United States	aluminum	ASTM	Alloy 5052 H34
+United States	coldformed	ASTM_A653	SQ Grade 33
+United States	coldformed	ASTM_A653	SQ Grade 50
+United States	rebar	ASTM A615	Grade 40
+United States	rebar	ASTM A615	Grade 50
+United States	rebar	ASTM A615	Grade 75
+United States	rebar	ASTM A706	Grade 60
+United States	tendon	ASTM A416	Grade 250
+United States	tendon	ASTM A416	Grade 270
+United States	tendon	ASTM A722	Grade 150 - Plain (Type I)
+United States	tendon	ASTM A722	Grade 150 - Deformed (Type II)

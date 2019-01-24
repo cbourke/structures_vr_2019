@@ -944,6 +944,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc9bf55fd3fea904fa79563bc6dcd4d0, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &123653862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114708382849308938, guid: 55bf230e68be69f439ed024d48fe840f,
+    type: 2}
+  m_PrefabInternal: {fileID: 856900917}
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
 --- !u!1 &144047022
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,6 +2293,12 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 410813284}
   m_CullTransparentMesh: 0
+--- !u!114 &412583461 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114295303038581100, guid: 55bf230e68be69f439ed024d48fe840f,
+    type: 2}
+  m_PrefabInternal: {fileID: 856900917}
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
 --- !u!1 &425715891
 GameObject:
   m_ObjectHideFlags: 0
@@ -2904,6 +2916,12 @@ Transform:
   m_Father: {fileID: 466445472}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &565808161 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114403370707770498, guid: 55bf230e68be69f439ed024d48fe840f,
+    type: 2}
+  m_PrefabInternal: {fileID: 856900917}
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
 --- !u!1 &571243035
 GameObject:
   m_ObjectHideFlags: 0
@@ -3852,29 +3870,29 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114827705435661952, guid: 55bf230e68be69f439ed024d48fe840f,
+    - target: {fileID: 114668966481925314, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 2}
-      propertyPath: material
+      propertyPath: region
       value: 
-      objectReference: {fileID: 1996075382}
-    - target: {fileID: 114827705435661952, guid: 55bf230e68be69f439ed024d48fe840f,
+      objectReference: {fileID: 565808161}
+    - target: {fileID: 114668966481925314, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 2}
-      propertyPath: section
+      propertyPath: type
       value: 
-      objectReference: {fileID: 881828870}
-    - target: {fileID: 114827705435661952, guid: 55bf230e68be69f439ed024d48fe840f,
+      objectReference: {fileID: 123653862}
+    - target: {fileID: 114668966481925314, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 2}
-      propertyPath: group
+      propertyPath: standard
       value: 
-      objectReference: {fileID: 1883922491}
+      objectReference: {fileID: 412583461}
+    - target: {fileID: 114668966481925314, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 2}
+      propertyPath: grade
+      value: 
+      objectReference: {fileID: 1823881006}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55bf230e68be69f439ed024d48fe840f, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &881828870 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1720203919838880, guid: 55bf230e68be69f439ed024d48fe840f,
-    type: 2}
-  m_PrefabInternal: {fileID: 856900917}
 --- !u!43 &882972971
 Mesh:
   m_ObjectHideFlags: 0
@@ -8169,6 +8187,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1823881006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114823309517098428, guid: 55bf230e68be69f439ed024d48fe840f,
+    type: 2}
+  m_PrefabInternal: {fileID: 856900917}
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
 --- !u!21 &1840725833
 Material:
   serializedVersion: 6
@@ -8202,11 +8226,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!1 &1883922491 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1502473866679096, guid: 55bf230e68be69f439ed024d48fe840f,
-    type: 2}
-  m_PrefabInternal: {fileID: 856900917}
 --- !u!1 &1906076644
 GameObject:
   m_ObjectHideFlags: 0
@@ -9104,11 +9123,6 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!1 &1996075382 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1139494439579482, guid: 55bf230e68be69f439ed024d48fe840f,
-    type: 2}
-  m_PrefabInternal: {fileID: 856900917}
 --- !u!1001 &2006286445
 Prefab:
   m_ObjectHideFlags: 0
