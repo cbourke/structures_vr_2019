@@ -17,11 +17,13 @@ public class materialsUIdropdown : MonoBehaviour {
 	
 	//Create a List of new Dropdown options
 	List<string> m_DropOptions = new List<string> { "Option 1", "Option 2"};
+	Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> materialDict;
 	//This is the Dropdown
 
 	void Start()
 	{
-		
+		materialDict = materialController.GetComponent<materialDefinitions>().getDict();
+
 		// region event
         region.onValueChanged.AddListener(delegate {
             regionDropdownValueChanged(type);
@@ -35,7 +37,6 @@ public class materialsUIdropdown : MonoBehaviour {
             standardDropdownValueChanged(grade);
         });
 		
-		Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> materialDict = materialController.GetComponent<materialDefinitions>().getDict();
 		List<string> regionList = new List<string>(materialDict.Keys);
 		string regionString = null;
 		foreach(string str in regionList)
@@ -43,39 +44,37 @@ public class materialsUIdropdown : MonoBehaviour {
 			regionString = str;
 			Debug.Log(str);
 		}
-		List<string> typeList = new List<string>(materialDict[regionString].Keys);
-		foreach(string str in typeList)
-		{
-			//regionString = str;
-			Debug.Log(str);
-		}
+		
 
-		//region.ClearOptions();
-		//List<string> keyList = new List<string>(BuildingMaterialAttributes1.materialCollection.Keys);
-		//region.AddOptions(convertToList(BuildingMaterialAttributes.Regions.members));
-		//region.AddOptions(convertToList(BuildingMaterialAttributes.Regions.members));
+		region.ClearOptions();
+		region.AddOptions(regionList);
 
 		// this sets the value to US. it probably shouldn't be hardcoded like this, but oh well
-		region.value = 7;
-
-
-
+		//region.value = 7;
+		region.value = 0;
         
 	}
 	
 	void Update()
 	{
-		
+		region.value = 0;
 	}
 
     void regionDropdownValueChanged(TMP_Dropdown dropdown)
     {
+		Debug.Log("test");
 		// update values of type dropdown
 		string regionType;
 		regionType = region.options[region.value].text;
-		regionType = Regex.Replace(regionType, @"\s+", "");
-		regionType += "Types";
+		//regionType = Regex.Replace(regionType, @"\s+", "");
+		//regionType += "Types";
 		
+		List<string> typeList = new List<string>(materialDict[regionType].Keys);
+		foreach(string str in typeList)
+		{
+			//regionString = str;
+			Debug.Log(str);
+		}
 		/*
 		string name = "BuildingMaterialAttributes.Regions." + regionType + ".getMembers";
 		obj = (name)Activator.CreateInstance("MyAssembly", ClassName))

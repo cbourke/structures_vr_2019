@@ -11,7 +11,6 @@ public class materialDefinitions : MonoBehaviour {
     {
         try
         {
-            // A data record file "RecordsFile.txt" is read.
             StreamReader oStreamReader = new StreamReader("Assets\\scripts\\Enums\\materials.txt");
             string line;
             string region;
