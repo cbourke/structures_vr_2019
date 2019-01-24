@@ -9,6 +9,7 @@ using System;
 
 public class materialsUIdropdown : MonoBehaviour {
 
+	public GameObject materialController;
 	public TMP_Dropdown region;
 	public TMP_Dropdown type;
 	public TMP_Dropdown standard;
@@ -20,6 +21,7 @@ public class materialsUIdropdown : MonoBehaviour {
 
 	void Start()
 	{
+		
 		// region event
         region.onValueChanged.AddListener(delegate {
             regionDropdownValueChanged(type);
@@ -33,11 +35,25 @@ public class materialsUIdropdown : MonoBehaviour {
             standardDropdownValueChanged(grade);
         });
 		
-		region.ClearOptions();
-		public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> materialCollection = BuildingMaterialAttributes1.getDict();
-		List<string> keyList = new List<string>(BuildingMaterialAttributes1.materialCollection.Keys);
+		Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> materialDict = materialController.GetComponent<materialDefinitions>().getDict();
+		List<string> regionList = new List<string>(materialDict.Keys);
+		string regionString = null;
+		foreach(string str in regionList)
+		{
+			regionString = str;
+			Debug.Log(str);
+		}
+		List<string> typeList = new List<string>(materialDict[regionString].Keys);
+		foreach(string str in typeList)
+		{
+			//regionString = str;
+			Debug.Log(str);
+		}
+
+		//region.ClearOptions();
+		//List<string> keyList = new List<string>(BuildingMaterialAttributes1.materialCollection.Keys);
 		//region.AddOptions(convertToList(BuildingMaterialAttributes.Regions.members));
-		region.AddOptions(convertToList(BuildingMaterialAttributes.Regions.members));
+		//region.AddOptions(convertToList(BuildingMaterialAttributes.Regions.members));
 
 		// this sets the value to US. it probably shouldn't be hardcoded like this, but oh well
 		region.value = 7;

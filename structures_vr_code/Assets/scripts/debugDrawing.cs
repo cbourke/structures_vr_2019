@@ -21,7 +21,7 @@ public class debugDrawing : MonoBehaviour {
 		Vector3 p6 = new Vector3(0,3,0);
 
         /* TODO: rewrite this so it doesn't look horrible */
-
+/*
         materialController.GetComponent<materialsController>().addBuildingMaterial("Steel01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53Grades.GRADE_B);
         materialController.GetComponent<materialsController>().addBuildingMaterial("Steel02", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500Grades.GRADE_B_fy_46);
         materialController.GetComponent<materialsController>().addBuildingMaterial("Aluminum01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.ALUMINUM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTMGrades.GRADE_Alloy_6063_T6);
@@ -60,6 +60,7 @@ public class debugDrawing : MonoBehaviour {
         constructorController.GetComponent<constructorController>().createJointRestraint(p6, 'f'); // This is meant to fail, as there is no frame endpoint here
 
         xmlController.GetComponent<xmlController>().sendFileToSap(); //send to SAP2000
+ */
 
         // Testing BuildingMaterial objects:
         /* 

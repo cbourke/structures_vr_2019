@@ -4,15 +4,15 @@ using UnityEngine;
 using System.IO;
 using System;
 
-public class BuildingMaterialAttributes: MonoBehaviour
-{
-    public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> materialCollection = new Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>>();
+public class materialDefinitions : MonoBehaviour {
+
+	 public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> materialCollection = new Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>>();
     void Start()
     {
         try
         {
             // A data record file "RecordsFile.txt" is read.
-            StreamReader oStreamReader = new StreamReader("materials.txt");
+            StreamReader oStreamReader = new StreamReader("Assets\\scripts\\Enums\\materials.txt");
             string line;
             string region;
             string type;
@@ -94,13 +94,9 @@ public class BuildingMaterialAttributes: MonoBehaviour
             throw e;
 
         }
+	}
 
-
-
-    }                  
-
-    public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> getDict() {
+	public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> getDict() {
         return materialCollection;
     }
-   
 }
