@@ -15,10 +15,8 @@ public class materialsUIdropdown : MonoBehaviour {
 	public TMP_Dropdown standard;
 	public TMP_Dropdown grade;
 	
-	//Create a List of new Dropdown options
 	List<string> m_DropOptions = new List<string> { "Option 1", "Option 2"};
 	Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> materialDict;
-	//This is the Dropdown
 
 	void Start()
 	{
@@ -26,15 +24,15 @@ public class materialsUIdropdown : MonoBehaviour {
 
 		// region event
         region.onValueChanged.AddListener(delegate {
-            regionDropdownValueChanged(type);
+            regionDropdownValueChanged();
         });
 		// type event
         type.onValueChanged.AddListener(delegate {
-            typeDropdownValueChanged(standard);
+            typeDropdownValueChanged();
         });
 		// standard event
         standard.onValueChanged.AddListener(delegate {
-            standardDropdownValueChanged(grade);
+            standardDropdownValueChanged();
         });
 		
 		List<string> regionList = new List<string>(materialDict.Keys);
@@ -45,67 +43,56 @@ public class materialsUIdropdown : MonoBehaviour {
 			Debug.Log(str);
 		}
 		
-
-		region.ClearOptions();
-		region.AddOptions(regionList);
-
-		// this sets the value to US. it probably shouldn't be hardcoded like this, but oh well
-		//region.value = 7;
-		region.value = 0;
-        
+		setDropdownValues(region, regionList);
+		regionDropdownValueChanged();
+		typeDropdownValueChanged();
+		standardDropdownValueChanged();
 	}
 	
-	void Update()
-	{
-		region.value = 0;
-	}
 
-    void regionDropdownValueChanged(TMP_Dropdown dropdown)
+    void regionDropdownValueChanged()
     {
-		Debug.Log("test");
 		// update values of type dropdown
 		string regionType;
 		regionType = region.options[region.value].text;
-		//regionType = Regex.Replace(regionType, @"\s+", "");
-		//regionType += "Types";
 		
 		List<string> typeList = new List<string>(materialDict[regionType].Keys);
-		foreach(string str in typeList)
-		{
-			//regionString = str;
-			Debug.Log(str);
-		}
-		/*
-		string name = "BuildingMaterialAttributes.Regions." + regionType + ".getMembers";
-		obj = (name)Activator.CreateInstance("MyAssembly", ClassName))
-		
-		object list = Activator.CreateInstance(newType);
-		string[] listString = (string[])list;
-		convertToList(listString);
-		Debug.Log(listString.ToString());
-		 */
-		//Debug.Log(typeof(BuildingMaterialAttributes.Regions).Assembly.GetTypes().Where(type => type.IsSubclassOf(typeof(BuildingMaterialAttributes.Regions))));
-        dropdown.value = 2;
+		setDropdownValues(type, typeList);
     }
 
-    void typeDropdownValueChanged(TMP_Dropdown dropdown)
+    void typeDropdownValueChanged()
     {
 		// update values of standard dropdown
-        dropdown.value = 2;
+		string regionType;
+		string typeType;
+		regionType = region.options[region.value].text;
+		typeType = type.options[type.value].text;
+
+		List<string> standardList = new List<string>(materialDict[regionType][typeType].Keys);
+		setDropdownValues(standard, standardList);
     }
 
-    void standardDropdownValueChanged(TMP_Dropdown dropdown)
+    void standardDropdownValueChanged()
     {
 		// update values of grade dropdown
-        dropdown.value = 2;
+        string regionType;
+		string typeType;
+		string standardType;
+		regionType = region.options[region.value].text;
+		typeType = type.options[type.value].text;
+		standardType = standard.options[standard.value].text;
+
+		List<string> gradeList = new List<string>(materialDict[regionType][typeType][standardType]);
+		foreach(string str in gradeList)
+		{
+			Debug.Log(str);
+		}
+		setDropdownValues(grade, gradeList);
     }
 
-	List<string> convertToList(string[] members) {
-		List<string> memberList = new List<string>();
-		for (int i = 0; i<members.Length; i++){
-			memberList.Add(members[i]);
-		}
-		return memberList;
+	void setDropdownValues(TMP_Dropdown dropdown, List<string> list) {
+		dropdown.ClearOptions();
+		dropdown.AddOptions(list);
+		dropdown.value = 0;
 	}
-
 }
