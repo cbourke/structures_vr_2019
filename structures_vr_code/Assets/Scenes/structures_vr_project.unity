@@ -1689,6 +1689,46 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224516939988876180, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224516939988876180, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224516939988876180, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224516939988876180, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224216219715923860, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224216219715923860, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157337312376264, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157337312376264, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
 --- !u!1 &236438458 stripped
@@ -6154,11 +6194,11 @@ MonoBehaviour:
   directionIndicator: {fileID: 0}
   customRaycast: {fileID: 1388622120}
   pointerOriginSmoothingSettings:
-    smoothsPosition: 0
-    maxAllowedPerFrameDistanceDifference: 0.003
+    smoothsPosition: 1
+    maxAllowedPerFrameDistanceDifference: 0.01
     smoothsRotation: 1
     maxAllowedPerFrameAngleDifference: 1.5
-  validCollisionColor: {r: 0, g: 1, b: 0, a: 1}
+  validCollisionColor: {r: 0, g: 0.63529414, b: 0.9372549, a: 1}
   invalidCollisionColor: {r: 1, g: 0, b: 0, a: 1}
   tracerVisibility: 0
   cursorVisibility: 0
