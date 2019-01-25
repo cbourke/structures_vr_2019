@@ -37,11 +37,6 @@ public class materialsUIdropdown : MonoBehaviour {
 		
 		List<string> regionList = new List<string>(materialDict.Keys);
 		string regionString = null;
-		foreach(string str in regionList)
-		{
-			regionString = str;
-			Debug.Log(str);
-		}
 		
 		setDropdownValues(region, regionList);
 		regionDropdownValueChanged();
