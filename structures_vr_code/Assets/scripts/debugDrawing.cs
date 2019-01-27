@@ -29,6 +29,7 @@ public class debugDrawing : MonoBehaviour {
     void testConversions()
     {
         unitsController uC = unitsController.GetComponent<unitsController>();
+        uC.populateDict();
         int lengthMeter = 5;
         int forceNewton = 15;
         int tempCel = 20;

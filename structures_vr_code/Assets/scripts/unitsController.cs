@@ -16,8 +16,8 @@ public class unitsController : MonoBehaviour {
 	// the system defaults to m,N,C
 	// temp conversions handled in function because its not a ratio and theres only 2
 	private Dictionary<string, double> convTable = new Dictionary<string, double>();
-
-    void Start()
+    
+	public void populateDict()
     {
         // distance conversions
         this.convTable.Add("m", 1.0);
