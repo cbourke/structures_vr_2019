@@ -35,22 +35,52 @@ public class debugDrawing : MonoBehaviour {
         int tempCel = 20;
         uC.setUnits("N, m, C");
         Debug.Log("Force: " + uC.getForceUnit() + ", Length: " + uC.getLengthUnit() + ", Temp: " + uC.getTempUnit());
-        Debug.Log(tempCel + " Celcius is " + uC.getTemperature(tempCel) + " Celcius");
+        Debug.Log(tempCel + " Celcius is " + uC.getTemperature(tempCel) + " Celcius"); // correct
         uC.setUnits("Kip, ft, F");
         Debug.Log("Force: " + uC.getForceUnit() + ", Length: " + uC.getLengthUnit() + ", Temp: " + uC.getTempUnit());
         
-        Debug.Log(lengthMeter + " meters is " + uC.getLength(lengthMeter) + " feet");
-        Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton) + " Kips");
-        Debug.Log(tempCel + " Celcius is " + uC.getTemperature(tempCel) + " farenheit");
+        Debug.Log(lengthMeter + " meters is " + uC.getLength(lengthMeter) + " feet"); // correct
+        Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton) + " Kips"); // correct
+        Debug.Log(tempCel + " Celcius is " + uC.getTemperature(tempCel) + " farenheit"); // correct
         
         int lengthFeet = 8;
         int forceKips = 120;
         int tempFaren = 75;
-        Debug.Log(lengthFeet + " feet is " + uC.getLengthMeters(lengthFeet) + " meters");
-        Debug.Log(forceKips + "  Kips is " + uC.getForceNewtons(forceKips) + " newtons");
-        Debug.Log(tempFaren + "  farenheit is " + uC.getTemperatureCelcius(tempFaren) + " Celcius");
+        Debug.Log(lengthFeet + " feet is " + uC.getLengthMeters(lengthFeet) + " meters"); // correct
+        Debug.Log(forceKips + "  Kips is " + uC.getForceNewtons(forceKips) + " newtons"); // correct +-2 N
+        Debug.Log(tempFaren + "  farenheit is " + uC.getTemperatureCelcius(tempFaren) + " Celcius"); // correct
+
+        int lengthInches = 346;
+        int forceLb = 3;
         
+        uC.setUnits("lb, in, C");
+        Debug.Log(lengthInches + " inches is " + uC.getLengthMeters(lengthInches) + "meters");
+        Debug.Log(forceLb + " lb is " + uC.getForceNewtons(forceLb) + " Newtons");
+        Debug.Log(lengthMeter + " meters is " + uC.getLength(lengthMeter) + " inches");
+        Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton) + " lb");
         
+        int lenghtCM = 400;
+        int forceKN = 2;
+        uC.setUnits("KN, cm, C");
+
+        Debug.Log(lenghtCM + " centimeters is " + uC.getLengthMeters(lenghtCM) + "meters ");
+        Debug.Log(lengthMeter + " meters is " + uC.getLength(lengthMeter) + "cm ");
+        Debug.Log(forceKN + " kn is " + uC.getForceNewtons(forceKN) + " newtons");
+        Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton) + " KN");
+
+        int lengthMM = 3600;
+        int forceKgf = 3;
+        uC.setUnits("Kgf, mm, C");
+
+        Debug.Log(lengthMM + " mm is " + uC.getLengthMeters(lengthMM)+ " meters");
+        Debug.Log(lengthMeter + " meters is " + uC.getLength(lengthMeter)+ " mm");
+        Debug.Log(forceKgf + " kgf is "+ uC.getForceNewtons(forceKgf) + " newtons");
+        Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton) + " Kgf");
+        
+        int forceTonf = 2;
+        uC.setForceUnit("Tonf");
+        Debug.Log(forceTonf + " tonf is " + uC.getForceNewtons(forceTonf)+ "newtons");
+        Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton)+ " tonf");
     }
 
     void testSections()

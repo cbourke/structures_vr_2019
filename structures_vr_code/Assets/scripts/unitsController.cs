@@ -10,7 +10,7 @@ public class unitsController : MonoBehaviour {
 	private string temperature;
 
 	// how many decimal places to round to
-	private int decimalPlaces = 3;
+	private int decimalPlaces = 4;
 
 	// stores ratios for unit conversions 
 	// the system defaults to m,N,C
@@ -21,10 +21,10 @@ public class unitsController : MonoBehaviour {
     {
         // distance conversions
         this.convTable.Add("m", 1.0);
-        this.convTable.Add("cm", 0.01);
-        this.convTable.Add("mm", 0.001);
+        this.convTable.Add("cm", 100.0);
+        this.convTable.Add("mm", 1000.0);
         this.convTable.Add("ft", 3.281);
-        this.convTable.Add("in", 0.0254);
+        this.convTable.Add("in", 39.37008);
 
         // force conversions
         this.convTable.Add("N", 1.0);
