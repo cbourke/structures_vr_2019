@@ -13,6 +13,8 @@ public class ZoomByGrabbing : MonoBehaviour {
 
 
     bool isScaling = false;
+    bool isInit = false;
+
     float originalDistanceBetweenHands;
     float currentDistanceBetweenHands;
     float scale;
@@ -43,10 +45,11 @@ public class ZoomByGrabbing : MonoBehaviour {
         else
         {
             isScaling = false;
+            isInit = false;
         }
-
-        if (isScaling)
+        if (isScaling && isInit)
         {
+            Debug.Log("scale");
             currentDistanceBetweenHands = Vector3.Distance(leftHand.transform.position, rightHand.transform.position);
             scale = Mathf.Sqrt((originalDistanceBetweenHands / currentDistanceBetweenHands));
             this.transform.localScale = new Vector3(Mathf.Clamp(originalScale.x * scale, 0.25f, 3f), 
@@ -59,10 +62,12 @@ public class ZoomByGrabbing : MonoBehaviour {
     }   
 
     private void initializeControllerDistance(){
+        Debug.Log("initialize");
         originalDistanceBetweenHands = Vector3.Distance(leftHand.transform.position, rightHand.transform.position);
             originalScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
             pivot = new Vector2(VRCamera.transform.position.x, VRCamera.transform.position.z);
             pivotToTransformPosition = new Vector2(this.transform.position.x - VRCamera.transform.position.x, this.transform.position.z - VRCamera.transform.position.z);
+        isInit = true;
     }
 
 

@@ -5964,7 +5964,7 @@ MonoBehaviour:
   triggerClickThreshold: 1
   triggerForceZeroThreshold: 0.01
   triggerAxisZeroOnUntouch: 0
-  gripClickThreshold: 1
+  gripClickThreshold: 0.8
   gripForceZeroThreshold: 0.01
   gripAxisZeroOnUntouch: 0
   triggerPressed: 0
@@ -6586,7 +6586,7 @@ MonoBehaviour:
   triggerClickThreshold: 1
   triggerForceZeroThreshold: 0.01
   triggerAxisZeroOnUntouch: 0
-  gripClickThreshold: 1
+  gripClickThreshold: 0.8
   gripForceZeroThreshold: 0.01
   gripAxisZeroOnUntouch: 0
   triggerPressed: 0
