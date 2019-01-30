@@ -54,6 +54,7 @@ public class constructorController : MonoBehaviour
                 } else
                 {
                     framePoints.Clear();
+                    tempLineRenderer.enabled = false; 
                 }
             }
             else
