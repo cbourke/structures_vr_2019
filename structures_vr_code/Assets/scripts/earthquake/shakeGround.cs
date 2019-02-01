@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class shakeGround : MonoBehaviour
 {
-    public float thrust;
+    public float minThrust;
+    public float maxThrust;
     public Rigidbody rb;
     
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
-        Vector3 startingForce = new Vector3(this.thrust, 0.0f, this.thrust);
-        rb.AddForce(startingForce, ForceMode.Impulse);
     }
 
     // Update is called once per frame
     void Update () {
+        Debug.Log("update");
         Vector3 velocity = rb.velocity;
-        float forceX = velocity.x * -2;
-        float forceZ = velocity.z * -2;
-        Vector3 forceNew = new Vector3(forceX, 0f, forceZ);
+        float forceX = Random.Range(minThrust, maxThrust);
+        float forceZ = Random.Range(minThrust, maxThrust);
+        Vector3 forceNew = new Vector3(forceX, 0, forceZ);
+
         rb.AddForce(forceNew, ForceMode.Impulse);
+
+        forceX = -Random.Range(minThrust, maxThrust);
+        forceZ = -Random.Range(minThrust, maxThrust);
+
+        forceNew = new Vector3(forceX, 0, forceZ);
+        rb.AddForce(forceNew, ForceMode.Impulse);
+
     }
 }
