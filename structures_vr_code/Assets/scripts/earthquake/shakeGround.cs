@@ -4,52 +4,23 @@ using UnityEngine;
 
 public class shakeGround : MonoBehaviour
 {
-    public float velocidadMax;
-
-    public float xMax;
-    public float zMax;
-    public float xMin;
-    public float zMin;
-        
-    private float x;
-    private float z;
-    private float tiempo;
+    public float thrust;
+    public Rigidbody rb;
+    
 
     // Use this for initialization
     void Start () {
-        x = Random.Range(-velocidadMax, velocidadMax);
-        z = Random.Range(-velocidadMax, velocidadMax);
+        rb = GetComponent<Rigidbody>();
+        Vector3 startingForce = new Vector3(this.thrust, 0.0f, this.thrust);
+        rb.AddForce(startingForce, ForceMode.Impulse);
     }
 
     // Update is called once per frame
     void Update () {
-
-        tiempo += Time.deltaTime;
-
-        if (transform.localPosition.x > xMax) {
-            x = Random.Range(-velocidadMax, 0.0f);
-            tiempo = 0.0f; 
-        }
-        if (transform.localPosition.x < xMin) {
-            x = Random.Range(0.0f, velocidadMax);
-            tiempo = 0.0f; 
-        }
-        if (transform.localPosition.z > zMax) {
-            z = Random.Range(-velocidadMax, 0.0f);
-            tiempo = 0.0f; 
-        }
-        if (transform.localPosition.z < zMin) {
-            z = Random.Range(0.0f, velocidadMax);
-            tiempo = 0.0f; 
-        }
-
-
-        if (tiempo > 1.0f) {
-            x = Random.Range(-velocidadMax, velocidadMax);
-            z = Random.Range(-velocidadMax, velocidadMax);
-            tiempo = 0.0f;
-        }
-
-        transform.localPosition = new Vector3(transform.localPosition.x + x, transform.localPosition.y, transform.localPosition.z + z);
+        Vector3 velocity = rb.velocity;
+        float forceX = velocity.x * -2;
+        float forceZ = velocity.z * -2;
+        Vector3 forceNew = new Vector3(forceX, 0f, forceZ);
+        rb.AddForce(forceNew, ForceMode.Impulse);
     }
 }
