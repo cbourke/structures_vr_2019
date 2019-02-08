@@ -4088,6 +4088,16 @@ PrefabInstance:
       propertyPath: sectionController
       value: 
       objectReference: {fileID: 841756466}
+    - target: {fileID: 8045744996609744879, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: unitCtr
+      value: 
+      objectReference: {fileID: 1349423899}
+    - target: {fileID: 346284574344953882, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: unitCtr
+      value: 
+      objectReference: {fileID: 1349423899}
     m_RemovedComponents:
     - {fileID: 5047157173430303912, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}

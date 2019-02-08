@@ -16,26 +16,49 @@ public class unitsController : MonoBehaviour {
 	// the system defaults to m,N,C
 	// temp conversions handled in function because its not a ratio and theres only 2
 	private Dictionary<string, double> convTable = new Dictionary<string, double>();
-    
-	public void populateDict()
-    {
-        // distance conversions
-        this.convTable.Add("m", 1.0);
-        this.convTable.Add("cm", 100.0);
-        this.convTable.Add("mm", 1000.0);
-        this.convTable.Add("ft", 3.281);
-        this.convTable.Add("in", 39.37008);
+  private List<string> unitList = new List<string>();
 
-        // force conversions
-        this.convTable.Add("N", 1.0);
-        this.convTable.Add("lb", 0.2248);
-        this.convTable.Add("Tonf", 0.0001019716);
-        this.convTable.Add("KN", 0.001);
-        this.convTable.Add("Kip", 0.00022481);
-        this.convTable.Add("Kgf", 0.101972);
-    }
+	void Start() {
+		unitList.Add("lb, in, F");
+		unitList.Add("lb, ft, F");
+		unitList.Add("Kip, in F");
+		unitList.Add("Kip, ft, F");
+		unitList.Add("KN, mm, C");
+		unitList.Add("KN, m, C");
+		unitList.Add("Kgf, mm, C");
+		unitList.Add("Kgf, m, C");
+		unitList.Add("N, mm, C");
+		unitList.Add("N, m, C");
+		unitList.Add("Tonf, mm, C");
+		unitList.Add("Tonf, m, C");
+		unitList.Add("KN, cm, C");
+		unitList.Add("Kgf, cm, C");
+		unitList.Add("N, cm, C");
+		unitList.Add("Tonf, cm, C");
+	}
 
-    public void setUnits(string unitsString){
+	public List<string> getUnits() {
+		return unitList;
+	}
+
+	public void populateDict() {
+		// distance conversions
+		this.convTable.Add("m", 1.0);
+		this.convTable.Add("cm", 100.0);
+		this.convTable.Add("mm", 1000.0);
+		this.convTable.Add("ft", 3.281);
+		this.convTable.Add("in", 39.37008);
+
+		// force conversions
+		this.convTable.Add("N", 1.0);
+		this.convTable.Add("lb", 0.2248);
+		this.convTable.Add("Tonf", 0.0001019716);
+		this.convTable.Add("KN", 0.001);
+		this.convTable.Add("Kip", 0.00022481);
+		this.convTable.Add("Kgf", 0.101972);
+	}
+
+	public void setUnits(string unitsString) {
 		// strip whitespace
 		unitsString = Regex.Replace(unitsString, @"\s+", "");
 		// split (format: m,N,C)
