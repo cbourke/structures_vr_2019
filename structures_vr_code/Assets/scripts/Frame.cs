@@ -18,7 +18,7 @@ public class Frame : MonoBehaviour {
 
 	private Transform trans;
 
-	public Frame(Vector3 start, Vector3 end, GameObject framePrefab, FrameSection section)
+	public Frame(Vector3 start, Vector3 end, GameObject framePrefab, FrameSection section, string frameName)
     {
         sectionPropertyName = section.GetName();
 		frameObject = Instantiate(framePrefab);
@@ -37,6 +37,8 @@ public class Frame : MonoBehaviour {
 		trans.Rotate(angletest);
     	trans.LookAt(end);
 		trans.localScale = new Vector3(.03f, .03f, distance);
+
+        setName(frameName);
 	}
 
 	public Transform getTransform()
