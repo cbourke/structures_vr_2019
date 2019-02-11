@@ -7,7 +7,6 @@ public class Frame : MonoBehaviour {
 	private Vector3 startPos;
 	private Vector3 endPos;
 	private Vector3 direction;
-	private float length;
 	private Vector3 angle;
 
 	private GameObject frameObject;
@@ -28,7 +27,6 @@ public class Frame : MonoBehaviour {
 		
 		Vector3 between = end - start;
     	float distance = between.magnitude;
-		length = distance;
 
 		Vector3 angletest = new Vector3(Vector3.Angle(between, Vector3.right), Vector3.Angle(between, Vector3.up), Vector3.Angle(between, Vector3.forward));
 
