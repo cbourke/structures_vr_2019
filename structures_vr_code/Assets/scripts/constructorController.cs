@@ -83,7 +83,8 @@ public class constructorController : MonoBehaviour
 
     void createFrame(Vector3 pA, Vector3 pB)
     {
-        Frame frame = new Frame(pA, pB, framePrefab, sectionController.GetComponent<sectionController>().GetCurrentFrameSection());
+        string frameName = "Frame i = (" + pA.x + ", " + pA.z + ", " + pA.y + ") j = (" + pB.x + ", " + pB.z + ", " + pB.y + ")";
+        Frame frame = new Frame(pA, pB, framePrefab, sectionController.GetComponent<sectionController>().GetCurrentFrameSection(), frameName);
         frameList.Add(frame);
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB, sectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
 
