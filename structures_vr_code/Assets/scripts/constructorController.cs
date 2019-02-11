@@ -18,9 +18,6 @@ public class constructorController : MonoBehaviour
 
     public string structureSaveFileName = "testStructure";
 
-    //StructuralElementsLists elementsListsForXML = new StructuralElementsLists();
-
-
     List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
     List<jointRestraint> jointRestraintList = new List<jointRestraint>();
@@ -28,21 +25,8 @@ public class constructorController : MonoBehaviour
     List<Vector3> framePoints = new List<Vector3>();
     List<Vector3> areaPoints = new List<Vector3>();
 
-
-    
-
-    void Awake()
-    {
-        // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
-        //tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
-        //tempLineRenderer.enabled = false;
-    }
-
-
     public void setPoint(Vector3 point, buildingObjects type)
     {
-        // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
-        //tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
         Debug.Log("Setpoint: " + point);
         if (type == buildingObjects.Frame)
         {

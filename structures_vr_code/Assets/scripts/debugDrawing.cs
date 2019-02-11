@@ -85,40 +85,40 @@ public class debugDrawing : MonoBehaviour {
 
     void testSections()
     {
-        mySectionController.GetComponent<sectionController>().addIFrameSection("Sec_Steel_I", "Steel01", 0.3, 0.12, 0.01, 0.007, 0.12, 0.01);
-        mySectionController.GetComponent<sectionController>().addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2, 0.01);
-        mySectionController.GetComponent<sectionController>().addTubeFrameSection("Sec_Aluminum_Tube", "Aluminum01", 0.16, 0.1, 0.007, 0.007);
+        mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3, 0.12, 0.01, 0.007, 0.12, 0.01);
+        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2, 0.01);
+        mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Aluminum01", 0.16, 0.1, 0.007, 0.007);
 
-        mySectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Steel_I");
-        Debug.Log("Current frame section: " + mySectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
-        myConstructorController.GetComponent<constructorController>().setPoint(origin, buildingObjects.Frame);
-		myConstructorController.GetComponent<constructorController>().setPoint(p1, buildingObjects.Frame);
+        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
+        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
+        myConstructorController.setPoint(origin, buildingObjects.Frame);
+		myConstructorController.setPoint(p1, buildingObjects.Frame);
 
-        mySectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Steel_Pipe");
-        Debug.Log("Current frame section: " + mySectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
-        myConstructorController.GetComponent<constructorController>().setPoint(p2, buildingObjects.Frame);
-		myConstructorController.GetComponent<constructorController>().setPoint(p3, buildingObjects.Frame);
+        mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
+        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
+        myConstructorController.setPoint(p2, buildingObjects.Frame);
+		myConstructorController.setPoint(p3, buildingObjects.Frame);
 
-        mySectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Aluminum_Tube");
-        Debug.Log("Current frame section: " + mySectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
-        myConstructorController.GetComponent<constructorController>().setPoint(p4, buildingObjects.Frame);
-        myConstructorController.GetComponent<constructorController>().setPoint(p5, buildingObjects.Frame);
+        mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
+        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
+        myConstructorController.setPoint(p4, buildingObjects.Frame);
+        myConstructorController.setPoint(p5, buildingObjects.Frame);
     }
 
     void testJoints()
     {
-        myConstructorController.GetComponent<constructorController>().createJointRestraint(origin, 'f');
-        myConstructorController.GetComponent<constructorController>().createJointRestraint(p1, 'r');
-        myConstructorController.GetComponent<constructorController>().createJointRestraint(p1, 'f'); // overwrite
+        myConstructorController.createJointRestraint(origin, 'f');
+        myConstructorController.createJointRestraint(p1, 'r');
+        myConstructorController.createJointRestraint(p1, 'f'); // overwrite
 
-        myConstructorController.GetComponent<constructorController>().createJointRestraint(p2, 'p');
-        myConstructorController.GetComponent<constructorController>().createJointRestraint(p3, 'p');
+        myConstructorController.createJointRestraint(p2, 'p');
+        myConstructorController.createJointRestraint(p3, 'p');
 
-        myConstructorController.GetComponent<constructorController>().createJointRestraint(p4, 'r');
-        myConstructorController.GetComponent<constructorController>().createJointRestraint(p5, 'r');
-        myConstructorController.GetComponent<constructorController>().deleteJointRestraint(p5); // delete
+        myConstructorController.createJointRestraint(p4, 'r');
+        myConstructorController.createJointRestraint(p5, 'r');
+        myConstructorController.deleteJointRestraint(p5); // delete
 
-        myConstructorController.GetComponent<constructorController>().createJointRestraint(p6, 'f'); // This is meant to fail, as there is no frame endpoint here
+        myConstructorController.createJointRestraint(p6, 'f'); // This is meant to fail, as there is no frame endpoint here
     }
 
 	void testMaterials()
@@ -126,9 +126,9 @@ public class debugDrawing : MonoBehaviour {
         
         // this is broken because the way building materials is being handled has changed
         /*
-        materialController.GetComponent<materialsController>().addBuildingMaterial("Steel01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53Grades.GRADE_B);
-        materialController.GetComponent<materialsController>().addBuildingMaterial("Steel02", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500Grades.GRADE_B_fy_46);
-        materialController.GetComponent<materialsController>().addBuildingMaterial("Aluminum01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.ALUMINUM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTMGrades.GRADE_Alloy_6063_T6);
+        myMaterialController.addBuildingMaterial("Steel01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53Grades.GRADE_B);
+        myMaterialController.addBuildingMaterial("Steel02", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500Grades.GRADE_B_fy_46);
+        myMaterialController.addBuildingMaterial("Aluminum01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.ALUMINUM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTMGrades.GRADE_Alloy_6063_T6);
         
         BuildingMaterial bm1 = new BuildingMaterial();
         BuildingMaterial bm2 = new BuildingMaterial("I_am_bm_2");
@@ -152,6 +152,7 @@ public class debugDrawing : MonoBehaviour {
 
         bm3.SetRegion(111); // Should not work; no change should be made.
         Debug.Log("bm3 (4): " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
-        */
+        
+         */
     }
 }
