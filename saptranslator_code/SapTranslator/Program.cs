@@ -3,16 +3,381 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 //using System.Threading.Tasks;
-using SAP2000v19;
+using SAP2000v20;
 using UnityEngine;
 using System.Xml.Serialization;
 using System.IO;
+using System.IO.Pipes;
 
 namespace SapTranslator
 {
     class Program
     {
-        static void Main(string[] args) //args[0] should be the xml file path to pull structure from
+        private static int ret = 0; //Use ret to check if functions return successfully (ret = 0) or fail (ret = nonzero)
+        private static cOAPI mySapObject = null; //dimension the SapObject as cOAPI type
+        private static cHelper myHelper;
+        private static cSapModel mySapModel;
+        private static string modelDirectory;
+        private static string modelName;
+
+
+        static void Main(string[] args)
+        {
+            NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "vrPipe", PipeDirection.InOut, PipeOptions.None);
+            Console.WriteLine("Connecting to VRE server via named pipe \"vrPipe\"...\n");
+            pipeClient.Connect();
+            StreamString pipeStreamString = new StreamString(pipeClient);
+
+            while (pipeClient.IsConnected) {
+                readStreamForCommand(pipeStreamString);
+                pipeClient.WaitForPipeDrain();
+            }
+            
+        }
+
+
+        static void readStreamForCommand(StreamString pipeStreamString)
+        {
+            String message = pipeStreamString.ReadString();
+            Console.WriteLine(message); //Display the incoming message in the console of SAPTranslator
+            StringReader messageReader = new StringReader(message);
+            StringBuilder messageParser = new StringBuilder();
+
+            String sender;
+            String reciever;
+            String functionName;
+            List<String> arguments = new List<string>();
+            int i = 0;
+
+            while (i < message.Length && messageReader.Peek() != ' ') // capture first word as sender
+            {
+                messageParser.Append(messageReader.Read());
+                i++;
+            }
+            sender = messageParser.ToString();
+            messageParser.Clear();
+            i += 4; // Skip substring " to " 
+            while (i < message.Length && messageReader.Peek() != ':') // capture third word as reciever
+            {
+                messageParser.Append(messageReader.Read());
+                i++;
+            }
+            reciever = messageParser.ToString();
+            messageParser.Clear();
+            i += 2; // Skip substring ": "
+            while (i < message.Length && messageReader.Peek() != '(') // capture fourth word, up to "(", as function name
+            {
+                messageParser.Append(messageReader.Read());
+                i++;
+            }
+            functionName = messageParser.ToString();
+            messageParser.Clear();
+            i += 1; // Skip substring "("
+            while (i < message.Length && messageReader.Peek() != ')') // capture arguments
+            {
+                while (i < message.Length && messageReader.Peek() != ',' && messageReader.Peek() != ')')
+                {
+                    messageParser.Append(messageReader.Read());
+                    i++;
+                }
+                arguments.Add(messageParser.ToString());
+                messageParser.Clear();
+
+                i += 2; // Skip substring ", "
+            }
+
+
+            if (reciever.Equals("SAPTranslator")) {
+                if (message.Substring(22).Equals("Beginning inter-process communication. Do you read me?"))
+                {
+                    respondToPipeConnectionStart(pipeStreamString);
+                }
+                else if (functionName.Equals("initialize"))
+                {
+                    initialize(arguments);
+                }
+                else if (functionName.Equals("saveAs"))
+                {
+                    saveAs(arguments);
+                }
+                else if (functionName.Equals("save"))
+                {
+                    save();
+                }
+                else if (functionName.Equals("frameObjAddByCoord"))
+                {
+                    frameObjAddByCoord(arguments);
+                }
+                else if (functionName.Equals("frameObjDelete"))
+                {
+                    frameObjDelete(arguments);
+                }
+                else if (functionName.Equals("frameObjSetSection"))
+                {
+                    frameObjSetSection(arguments);
+                }
+                else if (functionName.Equals("frameObjSetSelected"))
+                {
+                    frameObjSetSelected(arguments);
+                }
+                else if (functionName.Equals("pointCoordSetRestraint"))
+                {
+                    pointCoordSetRestraint(arguments);
+                }
+                
+
+
+                //TODO: ... add more possible messages to respond to
+            }
+        }
+
+
+        static void respondToPipeConnectionStart(StreamString pipeStreamString)
+        {
+            String response = "SAPTranslator to VRE: Yes, I read you.";
+            pipeStreamString.WriteString(response);
+            return;
+        }
+
+        
+        static void initialize(List<string> arguments) // Initialize with auto-find latest SAP installation
+        {
+            bool attachToInstance = Boolean.Parse(arguments[0]);
+            string programPath = arguments[1];
+
+            if (attachToInstance)
+            {
+                //attach to a running instance of SAP2000
+                try
+                {
+                    //get the active SapObject
+                    mySapObject = (cOAPI)System.Runtime.InteropServices.Marshal.GetActiveObject("CSI.SAP2000.API.SapObject");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("No running instance of the program found or failed to attach.");
+                    return;
+                }
+            }
+            else
+            {
+                //create API helper object
+                try
+                {
+                    myHelper = new Helper();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Cannot create an instance of the Helper object");
+                    return;
+                }
+
+                //try to create an instance of the SapObject from the specified path
+                try
+                {
+                    //create SapObject
+                    mySapObject = myHelper.CreateObject(programPath);
+                }
+                catch (Exception exceptionSpecifyPath)
+                {
+                    Console.WriteLine("Cannot start a new instance of the program from " + programPath);
+                    //try to create an instance of the SapObject from the latest installed SAP2000
+                    try
+                    {
+                        //create SapObject
+                        mySapObject = myHelper.CreateObjectProgID("CSI.SAP2000.API.SapObject");
+                    }
+                    catch (Exception exceptionAutoPath)
+                    {
+                        Console.WriteLine("Cannot start a new instance of the program.");
+                        return;
+                    }
+                }
+            }
+            //start SAP2000 application
+            ret = mySapObject.ApplicationStart();
+
+            //create SapModel object
+            mySapModel = mySapObject.SapModel;
+
+            //initialize model
+            ret = mySapModel.InitializeNewModel((eUnits.N_m_C));
+
+            //create new blank model
+            ret = mySapModel.File.NewBlank();
+
+            //switch to kip-ft-F units
+            ret = mySapModel.SetPresentUnits(eUnits.kip_ft_F);
+        }
+
+        
+        static void saveAs(List<string> arguments)
+        {
+            string newModelDirectory = arguments[0];
+            string newModelName = arguments[1];
+            try
+            {
+                System.IO.Directory.CreateDirectory(newModelDirectory);
+                modelDirectory = newModelDirectory;
+                modelName = newModelName;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Could not create directory: " + newModelDirectory);
+            }
+            string ModelPath = modelDirectory + System.IO.Path.DirectorySeparatorChar + modelName + ".sdb";
+            ret = mySapModel.File.Save(ModelPath);
+        }
+
+
+        static void save()
+        {
+            string ModelPath = modelDirectory + System.IO.Path.DirectorySeparatorChar + modelName + ".sdb";
+            ret = mySapModel.File.Save(ModelPath);
+        }
+
+
+        static void applicationExit(bool fileSave)
+        {
+            if (fileSave)
+            {
+                save();
+            }
+            mySapObject.ApplicationExit(false);
+            mySapModel = null;
+            mySapObject = null;
+        }
+
+
+        static void frameObjAddByCoord(List<string> arguments)
+        {
+            double xi = Double.Parse(arguments[0]);
+            double yi = Double.Parse(arguments[1]);
+            double zi = Double.Parse(arguments[2]);
+            double xj = Double.Parse(arguments[3]);
+            double yj = Double.Parse(arguments[4]);
+            double zj = Double.Parse(arguments[5]);
+            string propName = "Default";
+            if (arguments.Count >= 7)
+            {
+                propName = arguments[6];
+            }
+            string userName = "";
+            if (arguments.Count >= 8)
+            {
+                userName = arguments[7];
+            }
+
+            string tempFrameName = "";
+            mySapModel.FrameObj.AddByCoord(xi, yi, zi, xj, yj, zj, ref tempFrameName, propName, userName);
+        }
+
+        static void frameObjDelete(List<string> arguments)
+        {
+            string name = arguments[0];
+            eItemType itemType = eItemType.Objects;
+            if (arguments.Count >= 2)
+            {
+                itemType = (eItemType) Int32.Parse(arguments[1]);
+            }
+
+            mySapModel.FrameObj.Delete(name, itemType);
+        } 
+
+        static void frameObjSetSection(List<string> arguments)
+        {
+            string name = arguments[0];
+            string propName = arguments[1];
+            eItemType itemType = eItemType.Objects;
+            if (arguments.Count >= 3)
+            {
+                itemType = (eItemType)Int32.Parse(arguments[2]);
+            }
+            double sVarRelStartLoc = 0.0;
+            if (arguments.Count >= 4)
+            {
+                sVarRelStartLoc = Double.Parse(arguments[3]);
+            }
+            double sVarTotalLength = 0.0;
+            if (arguments.Count >= 5)
+            {
+                sVarTotalLength = Double.Parse(arguments[4]);
+            }
+
+            mySapModel.FrameObj.SetSection(name, propName, itemType, sVarRelStartLoc, sVarTotalLength);
+        }
+
+        static void frameObjSetSelected(List<string> arguments)
+        {
+            string name = arguments[0];
+            bool selected = Boolean.Parse(arguments[1]);
+            eItemType itemType = eItemType.Objects;
+            if (arguments.Count >= 3)
+            {
+                itemType = (eItemType) Int32.Parse(arguments[2]);
+            }
+
+            mySapModel.FrameObj.SetSelected(name, selected, itemType);
+        }
+
+        static void pointObjAddCartesian(List<string> arguments)
+        {
+            double x = Double.Parse(arguments[0]);
+            double y = Double.Parse(arguments[1]);
+            double z = Double.Parse(arguments[2]);
+            string pointName = "";
+            string userName = "";
+            string cSys = "";
+            bool mergeOff = false;
+            int mergeNumber = 0;
+            if (arguments.Count >= 4)
+            {
+                userName = arguments[3];
+                if (arguments.Count >= 5)
+                {
+                    cSys = arguments[4];
+                    if (arguments.Count >= 6)
+                    {
+                        mergeOff = Boolean.Parse(arguments[5]);
+                        if (arguments.Count >= 7)
+                        {
+                            mergeNumber = Int32.Parse(arguments[6]);
+                        }
+                    }
+                }
+
+            }
+            mySapModel.PointObj.AddCartesian(x, y, z, ref pointName, userName, cSys, mergeOff, mergeNumber);
+        }
+
+        static void pointCoordSetRestraint(List<string> arguments)
+        {
+            double x = Double.Parse(arguments[0]);
+            double y = Double.Parse(arguments[1]);
+            double z = Double.Parse(arguments[2]);
+            string pointName = "";
+            mySapModel.PointObj.AddCartesian(x, y, z, ref pointName);
+
+            bool u1 = Boolean.Parse(arguments[3]);
+            bool u2 = Boolean.Parse(arguments[4]);
+            bool u3 = Boolean.Parse(arguments[5]);
+            bool r1 = Boolean.Parse(arguments[6]);
+            bool r2 = Boolean.Parse(arguments[7]);
+            bool r3 = Boolean.Parse(arguments[8]);
+            bool[] value = { u1, u2, u3, r1, r2, r3 };
+
+            eItemType itemType = 0;
+
+            if(arguments.Count >= 10)
+            {
+                itemType = (eItemType)Int32.Parse(arguments[9]);
+            }
+
+            mySapModel.PointObj.SetRestraint(pointName, ref value, itemType);
+        }
+
+
+        static void generateStructure(string[] args) //args[0] should be the xml file path to pull structure from
         {
             //EXAMPLE CODE START
 
@@ -31,7 +396,7 @@ namespace SapTranslator
 
             //if the above flag is set to true, specify the path to SAP2000 below
             string ProgramPath;
-            ProgramPath = "C:\\Program Files (x86)\\Computers and Structures\\SAP2000 19\\SAP2000.exe";
+            ProgramPath = "C:\\Program Files (x86)\\Computers and Structures\\SAP2000 20\\SAP2000.exe";
 
 
             //full path to the model
@@ -127,7 +492,7 @@ namespace SapTranslator
 
 
             //initialize model
-            ret = mySapModel.InitializeNewModel((eUnits.kip_in_F));
+            ret = mySapModel.InitializeNewModel((eUnits.N_m_C));
 
 
             //create new blank model
@@ -654,7 +1019,6 @@ namespace SapTranslator
         public int type;
         public double[] dimensions = new double[6];
 
-
         public FrameSectionForXML()
         {
 
@@ -686,5 +1050,26 @@ namespace SapTranslator
         Circular
     }
 
+    [XmlType("FrameForces")]
+    public class FrameForces
+    {
+        public String name;
+        public eItemTypeElm itemTypeElm;
+        public long numberResults;
+        public String[] obj;
+        public double[] objSta;
+        public String[] elm;
+        public String[] elmSta;
+        public String[] loadCase;
+        public String[] stepType;
+        public double[] stepNum;
+        public double[] p;
+        public double[] v2;
+        public double[] v3;
+        public double[] t;
+        public double[] m2;
+        public double[] m3;
+
+    }
 }
 
