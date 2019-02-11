@@ -100,4 +100,9 @@ public class sectionController : MonoBehaviour {
     {
         return currentFrameSection;
     }
+
+    public List<FrameSection> getSectionList()
+    {
+        return frameSections;
+    }
 }

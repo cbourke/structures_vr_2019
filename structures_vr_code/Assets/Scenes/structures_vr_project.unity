@@ -3977,6 +3977,11 @@ PrefabInstance:
       propertyPath: unitCtr
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 547327930254812662, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: mySectionController
+      value: 
+      objectReference: {fileID: 1155890639}
     m_RemovedComponents:
     - {fileID: 5047157173430303912, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
