@@ -2887,13 +2887,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mySectionController: {fileID: 1155890639}
   myXmlController: {fileID: 1155890636}
+  tempLineRenderer: {fileID: 425715893}
   framePrefab: {fileID: 1792658920625122, guid: cabe915ffd810d94c840604b5e7847ff,
     type: 3}
   areaPrefab: {fileID: 0}
   jointRestraintPrefab: {fileID: 1096227065537474, guid: a00f7491a7d448f49a8ff7a9a16f2895,
     type: 3}
   structureSaveFileName: testStructure
-  tempLineRenderer: {fileID: 425715893}
 --- !u!114 &1155890641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3877,6 +3877,11 @@ PrefabInstance:
       propertyPath: sectionController
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6616102100678597578, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: mySectionController
+      value: 
+      objectReference: {fileID: 1155890639}
     - target: {fileID: 114462543522546338, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: gridController
@@ -3912,11 +3917,21 @@ PrefabInstance:
       propertyPath: materialController
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114106997702442144, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: myMaterialController
+      value: 
+      objectReference: {fileID: 1155890638}
     - target: {fileID: 8211827165125943416, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: materialController
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8211827165125943416, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: myMaterialController
+      value: 
+      objectReference: {fileID: 1155890638}
     - target: {fileID: 5047157173430303912, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: sectionController
@@ -3927,16 +3942,31 @@ PrefabInstance:
       propertyPath: sectionController
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4268028151157167734, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: mySectionController
+      value: 
+      objectReference: {fileID: 1155890639}
     - target: {fileID: 3170554615532490307, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: materialController
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3170554615532490307, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: myMaterialController
+      value: 
+      objectReference: {fileID: 1155890638}
     - target: {fileID: 3318294603419331879, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: sectionController
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3318294603419331879, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: mySectionController
+      value: 
+      objectReference: {fileID: 1155890639}
     - target: {fileID: 346284574344953882, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: unitCtr
