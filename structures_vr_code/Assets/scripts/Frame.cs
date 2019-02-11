@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Frame : MonoBehaviour {
-
+    private string name;
 	private Vector3 startPos;
 	private Vector3 endPos;
 	private Vector3 direction;
@@ -90,5 +90,15 @@ public class Frame : MonoBehaviour {
 	public void setSelected(bool selected) {
 		isSelected = selected;
 	}
+
+    public string getName()
+    {
+        return this.name;
+    }
+
+    public void setName(string name)
+    {
+        this.name = name;
+    }
 }
 
