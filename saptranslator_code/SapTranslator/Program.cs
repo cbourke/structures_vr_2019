@@ -30,6 +30,10 @@ namespace SapTranslator
 
             while (pipeClient.IsConnected) {
                 readStreamForCommand(pipeStreamString);
+                
+                string response = "SAPTranslator to VRE: awaiting command";
+                pipeStreamString.WriteString(response);
+                Console.WriteLine(response);
                 pipeClient.WaitForPipeDrain();
             }
             
@@ -49,51 +53,62 @@ namespace SapTranslator
             List<String> arguments = new List<string>();
             int i = 0;
 
-            while (i < message.Length && messageReader.Peek() != ' ') // capture first word as sender
+            while (i < message.Length && (char)messageReader.Peek() != ' ') // capture first word as sender
             {
-                messageParser.Append(messageReader.Read());
+                messageParser.Append((char)messageReader.Read());
                 i++;
             }
             sender = messageParser.ToString();
             messageParser.Clear();
             i += 4; // Skip substring " to " 
-            while (i < message.Length && messageReader.Peek() != ':') // capture third word as reciever
+            messageReader.Read();
+            messageReader.Read();
+            messageReader.Read();
+            messageReader.Read();
+            while (i < message.Length && (char)messageReader.Peek() != ':') // capture third word as reciever
             {
-                messageParser.Append(messageReader.Read());
+                messageParser.Append((char)messageReader.Read());
                 i++;
             }
             reciever = messageParser.ToString();
             messageParser.Clear();
             i += 2; // Skip substring ": "
-            while (i < message.Length && messageReader.Peek() != '(') // capture fourth word, up to "(", as function name
+            messageReader.Read();
+            messageReader.Read();
+            while (i < message.Length && (char)messageReader.Peek() != '(') // capture fourth word, up to "(", as function name
             {
-                messageParser.Append(messageReader.Read());
+                messageParser.Append((char)messageReader.Read());
                 i++;
             }
             functionName = messageParser.ToString();
             messageParser.Clear();
             i += 1; // Skip substring "("
-            while (i < message.Length && messageReader.Peek() != ')') // capture arguments
+            messageReader.Read();
+            while (i < message.Length && (char)messageReader.Peek() != ')') // capture arguments
             {
-                while (i < message.Length && messageReader.Peek() != ',' && messageReader.Peek() != ')')
+                while (i < message.Length && (char)messageReader.Peek() != ',' && (char)messageReader.Peek() != ')')
                 {
-                    messageParser.Append(messageReader.Read());
+                    messageParser.Append((char)messageReader.Read());
                     i++;
                 }
                 arguments.Add(messageParser.ToString());
                 messageParser.Clear();
 
                 i += 2; // Skip substring ", "
+                messageReader.Read();
+                messageReader.Read();
             }
 
 
             if (reciever.Equals("SAPTranslator")) {
+                Console.WriteLine("SAPTranslator: I recognize that I am being addressed.");
                 if (message.Substring(22).Equals("Beginning inter-process communication. Do you read me?"))
                 {
                     respondToPipeConnectionStart(pipeStreamString);
                 }
                 else if (functionName.Equals("initialize"))
                 {
+                    Console.WriteLine("SAPTranslator: I recognize command: initialize.");
                     initialize(arguments);
                 }
                 else if (functionName.Equals("saveAs"))
@@ -106,7 +121,9 @@ namespace SapTranslator
                 }
                 else if (functionName.Equals("frameObjAddByCoord"))
                 {
+                    Console.WriteLine("SAPTranslator: I recognize command: frameObjAddByCoord.");
                     frameObjAddByCoord(arguments);
+                    ret = mySapModel.View.RefreshView(0, false);
                 }
                 else if (functionName.Equals("frameObjDelete"))
                 {
@@ -134,8 +151,8 @@ namespace SapTranslator
 
         static void respondToPipeConnectionStart(StreamString pipeStreamString)
         {
-            String response = "SAPTranslator to VRE: Yes, I read you.";
-            pipeStreamString.WriteString(response);
+            //String response = "SAPTranslator to VRE: awaiting command.";
+            //pipeStreamString.WriteString(response);
             return;
         }
 
@@ -143,7 +160,12 @@ namespace SapTranslator
         static void initialize(List<string> arguments) // Initialize with auto-find latest SAP installation
         {
             bool attachToInstance = Boolean.Parse(arguments[0]);
-            string programPath = arguments[1];
+            string programPath = null;
+            if (arguments.Count >= 2)
+            {
+                programPath = arguments[1];
+            }
+            
 
             if (attachToInstance)
             {
@@ -173,14 +195,8 @@ namespace SapTranslator
                 }
 
                 //try to create an instance of the SapObject from the specified path
-                try
+                if (programPath == null)
                 {
-                    //create SapObject
-                    mySapObject = myHelper.CreateObject(programPath);
-                }
-                catch (Exception exceptionSpecifyPath)
-                {
-                    Console.WriteLine("Cannot start a new instance of the program from " + programPath);
                     //try to create an instance of the SapObject from the latest installed SAP2000
                     try
                     {
@@ -192,7 +208,30 @@ namespace SapTranslator
                         Console.WriteLine("Cannot start a new instance of the program.");
                         return;
                     }
+                } else
+                {
+                    try
+                    {
+                        //create SapObject
+                        mySapObject = myHelper.CreateObject(programPath);
+                    }
+                    catch (Exception exceptionSpecifyPath)
+                    {
+                        Console.WriteLine("Cannot start a new instance of the program from " + programPath);
+                        //try to create an instance of the SapObject from the latest installed SAP2000
+                        try
+                        {
+                            //create SapObject
+                            mySapObject = myHelper.CreateObjectProgID("CSI.SAP2000.API.SapObject");
+                        }
+                        catch (Exception exceptionAutoPath)
+                        {
+                            Console.WriteLine("Cannot start a new instance of the program.");
+                            return;
+                        }
+                    }
                 }
+                
             }
             //start SAP2000 application
             ret = mySapObject.ApplicationStart();

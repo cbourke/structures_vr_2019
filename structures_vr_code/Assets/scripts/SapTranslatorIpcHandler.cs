@@ -16,6 +16,7 @@ public class SapTranslatorIpcHandler : MonoBehaviour
     {
         String[] args = new string[0];
         createPipeServer(args);
+        
     }
 
     public void OnDestroy()
@@ -25,7 +26,7 @@ public class SapTranslatorIpcHandler : MonoBehaviour
         }
     }
 
-    public static void createPipeServer(string[] args)
+    public void createPipeServer(string[] args)
     {
         pipeServer = new NamedPipeServerStream("vrPipe", PipeDirection.InOut, 1);
         Debug.Log("Created pipeServer.");
@@ -41,7 +42,7 @@ public class SapTranslatorIpcHandler : MonoBehaviour
         myProcess.Start();
     }
 
-    public static void onClientConnect(IAsyncResult result)
+    public void onClientConnect(IAsyncResult result)
     {
         Debug.Log("Client has connected to pipeServer.");
 
@@ -51,14 +52,19 @@ public class SapTranslatorIpcHandler : MonoBehaviour
         Debug.Log(message);
         pipeStreamString.WriteString(message);
 
-        String response = pipeStreamString.ReadString();
-        Debug.Log(response);
+        sendString("VRE to SAPTranslator: initialize(false)");
     }
 
-    public static void sendString(string message)
+    public void sendString(string message)
     {
-        Debug.Log(message);
-        pipeStreamString.WriteString(message);
+        string pipeContent = pipeStreamString.ReadString();
+        Debug.Log(pipeContent);
+        //pipeServer.Flush();
+        if (pipeContent.Equals("SAPTranslator to VRE: awaiting command")) {
+            Debug.Log(message);
+            pipeStreamString.WriteString(message);
+        }
+        
     }
 }
 

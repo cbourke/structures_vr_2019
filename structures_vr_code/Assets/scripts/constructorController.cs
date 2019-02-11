@@ -9,6 +9,7 @@ public class constructorController : MonoBehaviour
 {
     public GameObject sectionController;
     public GameObject myXmlController;
+    public SapTranslatorIpcHandler sapController;
     public GameObject framePrefab;
     public GameObject areaPrefab;
     public GameObject jointRestraintPrefab;
@@ -86,6 +87,12 @@ public class constructorController : MonoBehaviour
         frameList.Add(frame);
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB, sectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
 
+        double xi = pA.x;
+        double yi = pA.y;
+
+
+        string sapTranslatorCommand = "VRE to SAPTranslator: frameObjAddByCoord(" + pA.x + ", " + pA.z + ", " + pA.y + ", " + pB.x + ", " + pB.z + ", " + pB.y + ")";
+        sapController.sendString(sapTranslatorCommand);
     }
 
     public void deleteFrame(int frameObjectID)
