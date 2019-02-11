@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BuildingMaterial {
     private string userDefinedName = "Default_Material_Name";
-    private string region = BuildingMaterialAttributes.Regions.UNITEDSTATES;
-    private string type = BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL;
-    private string standard = BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A992;
-    private string grade = BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A992Grades.GRADE_50;
+    private string region;
+    private string type;
+    private string standard;
+    private string grade;
 
     public BuildingMaterial() // If constructed with no arguments (This is needed for xml serialization, I think?)
     {
@@ -41,14 +41,6 @@ public class BuildingMaterial {
             }
         }
         
-    }
-
-    public void resetDefaultAttributes()
-    {
-        region = BuildingMaterialAttributes.Regions.UNITEDSTATES;
-        type = BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL;
-        standard = BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A992;
-        grade = BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A992Grades.GRADE_50;
     }
 
     public void SetName(string newName) // Can be anything

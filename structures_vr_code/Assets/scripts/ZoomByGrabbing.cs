@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 using UnityEngine.SceneManagement;
+using VRTK;
 
 public class ZoomByGrabbing : MonoBehaviour {
+    public VRTK_ControllerEvents controllerEventsLeft;
+    public VRTK_ControllerEvents controllerEventsRight;
     public GameObject leftHand;
     public GameObject rightHand;
+
+
     bool isScaling = false;
+    bool isInit = false;
+
     float originalDistanceBetweenHands;
     float currentDistanceBetweenHands;
     float scale;
@@ -17,37 +24,32 @@ public class ZoomByGrabbing : MonoBehaviour {
     GameObject VRCamera;
     public bool isModel;
 
-
     // Use this for initialization
     void Start () {
         Vector3 originalScale = this.transform.localScale;
-        VRCamera = GameObject.Find("VRCamera");
+        VRCamera = GameObject.Find("Camera (eye)");
         pivot = new Vector2(VRCamera.transform.position.x, VRCamera.transform.position.y);
         pivotToTransformPosition = new Vector2(this.transform.position.x - VRCamera.transform.position.x, this.transform.position.y - VRCamera.transform.position.y);
+    
+        controllerEventsLeft.GripClicked += GripClickedLeft;
+        controllerEventsRight.GripClicked += GripClickedRight;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        /*
-        if ((leftHand.GetComponent<Hand>().grabGripAction.GetState(leftHand.GetComponent<Hand>().handType)
-            && rightHand.GetComponent<Hand>().grabGripAction.GetStateDown(rightHand.GetComponent<Hand>().handType))
 
-            || (rightHand.GetComponent<Hand>().grabGripAction.GetState(rightHand.GetComponent<Hand>().handType)
-            && leftHand.GetComponent<Hand>().grabGripAction.GetStateDown(leftHand.GetComponent<Hand>().handType)))
+        if (controllerEventsLeft.gripPressed && controllerEventsRight.gripPressed)
         {
             isScaling = true;
-            originalDistanceBetweenHands = Vector3.Distance(leftHand.transform.position, rightHand.transform.position);
-            originalScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
-            pivot = new Vector2(VRCamera.transform.position.x, VRCamera.transform.position.z);
-            pivotToTransformPosition = new Vector2(this.transform.position.x - VRCamera.transform.position.x, this.transform.position.z - VRCamera.transform.position.z);
-        } else if (!leftHand.GetComponent<Hand>().grabGripAction.GetState(leftHand.GetComponent<Hand>().handType)
-            || !rightHand.GetComponent<Hand>().grabGripAction.GetState(rightHand.GetComponent<Hand>().handType))
+        } 
+        else
         {
             isScaling = false;
+            isInit = false;
         }
-
-        if (isScaling)
+        if (isScaling && isInit)
         {
+            Debug.Log("scale");
             currentDistanceBetweenHands = Vector3.Distance(leftHand.transform.position, rightHand.transform.position);
             scale = Mathf.Sqrt((originalDistanceBetweenHands / currentDistanceBetweenHands));
             this.transform.localScale = new Vector3(Mathf.Clamp(originalScale.x * scale, 0.25f, 3f), 
@@ -56,8 +58,34 @@ public class ZoomByGrabbing : MonoBehaviour {
             if (transform.localScale.x < 3f) {
                 this.transform.position = new Vector3(pivot.x + (scale * pivotToTransformPosition.x), this.transform.position.y, pivot.y + (scale * pivotToTransformPosition.y));
             }
-
         }
-         */
     }   
+
+    private void initializeControllerDistance(){
+        Debug.Log("initialize");
+        originalDistanceBetweenHands = Vector3.Distance(leftHand.transform.position, rightHand.transform.position);
+            originalScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+            pivot = new Vector2(VRCamera.transform.position.x, VRCamera.transform.position.z);
+            pivotToTransformPosition = new Vector2(this.transform.position.x - VRCamera.transform.position.x, this.transform.position.z - VRCamera.transform.position.z);
+        isInit = true;
+    }
+
+
+    private void GripClickedLeft(object sender, ControllerInteractionEventArgs e)
+    {
+        if(controllerEventsRight.gripPressed)
+        {
+            initializeControllerDistance();
+        }
+    }
+
+    private void GripClickedRight(object sender, ControllerInteractionEventArgs e)
+    {
+        if(controllerEventsLeft.gripPressed)
+        {
+            initializeControllerDistance();
+        }
+    }
+
+
 }

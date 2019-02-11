@@ -69,6 +69,7 @@ public class sectionController : MonoBehaviour {
     {
         FrameSection newFrameSection = new FrameSection(name, buildingMaterialName, FrameSectionType.Tube);
         newFrameSection.SetTubeDimensions(outsideDepth, outsideWidth, flangeThickness, webThickness);
+        Debug.Log("creaged tube");
         return addFrameSection(newFrameSection);
     }
 

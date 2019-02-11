@@ -51,6 +51,10 @@ public class constructorController : MonoBehaviour
                     createFrame(framePoints[0], point);
                     framePoints.Clear();
                     tempLineRenderer.enabled = false;
+                } else
+                {
+                    framePoints.Clear();
+                    tempLineRenderer.enabled = false; 
                 }
             }
             else
@@ -59,6 +63,7 @@ public class constructorController : MonoBehaviour
 
                 tempLineRenderer.enabled = true;
                 tempLineRenderer.SetPosition(0, point);
+                tempLineRenderer.SetPosition(1, point);
             }
         }
         else if (type == buildingObjects.Area)
@@ -212,9 +217,8 @@ public class constructorController : MonoBehaviour
         {
             GameObject frameObject = frameElement.GetGameObject();
             Object.Destroy(frameObject);
-            frameList.Remove(frameElement);
         }
-
+        frameList.Clear();
         foreach (jointRestraint jointRestraintElement in jointRestraintList)
         {
             GameObject jointRestraintObject = jointRestraintElement.GetGameObject();

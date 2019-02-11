@@ -82,4 +82,8 @@ public class materialsController : MonoBehaviour {
     {
         return currentMaterial;
     }
+
+    public List<BuildingMaterial> GetMaterials() {
+        return buildingMaterials;
+    }
 }
