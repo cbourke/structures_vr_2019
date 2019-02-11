@@ -6049,7 +6049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementActivationButton: 7
   movementActivationRequirement: 4
-  movementTrackingController: 3
+  movementTrackingController: 2
   movementMultiplier: 1
   movementPositionLock:
     xState: 0
