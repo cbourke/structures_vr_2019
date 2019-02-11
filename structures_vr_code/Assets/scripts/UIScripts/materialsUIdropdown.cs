@@ -9,7 +9,7 @@ using System;
 
 public class materialsUIdropdown : MonoBehaviour {
 
-	public GameObject materialController;
+	public materialsController myMaterialController;
 	public TMP_Dropdown region;
 	public TMP_Dropdown type;
 	public TMP_Dropdown standard;
@@ -20,7 +20,7 @@ public class materialsUIdropdown : MonoBehaviour {
 
 	void Start()
 	{
-		materialDict = materialController.GetComponent<materialDefinitions>().getDict();
+		materialDict = myMaterialController.GetComponent<materialDefinitions>().getDict();
 
 		// region event
         region.onValueChanged.AddListener(delegate {
@@ -98,7 +98,7 @@ public class materialsUIdropdown : MonoBehaviour {
 		standardType = standard.options[standard.value].text;
 		gradeType = grade.options[grade.value].text;
 		if(matName.text != null) {
-        	materialController.GetComponent<materialsController>().addBuildingMaterial(matName.text, regionType, typeType, standardType, gradeType);
+        	myMaterialController.GetComponent<materialsController>().addBuildingMaterial(matName.text, regionType, typeType, standardType, gradeType);
 			Debug.Log("material " + matName.text + " created");
 		} else
 		{

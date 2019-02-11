@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class debugDrawing : MonoBehaviour {
 
-	public GameObject constructorController;
-    public GameObject xmlController;
-    public GameObject materialController;
-    public GameObject sectionController;
-    public GameObject unitsController;
+	public constructorController myConstructorController;
+    public xmlController myXmlController;
+    public materialsController myMaterialController;
+    public sectionController mySectionController;
+    public unitsController myUnitsController;
 
     Vector3 origin = new Vector3(0,0,0);
     Vector3 p1 = new Vector3(1,0,0);
@@ -28,7 +28,7 @@ public class debugDrawing : MonoBehaviour {
 	
     void testConversions()
     {
-        unitsController uC = unitsController.GetComponent<unitsController>();
+        unitsController uC = myUnitsController.GetComponent<unitsController>();
         uC.populateDict();
         int lengthMeter = 5;
         int forceNewton = 15;
@@ -85,40 +85,40 @@ public class debugDrawing : MonoBehaviour {
 
     void testSections()
     {
-        sectionController.GetComponent<sectionController>().addIFrameSection("Sec_Steel_I", "Steel01", 0.3, 0.12, 0.01, 0.007, 0.12, 0.01);
-        sectionController.GetComponent<sectionController>().addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2, 0.01);
-        sectionController.GetComponent<sectionController>().addTubeFrameSection("Sec_Aluminum_Tube", "Aluminum01", 0.16, 0.1, 0.007, 0.007);
+        mySectionController.GetComponent<sectionController>().addIFrameSection("Sec_Steel_I", "Steel01", 0.3, 0.12, 0.01, 0.007, 0.12, 0.01);
+        mySectionController.GetComponent<sectionController>().addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2, 0.01);
+        mySectionController.GetComponent<sectionController>().addTubeFrameSection("Sec_Aluminum_Tube", "Aluminum01", 0.16, 0.1, 0.007, 0.007);
 
-        sectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Steel_I");
-        Debug.Log("Current frame section: " + sectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
-        constructorController.GetComponent<constructorController>().setPoint(origin, buildingObjects.Frame);
-		constructorController.GetComponent<constructorController>().setPoint(p1, buildingObjects.Frame);
+        mySectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Steel_I");
+        Debug.Log("Current frame section: " + mySectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
+        myConstructorController.GetComponent<constructorController>().setPoint(origin, buildingObjects.Frame);
+		myConstructorController.GetComponent<constructorController>().setPoint(p1, buildingObjects.Frame);
 
-        sectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Steel_Pipe");
-        Debug.Log("Current frame section: " + sectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
-        constructorController.GetComponent<constructorController>().setPoint(p2, buildingObjects.Frame);
-		constructorController.GetComponent<constructorController>().setPoint(p3, buildingObjects.Frame);
+        mySectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Steel_Pipe");
+        Debug.Log("Current frame section: " + mySectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
+        myConstructorController.GetComponent<constructorController>().setPoint(p2, buildingObjects.Frame);
+		myConstructorController.GetComponent<constructorController>().setPoint(p3, buildingObjects.Frame);
 
-        sectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Aluminum_Tube");
-        Debug.Log("Current frame section: " + sectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
-        constructorController.GetComponent<constructorController>().setPoint(p4, buildingObjects.Frame);
-        constructorController.GetComponent<constructorController>().setPoint(p5, buildingObjects.Frame);
+        mySectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Aluminum_Tube");
+        Debug.Log("Current frame section: " + mySectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
+        myConstructorController.GetComponent<constructorController>().setPoint(p4, buildingObjects.Frame);
+        myConstructorController.GetComponent<constructorController>().setPoint(p5, buildingObjects.Frame);
     }
 
     void testJoints()
     {
-        constructorController.GetComponent<constructorController>().createJointRestraint(origin, 'f');
-        constructorController.GetComponent<constructorController>().createJointRestraint(p1, 'r');
-        constructorController.GetComponent<constructorController>().createJointRestraint(p1, 'f'); // overwrite
+        myConstructorController.GetComponent<constructorController>().createJointRestraint(origin, 'f');
+        myConstructorController.GetComponent<constructorController>().createJointRestraint(p1, 'r');
+        myConstructorController.GetComponent<constructorController>().createJointRestraint(p1, 'f'); // overwrite
 
-        constructorController.GetComponent<constructorController>().createJointRestraint(p2, 'p');
-        constructorController.GetComponent<constructorController>().createJointRestraint(p3, 'p');
+        myConstructorController.GetComponent<constructorController>().createJointRestraint(p2, 'p');
+        myConstructorController.GetComponent<constructorController>().createJointRestraint(p3, 'p');
 
-        constructorController.GetComponent<constructorController>().createJointRestraint(p4, 'r');
-        constructorController.GetComponent<constructorController>().createJointRestraint(p5, 'r');
-        constructorController.GetComponent<constructorController>().deleteJointRestraint(p5); // delete
+        myConstructorController.GetComponent<constructorController>().createJointRestraint(p4, 'r');
+        myConstructorController.GetComponent<constructorController>().createJointRestraint(p5, 'r');
+        myConstructorController.GetComponent<constructorController>().deleteJointRestraint(p5); // delete
 
-        constructorController.GetComponent<constructorController>().createJointRestraint(p6, 'f'); // This is meant to fail, as there is no frame endpoint here
+        myConstructorController.GetComponent<constructorController>().createJointRestraint(p6, 'f'); // This is meant to fail, as there is no frame endpoint here
     }
 
 	void testMaterials()
