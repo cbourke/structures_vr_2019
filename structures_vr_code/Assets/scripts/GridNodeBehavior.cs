@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class GridNodeBehavior : MonoBehaviour {
     public VRTK_InteractableObject linkedObject;
-    public GameObject constructorController = null;
+    public constructorController myConstructorController = null;
     public LineRenderer previewLineRenderer = null;
     public PointerController pointerController;
     bool canUse = true;
     private bool isSelected = false;
 	// Use this for initialization
 	void Start () {
-
+        myConstructorController = GameObject.FindWithTag("gameControllers").GetComponent<constructorController>();
 	}
 	
 	// Update is called once per frame
@@ -26,7 +26,7 @@ public class GridNodeBehavior : MonoBehaviour {
         {
             switch (pointerController.getPointerMode()){
                 case pointerModes.draw: {
-                    constructorController.GetComponent<constructorController>().setPoint(this.transform.position, buildingObjects.Frame);
+                    myConstructorController.GetComponent<constructorController>().setPoint(this.transform.position, buildingObjects.Frame);
                     canUse = false;
                     break;
                 }
@@ -55,11 +55,6 @@ public class GridNodeBehavior : MonoBehaviour {
                 break;
             }
         }
-    }
-
-    public void setConstructorController(GameObject newConstructorController)
-    {
-        this.constructorController = newConstructorController;
     }
 
     public void setPreviewLineRenderer(LineRenderer newPreviewLineRenderer)

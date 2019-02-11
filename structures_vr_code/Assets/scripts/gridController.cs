@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class generateGrid : MonoBehaviour {
-    public GameObject constructorController;
+public class gridController : MonoBehaviour {
+    public constructorController myConstructorController;
+	public PointerController myPointerController;
     public LineRenderer previewLineRenderer;
-	public PointerController pointerController;
+	
 	public GameObject node;
 	public static gridNode[, ,] grid;
 
@@ -35,9 +36,9 @@ public class generateGrid : MonoBehaviour {
         GameObject nodeInstance;
         foreach (gridNode item in grid) {
 			nodeInstance = Instantiate(node, item.position, Quaternion.identity);
-            nodeInstance.GetComponent<GridNodeBehavior>().setConstructorController(constructorController);
+            //nodeInstance.GetComponent<GridNodeBehavior>().setConstructorController(myConstructorController);
             nodeInstance.GetComponent<GridNodeBehavior>().setPreviewLineRenderer(previewLineRenderer);
-			nodeInstance.GetComponent<GridNodeBehavior>().setPointerController(pointerController);
+			nodeInstance.GetComponent<GridNodeBehavior>().setPointerController(myPointerController);
 			nodeInstance.transform.parent = gameObject.transform;
 		
 		}	

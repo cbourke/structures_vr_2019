@@ -14,7 +14,7 @@ public class createIFrameUI : MonoBehaviour
     public TMP_InputField botThick;
     public TMP_InputField IFrameName;
     public TMP_Dropdown materialDropdown;
-    public GameObject sectionController;
+    public sectionController mySectionController;
 
     public void createIFrame() {
         string materialName = (materialDropdown.options[materialDropdown.value].text);
@@ -25,6 +25,6 @@ public class createIFrameUI : MonoBehaviour
         float bWidthVal = float.Parse(botWidth.text);
         float bThickVal = float.Parse(botThick.text);
         
-        sectionController.GetComponent<sectionController>().addIFrameSection(IFrameName.text, materialName, heightVal, tWidthVal, tThickVal, webVal, bWidthVal, bThickVal);
+        mySectionController.GetComponent<sectionController>().addIFrameSection(IFrameName.text, materialName, heightVal, tWidthVal, tThickVal, webVal, bWidthVal, bThickVal);
     }
 }

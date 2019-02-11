@@ -15,7 +15,7 @@ using VRTK;
 
         public VRTK_ControllerEvents controllerEvents;
 	    public LineRenderer laserLineRenderer;
-	    public GameObject constructorController;
+	    public constructorController myConstructorController;
 
         private RaycastHit vision;
 	    private bool isGrabbed;
@@ -83,7 +83,7 @@ using VRTK;
                         {
                             clicked = false;
                             // User "grabs" a grid node
-                            constructorController.GetComponent<constructorController>().deleteFrame(rayHit.transform.gameObject.GetInstanceID());
+                            myConstructorController.GetComponent<constructorController>().deleteFrame(rayHit.transform.gameObject.GetInstanceID());
                         }
                     }
                     break;
@@ -101,7 +101,7 @@ using VRTK;
                             {
                                 clicked = false;
                                 // User "grabs" a grid node
-                                constructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
+                                myConstructorController.GetComponent<constructorController>().setPoint(nodePoint, buildingObjects.Frame);
                             }
                         }
                         break;

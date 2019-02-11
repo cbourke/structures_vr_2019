@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class sectionController : MonoBehaviour {
-    public GameObject xmlController;
-    public GameObject materialsController;
+    public xmlController myXmlController;
+    public materialsController myMaterialsController;
     private FrameSection currentFrameSection;
 
 
@@ -40,7 +40,7 @@ public class sectionController : MonoBehaviour {
         if (findFrameSection(frameSection.GetName()) == null)
         {
             frameSections.Add(frameSection);
-            xmlController.GetComponent<xmlController>().addFrameSectionToXMLList(frameSection);
+            myXmlController.GetComponent<xmlController>().addFrameSectionToXMLList(frameSection);
             return 1;
         }
         else
@@ -79,7 +79,7 @@ public class sectionController : MonoBehaviour {
         if (targetFrameSection != null)
         {
             frameSections.Remove(targetFrameSection);
-            xmlController.GetComponent<xmlController>().deleteFrameSectionFromXMLList(name);
+            myXmlController.GetComponent<xmlController>().deleteFrameSectionFromXMLList(name);
         }
         if (frameSections.Count == 0)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class materialsController : MonoBehaviour {
-    public GameObject xmlController;
+    public xmlController myXmlController;
     public static BuildingMaterial defaultBuildingMaterial = new BuildingMaterial("A992fy50");
     public BuildingMaterial currentMaterial;
 
@@ -37,7 +37,7 @@ public class materialsController : MonoBehaviour {
     public void addBuildingMaterial(BuildingMaterial newMaterial)
     {
         buildingMaterials.Add(newMaterial);
-        xmlController.GetComponent<xmlController>().addBuildingMaterialToXMLList(newMaterial);
+        myXmlController.GetComponent<xmlController>().addBuildingMaterialToXMLList(newMaterial);
     }
 
     public BuildingMaterial findBuildingMaterialWithName(string name)
@@ -61,7 +61,7 @@ public class materialsController : MonoBehaviour {
         if (bm != null)
         {
             buildingMaterials.Remove(bm);
-            xmlController.GetComponent<xmlController>().deletebuildingMaterialFromXMLList(name);
+            myXmlController.GetComponent<xmlController>().deletebuildingMaterialFromXMLList(name);
         }
         if (buildingMaterials.Count == 0)
         {

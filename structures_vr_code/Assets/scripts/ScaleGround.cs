@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScaleGround : MonoBehaviour {
 
-	public generateGrid grid;
+	public gridController myGridController;
 	float groundX, groundZ, scaleX, scaleZ;
 
 	// Use this for initialization
