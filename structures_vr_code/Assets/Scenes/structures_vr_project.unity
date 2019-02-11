@@ -4058,6 +4058,11 @@ PrefabInstance:
       propertyPath: constructorController
       value: 
       objectReference: {fileID: 1807594933}
+    - target: {fileID: 114462543522546338, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: units
+      value: 
+      objectReference: {fileID: 1349423899}
     - target: {fileID: 114106997702442144, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: materialController
@@ -4088,12 +4093,12 @@ PrefabInstance:
       propertyPath: sectionController
       value: 
       objectReference: {fileID: 841756466}
-    - target: {fileID: 8045744996609744879, guid: 55bf230e68be69f439ed024d48fe840f,
+    - target: {fileID: 346284574344953882, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: unitCtr
       value: 
       objectReference: {fileID: 1349423899}
-    - target: {fileID: 346284574344953882, guid: 55bf230e68be69f439ed024d48fe840f,
+    - target: {fileID: 8045744996609744879, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: unitCtr
       value: 

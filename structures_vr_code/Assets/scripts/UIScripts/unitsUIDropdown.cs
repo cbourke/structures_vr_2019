@@ -10,10 +10,11 @@ public class unitsUIDropdown : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("drop it liek its HAWT");
         unitDropdown = GetComponent<TMP_Dropdown>();
         unitDropdown.ClearOptions();
         unitDropdown.AddOptions(unitCtr.getUnits());
+        unitDropdown.value = 9;
+        DropdownValueChanged(unitDropdown);
         unitDropdown.onValueChanged.AddListener(delegate {
             DropdownValueChanged(unitDropdown);
         });

@@ -13,18 +13,22 @@ public class createNewProject : MonoBehaviour {
 	
 	public GameObject gridController;
 	public GameObject constructorController;
+	public unitsController units;
 
 	void Start() {
 		if(gridController == null || constructorController == null) {
 			Debug.LogError("Assign the controllers to the file-create button");
 		}
 	}
+
 	public void clickNew() {
+		Debug.Log("Create");
 		constructorController.GetComponent<constructorController>().deleteAll();
  		float spacing = float.Parse(spacingText.text);
+		float spacingMeters = (float)(units.getLengthMeters(spacing));
 		int x = int.Parse(xText.text);
 		int y = int.Parse(yText.text);
 		int z = int.Parse(zText.text);
-		gridController.GetComponent<generateGrid>().createGrid(x,y,z,spacing);
+		gridController.GetComponent<generateGrid>().createGrid(x,y,z,spacingMeters);
 	}
 }

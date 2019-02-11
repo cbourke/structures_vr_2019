@@ -19,6 +19,7 @@ public class unitsController : MonoBehaviour {
   private List<string> unitList = new List<string>();
 
 	void Start() {
+		populateDict();
 		unitList.Add("lb, in, F");
 		unitList.Add("lb, ft, F");
 		unitList.Add("Kip, in F");
@@ -35,6 +36,7 @@ public class unitsController : MonoBehaviour {
 		unitList.Add("Kgf, cm, C");
 		unitList.Add("N, cm, C");
 		unitList.Add("Tonf, cm, C");
+		
 	}
 
 	public List<string> getUnits() {
@@ -67,6 +69,9 @@ public class unitsController : MonoBehaviour {
 		this.force = unitsArray[0];
 		this.length = unitsArray[1];
 		this.temperature = unitsArray[2];
+		Debug.Log("force: " + force);
+		Debug.Log("length: " + length);
+		Debug.Log("temperature: " + temperature);
 	}
 
 	// unit getters and setters
@@ -96,7 +101,6 @@ public class unitsController : MonoBehaviour {
 
 	// takes length in meters and returns user defined units
 	public double getLength(double length) {
-        Debug.Log("length: " + length * this.convTable[this.length]);
 		return Math.Round(length * this.convTable[this.length], this.decimalPlaces);
 	}
 
