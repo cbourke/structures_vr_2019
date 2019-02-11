@@ -283,6 +283,9 @@ PrefabInstance:
       propertyPath: sectionController
       value: 
       objectReference: {fileID: 841756466}
+    - target: {fileID: 114368873468224284, guid: 02ec97572a78fe3429d4aad824366914,
+        type: 3}
+      propertyPath: sapController
       value: 
       objectReference: {fileID: 359155242}
     m_RemovedComponents: []
