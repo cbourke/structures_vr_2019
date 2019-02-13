@@ -89,6 +89,7 @@ public class sectionController : MonoBehaviour {
 
     public void SetCurrentFrameSection(string name)
     {
+        Debug.Log("new Frame section: " + name);
         FrameSection fs = findFrameSection(name);
         if (fs != null)
         {

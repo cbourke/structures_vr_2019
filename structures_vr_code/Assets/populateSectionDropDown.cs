@@ -19,5 +19,12 @@ public class populateSectionDropDown : MonoBehaviour
         }
         dropdown.AddOptions(sectionNames);
 
+        dropdown.onValueChanged.AddListener(delegate {
+            dropdownValueChanged();
+        });
+    }
+
+    void dropdownValueChanged() {
+        mySectionController.SetCurrentFrameSection(dropdown.options[dropdown.value].text);
     }
 }
