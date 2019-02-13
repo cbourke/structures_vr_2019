@@ -30,7 +30,6 @@ public class constructorController : MonoBehaviour
 
     public void setPoint(Vector3 point, buildingObjects type)
     {
-        Debug.Log("Setpoint: " + point);
         if (type == buildingObjects.Frame)
         {
             if (framePoints.Count == 1)

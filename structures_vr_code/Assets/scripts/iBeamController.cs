@@ -46,7 +46,7 @@ public class iBeamController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SetDimensions(depth, flangeWidth, flangeThickness, webThickness,  length);
+        //SetDimensions(depth, flangeWidth, flangeThickness, webThickness,  length);
     }
 
     void SetDimensions(float d, float flangeW, float flangeT, float webT, float length)
@@ -55,7 +55,7 @@ public class iBeamController : MonoBehaviour
         this.flangeWidth = flangeW;
         this.flangeThickness = flangeT;
         this.webThickness = webT;
-        this.length = length;
+        this.length = 1;
 
         Vector3 webScale = new Vector3(webThickness, depth, length);
         web.GetComponent<Transform>().localScale = webScale;

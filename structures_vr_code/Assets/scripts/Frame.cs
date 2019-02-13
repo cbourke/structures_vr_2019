@@ -21,7 +21,7 @@ public class Frame : MonoBehaviour {
 	{
 
 	}
-	
+
 	public Frame(Vector3 start, Vector3 end, GameObject framePrefab, FrameSection section)
     {
         sectionPropertyName = section.GetName();
@@ -31,6 +31,10 @@ public class Frame : MonoBehaviour {
 		endPos = end;
 		
 		Vector3 between = end - start;
+		Debug.Log("start: " + start);
+		Debug.Log("end: " + end);
+		Debug.Log("between: " + between);
+
     	float distance = between.magnitude;
 
 		Vector3 angletest = new Vector3(Vector3.Angle(between, Vector3.right), Vector3.Angle(between, Vector3.up), Vector3.Angle(between, Vector3.forward));
@@ -38,8 +42,8 @@ public class Frame : MonoBehaviour {
 		trans = frameObject.transform;
     	trans.position = start + (between / 2.0f);
 		trans.Rotate(angletest);
-    	trans.LookAt(end);
-		trans.localScale = new Vector3(.03f, .03f, distance);
+    	//trans.LookAt(end);
+		//trans.localScale = new Vector3(.03f, .03f, distance);
 	}
 
 	public Transform getTransform()
