@@ -11,7 +11,10 @@ public class constructorController : MonoBehaviour
     public xmlController myXmlController;
     public LineRenderer tempLineRenderer;
     
-    public GameObject framePrefab;
+    public GameObject framePrefabIBeam;
+    public GameObject framePrefabTube;
+    public GameObject framePrefabPipe;
+    
     public GameObject areaPrefab;
     public GameObject jointRestraintPrefab;
 
@@ -68,7 +71,20 @@ public class constructorController : MonoBehaviour
 
     void createFrame(Vector3 pA, Vector3 pB)
     {
-        Frame frame = new Frame(pA, pB, framePrefab, mySectionController.GetCurrentFrameSection());
+        FrameSectionType type = mySectionController.GetCurrentFrameSection().type;
+        Frame frame = new Frame();
+        if(type == FrameSectionType.I)
+        {
+            frame = new Frame(pA, pB, framePrefabIBeam, mySectionController.GetCurrentFrameSection());
+        } else if(type == FrameSectionType.Pipe)
+        {
+            frame = new Frame(pA, pB, framePrefabPipe, mySectionController.GetCurrentFrameSection());
+        } else if(type == FrameSectionType.Tube)
+        {
+            frame = new Frame(pA, pB, framePrefabTube, mySectionController.GetCurrentFrameSection());
+        } else {
+            Debug.LogError("Invalid frame section type passed to createFrame in constructorController");
+        }
         frameList.Add(frame);
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB, mySectionController.GetCurrentFrameSection().GetName());
 

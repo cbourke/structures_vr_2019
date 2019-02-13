@@ -17,6 +17,11 @@ public class Frame : MonoBehaviour {
 
 	private Transform trans;
 
+	public Frame()
+	{
+
+	}
+	
 	public Frame(Vector3 start, Vector3 end, GameObject framePrefab, FrameSection section)
     {
         sectionPropertyName = section.GetName();

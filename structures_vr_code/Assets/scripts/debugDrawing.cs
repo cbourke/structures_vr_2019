@@ -23,9 +23,20 @@ public class debugDrawing : MonoBehaviour {
         
         //xmlController.GetComponent<xmlController>().sendFileToSap(); //send to SAP2000
         Debug.Log("START DEBUG");
-        testConversions();
+        populateDropdowns();
     }
 	
+    void populateDropdowns()
+    {
+        			
+        myMaterialController.addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
+        
+        mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3, 0.12, 0.01, 0.007, 0.12, 0.01);
+        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel01", 0.2, 0.01);
+        mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Steel01", 0.16, 0.1, 0.007, 0.007);
+
+    }
+
     void testConversions()
     {
         unitsController uC = myUnitsController.GetComponent<unitsController>();
