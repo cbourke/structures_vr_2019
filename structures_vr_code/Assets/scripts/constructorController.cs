@@ -9,17 +9,18 @@ public class constructorController : MonoBehaviour
 {
     public sectionController mySectionController;
     public xmlController myXmlController;
-    public LineRenderer tempLineRenderer;
     public SapTranslatorIpcHandler sapController;
-    public GameObject framePrefab;
+    public LineRenderer tempLineRenderer;
+    
+    public GameObject framePrefabIBeam;
+    public GameObject framePrefabTube;
+    public GameObject framePrefabPipe;
+    
     public GameObject areaPrefab;
     public GameObject jointRestraintPrefab;
 
 
     public string structureSaveFileName = "testStructure";
-
-    //StructuralElementsLists elementsListsForXML = new StructuralElementsLists();
-
 
     List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
@@ -28,22 +29,8 @@ public class constructorController : MonoBehaviour
     List<Vector3> framePoints = new List<Vector3>();
     List<Vector3> areaPoints = new List<Vector3>();
 
-
-    
-
-    void Awake()
-    {
-        // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
-        //tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
-        //tempLineRenderer.enabled = false;
-    }
-
-
     public void setPoint(Vector3 point, buildingObjects type)
     {
-        // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
-        //tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
-        Debug.Log("Setpoint: " + point);
         if (type == buildingObjects.Frame)
         {
             if (framePoints.Count == 1)
@@ -85,9 +72,22 @@ public class constructorController : MonoBehaviour
     void createFrame(Vector3 pA, Vector3 pB)
     {
         string frameName = "Frame i = (" + pA.x + ", " + pA.z + ", " + pA.y + ") j = (" + pB.x + ", " + pB.z + ", " + pB.y + ")";
-        Frame frame = new Frame(pA, pB, framePrefab, mySectionController.GetCurrentFrameSection(), frameName);
+        FrameSectionType type = mySectionController.GetCurrentFrameSection().type;
+        Frame frame = new Frame();
+        if(type == FrameSectionType.I)
+        {
+            frame = new Frame(pA, pB, framePrefabIBeam, mySectionController.GetCurrentFrameSection(), frameName);
+        } else if(type == FrameSectionType.Pipe)
+        {
+            frame = new Frame(pA, pB, framePrefabPipe, mySectionController.GetCurrentFrameSection(), frameName);
+        } else if(type == FrameSectionType.Tube)
+        {
+            frame = new Frame(pA, pB, framePrefabTube, mySectionController.GetCurrentFrameSection(), frameName);
+        } else {
+            Debug.LogError("Invalid frame section type passed to createFrame in constructorController");
+        }
         frameList.Add(frame);
-        myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB, mySectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
+        myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB, mySectionController.GetCurrentFrameSection().GetName());
 
         double xi = pA.x;
         double yi = pA.y;

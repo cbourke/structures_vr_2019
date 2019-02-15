@@ -23,7 +23,6 @@ using VRTK;
         private LineRenderer tempLineRenderer;
         private bool clicked = false;
 
-        bool CNT_gripped = false;
 
 	    void Start() {
 		    // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient

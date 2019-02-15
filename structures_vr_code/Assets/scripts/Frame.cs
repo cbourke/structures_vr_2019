@@ -7,7 +7,6 @@ public class Frame : MonoBehaviour {
 	private Vector3 startPos;
 	private Vector3 endPos;
 	private Vector3 direction;
-	private float length;
 	private Vector3 angle;
 
 	private GameObject frameObject;
@@ -18,6 +17,11 @@ public class Frame : MonoBehaviour {
 
 	private Transform trans;
 
+	public Frame()
+	{
+
+	}
+
 	public Frame(Vector3 start, Vector3 end, GameObject framePrefab, FrameSection section, string frameName)
     {
         sectionPropertyName = section.GetName();
@@ -27,18 +31,35 @@ public class Frame : MonoBehaviour {
 		endPos = end;
 		
 		Vector3 between = end - start;
-    	float distance = between.magnitude;
-		length = distance;
-
-		Vector3 angletest = new Vector3(Vector3.Angle(between, Vector3.right), Vector3.Angle(between, Vector3.up), Vector3.Angle(between, Vector3.forward));
+		float distance = between.magnitude;
+		Debug.Log("distance: " + distance);
+		Vector3 midPoint = Vector3.Lerp(start, end, 0.5f);
 
 		trans = frameObject.transform;
-    	trans.position = start + (between / 2.0f);
-		trans.Rotate(angletest);
-    	trans.LookAt(end);
-		trans.localScale = new Vector3(.03f, .03f, distance);
-
-        setName(frameName);
+    	trans.position = midPoint;
+		trans.LookAt(end);
+        trans.rotation *= Quaternion.Euler(90, 90, 90);
+		trans.localScale = new Vector3(1, distance, 1);
+		setName(frameName);
+		// scale the frame depending on the section type
+		if(section.type == FrameSectionType.I)
+        {
+			frame_iBeamController controller = frameObject.GetComponent<frame_iBeamController>();
+			float[] arr = section.GetDimensions();
+			controller.SetDimensions(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
+        } else if(section.type == FrameSectionType.Pipe)
+        {
+			frame_PipeController controller = frameObject.GetComponent<frame_PipeController>();
+			float[] arr = section.GetDimensions();
+			controller.SetDimensions(arr[0], arr[1]);
+        } else if(section.type == FrameSectionType.Tube)
+        {
+			frame_TubeController controller = frameObject.GetComponent<frame_TubeController>();
+			float[] arr = section.GetDimensions();
+			controller.SetDimensions(arr[0], arr[1], arr[2], arr[3]);
+        } else {
+            Debug.LogError("Invalid frame section type passed to createFrame in Frame Class");
+        }
 	}
 
 	public Transform getTransform()
