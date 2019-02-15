@@ -139,7 +139,6 @@ MonoBehaviour:
   webThickness: 0
   flangeWidth: 0
   flangeThickness: 0
-  length: 0
   web: {fileID: 7920509774333723441}
   topFlange: {fileID: 7920509773000002068}
   bottomFlange: {fileID: 7920509774714803027}
@@ -169,15 +168,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7920509774333723441}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 7920509773000002067}
   - {fileID: 7920509774714803023}
   m_Father: {fileID: 7920509773000511725}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &7920509774333723437
 MeshFilter:
   m_ObjectHideFlags: 0

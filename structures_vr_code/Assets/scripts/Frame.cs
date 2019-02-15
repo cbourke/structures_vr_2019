@@ -39,7 +39,7 @@ public class Frame : MonoBehaviour {
     	trans.position = midPoint;
 		trans.LookAt(end);
         trans.rotation *= Quaternion.Euler(90, 90, 90);
-		trans.localScale = new Vector3(.03f, distance, 0.03f);
+		trans.localScale = new Vector3(1, distance, 1);
 
 	}
 
