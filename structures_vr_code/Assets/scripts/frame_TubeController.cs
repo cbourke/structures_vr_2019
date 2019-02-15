@@ -7,6 +7,6 @@ public class frame_TubeController : MonoBehaviour
     public void SetDimensions(float outsideDepth, float outsideWidth, float flangeThickness, float webThickness)
     {
         Transform trans = gameObject.transform;
-        trans.localScale = new Vector3(outsideDepth, trans.localScale.y, outsideWidth);
+        trans.localScale = new Vector3(outsideWidth, trans.localScale.y, outsideDepth);
     }
 }
