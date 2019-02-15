@@ -2890,9 +2890,9 @@ MonoBehaviour:
   tempLineRenderer: {fileID: 425715893}
   framePrefabIBeam: {fileID: 7920509773000511727, guid: 9afddfb8138a00a4baf1b7aea0023ced,
     type: 3}
-  framePrefabTube: {fileID: 1792658920625122, guid: cabe915ffd810d94c840604b5e7847ff,
+  framePrefabTube: {fileID: 9022517299805872648, guid: cabe915ffd810d94c840604b5e7847ff,
     type: 3}
-  framePrefabPipe: {fileID: 7730322590100334498, guid: 4d08bbb8c38dbd74c9e1a421bd5c82af,
+  framePrefabPipe: {fileID: 2951282421013473719, guid: d28a943f845d8fc4faeb67051f4dd486,
     type: 3}
   areaPrefab: {fileID: 0}
   jointRestraintPrefab: {fileID: 1096227065537474, guid: a00f7491a7d448f49a8ff7a9a16f2895,
@@ -5653,7 +5653,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1931310775}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -2.89, y: 0, z: 0.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5662,7 +5662,7 @@ Transform:
   - {fileID: 1994352447}
   m_Father: {fileID: 1440108353}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1931310768
 GameObject:
   m_ObjectHideFlags: 0
@@ -6469,6 +6469,10 @@ PrefabInstance:
     - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 458990, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f35fa249b5008c44ac2998be6f82d4d, type: 3}

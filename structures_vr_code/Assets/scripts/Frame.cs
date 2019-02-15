@@ -31,11 +31,16 @@ public class Frame : MonoBehaviour {
 		endPos = end;
 		
 		Vector3 between = end - start;
-		
+		float distance = between.magnitude;
+		Debug.Log("distance: " + distance);
+		Vector3 midPoint = Vector3.Lerp(start, end, 0.5f);
+
 		trans = frameObject.transform;
-    	trans.position = start;
+    	trans.position = midPoint;
 		trans.LookAt(end);
         trans.rotation *= Quaternion.Euler(90, 90, 90);
+		trans.localScale = new Vector3(.03f, distance, 0.03f);
+
 	}
 
 	public Transform getTransform()
