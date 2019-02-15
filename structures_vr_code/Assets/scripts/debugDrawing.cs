@@ -20,7 +20,6 @@ public class debugDrawing : MonoBehaviour {
 
 	
 	void Start () {
-        
         //xmlController.GetComponent<xmlController>().sendFileToSap(); //send to SAP2000
         Debug.Log("START DEBUG");
         populateDropdowns();
@@ -31,9 +30,9 @@ public class debugDrawing : MonoBehaviour {
         			
         myMaterialController.addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
         
-        mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3, 0.12, 0.01, 0.007, 0.12, 0.01);
-        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel01", 0.2, 0.01);
-        mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Steel01", 0.16, 0.1, 0.007, 0.007);
+        mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
+        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel01", 0.2f, 0.01f);
+        mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Steel01", 0.16f, 0.1f, 0.007f, 0.007f);
 
     }
 
@@ -96,9 +95,9 @@ public class debugDrawing : MonoBehaviour {
 
     void testSections()
     {
-        mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3, 0.12, 0.01, 0.007, 0.12, 0.01);
-        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2, 0.01);
-        mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Aluminum01", 0.16, 0.1, 0.007, 0.007);
+        mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
+        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2f, 0.01f);
+        mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Aluminum01", 0.16f, 0.1f, 0.007f, 0.007f);
 
         mySectionController.SetCurrentFrameSection("Sec_Steel_I");
         Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());

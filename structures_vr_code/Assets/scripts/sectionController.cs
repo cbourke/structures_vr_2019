@@ -50,7 +50,7 @@ public class sectionController : MonoBehaviour {
         
     }
 
-    public int addIFrameSection(string name, string buildingMaterialName, double outsideHeight, double topFlangeWidth, double topFlangeThickness, double webThickness, double bottomFlangeWidth, double bottomFlangeThickness)
+    public int addIFrameSection(string name, string buildingMaterialName, float outsideHeight, float topFlangeWidth, float topFlangeThickness, float webThickness, float bottomFlangeWidth, float bottomFlangeThickness)
     {
         //Create a new iframe-type framesection and then add it to frameSections list
         FrameSection newFrameSection = new FrameSection(name, buildingMaterialName, FrameSectionType.I);
@@ -58,14 +58,14 @@ public class sectionController : MonoBehaviour {
         return addFrameSection(newFrameSection);
     }
 
-    public int addPipeFrameSection(string name, string buildingMaterialName, double outsideDiameter, double wallThickness)
+    public int addPipeFrameSection(string name, string buildingMaterialName, float outsideDiameter, float wallThickness)
     {
         FrameSection newFrameSection = new FrameSection(name, buildingMaterialName, FrameSectionType.Pipe);
         newFrameSection.SetPipeDimensions(outsideDiameter, wallThickness);
         return addFrameSection(newFrameSection);
     }
 
-    public int addTubeFrameSection(string name, string buildingMaterialName, double outsideDepth, double outsideWidth, double flangeThickness, double webThickness)
+    public int addTubeFrameSection(string name, string buildingMaterialName, float outsideDepth, float outsideWidth, float flangeThickness, float webThickness)
     {
         FrameSection newFrameSection = new FrameSection(name, buildingMaterialName, FrameSectionType.Tube);
         newFrameSection.SetTubeDimensions(outsideDepth, outsideWidth, flangeThickness, webThickness);

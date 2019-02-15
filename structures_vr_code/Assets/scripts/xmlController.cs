@@ -260,7 +260,7 @@ public class FrameSectionForXML
 
     }
 
-    public FrameSectionForXML(string name, string buildingMaterialName, int type, double[] dimensions)
+    public FrameSectionForXML(string name, string buildingMaterialName, int type, float[] dimensions)
     {
         this.name = name;
         this.buildingMaterialName = buildingMaterialName;

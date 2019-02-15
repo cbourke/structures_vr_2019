@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class iBeamController : MonoBehaviour
+public class frame_iBeamController : MonoBehaviour
 {
 
-    public float depth;
-    public float webThickness;
-    public float flangeWidth;
-    public float flangeThickness;
+    private float outsideHeight;
+    private float webThickness;
+    private float flangeWidth;
+    private float flangeThickness;
 
     public GameObject web;  //cubeMid
     public GameObject topFlange; //cubeTop
@@ -33,29 +33,16 @@ public class iBeamController : MonoBehaviour
              flange Width
     */
 
-    Transform trans;
 
-    // Use this for initialization
-    void Start()
+    public void SetDimensions(float outsideHeight, float flangeW, float flangeT, float webT, double bottomFlangeWidth, double bottomFlangeThickness)
     {
-        trans = GetComponent<Transform>();
-        SetDimensions(0.5f, 0.5f, 0.2f, 0.2f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //SetDimensions(depth, flangeWidth, flangeThickness, webThickness,  length);
-    }
-
-    void SetDimensions(float d, float flangeW, float flangeT, float webT)
-    {
-        this.depth = d;
+        //currently both the top and bottom flange are being set to the same width and thickness
+        this.outsideHeight = outsideHeight;
         this.flangeWidth = flangeW;
         this.flangeThickness = flangeT;
         this.webThickness = webT;
 
-        Vector3 webScale = new Vector3(webThickness, depth, 1);
+        Vector3 webScale = new Vector3(webThickness, outsideHeight, 1);
         web.GetComponent<Transform>().localScale = webScale;
 
         Vector3 topScale = new Vector3(flangeWidth, flangeThickness,  1);

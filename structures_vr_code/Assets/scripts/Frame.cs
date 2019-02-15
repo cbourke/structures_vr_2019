@@ -41,6 +41,25 @@ public class Frame : MonoBehaviour {
         trans.rotation *= Quaternion.Euler(90, 90, 90);
 		trans.localScale = new Vector3(1, distance, 1);
 
+		// scale the frame depending on the section type
+		if(section.type == FrameSectionType.I)
+        {
+			frame_iBeamController controller = frameObject.GetComponent<frame_iBeamController>();
+			float[] arr = section.GetDimensions();
+			controller.SetDimensions(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
+        } else if(section.type == FrameSectionType.Pipe)
+        {
+			frame_PipeController controller = frameObject.GetComponent<frame_PipeController>();
+			float[] arr = section.GetDimensions();
+			controller.SetDimensions(arr[0], arr[1]);
+        } else if(section.type == FrameSectionType.Tube)
+        {
+			frame_TubeController controller = frameObject.GetComponent<frame_TubeController>();
+			float[] arr = section.GetDimensions();
+			controller.SetDimensions(arr[0], arr[1], arr[2], arr[3]);
+        } else {
+            Debug.LogError("Invalid frame section type passed to createFrame in Frame Class");
+        }
 	}
 
 	public Transform getTransform()
