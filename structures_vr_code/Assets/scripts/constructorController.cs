@@ -7,18 +7,19 @@ using System.Text.RegularExpressions;
 
 public class constructorController : MonoBehaviour
 {
-    public GameObject sectionController;
-    public GameObject myXmlController;
+    public sectionController mySectionController;
+    public xmlController myXmlController;
+    public LineRenderer tempLineRenderer;
     public SapTranslatorIpcHandler sapController;
     public GameObject framePrefab;
     public GameObject areaPrefab;
     public GameObject jointRestraintPrefab;
 
+
     public string structureSaveFileName = "testStructure";
 
     //StructuralElementsLists elementsListsForXML = new StructuralElementsLists();
 
-    public LineRenderer tempLineRenderer;
 
     List<Frame> frameList = new List<Frame>();
     List<Area> areaList = new List<Area>();
@@ -33,15 +34,15 @@ public class constructorController : MonoBehaviour
     void Awake()
     {
         // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
-        tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
-        tempLineRenderer.enabled = false;
+        //tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
+        //tempLineRenderer.enabled = false;
     }
 
 
     public void setPoint(Vector3 point, buildingObjects type)
     {
         // TODO we need a better way to set the tempLineRenderer because GameObject.FindGameobjectWithTag is very inefficient
-        tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
+        //tempLineRenderer = GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<LineRenderer>();
         Debug.Log("Setpoint: " + point);
         if (type == buildingObjects.Frame)
         {
@@ -84,9 +85,9 @@ public class constructorController : MonoBehaviour
     void createFrame(Vector3 pA, Vector3 pB)
     {
         string frameName = "Frame i = (" + pA.x + ", " + pA.z + ", " + pA.y + ") j = (" + pB.x + ", " + pB.z + ", " + pB.y + ")";
-        Frame frame = new Frame(pA, pB, framePrefab, sectionController.GetComponent<sectionController>().GetCurrentFrameSection(), frameName);
+        Frame frame = new Frame(pA, pB, framePrefab, mySectionController.GetCurrentFrameSection(), frameName);
         frameList.Add(frame);
-        myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB, sectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
+        myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB, mySectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
 
         double xi = pA.x;
         double yi = pA.y;

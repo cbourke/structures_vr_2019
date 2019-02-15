@@ -11,20 +11,24 @@ public class createNewProject : MonoBehaviour {
 	public TMP_InputField zText;
 	public TMP_InputField spacingText;
 	
-	public GameObject gridController;
-	public GameObject constructorController;
+	public gridController myGridController;
+	public constructorController myConstructorController;
+	public unitsController myUnitsController;
 
 	void Start() {
-		if(gridController == null || constructorController == null) {
+		if(myGridController == null || myConstructorController == null) {
 			Debug.LogError("Assign the controllers to the file-create button");
 		}
 	}
+
 	public void clickNew() {
-		constructorController.GetComponent<constructorController>().deleteAll();
+		Debug.Log("Create");
+		myConstructorController.GetComponent<constructorController>().deleteAll();
  		float spacing = float.Parse(spacingText.text);
+		float spacingMeters = (float)(myUnitsController.getLengthMeters(spacing));
 		int x = int.Parse(xText.text);
 		int y = int.Parse(yText.text);
 		int z = int.Parse(zText.text);
-		gridController.GetComponent<generateGrid>().createGrid(x,y,z,spacing);
+		myGridController.createGrid(x,y,z,spacingMeters);
 	}
 }

@@ -9,7 +9,7 @@ public class xmlController : MonoBehaviour
 {
     public string structureSaveFileName = "defaultStructure";
     public StructuralElementsLists elementsListsForXML = new StructuralElementsLists();
-    public GameObject constructorController;
+    public constructorController myConstructorController;
 
     // Use this for initialization
     private void Awake()

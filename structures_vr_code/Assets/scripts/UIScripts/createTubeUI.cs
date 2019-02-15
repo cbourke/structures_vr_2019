@@ -12,7 +12,7 @@ public class createTubeUI : MonoBehaviour
     public TMP_InputField web;
     public TMP_InputField tubeName;
     public TMP_Dropdown materialDropdown;
-    public GameObject sectionController;
+    public sectionController mySectionController;
 
     public void createTube() {
         string materialName = (materialDropdown.options[materialDropdown.value].text);
@@ -21,6 +21,6 @@ public class createTubeUI : MonoBehaviour
         float flangeVal = float.Parse(flange.text);
         float webVal = float.Parse(web.text);
         
-        sectionController.GetComponent<sectionController>().addTubeFrameSection(tubeName.text, materialName, depthVal, widthVal, flangeVal, webVal);
+        mySectionController.GetComponent<sectionController>().addTubeFrameSection(tubeName.text, materialName, depthVal, widthVal, flangeVal, webVal);
     }
 }
