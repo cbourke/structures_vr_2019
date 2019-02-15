@@ -11,6 +11,7 @@ public class populateSectionDropDown : MonoBehaviour
 	void OnEnable()
     {
         dropdown = gameObject.GetComponent<TMP_Dropdown>();
+        dropdown.ClearOptions();
         List<FrameSection> sections = mySectionController.getSectionList();
         List<string> sectionNames = new List<string>();
         foreach(FrameSection section in sections)
