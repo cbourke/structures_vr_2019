@@ -6,6 +6,8 @@ public class Frame : MonoBehaviour {
 
 	private Vector3 startPos;
 	private Vector3 endPos;
+	private Vector3 startPosRelease;
+	private Vector3 endPosRelease;
 	private Vector3 direction;
 	private Vector3 angle;
 
@@ -14,6 +16,7 @@ public class Frame : MonoBehaviour {
 	private List<string> groupNames;
 	private bool isSelected = false;
 
+	private float releaseEndPercentage = 0.1f;
 
 	private Transform trans;
 
@@ -30,18 +33,7 @@ public class Frame : MonoBehaviour {
 		startPos = start;
 		endPos = end;
 		
-		Vector3 between = end - start;
-		float distance = between.magnitude;
-		
-		Vector3 midPoint = Vector3.Lerp(start, end, 0.5f);
-
-		float distanceRelease = (distance * .9f)/gridController.getSpacing();
-
-		trans = frameObject.transform;
-    	trans.position = start;
-		trans.LookAt(end);
-        trans.rotation *= Quaternion.Euler(90, 90, 90);
-		trans.localScale = new Vector3(1, distance, 1);
+		setReleaseBoth();
 
 		// scale the frame depending on the section type
 		if(section.type == FrameSectionType.I)
@@ -62,6 +54,61 @@ public class Frame : MonoBehaviour {
         } else {
             Debug.LogError("Invalid frame section type passed to createFrame in Frame Class");
         }
+	}
+
+	public void setReleaseStart()
+	{
+		Vector3 between = endPos - startPos;
+		float distance = between.magnitude;
+
+		float releasePercent = (gridController.getSpacing()*(releaseEndPercentage))/(distance);
+
+		startPosRelease = Vector3.Lerp(startPos, endPos, releasePercent);
+		Vector3 betweenRelease = endPos - startPosRelease;
+		float distanceRelease = betweenRelease.magnitude;
+
+		trans = frameObject.transform;
+		trans.position = startPosRelease;
+		trans.LookAt(endPos);
+		trans.rotation *= Quaternion.Euler(90, 90, 90);
+		trans.localScale = new Vector3(1, distanceRelease, 1);
+	}
+
+	public void setReleaseEnd()
+	{
+		Vector3 between = endPos - startPos;
+		float distance = between.magnitude;
+
+		float releasePercent = (gridController.getSpacing()*(releaseEndPercentage))/(distance);
+
+		endPosRelease = Vector3.Lerp(endPos, startPos, releasePercent);
+		Vector3 betweenRelease = endPosRelease - startPos;
+		float distanceRelease = betweenRelease.magnitude;
+
+		trans = frameObject.transform;
+		trans.position = startPos;
+		trans.LookAt(endPosRelease);
+		trans.rotation *= Quaternion.Euler(90, 90, 90);
+		trans.localScale = new Vector3(1, distanceRelease, 1);
+	}
+
+	public void setReleaseBoth()
+	{
+		Vector3 between = endPos - startPos;
+		float distance = between.magnitude;
+
+		float releasePercent = (gridController.getSpacing()*(releaseEndPercentage))/(distance);
+
+		startPosRelease = Vector3.Lerp(startPos, endPos, releasePercent);
+		endPosRelease = Vector3.Lerp(endPos, startPos, releasePercent);
+		Vector3 betweenRelease = endPosRelease - startPosRelease;
+		float distanceRelease = betweenRelease.magnitude;
+
+		trans = frameObject.transform;
+		trans.position = startPosRelease;
+		trans.LookAt(endPosRelease);
+		trans.rotation *= Quaternion.Euler(90, 90, 90);
+		trans.localScale = new Vector3(1, distanceRelease, 1);
 	}
 
 	public Transform getTransform()
