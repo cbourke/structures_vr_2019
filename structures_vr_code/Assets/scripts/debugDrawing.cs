@@ -33,8 +33,8 @@ public class debugDrawing : MonoBehaviour {
         //myMaterialController.addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
         
         //mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
-        //mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel01", 0.2f, 0.01f);
-        //mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Steel01", 0.16f, 0.1f, 0.007f, 0.007f);
+        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel01", 0.2f, 0.01f);
+        mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Steel01", 0.16f, 0.1f, 0.007f, 0.007f);
 
     }
 
@@ -174,9 +174,11 @@ public class debugDrawing : MonoBehaviour {
         myConstructorController.setPoint(origin, buildingObjects.Frame);
         myConstructorController.setPoint(p1, buildingObjects.Frame);
 
+        mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
         myConstructorController.setPoint(p2, buildingObjects.Frame);
         myConstructorController.setPoint(p3, buildingObjects.Frame);
 
+        mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
         myConstructorController.setPoint(p4, buildingObjects.Frame);
         myConstructorController.setPoint(p5, buildingObjects.Frame);
 
