@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class sectionController : MonoBehaviour {
+    public SapTranslatorIpcHandler sapTranslatorIpcHandler;
     public xmlController myXmlController;
     public materialsController myMaterialsController;
     private FrameSection currentFrameSection;
@@ -55,6 +56,13 @@ public class sectionController : MonoBehaviour {
         //Create a new iframe-type framesection and then add it to frameSections list
         FrameSection newFrameSection = new FrameSection(name, buildingMaterialName, FrameSectionType.I);
         newFrameSection.SetIDimensions(outsideHeight, topFlangeWidth, topFlangeThickness, webThickness, bottomFlangeWidth, bottomFlangeThickness);
+
+        string sapTranslatorCommand = "VRE to SAPTranslator: propFrameSetISection(" +
+            name + ", " + buildingMaterialName + ", " + outsideHeight + ", " + topFlangeWidth + ", "
+            + topFlangeThickness + ", " + webThickness + ", " + bottomFlangeWidth + ", " + bottomFlangeThickness +")";
+        // arguments: (name, matProp, t3, t2, tf, tw, t2b, tfb, [color], [notes], [guid])
+        sapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
+
         return addFrameSection(newFrameSection);
     }
 
@@ -62,6 +70,12 @@ public class sectionController : MonoBehaviour {
     {
         FrameSection newFrameSection = new FrameSection(name, buildingMaterialName, FrameSectionType.Pipe);
         newFrameSection.SetPipeDimensions(outsideDiameter, wallThickness);
+
+        string sapTranslatorCommand = "VRE to SAPTranslator: propFrameSetPipe(" +
+            name + ", " + buildingMaterialName + ", " + outsideDiameter + ", " + wallThickness + ")";
+        // arguments: (name, matProp, t3, tw, [color], [notes], [guid])
+        sapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
+
         return addFrameSection(newFrameSection);
     }
 
@@ -69,7 +83,14 @@ public class sectionController : MonoBehaviour {
     {
         FrameSection newFrameSection = new FrameSection(name, buildingMaterialName, FrameSectionType.Tube);
         newFrameSection.SetTubeDimensions(outsideDepth, outsideWidth, flangeThickness, webThickness);
-        Debug.Log("creaged tube");
+        Debug.Log("created tube");
+
+        string sapTranslatorCommand = "VRE to SAPTranslator: propFrameSetTube(" +
+            name + ", " + buildingMaterialName + ", " + outsideDepth + ", " + outsideWidth + ", "
+            + flangeThickness + ", " + webThickness + ")";
+        // arguments: (name, matProp, t3, t2, tf, tw, [color], [notes], [guid])
+        sapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
+
         return addFrameSection(newFrameSection);
     }
 
@@ -80,6 +101,10 @@ public class sectionController : MonoBehaviour {
         {
             frameSections.Remove(targetFrameSection);
             myXmlController.GetComponent<xmlController>().deleteFrameSectionFromXMLList(name);
+
+            string sapTranslatorCommand = "VRE to SAPTranslator: propFrameSetTube(" + targetFrameSection.GetName() + ")";
+            // arguments: (name)
+            sapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
         }
         if (frameSections.Count == 0)
         {

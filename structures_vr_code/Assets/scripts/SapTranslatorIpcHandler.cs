@@ -12,6 +12,8 @@ public class SapTranslatorIpcHandler : MonoBehaviour
     static NamedPipeServerStream pipeServer;
     static StreamString pipeStreamString;
 
+    private Queue<string> outputBuffer = new Queue<string>();
+
     public void Start()
     {
         String[] args = new string[0];
@@ -57,14 +59,35 @@ public class SapTranslatorIpcHandler : MonoBehaviour
 
     public void sendString(string message)
     {
+        if (pipeStreamString == null)
+        {
+            Debug.Log("Tried to send message \"" + message + "\" to SAPTranslator, but SAPTranslator has not connected to pipe.");
+        }
         string pipeContent = pipeStreamString.ReadString();
-        Debug.Log(pipeContent);
+        if (pipeContent != null)
+        {
+            Debug.Log(pipeContent);
+        }
         //pipeServer.Flush();
         if (pipeContent.Equals("SAPTranslator to VRE: awaiting command")) {
             Debug.Log(message);
             pipeStreamString.WriteString(message);
         }
         
+    }
+
+    public void enqueueToOutputBuffer(string message)
+    {
+        outputBuffer.Enqueue(message);
+    }
+
+    public void Update()
+    {
+        if (pipeStreamString != null && outputBuffer.Count >= 1)
+        {
+            string message = outputBuffer.Dequeue();
+            sendString(message);
+        }
     }
 }
 
