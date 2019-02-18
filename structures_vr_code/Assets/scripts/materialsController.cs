@@ -9,7 +9,7 @@ public class materialsController : MonoBehaviour {
     private List<BuildingMaterial> buildingMaterials = new List<BuildingMaterial>();
 
 
-    private void Start()
+    void Awake()
     {
         currentMaterial = addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
     }

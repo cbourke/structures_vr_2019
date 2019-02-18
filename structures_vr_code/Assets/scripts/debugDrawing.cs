@@ -172,11 +172,11 @@ public class debugDrawing : MonoBehaviour {
         myConstructorController.setPoint(origin, buildingObjects.Frame);
         myConstructorController.setPoint(p1, buildingObjects.Frame);
 
-        //myConstructorController.setPoint(p2, buildingObjects.Frame);
-        //myConstructorController.setPoint(p3, buildingObjects.Frame);
+        myConstructorController.setPoint(p2, buildingObjects.Frame);
+        myConstructorController.setPoint(p3, buildingObjects.Frame);
 
-        //myConstructorController.setPoint(p4, buildingObjects.Frame);
-        //myConstructorController.setPoint(p5, buildingObjects.Frame);
+        myConstructorController.setPoint(p4, buildingObjects.Frame);
+        myConstructorController.setPoint(p5, buildingObjects.Frame);
 
     }
 }

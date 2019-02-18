@@ -12,7 +12,7 @@ public class sectionController : MonoBehaviour {
     private List<FrameSection> frameSections = new List<FrameSection>();
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
         currentFrameSection = frameSections[0];
 	}
