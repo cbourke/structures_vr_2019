@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class materialsController : MonoBehaviour {
     public xmlController myXmlController;
-    public static BuildingMaterial defaultBuildingMaterial = new BuildingMaterial("A992fy50");
     public BuildingMaterial currentMaterial;
 
     private List<BuildingMaterial> buildingMaterials = new List<BuildingMaterial>();
@@ -12,8 +11,7 @@ public class materialsController : MonoBehaviour {
 
     private void Start()
     {
-       // addBuildingMaterial(defaultBuildingMaterial);
-        currentMaterial = defaultBuildingMaterial;
+        currentMaterial = addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
     }
 
     public void addBuildingMaterial() // If constructed with no arguments (This is needed for xml serialization)
@@ -28,10 +26,11 @@ public class materialsController : MonoBehaviour {
         addBuildingMaterial(newMaterial);
     }
 
-    public void addBuildingMaterial(string givenName, string region, string type, string standard, string grade)
+    public BuildingMaterial addBuildingMaterial(string givenName, string region, string type, string standard, string grade)
     {
         BuildingMaterial newMaterial = new BuildingMaterial(givenName, region, type, standard, grade);
         addBuildingMaterial(newMaterial);
+        return newMaterial;
     }
 
     public void addBuildingMaterial(BuildingMaterial newMaterial)

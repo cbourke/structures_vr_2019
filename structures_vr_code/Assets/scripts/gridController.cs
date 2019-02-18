@@ -9,15 +9,15 @@ public class gridController : MonoBehaviour {
 	
 	public GameObject node;
 	public static gridNode[, ,] grid;
+	static private float gridSpacing;
 
 	void Start() {
-		//createGrid(3,3,3,0.3048f);
-		//destroyNodes();
-		//createGrid(1,1,3,0.3048f);
+		
 	}
 
 	public void createGrid(int gridX, int gridY, int gridZ, float spacing) {
-		// Generates the grid
+		gridSpacing = spacing;
+		// Generates the grid\
 		grid = new gridNode[gridX, gridY, gridZ];
 		for(int i=0; i<gridX; i++) {
 			for(int j=0; j<gridY; j++) {
@@ -36,7 +36,6 @@ public class gridController : MonoBehaviour {
         GameObject nodeInstance;
         foreach (gridNode item in grid) {
 			nodeInstance = Instantiate(node, item.position, Quaternion.identity);
-            //nodeInstance.GetComponent<GridNodeBehavior>().setConstructorController(myConstructorController);
             nodeInstance.GetComponent<GridNodeBehavior>().setPreviewLineRenderer(previewLineRenderer);
 			nodeInstance.GetComponent<GridNodeBehavior>().setPointerController(myPointerController);
 			nodeInstance.transform.parent = gameObject.transform;
@@ -49,7 +48,11 @@ public class gridController : MonoBehaviour {
 			GameObject.Destroy(child.gameObject);
 		}
 	}
-}	
+
+	public static float getSpacing() {
+		return gridSpacing;
+	}
+}
 
 
 public class gridNode { 

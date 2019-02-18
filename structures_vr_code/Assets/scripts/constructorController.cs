@@ -15,7 +15,7 @@ public class constructorController : MonoBehaviour
     public GameObject framePrefabTube;
     public GameObject framePrefabPipe;
     
-    public GameObject areaPrefab;
+    private GameObject areaPrefab;
     public GameObject jointRestraintPrefab;
 
 
