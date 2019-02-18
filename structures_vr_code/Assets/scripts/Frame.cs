@@ -64,14 +64,8 @@ public class Frame : MonoBehaviour {
 		float releasePercent = (gridController.getSpacing()*(releaseEndPercentage))/(distance);
 
 		startPosRelease = Vector3.Lerp(startPos, endPos, releasePercent);
-		Vector3 betweenRelease = endPos - startPosRelease;
-		float distanceRelease = betweenRelease.magnitude;
+		scaleFrame(startPosRelease, endPos);
 
-		trans = frameObject.transform;
-		trans.position = startPosRelease;
-		trans.LookAt(endPos);
-		trans.rotation *= Quaternion.Euler(90, 90, 90);
-		trans.localScale = new Vector3(1, distanceRelease, 1);
 	}
 
 	public void setReleaseEnd()
@@ -82,14 +76,8 @@ public class Frame : MonoBehaviour {
 		float releasePercent = (gridController.getSpacing()*(releaseEndPercentage))/(distance);
 
 		endPosRelease = Vector3.Lerp(endPos, startPos, releasePercent);
-		Vector3 betweenRelease = endPosRelease - startPos;
-		float distanceRelease = betweenRelease.magnitude;
+		scaleFrame(startPos, endPosRelease);
 
-		trans = frameObject.transform;
-		trans.position = startPos;
-		trans.LookAt(endPosRelease);
-		trans.rotation *= Quaternion.Euler(90, 90, 90);
-		trans.localScale = new Vector3(1, distanceRelease, 1);
 	}
 
 	public void setReleaseBoth()
@@ -101,14 +89,19 @@ public class Frame : MonoBehaviour {
 
 		startPosRelease = Vector3.Lerp(startPos, endPos, releasePercent);
 		endPosRelease = Vector3.Lerp(endPos, startPos, releasePercent);
-		Vector3 betweenRelease = endPosRelease - startPosRelease;
-		float distanceRelease = betweenRelease.magnitude;
+		scaleFrame(startPosRelease, endPosRelease);
+	}
+
+	private void scaleFrame(Vector3 startPoint, Vector3 endPoint)
+	{
+		Vector3 between = endPoint - startPoint;
+		float distance = between.magnitude;
 
 		trans = frameObject.transform;
-		trans.position = startPosRelease;
-		trans.LookAt(endPosRelease);
+		trans.position = startPoint;
+		trans.LookAt(endPoint);
 		trans.rotation *= Quaternion.Euler(90, 90, 90);
-		trans.localScale = new Vector3(1, distanceRelease, 1);
+		trans.localScale = new Vector3(1, distance, 1);
 	}
 
 	public Transform getTransform()
