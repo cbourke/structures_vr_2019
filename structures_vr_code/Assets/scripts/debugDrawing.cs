@@ -9,13 +9,14 @@ public class debugDrawing : MonoBehaviour {
     public materialsController myMaterialController;
     public sectionController mySectionController;
     public unitsController myUnitsController;
+    public gridController myGridController;
 
     Vector3 origin = new Vector3(0,0,0);
     Vector3 p1 = new Vector3(1,0,0);
     Vector3 p2 = new Vector3(0,1,0);
-    Vector3 p3 = new Vector3(1,1,0);
+    Vector3 p3 = new Vector3(2,1,0);
     Vector3 p4 = new Vector3(0,2,0);
-    Vector3 p5 = new Vector3(1,2,0);
+    Vector3 p5 = new Vector3(3,2,0);
     Vector3 p6 = new Vector3(0,3,0);
 
 	
@@ -169,6 +170,7 @@ public class debugDrawing : MonoBehaviour {
 
     void drawFrames()
     {
+        myGridController.createGrid(5, 5, 5, 1f);
         myConstructorController.setPoint(origin, buildingObjects.Frame);
         myConstructorController.setPoint(p1, buildingObjects.Frame);
 

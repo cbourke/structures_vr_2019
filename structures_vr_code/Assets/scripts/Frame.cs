@@ -6,8 +6,6 @@ public class Frame : MonoBehaviour {
 
 	private Vector3 startPos;
 	private Vector3 endPos;
-	private Vector3 startPosRelease;
-	private Vector3 endPosRelease;
 	private Vector3 direction;
 	private Vector3 angle;
 
@@ -34,15 +32,13 @@ public class Frame : MonoBehaviour {
 		
 		Vector3 between = end - start;
 		float distance = between.magnitude;
-		Debug.Log("distance: " + distance);
+		
 		Vector3 midPoint = Vector3.Lerp(start, end, 0.5f);
 
-		float dist = (distance / gridController.getSpacing());
-		Debug.Log("DIST: " + dist);
-		startPosRelease = Vector3.Lerp(start, end, gridController.getSpacing());
+		float distanceRelease = (distance * .9f)/gridController.getSpacing();
 
 		trans = frameObject.transform;
-    	trans.position = midPoint;
+    	trans.position = start;
 		trans.LookAt(end);
         trans.rotation *= Quaternion.Euler(90, 90, 90);
 		trans.localScale = new Vector3(1, distance, 1);
