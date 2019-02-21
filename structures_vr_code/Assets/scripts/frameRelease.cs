@@ -36,8 +36,8 @@ public class frameRelease : MonoBehaviour
 
 	public frameRelease()
 	{
-        axialStart = false;
-        axialEnd = false;
+        axialStart = true;
+        axialEnd = true;
         axialStartVal = 0f;
         axialEndVal = 0f;
 

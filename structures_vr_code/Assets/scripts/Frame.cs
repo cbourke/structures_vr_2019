@@ -20,6 +20,10 @@ public class Frame : MonoBehaviour {
 	private float releaseEndPercentage = 0.1f;
 
 	private Transform trans;
+	private Transform frameTrans;
+	private Transform releaseStartTrans;
+	private Transform releaseEndTrans;
+	
 
 	public Frame()
 	{
@@ -28,9 +32,15 @@ public class Frame : MonoBehaviour {
 
 	public Frame(Vector3 start, Vector3 end, GameObject framePrefab, FrameSection section)
     {
+
         sectionPropertyName = section.GetName();
 		frameObject = Instantiate(framePrefab);
 
+		trans = frameObject.transform;
+		frameTrans = trans.Find("frame");
+		releaseStartTrans = trans.Find("startRelease");
+		releaseEndTrans = trans.Find("endRelease");
+		
 		startPos = start;
 		endPos = end;
 		
@@ -73,6 +83,8 @@ public class Frame : MonoBehaviour {
 
 	public void setReleaseStart()
 	{
+		releaseStartTrans.gameObject.SetActive(true);
+		releaseEndTrans.gameObject.SetActive(false);
 		Vector3 between = endPos - startPos;
 		float distance = between.magnitude;
 
@@ -85,6 +97,8 @@ public class Frame : MonoBehaviour {
 
 	public void setReleaseEnd()
 	{
+		releaseStartTrans.gameObject.SetActive(false);
+		releaseEndTrans.gameObject.SetActive(true);
 		Vector3 between = endPos - startPos;
 		float distance = between.magnitude;
 
@@ -97,6 +111,9 @@ public class Frame : MonoBehaviour {
 
 	public void setReleaseBoth()
 	{
+		releaseStartTrans.gameObject.SetActive(true);
+		releaseEndTrans.gameObject.SetActive(true);
+
 		Vector3 between = endPos - startPos;
 		float distance = between.magnitude;
 
@@ -108,6 +125,8 @@ public class Frame : MonoBehaviour {
 	}
 
 	public void setReleaseNeither() {
+		releaseStartTrans.gameObject.SetActive(false);
+		releaseEndTrans.gameObject.SetActive(false);
 		scaleFrame(startPos, endPos);
 	}
 
@@ -120,7 +139,9 @@ public class Frame : MonoBehaviour {
 		trans.position = startPoint;
 		trans.LookAt(endPoint);
 		trans.rotation *= Quaternion.Euler(90, 90, 90);
-		trans.localScale = new Vector3(1, distance, 1);
+		frameTrans.localScale = new Vector3(1, distance, 1);
+
+		releaseEndTrans.localPosition = new Vector3(0, distance, 0);
 	}
 
 	public Transform getTransform()

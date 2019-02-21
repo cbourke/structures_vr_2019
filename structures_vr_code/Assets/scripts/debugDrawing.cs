@@ -171,14 +171,14 @@ public class debugDrawing : MonoBehaviour {
     void drawFrames()
     {
         myGridController.createGrid(5, 5, 5, 1f);
+        mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
+        mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
         myConstructorController.setPoint(origin, buildingObjects.Frame);
         myConstructorController.setPoint(p1, buildingObjects.Frame);
 
-        mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
         myConstructorController.setPoint(p2, buildingObjects.Frame);
         myConstructorController.setPoint(p3, buildingObjects.Frame);
 
-        mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
         myConstructorController.setPoint(p4, buildingObjects.Frame);
         myConstructorController.setPoint(p5, buildingObjects.Frame);
 
