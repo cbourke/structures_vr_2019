@@ -66,4 +66,20 @@ public class frameRelease : MonoBehaviour
         momentMajorStartVal = 0f;
         momentMajorEndVal = 0f;
 	}
+
+    public bool isReleaseStart() {
+        if(!axialStart && !shearMajorStart && !shearMinorStart && !torsionStart && !momentMinorStart && !momentMajorStart) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public bool isReleaseEnd() {
+        if(!axialEnd && !shearMajorEnd && !shearMinorEnd && !torsionEnd && !momentMinorEnd && !momentMajorEnd) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

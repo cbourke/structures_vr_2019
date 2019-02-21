@@ -15,6 +15,7 @@ public class Frame : MonoBehaviour {
     private string sectionPropertyName;
 	private List<string> groupNames;
 	private bool isSelected = false;
+	private frameRelease release;
 
 	private float releaseEndPercentage = 0.1f;
 
@@ -33,7 +34,8 @@ public class Frame : MonoBehaviour {
 		startPos = start;
 		endPos = end;
 		
-		setReleaseBoth();
+		release = new frameRelease();
+		setRelease();
 
 		// scale the frame depending on the section type
 		if(section.type == FrameSectionType.I)
@@ -54,6 +56,19 @@ public class Frame : MonoBehaviour {
         } else {
             Debug.LogError("Invalid frame section type passed to createFrame in Frame Class");
         }
+	}
+
+	public void setRelease()
+	{
+		if(release.isReleaseStart() && release.isReleaseEnd()) {
+			setReleaseBoth();
+		} else if(release.isReleaseStart()) {
+			setReleaseStart();
+		} else if(release.isReleaseEnd()) {
+			setReleaseEnd();
+		} else {
+			setReleaseNeither();
+		}
 	}
 
 	public void setReleaseStart()
@@ -90,6 +105,10 @@ public class Frame : MonoBehaviour {
 		startPosRelease = Vector3.Lerp(startPos, endPos, releasePercent);
 		endPosRelease = Vector3.Lerp(endPos, startPos, releasePercent);
 		scaleFrame(startPosRelease, endPosRelease);
+	}
+
+	public void setReleaseNeither() {
+		scaleFrame(startPos, endPos);
 	}
 
 	private void scaleFrame(Vector3 startPoint, Vector3 endPoint)
