@@ -8,6 +8,11 @@ public enum selectionBehaviors {
 }
 
 public class selectionController : MonoBehaviour {
+    public Material unityMaterialForSelectedFrames;
+    public Material unityMaterialForUnselectedFrames;
+
+
+
 	private selectionBehaviors selectionBehavior = selectionBehaviors.reset;
 	private List<Frame> selectedFrames = new List<Frame>();
 	private List<GridNodeBehavior> selectedNodes = new List<GridNodeBehavior>();
@@ -69,6 +74,11 @@ public class selectionController : MonoBehaviour {
             if(!selectedFrames.Contains(targetFrame))
             {
                 targetFrame.setSelected(true);
+                MeshRenderer[] renderers = targetFrame.gameObject.GetComponentsInChildren<MeshRenderer>();
+                foreach (MeshRenderer renderer in renderers)
+                {
+                    renderer.material = unityMaterialForSelectedFrames;
+                }
                 selectedFrames.Add(targetFrame);
             }
             
@@ -132,6 +142,11 @@ public class selectionController : MonoBehaviour {
             if (selectedFrames.Contains(targetFrame))
             {
                 targetFrame.setSelected(false);
+                MeshRenderer[] renderers = targetFrame.gameObject.GetComponentsInChildren<MeshRenderer>();
+                foreach (MeshRenderer renderer in renderers)
+                {
+                    renderer.material = unityMaterialForUnselectedFrames;
+                }
                 selectedFrames.Remove(targetFrame);
             }
 

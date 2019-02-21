@@ -2910,6 +2910,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd63c2712f478714c9cf87faa046e30d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unityMaterialForSelectedFrames: {fileID: 2100000, guid: 98707ab9e537b9e43a4d018ab0b37f2f,
+    type: 2}
+  unityMaterialForUnselectedFrames: {fileID: 2100000, guid: 44a8c34cc8c91f0429e35386d2a5ec5f,
+    type: 2}
 --- !u!4 &1155890642
 Transform:
   m_ObjectHideFlags: 0
