@@ -2886,6 +2886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5601f614038af04a87a5f06dee61779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySelectionController: {fileID: 1155890641}
   mySectionController: {fileID: 1155890639}
   myXmlController: {fileID: 1155890636}
   tempLineRenderer: {fileID: 425715893}
@@ -3445,20 +3446,20 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1388622113}
+  - component: {fileID: 1388622114}
   - component: {fileID: 1388622110}
-  - component: {fileID: 1388622111}
   - component: {fileID: 1388622116}
   - component: {fileID: 1388622115}
-  - component: {fileID: 1388622112}
-  - component: {fileID: 1388622119}
   - component: {fileID: 1388622118}
   - component: {fileID: 1388622117}
   - component: {fileID: 1388622106}
+  - component: {fileID: 1388622120}
   - component: {fileID: 1388622109}
   - component: {fileID: 1388622107}
   - component: {fileID: 1388622108}
-  - component: {fileID: 1388622114}
-  - component: {fileID: 1388622120}
+  - component: {fileID: 1388622112}
+  - component: {fileID: 1388622119}
+  - component: {fileID: 1388622111}
   m_Layer: 0
   m_Name: RightController
   m_TagString: Untagged
@@ -3482,12 +3483,12 @@ MonoBehaviour:
   directionIndicator: {fileID: 0}
   customRaycast: {fileID: 1388622120}
   pointerOriginSmoothingSettings:
-    smoothsPosition: 0
+    smoothsPosition: 1
     maxAllowedPerFrameDistanceDifference: 0.01
     smoothsRotation: 1
     maxAllowedPerFrameAngleDifference: 1.5
-  validCollisionColor: {r: 0, g: 0.63529414, b: 0.9372549, a: 1}
-  invalidCollisionColor: {r: 1, g: 0, b: 0, a: 1}
+  validCollisionColor: {r: 0.8301887, g: 0.31719476, b: 0.72636837, a: 1}
+  invalidCollisionColor: {r: 0.4056604, g: 0.20857067, b: 0.250327, a: 1}
   tracerVisibility: 0
   cursorVisibility: 0
   maximumLength: 100
@@ -3656,12 +3657,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1388622105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eda201177cd508f49849386d157bdd39, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fc65878c7102524bb8c2bcfbefff497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderRadius: 0.2
-  customColliderContainer: {fileID: 0}
-  interactTouch: {fileID: 0}
+  playareaCursor: {fileID: 0}
+  directionIndicator: {fileID: 0}
+  customRaycast: {fileID: 1388622120}
+  pointerOriginSmoothingSettings:
+    smoothsPosition: 1
+    maxAllowedPerFrameDistanceDifference: 0.01
+    smoothsRotation: 1
+    maxAllowedPerFrameAngleDifference: 1.5
+  validCollisionColor: {r: 1, g: 1, b: 1, a: 1}
+  invalidCollisionColor: {r: 0, g: 0, b: 0, a: 1}
+  tracerVisibility: 0
+  cursorVisibility: 0
+  maximumLength: 100
+  scaleFactor: 0.002
+  cursorScaleMultiplier: 7
+  cursorMatchTargetRotation: 0
+  cursorDistanceRescale: 0
+  maximumCursorScale: {x: Infinity, y: Infinity, z: Infinity}
+  customTracer: {fileID: 0}
+  customCursor: {fileID: 0}
 --- !u!114 &1388622112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3669,17 +3687,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388622105}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ec704cceb26f6f49b6c900fc83d8d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enableTeleport: 0
   targetListPolicy: {fileID: 1388622119}
-  pointerRenderer: {fileID: 1388622106}
+  pointerRenderer: {fileID: 1388622111}
   activationButton: 0
   holdButtonToActivate: 0
-  activateOnEnable: 1
+  activateOnEnable: 0
   activationDelay: 0
   selectionButton: 3
   selectOnPress: 1
@@ -3718,10 +3736,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cff969aff602b143a23ce56450eec9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  framePointer: {fileID: 1388622112}
-  gridNodePointer: {fileID: 1388622118}
-  TeleportPointer: {fileID: 1388622107}
+  drawPointer: {fileID: 0}
   UIPointer: {fileID: 1388622109}
+  TeleportPointer: {fileID: 1388622107}
+  selectPointer: {fileID: 0}
   selectionController: {fileID: 1155890641}
   defaultPointerMode: 0
 --- !u!114 &1388622115
@@ -3766,7 +3784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   operation: 0
-  checkType: 1
+  checkType: 4
   identifiers:
   - Frame
 --- !u!114 &1388622118
@@ -3812,7 +3830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   operation: 0
-  checkType: 1
+  checkType: 4
   identifiers:
   - Grid
 --- !u!114 &1388622120
@@ -3990,6 +4008,71 @@ PrefabInstance:
       propertyPath: mySectionController
       value: 
       objectReference: {fileID: 1155890639}
+    - target: {fileID: 114141074541853668, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114141074541853668, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114141074541853668, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114141074541853668, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114141074541853668, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1388622114}
+    - target: {fileID: 114141074541853668, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: setPointerModeToSelect
+      objectReference: {fileID: 0}
+    - target: {fileID: 114141074541853668, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114411116859853204, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114411116859853204, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114411116859853204, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114411116859853204, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1388622114}
+    - target: {fileID: 114411116859853204, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: setPointerModeToDraw
+      objectReference: {fileID: 0}
+    - target: {fileID: 114411116859853204, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5047157173430303912, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}

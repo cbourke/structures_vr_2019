@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 
 public class constructorController : MonoBehaviour
 {
+    public selectionController mySelectionController;
     public sectionController mySectionController;
     public xmlController myXmlController;
     public LineRenderer tempLineRenderer;
@@ -84,6 +85,7 @@ public class constructorController : MonoBehaviour
         } else {
             Debug.LogError("Invalid frame section type passed to createFrame in constructorController");
         }
+        frame.GetGameObject().GetComponent<frameReference>().setMySelectionController(mySelectionController);
         frameList.Add(frame);
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB, mySectionController.GetCurrentFrameSection().GetName());
 

@@ -94,7 +94,7 @@ public class selectionController : MonoBehaviour {
                 selectedNodes.Add(targetNode);
             }
 		}
-		Debug.Log("Grid Node(s) added to selection.");
+		//Debug.Log("Grid Node(s) added to selection.");
 	}
 
     public void deselect(Frame targetFrame)
@@ -148,6 +148,7 @@ public class selectionController : MonoBehaviour {
                     renderer.material = unityMaterialForUnselectedFrames;
                 }
                 selectedFrames.Remove(targetFrame);
+                Debug.Log("Removed from selection: " + targetFrame.name);
             }
 
         }

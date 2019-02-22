@@ -8,11 +8,12 @@ public enum pointerModes
 }
 
 public class PointerController : MonoBehaviour {
-    public Component framePointer;
-    public Component gridNodePointer;
-    public Component TeleportPointer;
-    public Component UIPointer;
+    public VRTK.VRTK_Pointer drawPointer;
+    public VRTK.VRTK_UIPointer UIPointer;
+    public VRTK.VRTK_Pointer TeleportPointer;
+    public VRTK.VRTK_Pointer selectPointer;
     public selectionController selectionController;
+
     private pointerModes mode;
     public pointerModes defaultPointerMode;
 
@@ -36,22 +37,28 @@ public class PointerController : MonoBehaviour {
         mode = newMode;
         switch(newMode) {
             case pointerModes.draw:
-            {
-
-                break;
-            }
+                {
+                    selectPointer.Toggle(false);
+                    drawPointer.Toggle(true);
+                    break;
+                }
             case pointerModes.select:
-            {
-
-                break;
-            }
+                {
+                    drawPointer.Toggle(false);
+                    selectPointer.Toggle(true);
+                    break;
+                }
             default: { break; }
         }
     }
 
-    public void toggleFramesOrNodes(){
-        framePointer.GetComponent<VRTK.VRTK_Pointer>().Toggle(!framePointer.GetComponent<VRTK.VRTK_Pointer>().isActiveAndEnabled);
-        gridNodePointer.GetComponent<VRTK.VRTK_Pointer>().Toggle(!gridNodePointer.GetComponent<VRTK.VRTK_Pointer>().isActiveAndEnabled);
+    public void setPointerModeToDraw()
+    {
+        setPointerMode(pointerModes.draw);
     }
-    
+
+    public void setPointerModeToSelect()
+    {
+        setPointerMode(pointerModes.select);
+    }
 }
