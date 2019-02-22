@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class materialsController : MonoBehaviour {
+    public SapTranslatorIpcHandler mySapTranslatorIpcHandler;
     public xmlController myXmlController;
     public BuildingMaterial currentMaterial;
 
@@ -37,6 +38,14 @@ public class materialsController : MonoBehaviour {
     {
         buildingMaterials.Add(newMaterial);
         myXmlController.GetComponent<xmlController>().addBuildingMaterialToXMLList(newMaterial);
+
+
+        string sapTranslatorCommand = "VRE to SAPTranslator: propMaterialAddMaterial(" + 
+            newMaterial.GetMaterialType() + ", " + newMaterial.GetRegion() + ", " + 
+            newMaterial.GetStandard() + ", " + newMaterial.GetGrade() + ", " + newMaterial.GetName() + ")";
+        // arguments: (matType, region, standard, grade, userName)
+        mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
+
     }
 
     public BuildingMaterial findBuildingMaterialWithName(string name)
@@ -61,6 +70,10 @@ public class materialsController : MonoBehaviour {
         {
             buildingMaterials.Remove(bm);
             myXmlController.GetComponent<xmlController>().deletebuildingMaterialFromXMLList(name);
+
+            string sapTranslatorCommand = "VRE to SAPTranslator: propMaterialDelete(" + bm.GetName() + ")";
+            // arguments: (name)
+            mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
         }
         if (buildingMaterials.Count == 0)
         {

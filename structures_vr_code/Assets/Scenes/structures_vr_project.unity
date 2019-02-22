@@ -2786,6 +2786,7 @@ GameObject:
   - component: {fileID: 1155890636}
   - component: {fileID: 1155890635}
   - component: {fileID: 1155890634}
+  - component: {fileID: 1155890643}
   m_Layer: 0
   m_Name: GameControllers
   m_TagString: gameControllers
@@ -2859,6 +2860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f3d04655c67a64d9c557795f68c9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySapTranslatorIpcHandler: {fileID: 1155890643}
   myXmlController: {fileID: 1155890636}
 --- !u!114 &1155890639
 MonoBehaviour:
@@ -2872,6 +2874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eea703156df4b34a800f31117dd5dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sapTranslatorIpcHandler: {fileID: 1155890643}
   myXmlController: {fileID: 1155890636}
   myMaterialsController: {fileID: 1155890638}
 --- !u!114 &1155890640
@@ -2889,6 +2892,7 @@ MonoBehaviour:
   mySelectionController: {fileID: 1155890641}
   mySectionController: {fileID: 1155890639}
   myXmlController: {fileID: 1155890636}
+  mySapTranslatorIpcHandler: {fileID: 1155890643}
   tempLineRenderer: {fileID: 425715893}
   framePrefabIBeam: {fileID: 7920509773000511727, guid: 9afddfb8138a00a4baf1b7aea0023ced,
     type: 3}
@@ -2929,6 +2933,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1155890643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155890633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97db772c2cf7b914fac05007648288ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1191773466
 GameObject:
   m_ObjectHideFlags: 0
@@ -3460,6 +3476,7 @@ GameObject:
   - component: {fileID: 1388622112}
   - component: {fileID: 1388622119}
   - component: {fileID: 1388622111}
+  - component: {fileID: 1388622121}
   m_Layer: 0
   m_Name: RightController
   m_TagString: Untagged
@@ -3662,7 +3679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playareaCursor: {fileID: 0}
   directionIndicator: {fileID: 0}
-  customRaycast: {fileID: 1388622120}
+  customRaycast: {fileID: 1388622121}
   pointerOriginSmoothingSettings:
     smoothsPosition: 1
     maxAllowedPerFrameDistanceDifference: 0.01
@@ -3736,10 +3753,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cff969aff602b143a23ce56450eec9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawPointer: {fileID: 0}
+  drawPointer: {fileID: 1388622118}
   UIPointer: {fileID: 1388622109}
   TeleportPointer: {fileID: 1388622107}
-  selectPointer: {fileID: 0}
+  selectPointer: {fileID: 1388622112}
   selectionController: {fileID: 1155890641}
   defaultPointerMode: 0
 --- !u!114 &1388622115
@@ -3848,6 +3865,22 @@ MonoBehaviour:
   layersToIgnore:
     serializedVersion: 2
     m_Bits: 260
+  triggerInteraction: 0
+--- !u!114 &1388622121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388622105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3942f053b21854fbc5d1227c94120b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 516
   triggerInteraction: 0
 --- !u!1001 &1421196123
 PrefabInstance:

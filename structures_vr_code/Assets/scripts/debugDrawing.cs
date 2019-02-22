@@ -19,22 +19,35 @@ public class debugDrawing : MonoBehaviour {
     Vector3 p5 = new Vector3(3,2,0);
     Vector3 p6 = new Vector3(0,3,0);
 
-	
-	void Start () {
+    Vector3 p7 = new Vector3(0, 1, 1);
+    Vector3 p8 = new Vector3(2, 1, 1);
+    Vector3 p9 = new Vector3(0, 2, 1);
+    Vector3 p10 = new Vector3(2, 2, 1);
+
+    void Start () {
         //xmlController.GetComponent<xmlController>().sendFileToSap(); //send to SAP2000
         Debug.Log("START DEBUG");
         populateDropdowns();
-        drawFrames();
+        Debug.Log("DEBUG Populated Dropdowns.");
+        testSections();
+        Debug.Log("DEBUG Tested Sections.");
+        testJoints();
+        Debug.Log("DEBUG Tested Joints.");
+        testFrameDeletion();
+        Debug.Log("DEBUG Tested Frame Deletion.");
+
     }
 	
     void populateDropdowns()
     {
         			
-        //myMaterialController.addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
-        
-        //mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
-        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel01", 0.2f, 0.01f);
-        mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Steel01", 0.16f, 0.1f, 0.007f, 0.007f);
+        myMaterialController.addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
+        myMaterialController.addBuildingMaterial("Steel02", "United States", "steel", "ASTM A500", "Grade C");
+        myMaterialController.addBuildingMaterial("Aluminum01", "United States", "aluminum", "ASTM", "Alloy 6061 T6");
+
+        mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
+        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2f, 0.01f);
+        mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Aluminum01", 0.16f, 0.1f, 0.007f, 0.007f);
 
     }
 
@@ -97,10 +110,6 @@ public class debugDrawing : MonoBehaviour {
 
     void testSections()
     {
-        mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
-        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2f, 0.01f);
-        mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Aluminum01", 0.16f, 0.1f, 0.007f, 0.007f);
-
         mySectionController.SetCurrentFrameSection("Sec_Steel_I");
         Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
         myConstructorController.setPoint(origin, buildingObjects.Frame);
@@ -128,12 +137,31 @@ public class debugDrawing : MonoBehaviour {
 
         myConstructorController.createJointRestraint(p4, 'r');
         myConstructorController.createJointRestraint(p5, 'r');
-        myConstructorController.deleteJointRestraint(p5); // delete
+        myConstructorController.deleteJointRestraint(p5); // delete JR
 
         myConstructorController.createJointRestraint(p6, 'f'); // This is meant to fail, as there is no frame endpoint here
     }
 
-	void testMaterials()
+    void testFrameDeletion()
+    {
+        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
+        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
+        myConstructorController.setPoint(p7, buildingObjects.Frame);
+        myConstructorController.setPoint(p8, buildingObjects.Frame);
+
+        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
+        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
+        myConstructorController.setPoint(p9, buildingObjects.Frame);
+        myConstructorController.setPoint(p10, buildingObjects.Frame);
+
+        string deleteFrameName = "Frame_i=[" + p9.x + ":" + p9.z + ":" + p9.y + "]-j=[" + p10.x + ":" + p10.z + ":" + p10.y + "]";
+        myConstructorController.deleteFrame(deleteFrameName);
+
+        
+    }
+
+
+    void testMaterials()
     {
         
         // this is broken because the way building materials is being handled has changed

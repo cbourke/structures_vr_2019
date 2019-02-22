@@ -10,6 +10,7 @@ public class constructorController : MonoBehaviour
     public selectionController mySelectionController;
     public sectionController mySectionController;
     public xmlController myXmlController;
+    public SapTranslatorIpcHandler mySapTranslatorIpcHandler;
     public LineRenderer tempLineRenderer;
     
     public GameObject framePrefabIBeam;
@@ -71,17 +72,18 @@ public class constructorController : MonoBehaviour
 
     void createFrame(Vector3 pA, Vector3 pB)
     {
+        string frameName = "Frame_i=[" + pA.x + ":" + pA.z + ":" + pA.y + "]-j=[" + pB.x + ":" + pB.z + ":" + pB.y + "]";
         FrameSectionType type = mySectionController.GetCurrentFrameSection().type;
         Frame frame = new Frame();
         if(type == FrameSectionType.I)
         {
-            frame = new Frame(pA, pB, framePrefabIBeam, mySectionController.GetCurrentFrameSection());
+            frame = new Frame(pA, pB, framePrefabIBeam, mySectionController.GetCurrentFrameSection(), frameName);
         } else if(type == FrameSectionType.Pipe)
         {
-            frame = new Frame(pA, pB, framePrefabPipe, mySectionController.GetCurrentFrameSection());
+            frame = new Frame(pA, pB, framePrefabPipe, mySectionController.GetCurrentFrameSection(), frameName);
         } else if(type == FrameSectionType.Tube)
         {
-            frame = new Frame(pA, pB, framePrefabTube, mySectionController.GetCurrentFrameSection());
+            frame = new Frame(pA, pB, framePrefabTube, mySectionController.GetCurrentFrameSection(), frameName);
         } else {
             Debug.LogError("Invalid frame section type passed to createFrame in constructorController");
         }
@@ -89,6 +91,64 @@ public class constructorController : MonoBehaviour
         frameList.Add(frame);
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB, mySectionController.GetCurrentFrameSection().GetName());
 
+        double xi = pA.x;
+        double yi = pA.y;
+
+
+        string sapTranslatorCommand = "VRE to SAPTranslator: frameObjAddByCoord(" + pA.x + ", " + pA.z + ", " + pA.y + ", " + pB.x + ", " + pB.z + ", " + pB.y + ", " + mySectionController.GetCurrentFrameSection().name + ", " + frameName + ")";
+        mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
+    }
+    public void deleteFrame(string frameName)
+    {
+        foreach (Frame frameElement in frameList)
+        {
+            if (frameElement.getName() == frameName)
+            {
+                GameObject frameObject = frameElement.GetGameObject();
+                Vector3 pA = frameElement.getStartPos();
+                Vector3 pB = frameElement.getEndPos();
+                myXmlController.GetComponent<xmlController>().deleteFrameFromXMLList(pA, pB);
+                string sapTranslatorCommand = "VRE to SAPTranslator: frameObjDelete(" + frameElement.getName() + ")";
+                // arguments: (name)
+                mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
+                Object.Destroy(frameObject);
+                frameList.Remove(frameElement);
+
+
+                // Delete any orphaned joint restraints
+                bool deleteJointRestraintAtA = true;
+                bool deleteJointRestraintAtB = true;
+                foreach (Frame f in frameList)
+                {
+                    if (deleteJointRestraintAtA && (f.getStartPos() == pA || f.getEndPos() == pA)) //If any frame remaining still ends on pA
+                    {
+                        deleteJointRestraintAtA = false; //Protect the joint restraint at pA, if it exists
+                    }
+
+                    if (deleteJointRestraintAtB && (f.getStartPos() == pB || f.getEndPos() == pB)) //If any frame remaining still ends on pB
+                    {
+                        deleteJointRestraintAtB = false; //Protect the joint restraint at pB, if it exists
+                    }
+
+                    if (!deleteJointRestraintAtA && !deleteJointRestraintAtB)
+                    {
+                        break; //If we protected both points then don't waste more time looping
+                    }
+                }
+
+                if (deleteJointRestraintAtA)
+                {
+                    deleteJointRestraint(pA);
+                }
+
+                if (deleteJointRestraintAtB)
+                {
+                    deleteJointRestraint(pB);
+                }
+                break;
+
+            }
+        }
     }
 
     public void deleteFrame(int frameObjectID)
@@ -102,11 +162,11 @@ public class constructorController : MonoBehaviour
                 Vector3 pA = frameElement.getStartPos();
                 Vector3 pB = frameElement.getEndPos();
 
-
-
-
-
                 myXmlController.GetComponent<xmlController>().deleteFrameFromXMLList(pA, pB);
+
+                string sapTranslatorCommand = "VRE to SAPTranslator: frameObjDelete(" + frameElement.getName() + ")";
+                // arguments: (name)
+                mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
 
                 Object.Destroy(frameObject);
                 frameList.Remove(frameElement);
@@ -170,6 +230,12 @@ public class constructorController : MonoBehaviour
             jointRestraint newRestraint = new jointRestraint(position, type, jointRestraintPrefab);
             jointRestraintList.Add(newRestraint);
             myXmlController.GetComponent<xmlController>().addJointRestraintToXMLList(newRestraint.GetPosition(), newRestraint.GetTransX(), newRestraint.GetTransY(), newRestraint.GetTransZ(), newRestraint.GetRotX(), newRestraint.GetRotY(), newRestraint.GetRotZ());
+
+            string sapTranslatorCommand = "VRE to SAPTranslator: pointCoordSetRestraint(" +
+                position.x + ", " + position.z + ", " + position.y + ", " + 
+                !newRestraint.GetTransX() + ", " + !newRestraint.GetTransZ() + ", " + !newRestraint.GetTransY() + ", " +
+                !newRestraint.GetRotX() + ", " + !newRestraint.GetRotZ() + ", " + !newRestraint.GetRotY() + ")";
+            mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
         }
     }
 
@@ -182,6 +248,10 @@ public class constructorController : MonoBehaviour
             {
                 Vector3 position = jointRestraintElement.GetPosition();
                 myXmlController.GetComponent<xmlController>().deleteJointRestraintFromXMLList(position);
+
+                string sapTranslatorCommand = "VRE to SAPTranslator: pointCoordDeleteRestraint(" +
+                position.x + ", " + position.z + ", " + position.y + ")";
+                mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
 
                 jointRestraintElement.SetGameObject(null);
                 Object.Destroy(jointRestraintObject);
@@ -200,6 +270,10 @@ public class constructorController : MonoBehaviour
             if (checkPosition == targetPosition)
             {
                 myXmlController.GetComponent<xmlController>().deleteJointRestraintFromXMLList(targetPosition);
+
+                string sapTranslatorCommand = "VRE to SAPTranslator: pointCoordDeleteRestraint(" +
+                targetPosition.x + ", " + targetPosition.z + ", " + targetPosition.y + ")";
+                mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
 
                 jointRestraintElement.SetGameObject(null);
                 Object.Destroy(jointRestraintObject);

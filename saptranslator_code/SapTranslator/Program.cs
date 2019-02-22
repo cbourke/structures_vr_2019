@@ -3,16 +3,626 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 //using System.Threading.Tasks;
-using SAP2000v19;
+using SAP2000v20;
 using UnityEngine;
 using System.Xml.Serialization;
 using System.IO;
+using System.IO.Pipes;
 
 namespace SapTranslator
 {
     class Program
     {
-        static void Main(string[] args) //args[0] should be the xml file path to pull structure from
+        private static int ret = 0; //Use ret to check if functions return successfully (ret = 0) or fail (ret = nonzero)
+        private static cOAPI mySapObject = null; //dimension the SapObject as cOAPI type
+        private static cHelper myHelper;
+        private static cSapModel mySapModel;
+        private static string modelDirectory;
+        private static string modelName;
+
+
+        static void Main(string[] args)
+        {
+            NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "vrPipe", PipeDirection.InOut, PipeOptions.None);
+            Console.WriteLine("Connecting to VRE server via named pipe \"vrPipe\"...\n");
+            pipeClient.Connect();
+            StreamString pipeStreamString = new StreamString(pipeClient);
+
+            while (pipeClient.IsConnected) {
+                readStreamForCommand(pipeStreamString);
+                
+                string response = "SAPTranslator to VRE: awaiting command";
+                pipeStreamString.WriteString(response);
+                Console.WriteLine(response);
+                pipeClient.WaitForPipeDrain();
+            }
+            
+        }
+
+
+        static void readStreamForCommand(StreamString pipeStreamString)
+        {
+            String message = pipeStreamString.ReadString();
+            Console.WriteLine(message); //Display the incoming message in the console of SAPTranslator
+            StringReader messageReader = new StringReader(message);
+            StringBuilder messageParser = new StringBuilder();
+
+            String sender;
+            String reciever;
+            String functionName;
+            List<String> arguments = new List<string>();
+            int i = 0;
+
+            while (i < message.Length && (char)messageReader.Peek() != ' ') // capture first word as sender
+            {
+                messageParser.Append((char)messageReader.Read());
+                i++;
+            }
+            sender = messageParser.ToString();
+            messageParser.Clear();
+            i += 4; // Skip substring " to " 
+            messageReader.Read();
+            messageReader.Read();
+            messageReader.Read();
+            messageReader.Read();
+            while (i < message.Length && (char)messageReader.Peek() != ':') // capture third word as reciever
+            {
+                messageParser.Append((char)messageReader.Read());
+                i++;
+            }
+            reciever = messageParser.ToString();
+            messageParser.Clear();
+            i += 2; // Skip substring ": "
+            messageReader.Read();
+            messageReader.Read();
+            while (i < message.Length && (char)messageReader.Peek() != '(') // capture fourth word, up to "(", as function name
+            {
+                messageParser.Append((char)messageReader.Read());
+                i++;
+            }
+            functionName = messageParser.ToString();
+            messageParser.Clear();
+            i += 1; // Skip substring "("
+            messageReader.Read();
+            while (i < message.Length && (char)messageReader.Peek() != ')') // capture arguments
+            {
+                while (i < message.Length && (char)messageReader.Peek() != ',' && (char)messageReader.Peek() != ')')
+                {
+                    messageParser.Append((char)messageReader.Read());
+                    i++;
+                }
+                arguments.Add(messageParser.ToString());
+                messageParser.Clear();
+
+                i += 2; // Skip substring ", "
+                messageReader.Read();
+                messageReader.Read();
+            }
+
+
+            if (reciever.Equals("SAPTranslator")) {
+                Console.WriteLine("SAPTranslator: I recognize that I am being addressed.");
+                if (message.Substring(22).Equals("Beginning inter-process communication. Do you read me?"))
+                {
+                    respondToPipeConnectionStart(pipeStreamString);
+                }
+                else
+                {
+                    switch (functionName)
+                    {
+                        case "initialize":
+                            {
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                initialize(arguments);
+                                break;
+                            }
+                        case "saveAs":
+                            {
+                                // arguments: (modelDirectory, modelName)
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                saveAs(arguments);
+                                break;
+                            }
+
+                        case "save":
+                            {
+                                // arguments: ()
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                save();
+                                break;
+                            }
+                        case "frameObjAddByCoord":
+                            {
+                                // arguments: (xi, yi, zi, xj, yj, zj, propName, userName)
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                frameObjAddByCoord(arguments);
+                                ret = mySapModel.View.RefreshView(0, false);
+                                break;
+                            }
+                        case "frameObjDelete":
+                            {
+                                // arguments: (name)
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                frameObjDelete(arguments);
+                                ret = mySapModel.View.RefreshView(0, false);
+                                break;
+                            }
+                        case "frameObjSetSection":
+                            {
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                frameObjSetSection(arguments);
+                                break;
+                            }
+                        case "frameObjSetSelected":
+                            {
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                frameObjSetSelected(arguments);
+                                break;
+                            }
+                        case "pointCoordSetRestraint":
+                            {
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                pointCoordSetRestraint(arguments);
+                                ret = mySapModel.View.RefreshView(0, false);
+                                break;
+                            }
+                        case "pointCoordDeleteRestraint":
+                            {
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                pointCoordDeleteRestraint(arguments);
+                                ret = mySapModel.View.RefreshView(0, false);
+                                break;
+                            }
+                        case "propMaterialAddMaterial":
+                            {
+                                // arguments: (matType, region, standard, grade, userName)
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                propMaterialAddMaterial(arguments);
+                                break;
+                            }
+                        case "propMaterialDelete":
+                            {
+                                // arguments: (name)
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                propMaterialDelete(arguments);
+                                break;
+                            }
+                        case "propFrameSetISection":
+                            {
+                                // arguments: (name, matProp, t3, t2, tf, tw, t2b, tfb, [color], [notes], [guid])
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                propFrameSetISection(arguments);
+                                break;
+                            }
+                        case "propFrameSetPipe":
+                            {
+                                // arguments: (name, matProp, t3, tw, [color], [notes], [guid])
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                propFrameSetPipe(arguments);
+                                break;
+                            }
+                        case "propFrameSetTube":
+                            {
+                                // arguments: (name, matProp, t3, t2, tf, tw, [color], [notes], [guid])
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                propFrameSetTube(arguments);
+                                break;
+                            }
+                        case "propFrameDelete":
+                            {
+                                // arguments: (name)
+                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                propFrameDelete(arguments);
+                                break;
+                            }
+                    }
+
+                }
+                
+                
+
+
+                //TODO: ... add more possible messages to respond to
+            }
+        }
+
+
+        static void respondToPipeConnectionStart(StreamString pipeStreamString)
+        {
+            //String response = "SAPTranslator to VRE: awaiting command.";
+            //pipeStreamString.WriteString(response);
+            return;
+        }
+
+        
+        static void initialize(List<string> arguments) // Initialize with auto-find latest SAP installation
+        {
+            bool attachToInstance = Boolean.Parse(arguments[0]);
+            string programPath = null;
+            if (arguments.Count >= 2)
+            {
+                programPath = arguments[1];
+            }
+           
+            if (attachToInstance)
+            {
+                //attach to a running instance of SAP2000
+                try
+                {
+                    //get the active SapObject
+                    mySapObject = (cOAPI)System.Runtime.InteropServices.Marshal.GetActiveObject("CSI.SAP2000.API.SapObject");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("No running instance of the program found or failed to attach.");
+                    return;
+                }
+            }
+            else
+            {
+                //create API helper object
+                try
+                {
+                    myHelper = new Helper();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Cannot create an instance of the Helper object");
+                    return;
+                }
+                //try to create an instance of the SapObject from the specified path
+                if (programPath == null)
+                {
+                    //try to create an instance of the SapObject from the latest installed SAP2000
+                    try
+                    {
+                        //create SapObject
+                        mySapObject = myHelper.CreateObjectProgID("CSI.SAP2000.API.SapObject");
+                    }
+                    catch (Exception exceptionAutoPath)
+                    {
+                        Console.WriteLine("Cannot start a new instance of the program.");
+                        return;
+                    }
+                } else
+                {
+                    try
+                    {
+                        //create SapObject
+                        mySapObject = myHelper.CreateObject(programPath);
+                    }
+                    catch (Exception exceptionSpecifyPath)
+                    {
+                        Console.WriteLine("Cannot start a new instance of the program from " + programPath);
+                        //try to create an instance of the SapObject from the latest installed SAP2000
+                        try
+                        {
+                            //create SapObject
+                            mySapObject = myHelper.CreateObjectProgID("CSI.SAP2000.API.SapObject");
+                        }
+                        catch (Exception exceptionAutoPath)
+                        {
+                            Console.WriteLine("Cannot start a new instance of the program.");
+                            return;
+                        }
+                    }
+                }  
+            }
+            //start SAP2000 application
+            ret = mySapObject.ApplicationStart();
+            //create SapModel object
+            mySapModel = mySapObject.SapModel;
+            //initialize model
+            ret = mySapModel.InitializeNewModel((eUnits.N_m_C));
+            //create new blank model
+            ret = mySapModel.File.NewBlank();
+            //switch to kip-ft-F units
+            ret = mySapModel.SetPresentUnits(eUnits.kip_ft_F);
+        }
+
+
+
+        
+        static void saveAs(List<string> arguments)
+        {
+            string newModelDirectory = arguments[0];
+            string newModelName = arguments[1];
+            try
+            {
+                System.IO.Directory.CreateDirectory(newModelDirectory);
+                modelDirectory = newModelDirectory;
+                modelName = newModelName;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Could not create directory: " + newModelDirectory);
+            }
+            string ModelPath = modelDirectory + System.IO.Path.DirectorySeparatorChar + modelName + ".sdb";
+            ret = mySapModel.File.Save(ModelPath);
+        }
+
+        static void save()
+        {
+            string ModelPath = modelDirectory + System.IO.Path.DirectorySeparatorChar + modelName + ".sdb";
+            ret = mySapModel.File.Save(ModelPath);
+        }
+
+        static void applicationExit(bool fileSave)
+        {
+            if (fileSave)
+            {
+                save();
+            }
+            mySapObject.ApplicationExit(false);
+            mySapModel = null;
+            mySapObject = null;
+        }
+
+        static void frameObjAddByCoord(List<string> arguments)
+        {
+            double xi = Double.Parse(arguments[0]);
+            double yi = Double.Parse(arguments[1]);
+            double zi = Double.Parse(arguments[2]);
+            double xj = Double.Parse(arguments[3]);
+            double yj = Double.Parse(arguments[4]);
+            double zj = Double.Parse(arguments[5]);
+            string propName = "Default";
+            if (arguments.Count >= 7)
+            {
+                propName = arguments[6];
+            }
+            string userName = "";
+            if (arguments.Count >= 8)
+            {
+                userName = arguments[7];
+            }
+
+            string tempFrameName = "";
+            mySapModel.FrameObj.AddByCoord(xi, yi, zi, xj, yj, zj, ref tempFrameName, propName, userName);
+        }
+
+        static void frameObjDelete(List<string> arguments)
+        {
+            string name = arguments[0];
+            eItemType itemType = eItemType.Objects;
+            if (arguments.Count >= 2)
+            {
+                itemType = (eItemType) Int32.Parse(arguments[1]);
+            }
+
+            mySapModel.FrameObj.Delete(name, itemType);
+        } 
+
+        static void frameObjSetSection(List<string> arguments)
+        {
+            string name = arguments[0];
+            string propName = arguments[1];
+            eItemType itemType = eItemType.Objects;
+            if (arguments.Count >= 3)
+            {
+                itemType = (eItemType)Int32.Parse(arguments[2]);
+            }
+            double sVarRelStartLoc = 0.0;
+            if (arguments.Count >= 4)
+            {
+                sVarRelStartLoc = Double.Parse(arguments[3]);
+            }
+            double sVarTotalLength = 0.0;
+            if (arguments.Count >= 5)
+            {
+                sVarTotalLength = Double.Parse(arguments[4]);
+            }
+
+            mySapModel.FrameObj.SetSection(name, propName, itemType, sVarRelStartLoc, sVarTotalLength);
+        }
+
+        static void frameObjSetSelected(List<string> arguments)
+        {
+            string name = arguments[0];
+            bool selected = Boolean.Parse(arguments[1]);
+            eItemType itemType = eItemType.Objects;
+            if (arguments.Count >= 3)
+            {
+                itemType = (eItemType) Int32.Parse(arguments[2]);
+            }
+
+            mySapModel.FrameObj.SetSelected(name, selected, itemType);
+        }
+
+        static void pointObjAddCartesian(List<string> arguments)
+        {
+            double x = Double.Parse(arguments[0]);
+            double y = Double.Parse(arguments[1]);
+            double z = Double.Parse(arguments[2]);
+            string pointName = "";
+            string userName = "";
+            string cSys = "";
+            bool mergeOff = false;
+            int mergeNumber = 0;
+            if (arguments.Count >= 4)
+            {
+                userName = arguments[3];
+                if (arguments.Count >= 5)
+                {
+                    cSys = arguments[4];
+                    if (arguments.Count >= 6)
+                    {
+                        mergeOff = Boolean.Parse(arguments[5]);
+                        if (arguments.Count >= 7)
+                        {
+                            mergeNumber = Int32.Parse(arguments[6]);
+                        }
+                    }
+                }
+
+            }
+            mySapModel.PointObj.AddCartesian(x, y, z, ref pointName, userName, cSys, mergeOff, mergeNumber);
+        }
+
+        static void pointCoordSetRestraint(List<string> arguments)
+        {
+            double x = Double.Parse(arguments[0]);
+            double y = Double.Parse(arguments[1]);
+            double z = Double.Parse(arguments[2]);
+            string pointName = "";
+            mySapModel.PointObj.AddCartesian(x, y, z, ref pointName);
+
+            bool u1 = Boolean.Parse(arguments[3]);
+            bool u2 = Boolean.Parse(arguments[4]);
+            bool u3 = Boolean.Parse(arguments[5]);
+            bool r1 = Boolean.Parse(arguments[6]);
+            bool r2 = Boolean.Parse(arguments[7]);
+            bool r3 = Boolean.Parse(arguments[8]);
+            bool[] value = { u1, u2, u3, r1, r2, r3 };
+
+            eItemType itemType = 0;
+
+            if(arguments.Count >= 10)
+            {
+                itemType = (eItemType)Int32.Parse(arguments[9]);
+            }
+            mySapModel.PointObj.DeleteRestraint(pointName, itemType);
+            mySapModel.PointObj.SetRestraint(pointName, ref value, itemType);
+        }
+
+        static void pointCoordDeleteRestraint(List<string> arguments)
+        {
+            double x = Double.Parse(arguments[0]);
+            double y = Double.Parse(arguments[1]);
+            double z = Double.Parse(arguments[2]);
+            string pointName = "";
+            mySapModel.PointObj.AddCartesian(x, y, z, ref pointName);
+
+            eItemType itemType = 0;
+
+            if (arguments.Count >= 10)
+            {
+                itemType = (eItemType)Int32.Parse(arguments[9]);
+            }
+            mySapModel.PointObj.DeleteRestraint(pointName, itemType);
+        }
+
+        static void propFrameSetISection(List<string> arguments)
+        {
+            string name = arguments[0]; // The name of an existing or new frame section property. If this is an existing property, that property is modified; otherwise, a new property is added.
+            string matProp = arguments[1]; // The name of the material property for the section.
+            double t3 = Double.Parse(arguments[2]); // The section depth. [L]
+            double t2 = Double.Parse(arguments[3]); // The top flange width. [L]
+            double tf = Double.Parse(arguments[4]); // The top flange thickness. [L]
+            double tw = Double.Parse(arguments[5]); // The web thickness. [L]
+            double t2b = Double.Parse(arguments[6]); // The bottom flange width. [L]
+            double tfb = Double.Parse(arguments[7]); // The bottom flange thickness. [L]
+
+            int color = -1; // The display color assigned to the section. If Color is specified as -1, the program will automatically assign a color.
+            string notes = ""; // The notes, if any, assigned to the section.
+            string guid = ""; // The GUID (global unique identifier), if any, assigned to the section. If this item is input as Default, the program assigns a GUID to the section.
+            if (arguments.Count >= 9)
+            {
+                color = Int32.Parse(arguments[8]);
+                if (arguments.Count >= 10)
+                {
+                    notes = arguments[9];
+                    if (arguments.Count >= 11)
+                    {
+                        guid = arguments[10];
+                    }
+                }
+            }
+
+            mySapModel.PropFrame.SetISection(name, matProp, t3, t2, tf, tw, t2b, tfb, color, notes, guid);
+        }
+
+        static void propFrameSetPipe(List<string> arguments)
+        {
+            string name = arguments[0]; // The name of an existing or new frame section property. If this is an existing property, that property is modified; otherwise, a new property is added.
+            string matProp = arguments[1]; // The name of the material property for the section.
+            double t3 = Double.Parse(arguments[2]); // The outside diameter. [L]
+            double tw = Double.Parse(arguments[3]); // The wall thickness. [L]
+
+            int color = -1; // The display color assigned to the section. If Color is specified as -1, the program will automatically assign a color.
+            string notes = ""; // The notes, if any, assigned to the section.
+            string guid = ""; // The GUID (global unique identifier), if any, assigned to the section. If this item is input as Default, the program assigns a GUID to the section.
+            if (arguments.Count >= 5)
+            {
+                color = Int32.Parse(arguments[4]);
+                if (arguments.Count >= 6)
+                {
+                    notes = arguments[5];
+                    if (arguments.Count >= 7)
+                    {
+                        guid = arguments[6];
+                    }
+                }
+            }
+
+            mySapModel.PropFrame.SetPipe(name, matProp, t3, tw, color, notes, guid);
+        }
+
+        static void propFrameSetTube(List<string> arguments)
+        {
+            string name = arguments[0]; // The name of an existing or new frame section property. If this is an existing property, that property is modified; otherwise, a new property is added.
+            string matProp = arguments[1]; // The name of the material property for the section.
+            double t3 = Double.Parse(arguments[2]); // The section depth. [L]
+            double t2 = Double.Parse(arguments[3]); // The section width. [L]
+            double tf = Double.Parse(arguments[4]); // The flange thickness. [L]
+            double tw = Double.Parse(arguments[5]); // The web thickness. [L]
+
+            int color = -1; // The display color assigned to the section. If Color is specified as -1, the program will automatically assign a color.
+            string notes = ""; // The notes, if any, assigned to the section.
+            string guid = ""; // The GUID (global unique identifier), if any, assigned to the section. If this item is input as Default, the program assigns a GUID to the section.
+            if (arguments.Count >= 7)
+            {
+                color = Int32.Parse(arguments[6]);
+                if (arguments.Count >= 8)
+                {
+                    notes = arguments[7];
+                    if (arguments.Count >= 9)
+                    {
+                        guid = arguments[8];
+                    }
+                }
+            }
+
+            mySapModel.PropFrame.SetTube(name, matProp, t3, t2, tf, tw, color, notes, guid);
+        }
+
+        static void propFrameDelete(List<String> arguments)
+        {
+            string name = arguments[0];
+
+            mySapModel.PropFrame.Delete(name);
+        }
+
+        static void propMaterialAddMaterial(List<String> arguments)
+        {
+            string returnedName = "";
+            eMatType matType = eMatType.Steel;
+            switch (arguments[0])
+            {
+                case "steel": { matType = eMatType.Steel;  break; }
+                case "aluminum": { matType = eMatType.Aluminum; break; }
+                case "coldformed": { matType = eMatType.ColdFormed; break; }
+                case "concrete": { matType = eMatType.Concrete; break; }
+                case "rebar": { matType = eMatType.Rebar; break; }
+                case "tendon": { matType = eMatType.Tendon; break; }
+            }
+
+            string region = arguments[1];
+            string standard = arguments[2];
+            string grade = arguments[3];
+            string userName = arguments[4];
+
+            mySapModel.PropMaterial.AddMaterial(ref returnedName, matType, region, standard, grade, userName);
+        }
+
+        static void propMaterialDelete(List<String> arguments)
+        {
+            string name = arguments[0];
+
+            mySapModel.PropMaterial.Delete(name);
+        }
+
+        static void generateStructure(string[] args) //args[0] should be the xml file path to pull structure from
         {
             //EXAMPLE CODE START
 
@@ -31,7 +641,7 @@ namespace SapTranslator
 
             //if the above flag is set to true, specify the path to SAP2000 below
             string ProgramPath;
-            ProgramPath = "C:\\Program Files (x86)\\Computers and Structures\\SAP2000 19\\SAP2000.exe";
+            ProgramPath = "C:\\Program Files (x86)\\Computers and Structures\\SAP2000 20\\SAP2000.exe";
 
 
             //full path to the model
@@ -127,7 +737,7 @@ namespace SapTranslator
 
 
             //initialize model
-            ret = mySapModel.InitializeNewModel((eUnits.kip_in_F));
+            ret = mySapModel.InitializeNewModel((eUnits.N_m_C));
 
 
             //create new blank model
@@ -654,7 +1264,6 @@ namespace SapTranslator
         public int type;
         public double[] dimensions = new double[6];
 
-
         public FrameSectionForXML()
         {
 
@@ -686,5 +1295,26 @@ namespace SapTranslator
         Circular
     }
 
+    [XmlType("FrameForces")]
+    public class FrameForces
+    {
+        public String name;
+        public eItemTypeElm itemTypeElm;
+        public long numberResults;
+        public String[] obj;
+        public double[] objSta;
+        public String[] elm;
+        public String[] elmSta;
+        public String[] loadCase;
+        public String[] stepType;
+        public double[] stepNum;
+        public double[] p;
+        public double[] v2;
+        public double[] v3;
+        public double[] t;
+        public double[] m2;
+        public double[] m3;
+
+    }
 }
 
