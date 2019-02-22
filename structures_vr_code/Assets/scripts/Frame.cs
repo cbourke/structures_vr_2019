@@ -141,7 +141,9 @@ public class Frame : MonoBehaviour {
 		trans.rotation *= Quaternion.Euler(90, 90, 90);
 		frameTrans.localScale = new Vector3(1, distance, 1);
 
-		releaseEndTrans.localPosition = new Vector3(0, distance+.05f, 0);
+		float releaseDist = 0.0375f;
+		releaseEndTrans.localPosition = new Vector3(0, distance+releaseDist, 0);
+		releaseStartTrans.localPosition = new Vector3(0, -releaseDist, 0);
 	}
 
 	public Transform getTransform()
