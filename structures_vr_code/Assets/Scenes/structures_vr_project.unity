@@ -1010,6 +1010,7 @@ MonoBehaviour:
   myMaterialController: {fileID: 1155890638}
   mySectionController: {fileID: 1155890639}
   myUnitsController: {fileID: 1155890634}
+  myGridController: {fileID: 1155890635}
 --- !u!4 &295299418
 Transform:
   m_ObjectHideFlags: 0
@@ -2894,7 +2895,6 @@ MonoBehaviour:
     type: 3}
   framePrefabPipe: {fileID: 2951282421013473719, guid: d28a943f845d8fc4faeb67051f4dd486,
     type: 3}
-  areaPrefab: {fileID: 0}
   jointRestraintPrefab: {fileID: 1096227065537474, guid: a00f7491a7d448f49a8ff7a9a16f2895,
     type: 3}
   structureSaveFileName: testStructure
@@ -3870,6 +3870,26 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114668966481925314, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: materialController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114668966481925314, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: myMaterialController
+      value: 
+      objectReference: {fileID: 1155890638}
+    - target: {fileID: 6616102100678597578, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: sectionController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616102100678597578, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: mySectionController
+      value: 
+      objectReference: {fileID: 1155890639}
     - target: {fileID: 114462543522546338, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: gridController
@@ -3900,16 +3920,6 @@ PrefabInstance:
       propertyPath: myUnitsController
       value: 
       objectReference: {fileID: 1155890634}
-    - target: {fileID: 114668966481925314, guid: 55bf230e68be69f439ed024d48fe840f,
-        type: 3}
-      propertyPath: materialController
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114668966481925314, guid: 55bf230e68be69f439ed024d48fe840f,
-        type: 3}
-      propertyPath: myMaterialController
-      value: 
-      objectReference: {fileID: 1155890638}
     - target: {fileID: 114106997702442144, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: materialController
@@ -3920,52 +3930,12 @@ PrefabInstance:
       propertyPath: myMaterialController
       value: 
       objectReference: {fileID: 1155890638}
-    - target: {fileID: 6616102100678597578, guid: 55bf230e68be69f439ed024d48fe840f,
-        type: 3}
-      propertyPath: sectionController
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6616102100678597578, guid: 55bf230e68be69f439ed024d48fe840f,
-        type: 3}
-      propertyPath: mySectionController
-      value: 
-      objectReference: {fileID: 1155890639}
     - target: {fileID: 8211827165125943416, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: materialController
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8211827165125943416, guid: 55bf230e68be69f439ed024d48fe840f,
-        type: 3}
-      propertyPath: myMaterialController
-      value: 
-      objectReference: {fileID: 1155890638}
-    - target: {fileID: 3318294603419331879, guid: 55bf230e68be69f439ed024d48fe840f,
-        type: 3}
-      propertyPath: sectionController
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3318294603419331879, guid: 55bf230e68be69f439ed024d48fe840f,
-        type: 3}
-      propertyPath: mySectionController
-      value: 
-      objectReference: {fileID: 1155890639}
-    - target: {fileID: 4268028151157167734, guid: 55bf230e68be69f439ed024d48fe840f,
-        type: 3}
-      propertyPath: sectionController
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268028151157167734, guid: 55bf230e68be69f439ed024d48fe840f,
-        type: 3}
-      propertyPath: mySectionController
-      value: 
-      objectReference: {fileID: 1155890639}
-    - target: {fileID: 3170554615532490307, guid: 55bf230e68be69f439ed024d48fe840f,
-        type: 3}
-      propertyPath: materialController
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3170554615532490307, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: myMaterialController
       value: 
@@ -3975,7 +3945,32 @@ PrefabInstance:
       propertyPath: sectionController
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 547327930254812662, guid: 55bf230e68be69f439ed024d48fe840f,
+    - target: {fileID: 4268028151157167734, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: sectionController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268028151157167734, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: mySectionController
+      value: 
+      objectReference: {fileID: 1155890639}
+    - target: {fileID: 3170554615532490307, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: materialController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3170554615532490307, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: myMaterialController
+      value: 
+      objectReference: {fileID: 1155890638}
+    - target: {fileID: 3318294603419331879, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: sectionController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3318294603419331879, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: mySectionController
       value: 
@@ -3990,6 +3985,11 @@ PrefabInstance:
       propertyPath: unitCtr
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 547327930254812662, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: mySectionController
+      value: 
+      objectReference: {fileID: 1155890639}
     m_RemovedComponents:
     - {fileID: 5047157173430303912, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}

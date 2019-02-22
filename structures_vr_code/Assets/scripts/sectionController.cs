@@ -8,14 +8,13 @@ public class sectionController : MonoBehaviour {
     private FrameSection currentFrameSection;
 
 
-    private static FrameSection defaultFrameSection = new FrameSection("FSEC1", "A992fy50", FrameSectionType.I);
 
     private List<FrameSection> frameSections = new List<FrameSection>();
 
 	// Use this for initialization
-	void Start () {
-        //addFrameSection(defaultFrameSection);
-        currentFrameSection = defaultFrameSection;
+	void Awake () {
+        addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
+        currentFrameSection = frameSections[0];
 	}
 
     public FrameSection findFrameSection(string name)

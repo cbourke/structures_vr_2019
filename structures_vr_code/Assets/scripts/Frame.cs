@@ -6,6 +6,8 @@ public class Frame : MonoBehaviour {
 
 	private Vector3 startPos;
 	private Vector3 endPos;
+	private Vector3 startPosRelease;
+	private Vector3 endPosRelease;
 	private Vector3 direction;
 	private Vector3 angle;
 
@@ -13,9 +15,15 @@ public class Frame : MonoBehaviour {
     private string sectionPropertyName;
 	private List<string> groupNames;
 	private bool isSelected = false;
+	private frameRelease release;
 
+	private float releaseEndPercentage = 0.1f;
 
 	private Transform trans;
+	private Transform frameTrans;
+	private Transform releaseStartTrans;
+	private Transform releaseEndTrans;
+	
 
 	public Frame()
 	{
@@ -24,22 +32,20 @@ public class Frame : MonoBehaviour {
 
 	public Frame(Vector3 start, Vector3 end, GameObject framePrefab, FrameSection section)
     {
+
         sectionPropertyName = section.GetName();
 		frameObject = Instantiate(framePrefab);
 
+		trans = frameObject.transform;
+		frameTrans = trans.Find("frame");
+		releaseStartTrans = trans.Find("startRelease");
+		releaseEndTrans = trans.Find("endRelease");
+		
 		startPos = start;
 		endPos = end;
 		
-		Vector3 between = end - start;
-		float distance = between.magnitude;
-		Debug.Log("distance: " + distance);
-		Vector3 midPoint = Vector3.Lerp(start, end, 0.5f);
-
-		trans = frameObject.transform;
-    	trans.position = midPoint;
-		trans.LookAt(end);
-        trans.rotation *= Quaternion.Euler(90, 90, 90);
-		trans.localScale = new Vector3(1, distance, 1);
+		release = new frameRelease();
+		setRelease();
 
 		// scale the frame depending on the section type
 		if(section.type == FrameSectionType.I)
@@ -60,6 +66,82 @@ public class Frame : MonoBehaviour {
         } else {
             Debug.LogError("Invalid frame section type passed to createFrame in Frame Class");
         }
+	}
+
+	public void setRelease()
+	{
+		if(release.isReleaseStart() && release.isReleaseEnd()) {
+			setReleaseBoth();
+		} else if(release.isReleaseStart()) {
+			setReleaseStart();
+		} else if(release.isReleaseEnd()) {
+			setReleaseEnd();
+		} else {
+			setReleaseNeither();
+		}
+	}
+
+	public void setReleaseStart()
+	{
+		releaseStartTrans.gameObject.SetActive(true);
+		releaseEndTrans.gameObject.SetActive(false);
+		Vector3 between = endPos - startPos;
+		float distance = between.magnitude;
+
+		float releasePercent = (gridController.getSpacing()*(releaseEndPercentage))/(distance);
+
+		startPosRelease = Vector3.Lerp(startPos, endPos, releasePercent);
+		scaleFrame(startPosRelease, endPos);
+
+	}
+
+	public void setReleaseEnd()
+	{
+		releaseStartTrans.gameObject.SetActive(false);
+		releaseEndTrans.gameObject.SetActive(true);
+		Vector3 between = endPos - startPos;
+		float distance = between.magnitude;
+
+		float releasePercent = (gridController.getSpacing()*(releaseEndPercentage))/(distance);
+
+		endPosRelease = Vector3.Lerp(endPos, startPos, releasePercent);
+		scaleFrame(startPos, endPosRelease);
+
+	}
+
+	public void setReleaseBoth()
+	{
+		releaseStartTrans.gameObject.SetActive(true);
+		releaseEndTrans.gameObject.SetActive(true);
+
+		Vector3 between = endPos - startPos;
+		float distance = between.magnitude;
+
+		float releasePercent = (gridController.getSpacing()*(releaseEndPercentage))/(distance);
+
+		startPosRelease = Vector3.Lerp(startPos, endPos, releasePercent);
+		endPosRelease = Vector3.Lerp(endPos, startPos, releasePercent);
+		scaleFrame(startPosRelease, endPosRelease);
+	}
+
+	public void setReleaseNeither() {
+		releaseStartTrans.gameObject.SetActive(false);
+		releaseEndTrans.gameObject.SetActive(false);
+		scaleFrame(startPos, endPos);
+	}
+
+	private void scaleFrame(Vector3 startPoint, Vector3 endPoint)
+	{
+		Vector3 between = endPoint - startPoint;
+		float distance = between.magnitude;
+
+		trans = frameObject.transform;
+		trans.position = startPoint;
+		trans.LookAt(endPoint);
+		trans.rotation *= Quaternion.Euler(90, 90, 90);
+		frameTrans.localScale = new Vector3(1, distance, 1);
+
+		releaseEndTrans.localPosition = new Vector3(0, distance, 0);
 	}
 
 	public Transform getTransform()

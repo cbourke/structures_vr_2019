@@ -9,13 +9,14 @@ public class debugDrawing : MonoBehaviour {
     public materialsController myMaterialController;
     public sectionController mySectionController;
     public unitsController myUnitsController;
+    public gridController myGridController;
 
     Vector3 origin = new Vector3(0,0,0);
     Vector3 p1 = new Vector3(1,0,0);
     Vector3 p2 = new Vector3(0,1,0);
-    Vector3 p3 = new Vector3(1,1,0);
+    Vector3 p3 = new Vector3(2,1,0);
     Vector3 p4 = new Vector3(0,2,0);
-    Vector3 p5 = new Vector3(1,2,0);
+    Vector3 p5 = new Vector3(3,2,0);
     Vector3 p6 = new Vector3(0,3,0);
 
 	
@@ -23,14 +24,15 @@ public class debugDrawing : MonoBehaviour {
         //xmlController.GetComponent<xmlController>().sendFileToSap(); //send to SAP2000
         Debug.Log("START DEBUG");
         populateDropdowns();
+        drawFrames();
     }
 	
     void populateDropdowns()
     {
         			
-        myMaterialController.addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
+        //myMaterialController.addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
         
-        mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
+        //mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
         mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel01", 0.2f, 0.01f);
         mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Steel01", 0.16f, 0.1f, 0.007f, 0.007f);
 
@@ -164,5 +166,21 @@ public class debugDrawing : MonoBehaviour {
         Debug.Log("bm3 (4): " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
         
          */
+    }
+
+    void drawFrames()
+    {
+        myGridController.createGrid(5, 5, 5, 1f);
+        myConstructorController.setPoint(p2, buildingObjects.Frame);
+        myConstructorController.setPoint(p3, buildingObjects.Frame);
+
+        mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
+        myConstructorController.setPoint(p4, buildingObjects.Frame);
+        myConstructorController.setPoint(p5, buildingObjects.Frame);
+
+        mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
+        myConstructorController.setPoint(origin, buildingObjects.Frame);
+        myConstructorController.setPoint(p1, buildingObjects.Frame);
+
     }
 }
