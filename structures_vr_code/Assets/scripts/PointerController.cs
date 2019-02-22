@@ -35,6 +35,16 @@ public class PointerController : MonoBehaviour {
     {
         mode = newMode;
         switch(newMode) {
+            case pointerModes.draw:
+            {
+
+                break;
+            }
+            case pointerModes.select:
+            {
+
+                break;
+            }
             default: { break; }
         }
     }

@@ -74,7 +74,7 @@ public class selectionController : MonoBehaviour {
             if(!selectedFrames.Contains(targetFrame))
             {
                 targetFrame.setSelected(true);
-                MeshRenderer[] renderers = targetFrame.gameObject.GetComponentsInChildren<MeshRenderer>();
+                MeshRenderer[] renderers = targetFrame.GetGameObject().GetComponentsInChildren<MeshRenderer>();
                 foreach (MeshRenderer renderer in renderers)
                 {
                     renderer.material = unityMaterialForSelectedFrames;
@@ -142,7 +142,7 @@ public class selectionController : MonoBehaviour {
             if (selectedFrames.Contains(targetFrame))
             {
                 targetFrame.setSelected(false);
-                MeshRenderer[] renderers = targetFrame.gameObject.GetComponentsInChildren<MeshRenderer>();
+                MeshRenderer[] renderers = targetFrame.GetGameObject().GetComponentsInChildren<MeshRenderer>();
                 foreach (MeshRenderer renderer in renderers)
                 {
                     renderer.material = unityMaterialForUnselectedFrames;

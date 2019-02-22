@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6892018505427789812}
   - component: {fileID: 5753653516544524859}
   - component: {fileID: 7742488752916008034}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: endRelease
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,9 +102,9 @@ GameObject:
   - component: {fileID: 3590201110420735699}
   - component: {fileID: 694123013555436561}
   - component: {fileID: 492141394144034990}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe
-  m_TagString: Untagged
+  m_TagString: Frame
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,7 +160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3160932835326584214}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 8478728299250329806}
   - component: {fileID: 3814425251437776988}
   - component: {fileID: 5784030580193348532}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: startRelease
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 5843772043190202198}
   - component: {fileID: 7714086788850395160}
   - component: {fileID: 2813136644604219447}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

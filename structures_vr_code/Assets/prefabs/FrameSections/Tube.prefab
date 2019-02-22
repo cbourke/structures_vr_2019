@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1453177838620488434}
   - component: {fileID: 409159678797168901}
   - component: {fileID: 2177857160947473051}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: endRelease
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 7184495694116890334}
   - component: {fileID: 3936866145682933157}
   - component: {fileID: 7882168528734769703}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: startRelease
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6269456668926158121}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 1084322461419701664}
   - component: {fileID: 2058875070469233997}
   - component: {fileID: 3536609160205522892}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,9 +315,9 @@ GameObject:
   - component: {fileID: 559383107706993444}
   - component: {fileID: 2348520093001521303}
   - component: {fileID: 6718571947673279541}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tube
-  m_TagString: Untagged
+  m_TagString: Frame
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
