@@ -3482,7 +3482,7 @@ MonoBehaviour:
   directionIndicator: {fileID: 0}
   customRaycast: {fileID: 1388622120}
   pointerOriginSmoothingSettings:
-    smoothsPosition: 1
+    smoothsPosition: 0
     maxAllowedPerFrameDistanceDifference: 0.01
     smoothsRotation: 1
     maxAllowedPerFrameAngleDifference: 1.5

@@ -23,7 +23,7 @@ public class Frame : MonoBehaviour {
 	private Transform frameTrans;
 	private Transform releaseStartTrans;
 	private Transform releaseEndTrans;
-	
+
 
 	public Frame()
 	{

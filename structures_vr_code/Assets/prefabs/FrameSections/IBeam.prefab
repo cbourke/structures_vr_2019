@@ -223,6 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7920509773000511725}
   - component: {fileID: 7920509773000511726}
+  - component: {fileID: 6106139563164576863}
   m_Layer: 0
   m_Name: IBeam
   m_TagString: Untagged
@@ -262,6 +263,18 @@ MonoBehaviour:
   web: {fileID: 7920509774333723441}
   topFlange: {fileID: 7920509773000002068}
   bottomFlange: {fileID: 7920509774714803027}
+--- !u!114 &6106139563164576863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7920509773000511727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c866b81e0f5a642a1670d3a7392ebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7920509774333723441
 GameObject:
   m_ObjectHideFlags: 0
