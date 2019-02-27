@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
+
 public enum pointerModes
 {
     node,
@@ -8,10 +10,10 @@ public enum pointerModes
 }
 
 public class PointerController : MonoBehaviour {
-    public VRTK.VRTK_Pointer nodePointer;
-    public VRTK.VRTK_Pointer framePointer;
-    public VRTK.VRTK_UIPointer UIPointer;
-    public VRTK.VRTK_Pointer TeleportPointer;
+    public VRTK_Pointer nodePointer;
+    public VRTK_Pointer framePointer;
+    public VRTK_UIPointer UIPointer;
+    public VRTK_Pointer TeleportPointer;
     public selectionController selectionController;
 
     private pointerModes mode;
@@ -40,15 +42,16 @@ public class PointerController : MonoBehaviour {
             case pointerModes.node:
                 {
                     Debug.Log("node active");
-                    framePointer.Toggle(false);
-                    nodePointer.Toggle(true);
+                    framePointer.gameObject.SetActive(false);
+                    nodePointer.gameObject.SetActive(true);
+                    
                     break;
                 }
             case pointerModes.frame:
                 {
                     Debug.Log("frame active");
-                    framePointer.Toggle(true);
-                    nodePointer.Toggle(false);
+                    framePointer.gameObject.SetActive(true);
+                    nodePointer.gameObject.SetActive(false);
                     break;
                 }
             default: { break; }
