@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class frame_iBeamController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class frame_iBeamController : MonoBehaviour
     public GameObject web;  //cubeMid
     public GameObject topFlange; //cubeTop
     public GameObject bottomFlange; //cubeBottom
+
+    public VRTK_InteractObjectHighlighter hl1;
 
     /*
                  |  | - web Thickness
@@ -52,5 +55,14 @@ public class frame_iBeamController : MonoBehaviour
         bottomFlange.GetComponent<Transform>().localScale = new Vector3 (bottomScale.x / webScale.x, bottomScale.y / webScale.y, bottomScale.z / webScale.z);
         bottomFlange.GetComponent<Transform>().localPosition = new Vector3 (0, (float)-0.5 + (flangeThickness / 2)/webScale.y, 0);
 
+        highlightObject(true);
+    }
+
+    public void highlightObject(bool isHighlight) {
+        if(isHighlight) {
+            hl1.Highlight(Color.yellow);
+        } else {
+            hl1.Unhighlight();
+        }
     }
 }

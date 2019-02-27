@@ -52,6 +52,7 @@ public class materialsUIdropdown : MonoBehaviour {
 		
 		List<string> typeList = new List<string>(materialDict[regionType].Keys);
 		setDropdownValues(type, typeList);
+		typeDropdownValueChanged();
     }
 
     void typeDropdownValueChanged()
@@ -64,6 +65,7 @@ public class materialsUIdropdown : MonoBehaviour {
 
 		List<string> standardList = new List<string>(materialDict[regionType][typeType].Keys);
 		setDropdownValues(standard, standardList);
+		standardDropdownValueChanged();
     }
 
     void standardDropdownValueChanged()

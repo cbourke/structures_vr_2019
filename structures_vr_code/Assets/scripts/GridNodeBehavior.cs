@@ -25,12 +25,12 @@ public class GridNodeBehavior : MonoBehaviour {
         if (canUse)
         {
             switch (pointerController.getPointerMode()){
-                case pointerModes.draw: {
+                case pointerModes.node: {
                     myConstructorController.GetComponent<constructorController>().setPoint(this.transform.position, buildingObjects.Frame);
                     canUse = false;
                     break;
                 }
-                case pointerModes.select: {
+                case pointerModes.frame: {
                     pointerController.selectionController.select(this);
                     break;
                 }
@@ -47,14 +47,10 @@ public class GridNodeBehavior : MonoBehaviour {
 
     public void VRTKTouch()
     {
-        switch (pointerController.getPointerMode()) {
-            case pointerModes.draw:{
-                if (previewLineRenderer.isVisible) {
-                    previewLineRenderer.SetPosition(1, this.transform.position);
-                }
-                break;
-            }
+        if (previewLineRenderer.isVisible) {
+            previewLineRenderer.SetPosition(1, this.transform.position);
         }
+        
     }
 
     public void setPreviewLineRenderer(LineRenderer newPreviewLineRenderer)

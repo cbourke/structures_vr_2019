@@ -6,12 +6,12 @@ using System;
 
 public class materialDefinitions : MonoBehaviour {
 
-	 public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> materialCollection = new Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>>();
+    public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> materialCollection = new Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>>();
     void Start()
     {
         try
         {
-            StreamReader oStreamReader = new StreamReader("Assets\\scripts\\Enums\\materials.txt");
+            StreamReader oStreamReader = new StreamReader(Application.dataPath + "\\StreamingAssets\\materials.txt");
             string line;
             string region;
             string type;
@@ -84,6 +84,7 @@ public class materialDefinitions : MonoBehaviour {
                     materialCollection[region][type][standard].Add(grade);
                 }
             }
+
         }
 
         catch (Exception e)
@@ -93,6 +94,23 @@ public class materialDefinitions : MonoBehaviour {
             throw e;
 
         }
+        
+        /*
+        Debug.Log("MATERIALS");
+        foreach (KeyValuePair<string, Dictionary<string, Dictionary<string, List<string>>>> r in materialCollection) {
+            Debug.Log("Region: " + r.Key);
+            foreach (KeyValuePair<string, Dictionary<string, List<string>>> t in r.Value) {
+                Debug.Log("type: " + t.Key);
+                foreach (KeyValuePair<string, List<string>> s in t.Value) {
+                    Debug.Log("standard: " + s.Key);
+                    foreach (string g in s.Value) {
+                        Debug.Log("grade: " + g);        
+                    }
+                }
+            }
+        }
+         */
+         
 	}
 
 	public Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> getDict() {

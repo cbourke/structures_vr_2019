@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum pointerModes
 {
-    draw,
-    select
+    node,
+    frame
 }
 
 public class PointerController : MonoBehaviour {
-    public VRTK.VRTK_Pointer drawPointer;
+    public VRTK.VRTK_Pointer nodePointer;
+    public VRTK.VRTK_Pointer framePointer;
     public VRTK.VRTK_UIPointer UIPointer;
     public VRTK.VRTK_Pointer TeleportPointer;
-    public VRTK.VRTK_Pointer selectPointer;
     public selectionController selectionController;
 
     private pointerModes mode;
@@ -34,31 +34,34 @@ public class PointerController : MonoBehaviour {
 
     public void setPointerMode(pointerModes newMode)
     {
+        Debug.Log("SETMODE");
         mode = newMode;
         switch(newMode) {
-            case pointerModes.draw:
+            case pointerModes.node:
                 {
-                    selectPointer.Toggle(false);
-                    drawPointer.Toggle(true);
+                    Debug.Log("node active");
+                    framePointer.Toggle(false);
+                    nodePointer.Toggle(true);
                     break;
                 }
-            case pointerModes.select:
+            case pointerModes.frame:
                 {
-                    drawPointer.Toggle(false);
-                    selectPointer.Toggle(true);
+                    Debug.Log("frame active");
+                    framePointer.Toggle(true);
+                    nodePointer.Toggle(false);
                     break;
                 }
             default: { break; }
         }
     }
 
-    public void setPointerModeToDraw()
+    public void setPointerModeToNode()
     {
-        setPointerMode(pointerModes.draw);
+        setPointerMode(pointerModes.node);
     }
 
-    public void setPointerModeToSelect()
+    public void setPointerModeToFrame()
     {
-        setPointerMode(pointerModes.select);
+        setPointerMode(pointerModes.frame);
     }
 }

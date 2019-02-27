@@ -17,7 +17,8 @@ public class SapTranslatorIpcHandler : MonoBehaviour
     public void Start()
     {
         String[] args = new string[0];
-        createPipeServer(args);
+        // If this is commented out, SAPTranslator will not open
+        //createPipeServer(args);
         
     }
 
@@ -62,6 +63,7 @@ public class SapTranslatorIpcHandler : MonoBehaviour
         if (pipeStreamString == null)
         {
             Debug.Log("Tried to send message \"" + message + "\" to SAPTranslator, but SAPTranslator has not connected to pipe.");
+            return;
         }
         string pipeContent = pipeStreamString.ReadString();
         if (pipeContent != null)

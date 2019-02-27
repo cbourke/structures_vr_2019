@@ -27,6 +27,7 @@ public class debugDrawing : MonoBehaviour {
     void Start () {
         //xmlController.GetComponent<xmlController>().sendFileToSap(); //send to SAP2000
         Debug.Log("START DEBUG");
+        drawGrid();
         populateDropdowns();
         Debug.Log("DEBUG Populated Dropdowns.");
         testSections();
@@ -198,7 +199,7 @@ public class debugDrawing : MonoBehaviour {
 
     void drawFrames()
     {
-        myGridController.createGrid(5, 5, 5, 1f);
+        drawGrid();
         myConstructorController.setPoint(p2, buildingObjects.Frame);
         myConstructorController.setPoint(p3, buildingObjects.Frame);
 
@@ -210,5 +211,10 @@ public class debugDrawing : MonoBehaviour {
         myConstructorController.setPoint(origin, buildingObjects.Frame);
         myConstructorController.setPoint(p1, buildingObjects.Frame);
 
+    }
+
+    void drawGrid()
+    {
+        myGridController.createGrid(5, 5, 5, 1f);
     }
 }
