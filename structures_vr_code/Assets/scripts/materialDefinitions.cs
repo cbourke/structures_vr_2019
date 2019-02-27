@@ -11,7 +11,7 @@ public class materialDefinitions : MonoBehaviour {
     {
         try
         {
-            StreamReader oStreamReader = new StreamReader("Assets\\StreamingAssets\\materials.txt");
+            StreamReader oStreamReader = new StreamReader(Application.dataPath + "\\StreamingAssets\\materials.txt");
             string line;
             string region;
             string type;
