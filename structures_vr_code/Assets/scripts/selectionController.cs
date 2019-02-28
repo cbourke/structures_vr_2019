@@ -13,7 +13,7 @@ public class selectionController : MonoBehaviour {
 
 
 
-	private selectionBehaviors selectionBehavior = selectionBehaviors.reset;
+	private selectionBehaviors selectionBehavior = selectionBehaviors.additive;
 	private List<Frame> selectedFrames = new List<Frame>();
 	private List<GridNodeBehavior> selectedNodes = new List<GridNodeBehavior>();
 
