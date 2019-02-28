@@ -14,9 +14,9 @@ public class frame_iBeamController : MonoBehaviour
     public GameObject web;  //cubeMid
     public GameObject topFlange; //cubeTop
     public GameObject bottomFlange; //cubeBottom
+    public frameReference reference;
 
     public VRTK_InteractObjectHighlighter hl1;
-
     /*
                  |  | - web Thickness
        { +-------------------+
@@ -58,9 +58,15 @@ public class frame_iBeamController : MonoBehaviour
         highlightObject(true);
     }
 
-    public void highlightObject(bool isHighlight) {
+    public void setHiglight() {
+        Debug.Log("SET highlight");
+        highlightObject(reference.getMyFrame().getSelected());
+    }
+
+    private void highlightObject(bool isHighlight) {
+        Debug.Log("BOOL: " + isHighlight);
         if(isHighlight) {
-            hl1.Highlight(Color.yellow);
+            hl1.Highlight(Color.blue);
         } else {
             hl1.Unhighlight();
         }

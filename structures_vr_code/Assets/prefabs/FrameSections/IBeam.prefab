@@ -265,6 +265,7 @@ MonoBehaviour:
   web: {fileID: 7920509774333723441}
   topFlange: {fileID: 7920509773000002068}
   bottomFlange: {fileID: 7920509774714803027}
+  reference: {fileID: 6106139563164576863}
   hl1: {fileID: 2206027372154278655}
 --- !u!114 &6106139563164576863
 MonoBehaviour:
@@ -377,6 +378,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7920509773000511726}
+        m_MethodName: setHiglight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: VRTK.UnityEventHelper.VRTK_InteractableObject_UnityEvents+InteractableObjectEvent,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnUnuse:
@@ -417,6 +429,7 @@ GameObject:
   - component: {fileID: 7920509774333723438}
   - component: {fileID: 7920509774333723439}
   - component: {fileID: 2206027372154278655}
+  - component: {fileID: 1816828483355119119}
   m_Layer: 8
   m_Name: Web
   m_TagString: Untagged
@@ -505,19 +518,37 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7920509774333723441}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abc4b5dd2be1cea4aaea2850b910d3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nearTouchHighlight: {r: 0, g: 0, b: 0, a: 0}
-  touchHighlight: {r: 0, g: 0, b: 0, a: 0}
-  grabHighlight: {r: 0, g: 0, b: 0, a: 0}
-  useHighlight: {r: 0, g: 0, b: 0, a: 0}
+  nearTouchHighlight: {r: 0.74555594, g: 1, b: 0.6462264, a: 0}
+  touchHighlight: {r: 0.8773585, g: 0, b: 0, a: 0}
+  grabHighlight: {r: 0.7735849, g: 0.22258809, b: 0.65671927, a: 0}
+  useHighlight: {r: 0.9528302, g: 0.6959803, b: 0, a: 0}
   objectToMonitor: {fileID: 0}
   objectToHighlight: {fileID: 0}
   objectHighlighter: {fileID: 0}
   objectToAffect: {fileID: 0}
+--- !u!114 &1816828483355119119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7920509774333723441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08517e04830d6d44a13c5ea5f574181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  unhighlightOnDisable: 1
+  thickness: 1
+  customOutlineModels: []
+  customOutlineModelPaths: []
+  enableSubmeshHighlight: 0
 --- !u!1 &7920509774714803027
 GameObject:
   m_ObjectHideFlags: 0

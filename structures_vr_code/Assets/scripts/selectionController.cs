@@ -38,6 +38,11 @@ public class selectionController : MonoBehaviour {
 		{
 			case selectionBehaviors.reset:
 			{
+                // we need to deselect the current frame
+                if(selectedFrames.Count != 0) {
+                    Frame deselFrame = selectedFrames[0];
+                    deselect(deselFrame);
+                }
 				selectedFrames.Clear();
 				addListToSelection(targetFrameList);
 				break;
@@ -74,11 +79,6 @@ public class selectionController : MonoBehaviour {
             if(!selectedFrames.Contains(targetFrame))
             {
                 targetFrame.setSelected(true);
-                MeshRenderer[] renderers = targetFrame.GetGameObject().GetComponentsInChildren<MeshRenderer>();
-                foreach (MeshRenderer renderer in renderers)
-                {
-                    renderer.material = unityMaterialForSelectedFrames;
-                }
                 selectedFrames.Add(targetFrame);
             }
             
@@ -142,13 +142,8 @@ public class selectionController : MonoBehaviour {
             if (selectedFrames.Contains(targetFrame))
             {
                 targetFrame.setSelected(false);
-                MeshRenderer[] renderers = targetFrame.GetGameObject().GetComponentsInChildren<MeshRenderer>();
-                foreach (MeshRenderer renderer in renderers)
-                {
-                    renderer.material = unityMaterialForUnselectedFrames;
-                }
                 selectedFrames.Remove(targetFrame);
-                Debug.Log("Removed from selection: " + targetFrame.name);
+                //Debug.Log("Removed from selection: " + targetFrame.name);
             }
 
         }
