@@ -267,8 +267,6 @@ MonoBehaviour:
   topFlange: {fileID: 7920509773000002068}
   bottomFlange: {fileID: 7920509774714803027}
   reference: {fileID: 6106139563164576863}
-  hl1: {fileID: 5665458958112617651}
-  hl2: {fileID: 4231913056740229143}
 --- !u!114 &6106139563164576863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,8 +442,6 @@ GameObject:
   - component: {fileID: 7920509774333723437}
   - component: {fileID: 7920509774333723438}
   - component: {fileID: 7920509774333723439}
-  - component: {fileID: 2206027372154278655}
-  - component: {fileID: 4231913056740229143}
   m_Layer: 8
   m_Name: Web
   m_TagString: Untagged
@@ -527,42 +523,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2206027372154278655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7920509774333723441}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abc4b5dd2be1cea4aaea2850b910d3f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nearTouchHighlight: {r: 0.74555594, g: 1, b: 0.6462264, a: 0}
-  touchHighlight: {r: 0.8773585, g: 0, b: 0, a: 0}
-  grabHighlight: {r: 0.7735849, g: 0.22258809, b: 0.65671927, a: 0}
-  useHighlight: {r: 0.9528302, g: 0.6959803, b: 0, a: 0}
-  objectToMonitor: {fileID: 0}
-  objectToHighlight: {fileID: 0}
-  objectHighlighter: {fileID: 0}
-  objectToAffect: {fileID: 0}
---- !u!114 &4231913056740229143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7920509774333723441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dc366c4ab9b63a4dad97fc1290dc00a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  unhighlightOnDisable: 1
-  emissionDarken: 50
-  customMaterial: {fileID: 2100000, guid: 437c7fa58950fb74eb7f4718b31ee173, type: 2}
 --- !u!1 &7920509774714803027
 GameObject:
   m_ObjectHideFlags: 0
