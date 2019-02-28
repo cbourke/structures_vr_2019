@@ -88,6 +88,8 @@ public class constructorController : MonoBehaviour
             Debug.LogError("Invalid frame section type passed to createFrame in constructorController");
         }
         frame.GetGameObject().GetComponent<frameReference>().setMySelectionController(mySelectionController);
+        frame.GetGameObject().GetComponent<frameReference>().setMyFrame(frame);
+
         frameList.Add(frame);
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB, mySectionController.GetCurrentFrameSection().GetName());
 

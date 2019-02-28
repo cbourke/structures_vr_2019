@@ -74,12 +74,29 @@ public class selectionController : MonoBehaviour {
 
 	private void addListToSelection(List<Frame> targetFrameList)
 	{
+        Frame frameToDesel = new Frame();
 		foreach(Frame targetFrame in targetFrameList)
 		{
-            if(!selectedFrames.Contains(targetFrame))
+            bool notSel = true;
+            foreach(Frame f in selectedFrames)
             {
+                Debug.Log("Framename: " + f.getName());
+                if(f.getName() == targetFrame.getName())
+                {
+                    Debug.Log("ITS A MATCH");
+                    // fame is currently selected, we need to deselect
+                    frameToDesel = f;
+                    notSel = false;
+                }
+            }
+            if(notSel)
+            {
+                Debug.Log("SELECTING...");
                 targetFrame.setSelected(true);
                 selectedFrames.Add(targetFrame);
+            } else {
+                Debug.Log("DESELECTING...");
+                deselect(frameToDesel);
             }
             
 		}

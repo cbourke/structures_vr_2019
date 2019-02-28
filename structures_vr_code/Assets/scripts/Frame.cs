@@ -71,9 +71,10 @@ public class Frame : MonoBehaviour {
             Debug.LogError("Invalid frame section type passed to createFrame in Frame Class");
         }
 
-
+		setName(frameName);
 	}
 
+	
 	public void setRelease()
 	{
 		if(release.isReleaseStart() && release.isReleaseEnd()) {
@@ -216,6 +217,7 @@ public class Frame : MonoBehaviour {
     }
 
     private void highlightObject() {
+		Debug.Log("isSelected: " + isSelected);
         if(isSelected) {
             frameHighlighter.Highlight();
         } else {
