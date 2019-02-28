@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 6106139563164576863}
   - component: {fileID: 3575683359492901021}
   - component: {fileID: 9016913312365222281}
+  - component: {fileID: 5665458958112617651}
   m_Layer: 8
   m_Name: IBeam
   m_TagString: Frame
@@ -266,7 +267,8 @@ MonoBehaviour:
   topFlange: {fileID: 7920509773000002068}
   bottomFlange: {fileID: 7920509774714803027}
   reference: {fileID: 6106139563164576863}
-  hl1: {fileID: 2206027372154278655}
+  hl1: {fileID: 5665458958112617651}
+  hl2: {fileID: 4231913056740229143}
 --- !u!114 &6106139563164576863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,6 +418,20 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: VRTK.UnityEventHelper.VRTK_InteractableObject_UnityEvents+InteractableObjectEvent,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &5665458958112617651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7920509773000511727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f175c9c84d6fe944e9e22c75fe44c899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: 98707ab9e537b9e43a4d018ab0b37f2f, type: 2}
+  highlightMesh: {fileID: 7920509774333723441}
 --- !u!1 &7920509774333723441
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,7 +445,7 @@ GameObject:
   - component: {fileID: 7920509774333723438}
   - component: {fileID: 7920509774333723439}
   - component: {fileID: 2206027372154278655}
-  - component: {fileID: 1816828483355119119}
+  - component: {fileID: 4231913056740229143}
   m_Layer: 8
   m_Name: Web
   m_TagString: Untagged
@@ -531,7 +547,7 @@ MonoBehaviour:
   objectToHighlight: {fileID: 0}
   objectHighlighter: {fileID: 0}
   objectToAffect: {fileID: 0}
---- !u!114 &1816828483355119119
+--- !u!114 &4231913056740229143
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -540,15 +556,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7920509774333723441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c08517e04830d6d44a13c5ea5f574181, type: 3}
+  m_Script: {fileID: 11500000, guid: 4dc366c4ab9b63a4dad97fc1290dc00a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
   unhighlightOnDisable: 1
-  thickness: 1
-  customOutlineModels: []
-  customOutlineModelPaths: []
-  enableSubmeshHighlight: 0
+  emissionDarken: 50
+  customMaterial: {fileID: 2100000, guid: 437c7fa58950fb74eb7f4718b31ee173, type: 2}
 --- !u!1 &7920509774714803027
 GameObject:
   m_ObjectHideFlags: 0

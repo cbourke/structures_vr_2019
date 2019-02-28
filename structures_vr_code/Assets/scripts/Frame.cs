@@ -23,6 +23,8 @@ public class Frame : MonoBehaviour {
 	private Transform frameTrans;
 	private Transform releaseStartTrans;
 	private Transform releaseEndTrans;
+    
+	private highlighter frameHighlighter;
 
 
 	public Frame()
@@ -48,7 +50,7 @@ public class Frame : MonoBehaviour {
 		setRelease();
 
         frameObject.GetComponent<frameReference>().setMyFrame(this);
-
+		frameHighlighter = frameObject.GetComponent<highlighter>();
 		// scale the frame depending on the section type
 		if(section.type == FrameSectionType.I)
         {
@@ -68,6 +70,8 @@ public class Frame : MonoBehaviour {
         } else {
             Debug.LogError("Invalid frame section type passed to createFrame in Frame Class");
         }
+
+
 	}
 
 	public void setRelease()
@@ -198,6 +202,7 @@ public class Frame : MonoBehaviour {
 
 	public void setSelected(bool selected) {
 		isSelected = selected;
+		highlightObject();
 	}
 
     public string getName()
@@ -208,6 +213,14 @@ public class Frame : MonoBehaviour {
     public void setName(string name)
     {
         this.name = name;
+    }
+
+    private void highlightObject() {
+        if(isSelected) {
+            frameHighlighter.Highlight();
+        } else {
+            frameHighlighter.Unhighlight();
+        }
     }
 }
 
