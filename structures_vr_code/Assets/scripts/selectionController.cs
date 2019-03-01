@@ -80,10 +80,10 @@ public class selectionController : MonoBehaviour {
             bool notSel = true;
             foreach(Frame f in selectedFrames)
             {
-                Debug.Log("Framename: " + f.getName());
+                //Debug.Log("Framename: " + f.getName());
                 if(f.getName() == targetFrame.getName())
                 {
-                    Debug.Log("ITS A MATCH");
+                    //Debug.Log("ITS A MATCH");
                     // fame is currently selected, we need to deselect
                     frameToDesel = f;
                     notSel = false;
@@ -91,11 +91,11 @@ public class selectionController : MonoBehaviour {
             }
             if(notSel)
             {
-                Debug.Log("SELECTING...");
+                //Debug.Log("SELECTING...");
                 targetFrame.setSelected(true);
                 selectedFrames.Add(targetFrame);
             } else {
-                Debug.Log("DESELECTING...");
+                //Debug.Log("DESELECTING...");
                 deselect(frameToDesel);
             }
             
@@ -184,12 +184,12 @@ public class selectionController : MonoBehaviour {
 	}
 
 
-	List<Frame> GetSelectedFrames()
+	public List<Frame> GetSelectedFrames()
 	{
 		return selectedFrames;
 	}
 
-	List<GridNodeBehavior> GetSelectedNodes()
+	public List<GridNodeBehavior> GetSelectedNodes()
 	{
 		return selectedNodes;
 	}

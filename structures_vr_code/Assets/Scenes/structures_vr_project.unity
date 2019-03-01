@@ -4071,6 +4071,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8277851001776575123, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: myConstructorController
+      value: 
+      objectReference: {fileID: 1155890640}
+    - target: {fileID: 8277851001776575123, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: mySelectionController
+      value: 
+      objectReference: {fileID: 1155890641}
     m_RemovedComponents:
     - {fileID: 5047157173430303912, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
