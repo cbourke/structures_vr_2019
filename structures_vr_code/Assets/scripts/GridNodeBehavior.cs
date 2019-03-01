@@ -26,7 +26,7 @@ public class GridNodeBehavior : MonoBehaviour {
         {
             switch (pointerController.getPointerMode()){
                 case pointerModes.node: {
-                    myConstructorController.GetComponent<constructorController>().setPoint(this.transform.position, buildingObjects.Frame);
+                    myConstructorController.setPoint(this.transform.position, buildingObjects.Frame);
                     canUse = false;
                     break;
                 }
@@ -37,11 +37,11 @@ public class GridNodeBehavior : MonoBehaviour {
                     
             }
         }
-        
     }
 
     public void VRTKUnuse()
     {
+        Debug.Log("UNUSE");
         canUse = true;
     }
 

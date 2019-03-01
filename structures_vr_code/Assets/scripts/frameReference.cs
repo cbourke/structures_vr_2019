@@ -29,6 +29,7 @@ public class frameReference : MonoBehaviour
 
     public void onVRTKUse()
     {
+        Debug.Log("VRTK USE");
         mySelectionController.select(myFrame);
     }
 }

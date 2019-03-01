@@ -25,6 +25,7 @@ public class selectionController : MonoBehaviour {
     /// </summary>
 	public void select(Frame targetFrame)
 	{
+        Debug.Log("Select");
         switch(selectionBehavior)
 		{
 			case selectionBehaviors.reset:
