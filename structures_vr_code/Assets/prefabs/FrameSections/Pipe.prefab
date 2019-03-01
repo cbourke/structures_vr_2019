@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 6559789811317332507}
   - component: {fileID: 8514357562406242385}
   - component: {fileID: 2164065757599454351}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +414,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 5391021031574738616}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1

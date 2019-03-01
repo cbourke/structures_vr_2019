@@ -22,6 +22,7 @@ public class GridNodeBehavior : MonoBehaviour {
 
     public void VRTKUse()
     {
+        Debug.Log("Gridnode USE");
         if (canUse)
         {
             switch (pointerController.getPointerMode()){
@@ -41,7 +42,7 @@ public class GridNodeBehavior : MonoBehaviour {
 
     public void VRTKUnuse()
     {
-        Debug.Log("UNUSE");
+        Debug.Log("Gridnode UNUSE");
         canUse = true;
     }
 
