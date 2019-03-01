@@ -992,7 +992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &295299417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3123,11 +3123,11 @@ MonoBehaviour:
   myXmlController: {fileID: 1155890636}
   mySapTranslatorIpcHandler: {fileID: 1155890643}
   tempLineRenderer: {fileID: 425715893}
-  framePrefabIBeam: {fileID: 7920509773000511727, guid: 9afddfb8138a00a4baf1b7aea0023ced,
+  framePrefabIBeam: {fileID: 7920509773000511727, guid: 77228875212067541ac402a6849f410b,
     type: 3}
-  framePrefabTube: {fileID: 9022517299805872648, guid: cabe915ffd810d94c840604b5e7847ff,
+  framePrefabTube: {fileID: 9022517299805872648, guid: 48566b4ec6f5fea44bcf2ef292b8d777,
     type: 3}
-  framePrefabPipe: {fileID: 2951282421013473719, guid: d28a943f845d8fc4faeb67051f4dd486,
+  framePrefabPipe: {fileID: 9022517299805872648, guid: 48566b4ec6f5fea44bcf2ef292b8d777,
     type: 3}
   jointRestraintPrefab: {fileID: 1096227065537474, guid: a00f7491a7d448f49a8ff7a9a16f2895,
     type: 3}
