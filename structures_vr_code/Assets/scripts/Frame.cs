@@ -217,7 +217,6 @@ public class Frame : MonoBehaviour {
     }
 
     private void highlightObject() {
-		Debug.Log("isSelected: " + isSelected);
         if(isSelected) {
             frameHighlighter.Highlight();
         } else {

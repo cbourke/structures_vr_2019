@@ -22,7 +22,6 @@ public class deleteFrameUI : MonoBehaviour
     public void onClick() {
         if(isWait) {
             // user has confirmed they want to delete
-
             List<Frame> selection = mySelectionController.GetSelectedFrames();
             foreach (Frame f in selection)
             {

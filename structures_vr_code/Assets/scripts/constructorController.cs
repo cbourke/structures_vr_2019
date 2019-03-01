@@ -102,8 +102,10 @@ public class constructorController : MonoBehaviour
     }
     public void deleteFrame(string frameName)
     {
+        int i = 0;
         foreach (Frame frameElement in frameList)
         {
+            //Debug.Log("All frames: " + frameElement.getName());
             if (frameElement.getName() == frameName)
             {
                 GameObject frameObject = frameElement.GetGameObject();
@@ -114,8 +116,8 @@ public class constructorController : MonoBehaviour
                 // arguments: (name)
                 mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
                 Object.Destroy(frameObject);
-                frameList.Remove(frameElement);
-
+                //frameList.Remove(frameElement);
+                frameList.RemoveAt(i);
 
                 // Delete any orphaned joint restraints
                 bool deleteJointRestraintAtA = true;
@@ -150,11 +152,13 @@ public class constructorController : MonoBehaviour
                 break;
 
             }
+            i++;
         }
     }
 
     public void deleteFrame(int frameObjectID)
     {
+        int i = 0;
         foreach (Frame frameElement in frameList)
         {
             GameObject frameObject = frameElement.GetGameObject();
@@ -171,7 +175,7 @@ public class constructorController : MonoBehaviour
                 mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
 
                 Object.Destroy(frameObject);
-                frameList.Remove(frameElement);
+                frameList.RemoveAt(i);
 
 
                 // Delete any orphaned joint restraints
@@ -209,6 +213,7 @@ public class constructorController : MonoBehaviour
                 break;
             }
         }
+        i++;
     }
 
 

@@ -8,6 +8,7 @@ public enum selectionBehaviors {
 }
 
 /* Selection tool functions */
+/* NOTE currently only select single frame has been tested to work */
 public class selectionController : MonoBehaviour {
     public Material unityMaterialForSelectedFrames;
     public Material unityMaterialForUnselectedFrames;
@@ -115,26 +116,25 @@ public class selectionController : MonoBehaviour {
         Frame frameToDesel = new Frame();
         bool isSelected = false;
         // first check to see if the target frame is selected already
-        foreach(Frame f in selectedFrames)
+        foreach(Frame frame in selectedFrames)
         {
-            if(f.getName() == targetFrame.getName())
+            if(frame.getName() == targetFrame.getName())
             {
-                Debug.Log("selected:");
                 // fame is currently selected, we need to deselect
-                frameToDesel = f;
+                frameToDesel = frame;
                 isSelected = true;
+                break;
             }
         }
         if(isSelected)
         {
-            // deselect
-            //Debug.Log("DESELECTING...");
             deselect(frameToDesel);
         } else {
-            //Debug.Log("SELECTING...");
             targetFrame.setSelected(true);
             selectedFrames.Add(targetFrame);
         }
+
+        printSelectedFrames();
 	}
 
     private void addListToSelection(List<Frame> targetFrameList)
@@ -223,8 +223,6 @@ public class selectionController : MonoBehaviour {
 
     /// <summary>
     /// Removes a list of frames
-    /// @TODO needs to be rewritten, currently this does not work
-    /// because you cannot use selectedFrames.Contains(targetFrame)
     /// </summary>
     private void removeListFromSelection(List<Frame> targetFrameList)
     {
@@ -234,7 +232,7 @@ public class selectionController : MonoBehaviour {
             {
                 targetFrame.setSelected(false);
                 selectedFrames.Remove(targetFrame);
-                //Debug.Log("Removed from selection: " + targetFrame.name);
+                Debug.Log("Removed from selection: " + targetFrame.getName());
             }
 
         }
@@ -268,4 +266,16 @@ public class selectionController : MonoBehaviour {
 		return selectedNodes;
 	}
 
+    /// <summary>
+    /// Prints out the current selection of frames
+    /// </summary>
+    public void printSelectedFrames()
+    {
+        Debug.Log("Selected Frames:");
+        foreach(Frame f in selectedFrames)
+        {
+            Debug.Log("Frame: " + f.getName());
+        }
+        
+    }
 }

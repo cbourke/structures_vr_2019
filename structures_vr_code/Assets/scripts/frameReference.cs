@@ -9,7 +9,6 @@ public class frameReference : MonoBehaviour
 
     public void setMyFrame(Frame newFrame)
     {
-        Debug.Log("SETFRAMEJKLDSJKLDFSJKLDFJKLDFJKLDFJKLDFSJK: " + newFrame);
         myFrame = newFrame;
     }
 
@@ -20,8 +19,6 @@ public class frameReference : MonoBehaviour
 
     public void setMySelectionController(selectionController newSelectionController)
     {
-        Debug.Log("SETFRAMEJKLDSJKLDFSJKLDFJKLDFJKLDFJKLDFSJK: " + newSelectionController);
-
         mySelectionController = newSelectionController;
     }
 
