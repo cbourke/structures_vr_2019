@@ -9,6 +9,8 @@ public class frame_PipeController : MonoBehaviour
 
     public void SetDimensions(float diameter, float thickness)
     {
+        Debug.Log("diameter: " + diameter);
+        Debug.Log("thickness: " + thickness);
         Transform trans = frame.transform;
         trans.localScale = new Vector3(diameter, trans.localScale.y, diameter);
         float centerThickness = diameter - (2*thickness);
