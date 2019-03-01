@@ -7,6 +7,7 @@ public enum selectionBehaviors {
 	additive
 }
 
+/* Selection tool functions */
 public class selectionController : MonoBehaviour {
     public Material unityMaterialForSelectedFrames;
     public Material unityMaterialForUnselectedFrames;
@@ -17,14 +18,37 @@ public class selectionController : MonoBehaviour {
 	private List<Frame> selectedFrames = new List<Frame>();
 	private List<GridNodeBehavior> selectedNodes = new List<GridNodeBehavior>();
 
-	// Selection tool functions
-
+    /// <summary>
+    /// Select a single frame
+    /// Used by the selection tool
+    /// </summary>
 	public void select(Frame targetFrame)
 	{
-		List<Frame> singletonFrameList = new List<Frame>();
-		singletonFrameList.Add(targetFrame);
-		select(singletonFrameList);
+        switch(selectionBehavior)
+		{
+			case selectionBehaviors.reset:
+			{
+                // we need to deselect the current frame
+                if(selectedFrames.Count != 0) {
+                    Frame deselFrame = selectedFrames[0];
+                    deselect(deselFrame);
+                }
+				selectedFrames.Clear();
+				addListToSelection(targetFrame);
+				break;
+			}
+			case selectionBehaviors.additive:
+			{
+				addListToSelection(targetFrame);
+				break;
+			}
+		}
 	}
+
+    /// <summary>
+    /// Select a single gridNode
+    /// Used by the selection tool
+    /// </summary>
 	public void select(GridNodeBehavior targetNode)
 	{
 		List<GridNodeBehavior> singletonNodeList = new List<GridNodeBehavior>();
@@ -32,6 +56,10 @@ public class selectionController : MonoBehaviour {
 		select(singletonNodeList);
 	}
 
+    /// <summary>
+    /// Select a list of frames
+    /// Used when selecting a specific frame group
+    /// </summary>
     public void select(List<Frame> targetFrameList)
 	{
 		switch(selectionBehavior)
@@ -54,6 +82,13 @@ public class selectionController : MonoBehaviour {
 			}
 		}
 	}
+
+    /// <summary>
+    /// Select a list of grid nodes
+    /// @TODO needs to be rewritten
+    /// Not sure the application for this, but currently 
+    /// it is called by the select single gridnode function
+    /// </summary>
 	public void select(List<GridNodeBehavior> targetNodeList)
 	{
 		switch(selectionBehavior)
@@ -72,7 +107,37 @@ public class selectionController : MonoBehaviour {
 		}
 	}
 
-	private void addListToSelection(List<Frame> targetFrameList)
+    /// <summary>
+    /// adds a single frame to the list of currently selected frames
+    /// </summary>
+	private void addListToSelection(Frame targetFrame)
+	{
+        Frame frameToDesel = new Frame();
+        bool isSelected = false;
+        // first check to see if the target frame is selected already
+        foreach(Frame f in selectedFrames)
+        {
+            if(f.getName() == targetFrame.getName())
+            {
+                Debug.Log("selected:");
+                // fame is currently selected, we need to deselect
+                frameToDesel = f;
+                isSelected = true;
+            }
+        }
+        if(isSelected)
+        {
+            // deselect
+            //Debug.Log("DESELECTING...");
+            deselect(frameToDesel);
+        } else {
+            //Debug.Log("SELECTING...");
+            targetFrame.setSelected(true);
+            selectedFrames.Add(targetFrame);
+        }
+	}
+
+    private void addListToSelection(List<Frame> targetFrameList)
 	{
         Frame frameToDesel = new Frame();
 		foreach(Frame targetFrame in targetFrameList)
@@ -101,6 +166,8 @@ public class selectionController : MonoBehaviour {
             
 		}
 	}
+
+
 	private void addListToSelection(List<GridNodeBehavior> targetNodeList)
 	{
 		foreach(GridNodeBehavior targetNode in targetNodeList)
@@ -120,6 +187,7 @@ public class selectionController : MonoBehaviour {
         singletonFrameList.Add(targetFrame);
         deselect(singletonFrameList);
     }
+    
     public void deselect(GridNodeBehavior targetNode)
     {
         List<GridNodeBehavior> singletonNodeList = new List<GridNodeBehavior>();
@@ -139,6 +207,7 @@ public class selectionController : MonoBehaviour {
                 }
         }
     }
+    
     public void deselect(List<GridNodeBehavior> targetNodeList)
     {
         switch (selectionBehavior)
@@ -152,6 +221,11 @@ public class selectionController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Removes a list of frames
+    /// @TODO needs to be rewritten, currently this does not work
+    /// because you cannot use selectedFrames.Contains(targetFrame)
+    /// </summary>
     private void removeListFromSelection(List<Frame> targetFrameList)
     {
         foreach (Frame targetFrame in targetFrameList)
@@ -165,6 +239,7 @@ public class selectionController : MonoBehaviour {
 
         }
     }
+    
     private void removeListFromSelection(List<GridNodeBehavior> targetNodeList)
     {
         foreach (GridNodeBehavior targetNode in targetNodeList)
@@ -182,7 +257,6 @@ public class selectionController : MonoBehaviour {
 		selectedFrames.Clear();
 		selectedNodes.Clear();
 	}
-
 
 	public List<Frame> GetSelectedFrames()
 	{
