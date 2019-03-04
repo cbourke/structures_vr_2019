@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* This class defines a frame and its various properties */
+/* Also used for highlighting frames */
 public class Frame : MonoBehaviour {
     private string name;
 	private Vector3 startPos;
@@ -26,12 +28,18 @@ public class Frame : MonoBehaviour {
     
 	private highlighter frameHighlighter;
 
-
+    /// <summary>
+    /// Empty constructor
+    /// </summary>
 	public Frame()
 	{
 
 	}
 
+    /// <summary>
+    /// Main constructor for defining a frame object
+	/// Takes in the frames endpoints, the correct frame prefab for the section, the frame section, and the frames name
+    /// </summary>
 	public Frame(Vector3 start, Vector3 end, GameObject framePrefab, FrameSection section, string frameName)
     {
 
@@ -75,6 +83,9 @@ public class Frame : MonoBehaviour {
 	}
 
 	
+    /// <summary>
+    /// Sets the frames visual appearence based on its release state
+    /// </summary>
 	public void setRelease()
 	{
 		if(release.isReleaseStart() && release.isReleaseEnd()) {
@@ -88,6 +99,9 @@ public class Frame : MonoBehaviour {
 		}
 	}
 
+    /// <summary>
+    /// Sets the frames visual appearence to be released at the start point
+    /// </summary>
 	public void setReleaseStart()
 	{
 		releaseStartTrans.gameObject.SetActive(true);
@@ -102,6 +116,9 @@ public class Frame : MonoBehaviour {
 
 	}
 
+    /// <summary>
+    /// Sets the frames visual appearence to be released at the end point
+    /// </summary>
 	public void setReleaseEnd()
 	{
 		releaseStartTrans.gameObject.SetActive(false);
@@ -116,6 +133,9 @@ public class Frame : MonoBehaviour {
 
 	}
 
+    /// <summary>
+    /// Sets the frames visual appearence to be released at both the start and end point
+    /// </summary>
 	public void setReleaseBoth()
 	{
 		releaseStartTrans.gameObject.SetActive(true);
@@ -131,12 +151,19 @@ public class Frame : MonoBehaviour {
 		scaleFrame(startPosRelease, endPosRelease);
 	}
 
+    /// <summary>
+    /// Sets the frames visual appearence to not be released at either point
+    /// </summary>
 	public void setReleaseNeither() {
 		releaseStartTrans.gameObject.SetActive(false);
 		releaseEndTrans.gameObject.SetActive(false);
 		scaleFrame(startPos, endPos);
 	}
 
+    /// <summary>
+    /// This function actually scales the frame according to the release state
+	/// should only be called by one of the setRelease functions in this class
+    /// </summary>
 	private void scaleFrame(Vector3 startPoint, Vector3 endPoint)
 	{
 		Vector3 between = endPoint - startPoint;
@@ -197,10 +224,16 @@ public class Frame : MonoBehaviour {
 		groupNames.Remove(targetGroupName);
 	}
 
+    /// <summary>
+    /// Returns the selection state of the frame
+    /// </summary>
 	public bool getSelected(){
 		return isSelected;
 	}
 
+    /// <summary>
+    /// Sets wether the frame is selected or not
+    /// </summary>
 	public void setSelected(bool selected) {
 		isSelected = selected;
 		highlightObject();
@@ -216,6 +249,9 @@ public class Frame : MonoBehaviour {
         this.name = name;
     }
 
+    /// <summary>
+    /// Highlights the frame based on the selection status
+    /// </summary>
     private void highlightObject() {
         if(isSelected) {
             frameHighlighter.Highlight();

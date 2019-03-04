@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using VRTK;
 using UnityEngine;
 
+/* this class is attatched to each grid node */
+/* it houses the functions that are called when a node is "used", "unused", etc */
 public class GridNodeBehavior : MonoBehaviour {
     public VRTK_InteractableObject linkedObject;
     public constructorController myConstructorController = null;
@@ -10,16 +12,14 @@ public class GridNodeBehavior : MonoBehaviour {
     public PointerController pointerController;
     bool canUse = true;
     private bool isSelected = false;
-	// Use this for initialization
+
 	void Start () {
         myConstructorController = GameObject.FindWithTag("gameControllers").GetComponent<constructorController>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void VRTKUse()
     {
         Debug.Log("Gridnode USE");

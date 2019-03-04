@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* This class defines a frame release */
+/* The float values are not used by our program, but are needed by SAP */
 public class frameRelease : MonoBehaviour
 {
     private bool axialStart { get; set; }
@@ -67,6 +69,10 @@ public class frameRelease : MonoBehaviour
         momentMajorEndVal = 0f;
 	}
 
+    /// <summary>
+    /// Returns whether the release is completely released at the start
+    /// This is needed when changing the visual appearence of frames (if they are pulled back from the node or not)
+    /// </summary>
     public bool isReleaseStart() {
         if(!axialStart && !shearMajorStart && !shearMinorStart && !torsionStart && !momentMinorStart && !momentMajorStart) {
             return false;
@@ -75,6 +81,10 @@ public class frameRelease : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns whether the release is completely released at the end
+    /// This is needed when changing the visual appearence of frames (if they are pulled back from the node or not)
+    /// </summary>
     public bool isReleaseEnd() {
         if(!axialEnd && !shearMajorEnd && !shearMinorEnd && !torsionEnd && !momentMinorEnd && !momentMajorEnd) {
             return false;

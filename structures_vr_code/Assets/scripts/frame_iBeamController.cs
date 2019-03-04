@@ -4,9 +4,10 @@ using UnityEngine;
 using VRTK;
 using VRTK.Highlighters;
 
+/* This class is attatched to the IBeam frame prefab */
+/* It is used for correctly scaling the prefab */
 public class frame_iBeamController : MonoBehaviour
 {
-
     private float outsideHeight;
     private float webThickness;
     private float flangeWidth;
@@ -36,6 +37,9 @@ public class frame_iBeamController : MonoBehaviour
     */
 
 
+    /// <summary>
+    /// Sets the prefabs dimensions to be the correct sizes
+    /// </summary>
     public void SetDimensions(float outsideHeight, float flangeW, float flangeT, float webT, double bottomFlangeWidth, double bottomFlangeThickness)
     {
         //currently both the top and bottom flange are being set to the same width and thickness

@@ -5,6 +5,8 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Text.RegularExpressions;
 
+
+/* This class handles the creation of frames, areas, and joint restraints (NOTE areas have not been implimented) */
 public class constructorController : MonoBehaviour
 {
     public selectionController mySelectionController;
@@ -30,6 +32,10 @@ public class constructorController : MonoBehaviour
     List<Vector3> framePoints = new List<Vector3>();
     List<Vector3> areaPoints = new List<Vector3>();
 
+    /// <summary>
+    /// Called when a node is clicked with the pointer. Depending on the type passed it determins
+    /// if it should store the node clicked or call a function to create the correct building type
+    /// </summary>
     public void setPoint(Vector3 point, buildingObjects type)
     {
         if (type == buildingObjects.Frame)
@@ -70,6 +76,10 @@ public class constructorController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called by setpoint. Creates a frame between the points pA and pB
+    /// Also does sends the frame to SAP translator
+    /// </summary>
     void createFrame(Vector3 pA, Vector3 pB)
     {
         string frameName = "Frame_i=[" + pA.x + ":" + pA.z + ":" + pA.y + "]-j=[" + pB.x + ":" + pB.z + ":" + pB.y + "]";
@@ -100,12 +110,15 @@ public class constructorController : MonoBehaviour
         string sapTranslatorCommand = "VRE to SAPTranslator: frameObjAddByCoord(" + pA.x + ", " + pA.z + ", " + pA.y + ", " + pB.x + ", " + pB.z + ", " + pB.y + ", " + mySectionController.GetCurrentFrameSection().name + ", " + frameName + ")";
         mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
     }
+
+    /// <summary>
+    /// Deletes a frame given the name of the frame. This is called by the delete button in the UI
+    /// </summary>
     public void deleteFrame(string frameName)
     {
         int i = 0;
         foreach (Frame frameElement in frameList)
         {
-            //Debug.Log("All frames: " + frameElement.getName());
             if (frameElement.getName() == frameName)
             {
                 GameObject frameObject = frameElement.GetGameObject();
@@ -156,6 +169,9 @@ public class constructorController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Deletes a frame given the frameObjectID. Not sure if this is actually used anywhere
+    /// </summary>
     public void deleteFrame(int frameObjectID)
     {
         int i = 0;
@@ -216,7 +232,10 @@ public class constructorController : MonoBehaviour
         i++;
     }
 
-
+    /// <summary>
+    /// Creates a joint Restraint. Currently not being used, but in the future will be called by a UI element
+    /// @TODO might not work, so be weary of that
+    /// </summary>
     public void createJointRestraint(Vector3 position, char type)
     {
         deleteJointRestraint(position); // Overwrite any joint restraint already at the target point
@@ -246,28 +265,10 @@ public class constructorController : MonoBehaviour
         }
     }
 
-    public void deleteJointRestraint(int jointRestraintObjectID)
-    {
-        foreach (jointRestraint jointRestraintElement in jointRestraintList)
-        {
-            GameObject jointRestraintObject = jointRestraintElement.GetGameObject();
-            if (jointRestraintObject.GetInstanceID() == jointRestraintObjectID)
-            {
-                Vector3 position = jointRestraintElement.GetPosition();
-                myXmlController.GetComponent<xmlController>().deleteJointRestraintFromXMLList(position);
-
-                string sapTranslatorCommand = "VRE to SAPTranslator: pointCoordDeleteRestraint(" +
-                position.x + ", " + position.z + ", " + position.y + ")";
-                mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
-
-                jointRestraintElement.SetGameObject(null);
-                Object.Destroy(jointRestraintObject);
-                jointRestraintList.Remove(jointRestraintElement);
-                break;
-            }
-        }
-    }
-
+    /// <summary>
+    /// Deletes a joint restraint given its location. Currently not being used, but in the future will be called by a UI element
+    /// @TODO might not work, so be weary of that
+    /// </summary>
     public void deleteJointRestraint(Vector3 targetPosition)
     {
         foreach (jointRestraint jointRestraintElement in jointRestraintList)
@@ -290,8 +291,35 @@ public class constructorController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Deletes a joint restraint given its object ID. Not sure where this would be used
+    /// @TODO might not work, so be weary of that
+    /// </summary>
+    public void deleteJointRestraint(int jointRestraintObjectID)
+    {
+        foreach (jointRestraint jointRestraintElement in jointRestraintList)
+        {
+            GameObject jointRestraintObject = jointRestraintElement.GetGameObject();
+            if (jointRestraintObject.GetInstanceID() == jointRestraintObjectID)
+            {
+                Vector3 position = jointRestraintElement.GetPosition();
+                myXmlController.GetComponent<xmlController>().deleteJointRestraintFromXMLList(position);
 
+                string sapTranslatorCommand = "VRE to SAPTranslator: pointCoordDeleteRestraint(" +
+                position.x + ", " + position.z + ", " + position.y + ")";
+                mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
 
+                jointRestraintElement.SetGameObject(null);
+                Object.Destroy(jointRestraintObject);
+                jointRestraintList.Remove(jointRestraintElement);
+                break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Deletes everything. I believe this is being used when we generate a new grid
+    /// </summary>
     public void deleteAll()
     {
         framePoints.Clear();
@@ -312,6 +340,10 @@ public class constructorController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// XML stuff used for SAP translator and saving
+    /// @TODO add documentation
+    /// </summary>
     public void constructFromXmlElementsLists(StructuralElementsLists elementsListsForXML)
     {
         deleteAll();
@@ -343,6 +375,9 @@ public class constructorController : MonoBehaviour
 
 public class Area { }
 
+
+/* This class defines a joint restraint */
+/* @TODO probably should be moved to its own file */
 public class jointRestraint {
 
     Vector3 position;

@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* This class is attatched to the tube frame prefab */
+/* It is used for correctly scaling the prefab */
 public class frame_TubeController : MonoBehaviour
 {   
     public GameObject frame;
     public GameObject center;
 
+    /// <summary>
+    /// Sets the frames prefab to be the correct sizes
+    /// </summary>
     public void SetDimensions(float outsideDepth, float outsideWidth, float flangeThickness, float webThickness)
     {
         Transform trans = frame.transform;

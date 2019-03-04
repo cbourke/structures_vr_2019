@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* This file is used to test various functions */
+/* Its a good idea to test things here so it is a more controlled enviroment than doing it in VR */
+/* NOTE that this only runs if the debug gameobject is enabled in the Unity editor */
 public class debugDrawing : MonoBehaviour {
 
 	public constructorController myConstructorController;
@@ -39,6 +42,10 @@ public class debugDrawing : MonoBehaviour {
 
     }
 	
+    /// <summary>
+    /// creates some building materials and frame sections
+    /// this is useful to populate the various UI dropdowns so that you don't have to manualy create these each time 
+    /// </summary>
     void populateDropdowns()
     {
         			
@@ -52,6 +59,9 @@ public class debugDrawing : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Used for testing unit conversions
+    /// </summary>
     void testConversions()
     {
         unitsController uC = myUnitsController.GetComponent<unitsController>();
@@ -109,6 +119,9 @@ public class debugDrawing : MonoBehaviour {
         Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton)+ " tonf");
     }
 
+    /// <summary>
+    /// creates various frame sections and draws a few frames
+    /// </summary>
     void testSections()
     {
         mySectionController.SetCurrentFrameSection("Sec_Steel_I");
@@ -127,6 +140,9 @@ public class debugDrawing : MonoBehaviour {
         myConstructorController.setPoint(p5, buildingObjects.Frame);
     }
 
+    /// <summary>
+    /// creates a few joint restraints
+    /// </summary>
     void testJoints()
     {
         myConstructorController.createJointRestraint(origin, 'f');
@@ -143,6 +159,9 @@ public class debugDrawing : MonoBehaviour {
         myConstructorController.createJointRestraint(p6, 'f'); // This is meant to fail, as there is no frame endpoint here
     }
 
+    /// <summary>
+    /// creates and deletes frame sections
+    /// </summary>
     void testFrameDeletion()
     {
         mySectionController.SetCurrentFrameSection("Sec_Steel_I");
@@ -161,42 +180,9 @@ public class debugDrawing : MonoBehaviour {
         
     }
 
-
-    void testMaterials()
-    {
-        
-        // this is broken because the way building materials is being handled has changed
-        /*
-        myMaterialController.addBuildingMaterial("Steel01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53Grades.GRADE_B);
-        myMaterialController.addBuildingMaterial("Steel02", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500Grades.GRADE_B_fy_46);
-        myMaterialController.addBuildingMaterial("Aluminum01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.ALUMINUM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTMGrades.GRADE_Alloy_6063_T6);
-        
-        BuildingMaterial bm1 = new BuildingMaterial();
-        BuildingMaterial bm2 = new BuildingMaterial("I_am_bm_2");
-        BuildingMaterial bm3 = new BuildingMaterial("Three", BuildingMaterialAttributes.Regions.UNITEDSTATES,
-            BuildingMaterialAttributes.Regions.UnitedStatesTypes.ALUMINUM,
-            BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTM,
-            BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTMGrades.GRADE_Alloy_5052_H34);
-
-        Debug.Log("bm1: " + bm1.GetUserDefinedName() + ", " + bm1.GetRegion() + ", " + bm1.GetMaterialType() + ", " + bm1.GetStandard() + ", " + bm1.GetGrade());
-        Debug.Log("bm2: " + bm2.GetUserDefinedName() + ", " + bm2.GetRegion() + ", " + bm2.GetMaterialType() + ", " + bm2.GetStandard() + ", " + bm2.GetGrade());
-        Debug.Log("bm3: " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
-
-        bm3.SetGrade(BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A36Grades.GRADE_36); // Should not work; merely reset grade to aluminum ASTM's first grade option
-        Debug.Log("bm3 (1): " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
-
-        bm3.SetStandard(BuildingMaterialAttributes.Regions.UnitedStatesTypes.RebarStandards.ASTM_A706); // Should not work; merely reset standard to aluminum's first standard option
-        Debug.Log("bm3 (2): " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
-
-        bm3.SetType(503); // Should not work; merely reset standard to United States' first type option
-        Debug.Log("bm3 (3): " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
-
-        bm3.SetRegion(111); // Should not work; no change should be made.
-        Debug.Log("bm3 (4): " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
-        
-         */
-    }
-
+    /// <summary>
+    /// Draws a few frame sections
+    /// </summary>
     void drawFrames()
     {
         drawGrid();
@@ -213,6 +199,9 @@ public class debugDrawing : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// generates the grid nodes
+    /// </summary>
     void drawGrid()
     {
         myGridController.createGrid(5, 5, 5, 1f);
