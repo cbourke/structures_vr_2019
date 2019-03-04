@@ -293,7 +293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disableWhenIdle: 1
   allowedNearTouchControllers: 0
-  allowedTouchControllers: 0
+  allowedTouchControllers: 2
   ignoredColliders: []
   isGrabbable: 0
   holdButtonToGrab: 1
@@ -303,12 +303,12 @@ MonoBehaviour:
   allowedGrabControllers: 0
   grabAttachMechanicScript: {fileID: 0}
   secondaryGrabActionScript: {fileID: 0}
-  isUsable: 0
-  holdButtonToUse: 1
+  isUsable: 1
+  holdButtonToUse: 0
   useOnlyIfGrabbed: 0
-  pointerActivatesUseAction: 0
+  pointerActivatesUseAction: 1
   useOverrideButton: 0
-  allowedUseControllers: 0
+  allowedUseControllers: 2
   objectHighlighter: {fileID: 0}
   touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0

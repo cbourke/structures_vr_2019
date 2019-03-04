@@ -25,7 +25,6 @@ public class selectionController : MonoBehaviour {
     /// </summary>
 	public void select(Frame targetFrame)
 	{
-        Debug.Log("Select");
         switch(selectionBehavior)
 		{
 			case selectionBehaviors.reset:
@@ -229,13 +228,15 @@ public class selectionController : MonoBehaviour {
     {
         foreach (Frame targetFrame in targetFrameList)
         {
-            if (selectedFrames.Contains(targetFrame))
+            for(int i=0; i<selectedFrames.Count; i++)
             {
-                targetFrame.setSelected(false);
-                selectedFrames.Remove(targetFrame);
-                Debug.Log("Removed from selection: " + targetFrame.getName());
+                if(selectedFrames[i].getName() == targetFrame.getName())
+                {
+                    targetFrame.setSelected(false);
+                    selectedFrames.RemoveAt(i);
+                    Debug.Log("Removed from selection: " + targetFrame.getName());
+                }
             }
-
         }
     }
     
