@@ -134,8 +134,6 @@ public class selectionController : MonoBehaviour {
             targetFrame.setSelected(true);
             selectedFrames.Add(targetFrame);
         }
-
-        printSelectedFrames();
 	}
 
     /// <summary>

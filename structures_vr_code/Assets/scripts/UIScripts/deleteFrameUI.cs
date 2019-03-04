@@ -25,7 +25,6 @@ public class deleteFrameUI : MonoBehaviour
             List<Frame> selection = mySelectionController.GetSelectedFrames();
             foreach (Frame f in selection)
             {
-                Debug.Log("delete frame: " + f.getName());
                 myConstructorController.deleteFrame(f.getName());
             }
             StopCoroutine(deleteCheck());
