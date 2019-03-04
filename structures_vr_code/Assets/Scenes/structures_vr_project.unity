@@ -3123,7 +3123,7 @@ MonoBehaviour:
   myXmlController: {fileID: 1155890636}
   mySapTranslatorIpcHandler: {fileID: 1155890643}
   tempLineRenderer: {fileID: 425715893}
-  framePrefabIBeam: {fileID: 7920509773000511727, guid: 9afddfb8138a00a4baf1b7aea0023ced,
+  framePrefabIBeam: {fileID: 7920509773000511727, guid: 77228875212067541ac402a6849f410b,
     type: 3}
   framePrefabTube: {fileID: 9022517299805872648, guid: 48566b4ec6f5fea44bcf2ef292b8d777,
     type: 3}
