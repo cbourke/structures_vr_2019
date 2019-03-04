@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/* LEGACY CODE NOT BEING USED */
+
 public class uiCollider : MonoBehaviour {
 	private Button button;
 	private Toggle toggle;

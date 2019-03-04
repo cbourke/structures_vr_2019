@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* This class handles the frame sections */
 public class sectionController : MonoBehaviour {
     public SapTranslatorIpcHandler sapTranslatorIpcHandler;
     public xmlController myXmlController;
@@ -12,12 +13,17 @@ public class sectionController : MonoBehaviour {
 
     private List<FrameSection> frameSections = new List<FrameSection>();
 
-	// Use this for initialization
+    /// <summary>
+    /// Creates a default frame section
+    /// </summary>
 	void Awake () {
         addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
         currentFrameSection = frameSections[0];
 	}
 
+    /// <summary>
+    /// finds a frame section given its name and returns the section
+    /// </summary>
     public FrameSection findFrameSection(string name)
     {
         FrameSection output = null;
@@ -35,6 +41,9 @@ public class sectionController : MonoBehaviour {
         return output;
     }
 
+    /// <summary>
+    /// Add a new FrameSection to the list of FrameSections
+    /// </summary>
     public int addFrameSection(FrameSection frameSection)
     {
         if (findFrameSection(frameSection.GetName()) == null)
@@ -50,9 +59,11 @@ public class sectionController : MonoBehaviour {
         
     }
 
+    /// <summary>
+    /// Create a new iframe-type framesection and then add it to frameSections list
+    /// </summary>
     public int addIFrameSection(string name, string buildingMaterialName, float outsideHeight, float topFlangeWidth, float topFlangeThickness, float webThickness, float bottomFlangeWidth, float bottomFlangeThickness)
     {
-        //Create a new iframe-type framesection and then add it to frameSections list
         FrameSection newFrameSection = new FrameSection(name, buildingMaterialName, FrameSectionType.I);
         newFrameSection.SetIDimensions(outsideHeight, topFlangeWidth, topFlangeThickness, webThickness, bottomFlangeWidth, bottomFlangeThickness);
 
@@ -65,6 +76,9 @@ public class sectionController : MonoBehaviour {
         return addFrameSection(newFrameSection);
     }
 
+    /// <summary>
+    /// Create a new pipe-type framesection and then add it to frameSections list
+    /// </summary>
     public int addPipeFrameSection(string name, string buildingMaterialName, float outsideDiameter, float wallThickness)
     {
         FrameSection newFrameSection = new FrameSection(name, buildingMaterialName, FrameSectionType.Pipe);
@@ -78,6 +92,9 @@ public class sectionController : MonoBehaviour {
         return addFrameSection(newFrameSection);
     }
 
+    /// <summary>
+    /// Create a new tube-type framesection and then add it to frameSections list
+    /// </summary>
     public int addTubeFrameSection(string name, string buildingMaterialName, float outsideDepth, float outsideWidth, float flangeThickness, float webThickness)
     {
         FrameSection newFrameSection = new FrameSection(name, buildingMaterialName, FrameSectionType.Tube);
@@ -93,6 +110,9 @@ public class sectionController : MonoBehaviour {
         return addFrameSection(newFrameSection);
     }
 
+    /// <summary>
+    /// Deletes a frame section
+    /// </summary>
     public void deleteFrameSection(string name)
     {
         FrameSection targetFrameSection = findFrameSection(name);
@@ -111,9 +131,11 @@ public class sectionController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Sets the current frame section being used
+    /// </summary>
     public void SetCurrentFrameSection(string name)
     {
-        Debug.Log("new Frame section: " + name);
         FrameSection fs = findFrameSection(name);
         if (fs != null)
         {
@@ -121,11 +143,17 @@ public class sectionController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Returns the current frame section
+    /// </summary>
     public FrameSection GetCurrentFrameSection()
     {
         return currentFrameSection;
     }
 
+    /// <summary>
+    /// Returns a list of all the frame sections
+    /// </summary>
     public List<FrameSection> getSectionList()
     {
         return frameSections;

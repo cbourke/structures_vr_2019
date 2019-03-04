@@ -18,7 +18,7 @@ public class GridNodeBehavior : MonoBehaviour {
 	}
 
     /// <summary>
-    /// 
+    /// Either selects the node or sets a point for drawing depending on what the current pointer mode is
     /// </summary>
     public void VRTKUse()
     {
@@ -40,12 +40,18 @@ public class GridNodeBehavior : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Sets canUse to true. This bool is needed to prevent clicking a node to register multiple times
+    /// </summary>
     public void VRTKUnuse()
     {
         Debug.Log("Gridnode UNUSE");
         canUse = true;
     }
 
+    /// <summary>
+    /// Used to set the preview line renderer
+    /// </summary>
     public void VRTKTouch()
     {
         if (previewLineRenderer.isVisible) {
@@ -54,19 +60,32 @@ public class GridNodeBehavior : MonoBehaviour {
         
     }
 
+    /// <summary>
+    /// Sets the line renderer component
+    /// </summary>
     public void setPreviewLineRenderer(LineRenderer newPreviewLineRenderer)
     {
         this.previewLineRenderer = newPreviewLineRenderer;
     }
 
+    /// <summary>
+    /// Sets the pointer controller component
+    /// </summary>
     public void setPointerController(PointerController pc){
         pointerController = pc;
     }
 
+    /// <summary>
+    /// Returns selection state
+    /// </summary>
     public bool getSelected(){
 		return isSelected;
 	}
 
+    /// <summary>
+    /// Sets selection state
+    /// @TODO needs to highlight the node if it is being drawn with
+    /// </summary>
 	public void setSelected(bool selected) {
 		isSelected = selected;
 	}

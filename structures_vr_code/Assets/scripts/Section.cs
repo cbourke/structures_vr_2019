@@ -2,21 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* This class defines a frame section */
 public class FrameSection
 {
-    //private BuildingMaterial material;
     // We only need a reference to the name of a BuildingMaterial, this makes serialization easier
     public string name;
     public string buildingMaterialName;
     public FrameSectionType type;
     public float[] dimensions = new float[6];
 
-
+    /// <summary>
+    /// Empty constructor
+    /// </summary>
     public FrameSection()
     {
 
     }
 
+    /// <summary>
+    /// Used to construct a Frame Section object
+    /// Gets passed the name, building material name, and FrameSectionType type
+    /// Default values are passed into the SetDimensions function, these are changed
+    /// depending on the users input
+    /// </summary>
     public FrameSection(string name, string buildingMaterialName, FrameSectionType type)
     {
         this.name = name;
@@ -43,26 +51,47 @@ public class FrameSection
         }
     }
 
+    /// <summary>
+    /// Sets the name of the section
+    /// </summary>
     public void SetName(string newName)
     {
         name = newName;
     }
+
+    /// <summary>
+    /// Returns the name of the section 
+    /// </summary>
     public string GetName()
     {
         return name;
     }
 
+    /// <summary>
+    /// Sets the material given a BuildingMaterial type
+    /// </summary>
     public void SetMaterial(BuildingMaterial newMaterial) {
         buildingMaterialName = newMaterial.GetName();
     }
+
+    /// <summary>
+    /// Sets the material given the material name
+    /// </summary>
     public void SetMaterial(string newMaterialName)
     {
         buildingMaterialName = newMaterialName;
     }
+
+    /// <summary>
+    /// Returns the material name 
+    /// </summary>
     public string GetMaterialName() {
         return buildingMaterialName;
     }
 
+    /// <summary>
+    /// Sets the dimensions for an Ibeam
+    /// </summary>
     public void SetIDimensions(float outsideHeight, float topFlangeWidth, float topFlangeThickness, float webThickness, float bottomFlangeWidth, float bottomFlangeThickness)
     {
         dimensions[0] = outsideHeight;
@@ -72,6 +101,10 @@ public class FrameSection
         dimensions[4] = bottomFlangeWidth;
         dimensions[5] = bottomFlangeThickness;
     }
+
+    /// <summary>
+    /// Sets the dimensions for a Pipe
+    /// </summary>
     public void SetPipeDimensions(float outsideDiameter, float wallThickness)
     {
         dimensions[0] = outsideDiameter;
@@ -81,6 +114,10 @@ public class FrameSection
         dimensions[4] = 0.0f;
         dimensions[5] = 0.0f;
     }
+
+    /// <summary>
+    /// Sets the dimensions for a Tube 
+    /// </summary>
     public void SetTubeDimensions(float outsideDepth, float outsideWidth, float flangeThickness, float webThickness)
     {
         dimensions[0] = outsideDepth;
@@ -90,6 +127,10 @@ public class FrameSection
         dimensions[4] = 0.0f;
         dimensions[5] = 0.0f;
     }
+
+    /// <summary>
+    /// generic set dimension. Not sure where this is being used 
+    /// </summary>
     public void SetRawDimensions(float dim0, float dim1, float dim2, float dim3, float dim4, float dim5)
     {
         dimensions[0] = dim0;
@@ -100,12 +141,15 @@ public class FrameSection
         dimensions[5] = dim5;
     }
 
+    /// <summary>
+    /// Returns the array of dimensions 
+    /// </summary>
     public float[] GetDimensions()
     {
         return dimensions;
     }
 
-
+    /* various getters */
     public float GetIOutsideHeight()
     {
         if (type == FrameSectionType.I) return dimensions[0];

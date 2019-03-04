@@ -4,7 +4,7 @@ using UnityEngine;
 using Valve.VR.InteractionSystem;
 using VRTK;
 
-
+/* LEGACY CODE NOT BEING USED */
     public class pointer : MonoBehaviour {
 
         public float maxRayLength = 5;
