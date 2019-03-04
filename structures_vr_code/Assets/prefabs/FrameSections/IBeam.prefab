@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6275061531063994110}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3943017710631155851}
   - component: {fileID: 7178731798435290369}
   - component: {fileID: 5334934417255279996}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: startRelease
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 7920509773000002064}
   - component: {fileID: 7920509773000002065}
   - component: {fileID: 7920509773000002066}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TopFlange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 8766014237883825036}
   - component: {fileID: 7097304888613157567}
   - component: {fileID: 6640386625646205497}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: IBeam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 7920509774333723437}
   - component: {fileID: 7920509774333723438}
   - component: {fileID: 7920509774333723439}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Web
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 7920509774714803024}
   - component: {fileID: 7920509774714803025}
   - component: {fileID: 7920509774714803026}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BottomFlange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 4463930677876318633}
   - component: {fileID: 1554596412425456451}
   - component: {fileID: 8532994218917935685}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: endRelease
   m_TagString: Untagged
   m_Icon: {fileID: 0}
