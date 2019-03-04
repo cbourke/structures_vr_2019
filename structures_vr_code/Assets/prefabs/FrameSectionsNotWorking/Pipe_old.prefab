@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 6893404915827800500}
   - component: {fileID: 451105923887151903}
   m_Layer: 8
-  m_Name: Pipe
+  m_Name: Pipe_old
   m_TagString: Frame
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

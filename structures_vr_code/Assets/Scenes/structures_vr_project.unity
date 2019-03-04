@@ -3123,11 +3123,11 @@ MonoBehaviour:
   myXmlController: {fileID: 1155890636}
   mySapTranslatorIpcHandler: {fileID: 1155890643}
   tempLineRenderer: {fileID: 425715893}
-  framePrefabIBeam: {fileID: 7920509773000511727, guid: 77228875212067541ac402a6849f410b,
+  framePrefabIBeam: {fileID: 7920509773000511727, guid: 9afddfb8138a00a4baf1b7aea0023ced,
     type: 3}
   framePrefabTube: {fileID: 9022517299805872648, guid: 48566b4ec6f5fea44bcf2ef292b8d777,
     type: 3}
-  framePrefabPipe: {fileID: 9022517299805872648, guid: 48566b4ec6f5fea44bcf2ef292b8d777,
+  framePrefabPipe: {fileID: 2951282421013473719, guid: ba6608264c3a9a24f9b9e97cd555dfe9,
     type: 3}
   jointRestraintPrefab: {fileID: 1096227065537474, guid: a00f7491a7d448f49a8ff7a9a16f2895,
     type: 3}
@@ -6472,10 +6472,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2aa1a29b92ca4f84a26a5f6e9218b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  operation: 0
+  operation: 1
   checkType: 4
   identifiers:
-  - Grid
+  - Frames
 --- !u!114 &2021243882
 MonoBehaviour:
   m_ObjectHideFlags: 0
