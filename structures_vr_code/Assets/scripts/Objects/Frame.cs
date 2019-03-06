@@ -232,7 +232,7 @@ public class Frame : MonoBehaviour {
 	}
 
     /// <summary>
-    /// Sets wether the frame is selected or not
+    /// Sets whether the frame is selected or not
     /// </summary>
 	public void setSelected(bool selected) {
 		isSelected = selected;

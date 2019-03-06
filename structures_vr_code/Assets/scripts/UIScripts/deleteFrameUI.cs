@@ -27,6 +27,7 @@ public class deleteFrameUI : MonoBehaviour
             {
                 myConstructorController.deleteFrame(f.getName());
             }
+            mySelectionController.deselect(selection);
             StopCoroutine(deleteCheck());
             buttonText.text = deleteText;
             isWait = false;

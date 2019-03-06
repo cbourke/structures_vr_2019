@@ -33,9 +33,16 @@ public class selectionController : MonoBehaviour {
                 if(selectedFrames.Count != 0) {
                     Frame deselFrame = selectedFrames[0];
                     deselect(deselFrame);
+                    Debug.Log("deselName: " + deselFrame.getName());
+                    if(deselFrame.getName() != targetFrame.getName())
+                    {
+				        addListToSelection(targetFrame);
+                    }
                 }
-				selectedFrames.Clear();
-				addListToSelection(targetFrame);
+                else
+                {
+                    addListToSelection(targetFrame);
+                }
 				break;
 			}
 			case selectionBehaviors.additive:
@@ -63,25 +70,7 @@ public class selectionController : MonoBehaviour {
     /// </summary>
     public void select(List<Frame> targetFrameList)
 	{
-		switch(selectionBehavior)
-		{
-			case selectionBehaviors.reset:
-			{
-                // we need to deselect the current frame
-                if(selectedFrames.Count != 0) {
-                    Frame deselFrame = selectedFrames[0];
-                    deselect(deselFrame);
-                }
-				selectedFrames.Clear();
-				addListToSelection(targetFrameList);
-				break;
-			}
-			case selectionBehaviors.additive:
-			{
-				addListToSelection(targetFrameList);
-				break;
-			}
-		}
+        addListToSelection(targetFrameList);
 	}
 
     /// <summary>
@@ -250,15 +239,17 @@ public class selectionController : MonoBehaviour {
     /// </summary>
     private void removeListFromSelection(List<Frame> targetFrameList)
     {
-        foreach (Frame targetFrame in targetFrameList)
+        Frame targetFrame;
+        for(int i=0; i<targetFrameList.Count; i++)
         {
-            for(int i=0; i<selectedFrames.Count; i++)
+            targetFrame = targetFrameList[i];
+            for(int j=0; j<selectedFrames.Count; j++)
             {
-                if(selectedFrames[i].getName() == targetFrame.getName())
+                if(selectedFrames[j].getName() == targetFrame.getName())
                 {
                     targetFrame.setSelected(false);
-                    selectedFrames.RemoveAt(i);
-                    Debug.Log("Removed from selection: " + targetFrame.getName());
+                    selectedFrames.RemoveAt(j);
+                    break;
                 }
             }
         }
@@ -317,5 +308,29 @@ public class selectionController : MonoBehaviour {
             Debug.Log("Frame: " + f.getName());
         }
         
+    }
+
+    /// <summary>
+    /// Toggles between single and multi select
+    /// </summary>
+    public void toggleSelectionType() {
+        if(selectionBehavior == selectionBehaviors.additive)
+        {
+            Debug.Log("new type: single");
+            // deselect all frames but the last selected one
+            List<Frame> deselList = new List<Frame>();
+            for(int i=0; i<selectedFrames.Count-1; i++)
+            {
+                deselList.Add(selectedFrames[i]);
+            }
+
+            deselect(deselList);
+            selectionBehavior = selectionBehaviors.reset;
+        } 
+        else 
+        {
+            Debug.Log("new type: multi");
+            selectionBehavior = selectionBehaviors.additive;
+        }
     }
 }
