@@ -12,8 +12,6 @@ public class selectionController : MonoBehaviour {
     public Material unityMaterialForSelectedFrames;
     public Material unityMaterialForUnselectedFrames;
 
-
-
 	private selectionBehaviors selectionBehavior = selectionBehaviors.additive;
 	private List<Frame> selectedFrames = new List<Frame>();
 	private List<GridNodeBehavior> selectedNodes = new List<GridNodeBehavior>();
@@ -57,9 +55,31 @@ public class selectionController : MonoBehaviour {
     /// </summary>
 	public void select(GridNodeBehavior targetNode)
 	{
-		List<GridNodeBehavior> singletonNodeList = new List<GridNodeBehavior>();
-		singletonNodeList.Add(targetNode);
-		select(singletonNodeList);
+		switch(selectionBehavior)
+		{
+			case selectionBehaviors.reset:
+			{
+                // we need to deselect the current frame
+                if(selectedNodes.Count != 0) {
+                    GridNodeBehavior deselNode = selectedNodes[0];
+                    deselect(deselNode);
+                    if(deselNode.getName() != targetFrame.getName())
+                    {
+				        addListToSelection(targetFrame);
+                    }
+                }
+                else
+                {
+                    addListToSelection(targetFrame);
+                }
+				break;
+			}
+			case selectionBehaviors.additive:
+			{
+				addListToSelection(targetFrame);
+				break;
+			}
+		}
 	}
 
     /// <summary>
