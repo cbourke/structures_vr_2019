@@ -4049,6 +4049,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410813284}
   m_CullTransparentMesh: 0
+--- !u!1 &424726741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 105416, guid: 4d37e49a7ff11c64da046512cfdd7743,
+    type: 3}
+  m_PrefabInstance: {fileID: 538216838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &424726745
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424726741}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8219436, y: 0.84712535, z: 3.5000005}
+  m_Center: {x: -0.033545658, y: 0.014606655, z: 1.7500002}
+--- !u!65 &424726746
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424726741}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.71556044, y: 0.84712535, z: 3.5000005}
+  m_Center: {x: 10.027638, y: 0.014606655, z: 1.7500002}
 --- !u!1 &433623115
 GameObject:
   m_ObjectHideFlags: 0
@@ -8662,6 +8694,64 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1346061088}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &836600631 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 188860, guid: 4d37e49a7ff11c64da046512cfdd7743,
+    type: 3}
+  m_PrefabInstance: {fileID: 538216838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &836600635
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836600631}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 9.859092, z: 2.3763044}
+  m_Center: {x: -7.2090626, y: -3.108019, z: 1.2681522}
+--- !u!65 &836600636
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836600631}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.23716, y: 0.22864975, z: 2.3763041}
+  m_Center: {x: -1.195467, y: -7.973257, z: 1.2681524}
+--- !u!65 &836600637
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836600631}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 9.859092, z: 2.3763044}
+  m_Center: {x: 4.964093, y: -3.108019, z: 1.2681522}
+--- !u!65 &836600638
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836600631}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.23716, y: 0.1, z: 2.3763041}
+  m_Center: {x: -1.195467, y: 1.8215306, z: 1.2681524}
 --- !u!1 &839388446
 GameObject:
   m_ObjectHideFlags: 0
@@ -8782,6 +8872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eea703156df4b34a800f31117dd5dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sapTranslatorIpcHandler: {fileID: 0}
   myXmlController: {fileID: 0}
   myMaterialsController: {fileID: 0}
 --- !u!4 &841756468
@@ -13711,6 +13802,7 @@ GameObject:
   - component: {fileID: 1374388724}
   - component: {fileID: 1374388723}
   - component: {fileID: 1374388728}
+  - component: {fileID: 1374388729}
   m_Layer: 0
   m_Name: Ground
   m_TagString: floor
@@ -13824,6 +13916,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!65 &1374388729
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374388722}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1378660230
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19672,6 +19777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f3d04655c67a64d9c557795f68c9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySapTranslatorIpcHandler: {fileID: 0}
   myXmlController: {fileID: 0}
 --- !u!4 &1919810856
 Transform:
