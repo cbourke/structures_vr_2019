@@ -8,7 +8,6 @@ public enum selectionBehaviors {
 }
 
 /* Selection tool functions */
-/* NOTE currently only select single frame has been tested to work */
 public class selectionController : MonoBehaviour {
     public Material unityMaterialForSelectedFrames;
     public Material unityMaterialForUnselectedFrames;
@@ -33,7 +32,6 @@ public class selectionController : MonoBehaviour {
                 if(selectedFrames.Count != 0) {
                     Frame deselFrame = selectedFrames[0];
                     deselect(deselFrame);
-                    Debug.Log("deselName: " + deselFrame.getName());
                     if(deselFrame.getName() != targetFrame.getName())
                     {
 				        addListToSelection(targetFrame);
@@ -316,7 +314,6 @@ public class selectionController : MonoBehaviour {
     public void toggleSelectionType() {
         if(selectionBehavior == selectionBehaviors.additive)
         {
-            Debug.Log("new type: single");
             // deselect all frames but the last selected one
             List<Frame> deselList = new List<Frame>();
             for(int i=0; i<selectedFrames.Count-1; i++)
@@ -329,7 +326,6 @@ public class selectionController : MonoBehaviour {
         } 
         else 
         {
-            Debug.Log("new type: multi");
             selectionBehavior = selectionBehaviors.additive;
         }
     }
