@@ -25,7 +25,7 @@ public class createNewProject : MonoBehaviour {
 
 	public void clickNew() {
 		Debug.Log("Create");
-		myConstructorController.GetComponent<constructorController>().deleteAll();
+		myConstructorController.deleteAll();
         float spacing = float.Parse(spacingText.text);
 		float spacingMeters = (float)(myUnitsController.getLengthMeters(spacing));
 		int x = int.Parse(xText.text);

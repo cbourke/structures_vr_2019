@@ -3051,6 +3051,7 @@ MonoBehaviour:
   myPointerController: {fileID: 1388622114}
   previewLineRenderer: {fileID: 425715893}
   node: {fileID: 1572682032358450, guid: 7f5ddc3c38711f74f9246f022b4819e2, type: 3}
+  scaler: {fileID: 1471876379}
 --- !u!114 &1155890636
 MonoBehaviour:
   m_ObjectHideFlags: 0

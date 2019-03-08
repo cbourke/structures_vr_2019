@@ -333,11 +333,12 @@ public class constructorController : MonoBehaviour
         frameList.Clear();
         foreach (jointRestraint jointRestraintElement in jointRestraintList)
         {
+            Debug.Log("delete restraint");
             GameObject jointRestraintObject = jointRestraintElement.GetGameObject();
             jointRestraintElement.SetGameObject(null);
             Object.Destroy(jointRestraintObject);
-            jointRestraintList.Remove(jointRestraintElement);
         }
+        jointRestraintList.Clear();
     }
 
     /// <summary>
