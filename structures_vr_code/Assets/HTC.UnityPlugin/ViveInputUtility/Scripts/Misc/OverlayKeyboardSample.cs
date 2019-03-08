@@ -1,5 +1,5 @@
 ﻿//========= Copyright 2016-2019, HTC Corporation. All rights reserved. ===========
-
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using Valve.VR;
 #endif
 
-[RequireComponent(typeof(InputField))]
+[RequireComponent(typeof(TMP_InputField))]
 public class OverlayKeyboardSample : MonoBehaviour
     , ISelectHandler
     , IDeselectHandler
@@ -29,12 +29,12 @@ public class OverlayKeyboardSample : MonoBehaviour
     private static OverlayKeyboardSample activeKeyboard;
     private static System.Text.StringBuilder strBuilder;
 
-    private InputField textEntry;
+    private TMP_InputField textEntry;
     private string text = "";
 
     protected virtual void Start()
     {
-        textEntry = GetComponent<InputField>();
+        textEntry = GetComponent<TMP_InputField>();
     }
 
     protected virtual void OnDisable()
