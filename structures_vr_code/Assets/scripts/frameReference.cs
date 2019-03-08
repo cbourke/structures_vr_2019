@@ -7,7 +7,10 @@ using UnityEngine;
 public class frameReference : MonoBehaviour
 {
     private selectionController mySelectionController;
+    private PointerController myPointerController;
+
     private Frame myFrame;
+    private bool canUse = true;
 
     /// <summary>
     /// Sets the frame reference
@@ -42,10 +45,47 @@ public class frameReference : MonoBehaviour
     }
 
     /// <summary>
+    /// Sets the pointer controller
+    /// </summary>
+    public void setMyPointerController(PointerController newPointerController)
+    {
+        myPointerController = newPointerController;
+    }
+
+    /// <summary>
+    /// Returns the pointer controller
+    /// </summary>
+    public PointerController getMyPointerController()
+    {
+        return myPointerController;
+    }
+
+    /// <summary>
     /// Called when a frame is selected with the selection tool
     /// </summary>
     public void onVRTKUse()
     {
-        mySelectionController.select(myFrame);
+        if (canUse)
+        {
+            switch (myPointerController.getPointerMode()){
+                case pointerModes.draw:
+                case pointerModes.selectNode: {
+                    break;
+                }
+                case pointerModes.selectFrame: {
+                    mySelectionController.select(myFrame);
+                    break;
+                } 
+            }
+        }
+    }
+
+    /// <summary>
+    /// Sets canUse to true. This bool is needed to prevent clicking a node to register multiple times
+    /// </summary>
+    public void VRTKUnuse()
+    {
+        Debug.Log("Gridnode UNUSE");
+        canUse = true;
     }
 }

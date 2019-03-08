@@ -12,6 +12,8 @@ public class constructorController : MonoBehaviour
     public selectionController mySelectionController;
     public sectionController mySectionController;
     public xmlController myXmlController;
+    public PointerController myPointercontroller;
+
     public SapTranslatorIpcHandler mySapTranslatorIpcHandler;
     public LineRenderer tempLineRenderer;
     
@@ -98,6 +100,7 @@ public class constructorController : MonoBehaviour
             Debug.LogError("Invalid frame section type passed to createFrame in constructorController");
         }
         frame.GetGameObject().GetComponent<frameReference>().setMySelectionController(mySelectionController);
+        frame.GetGameObject().GetComponent<frameReference>().setMyPointerController(myPointercontroller);
         frame.GetGameObject().GetComponent<frameReference>().setMyFrame(frame);
 
         frameList.Add(frame);

@@ -26,16 +26,15 @@ public class GridNodeBehavior : MonoBehaviour {
         if (canUse)
         {
             switch (pointerController.getPointerMode()){
-                case pointerModes.node: {
+                case pointerModes.draw: {
                     myConstructorController.setPoint(this.transform.position, buildingObjects.Frame);
                     canUse = false;
                     break;
                 }
-                case pointerModes.frame: {
+                case pointerModes.selectNode: {
                     pointerController.selectionController.select(this);
                     break;
-                }
-                    
+                } 
             }
         }
     }

@@ -5,11 +5,13 @@ using VRTK;
 
 public enum pointerModes
 {
-    node,
-    frame
+    draw,
+    selectFrame,
+    selectNode
 }
 
 /* This class controlls the pointer, i.e. switches between pointer modes */
+/* NOTE this script is attatched to the right controller scripts, it is not in the gameControllers gameobejct */
 public class PointerController : MonoBehaviour {
     public VRTK_Pointer nodePointer;
     public VRTK_Pointer framePointer;
@@ -24,6 +26,7 @@ public class PointerController : MonoBehaviour {
     /// Sets the default pointer mode
     /// </summary>
     void Start () {
+        Debug.Log("START POITNER CONTROLLER");
         setPointerMode(defaultPointerMode);
     }
 	
@@ -44,21 +47,22 @@ public class PointerController : MonoBehaviour {
     {
         mode = newMode;
         switch(newMode) {
-            case pointerModes.node:
-                {
-                    Debug.Log("node active");
-                    framePointer.gameObject.SetActive(false);
-                    nodePointer.gameObject.SetActive(true);
-                    
-                    break;
-                }
-            case pointerModes.frame:
-                {
-                    Debug.Log("frame active");
-                    framePointer.gameObject.SetActive(true);
-                    nodePointer.gameObject.SetActive(false);
-                    break;
-                }
+            case pointerModes.draw:
+            case pointerModes.selectNode:
+            {
+                Debug.Log("Pointer mode: " + newMode);
+                framePointer.gameObject.SetActive(false);
+                nodePointer.gameObject.SetActive(true);
+                
+                break;
+            }
+            case pointerModes.selectFrame:
+            {
+                Debug.Log("Pointer mode: select frame");
+                framePointer.gameObject.SetActive(true);
+                nodePointer.gameObject.SetActive(false);
+                break;
+            }
             default: { break; }
         }
     }
@@ -67,17 +71,28 @@ public class PointerController : MonoBehaviour {
     /// Sets the pointer mode to node
     /// This is called when the Ui canvas is switched to the draw tool
     /// </summary>
-    public void setPointerModeToNode()
+    public void setPointerModeToDraw()
     {
-        setPointerMode(pointerModes.node);
+        setPointerMode(pointerModes.draw);
     }
 
     /// <summary>
-    /// Sets the pointer mode to frame
+    /// Sets the pointer mode to frame select
     /// This is called when the Ui canvas is switched to the select tool
     /// </summary>
-    public void setPointerModeToFrame()
+    public void setPointerModeToFrameSelect()
     {
-        setPointerMode(pointerModes.frame);
+        setPointerMode(pointerModes.selectFrame);
     }
+
+    /// <summary>
+    /// Sets the pointer mode to node select
+    /// This is called when the Ui canvas is switched to placing restraints
+    /// </summary>
+    public void setPointerModeToNodeSelect()
+    {
+        setPointerMode(pointerModes.selectNode);
+    }
+
+    
 }

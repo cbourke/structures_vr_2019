@@ -3121,6 +3121,7 @@ MonoBehaviour:
   mySelectionController: {fileID: 1155890641}
   mySectionController: {fileID: 1155890639}
   myXmlController: {fileID: 1155890636}
+  myPointercontroller: {fileID: 1388622114}
   mySapTranslatorIpcHandler: {fileID: 1155890643}
   tempLineRenderer: {fileID: 425715893}
   framePrefabIBeam: {fileID: 7920509773000511727, guid: 77228875212067541ac402a6849f410b,
@@ -4034,7 +4035,7 @@ PrefabInstance:
     - target: {fileID: 114141074541853668, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: setPointerModeToFrame
+      value: setPointerModeToFrameSelect
       objectReference: {fileID: 0}
     - target: {fileID: 114141074541853668, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
@@ -4074,7 +4075,7 @@ PrefabInstance:
     - target: {fileID: 114411116859853204, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: setPointerModeToNode
+      value: setPointerModeToDraw
       objectReference: {fileID: 0}
     - target: {fileID: 114411116859853204, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
