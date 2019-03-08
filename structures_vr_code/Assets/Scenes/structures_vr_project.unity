@@ -4113,6 +4113,86 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 114098886524430972, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114098886524430972, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114468991025785968, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114468991025785968, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114711006776670800, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114711006776670800, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114728944921262056, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114728944921262056, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114229911964022610, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114229911964022610, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813744357731254, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813744357731254, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114244677773212896, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114244677773212896, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114474928108683546, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114474928108683546, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 403641291695165001, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -4123,6 +4203,20 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3834781333017003629, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834781333017003629, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162993756500092, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
+      propertyPath: followingTarget
+      value: 
+      objectReference: {fileID: 1931310774}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
