@@ -10,6 +10,7 @@ public class gridController : MonoBehaviour {
 	
 	public GameObject node;
 	public static gridNode[, ,] grid;
+    public ScaleGround scaler;
 	static private float gridSpacing;
 
 
@@ -31,6 +32,7 @@ public class gridController : MonoBehaviour {
 		}
 		destroyNodes();
 		spawnNodes(grid);
+        scaler.scale(gridX, gridZ, spacing);
 
 	}
 

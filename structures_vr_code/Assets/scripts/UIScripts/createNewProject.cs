@@ -15,6 +15,8 @@ public class createNewProject : MonoBehaviour {
 	public constructorController myConstructorController;
 	public unitsController myUnitsController;
 
+    public Object jointRestraint;
+
 	void Start() {
 		if(myGridController == null || myConstructorController == null) {
 			Debug.LogError("Assign the controllers to the file-create button");
@@ -24,7 +26,7 @@ public class createNewProject : MonoBehaviour {
 	public void clickNew() {
 		Debug.Log("Create");
 		myConstructorController.GetComponent<constructorController>().deleteAll();
- 		float spacing = float.Parse(spacingText.text);
+        float spacing = float.Parse(spacingText.text);
 		float spacingMeters = (float)(myUnitsController.getLengthMeters(spacing));
 		int x = int.Parse(xText.text);
 		int y = int.Parse(yText.text);
