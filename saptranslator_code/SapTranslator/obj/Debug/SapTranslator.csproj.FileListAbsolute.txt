@@ -40,3 +40,4 @@ C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator
 C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\bin\Debug\SapTranslator.pdb
 C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\bin\Debug\UnityEngine.xml
 C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\obj\Debug\SapTranslator.csproj.CopyComplete
+C:\Users\vradmin\Documents\GitHub\structures_vr\saptranslator_code\SapTranslator\bin\Debug\SAP2000v20.dll
