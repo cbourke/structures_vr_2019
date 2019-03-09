@@ -63,20 +63,20 @@ public class selectionController : MonoBehaviour {
                 if(selectedNodes.Count != 0) {
                     GridNodeBehavior deselNode = selectedNodes[0];
                     deselect(deselNode);
-                    if(deselNode.getName() != targetFrame.getName())
+                    if(deselNode != targetNode)
                     {
-				        addListToSelection(targetFrame);
+				        addListToSelection(targetNode);
                     }
                 }
                 else
                 {
-                    addListToSelection(targetFrame);
+                    addListToSelection(targetNode);
                 }
 				break;
 			}
 			case selectionBehaviors.additive:
 			{
-				addListToSelection(targetFrame);
+				addListToSelection(targetNode);
 				break;
 			}
 		}
@@ -180,6 +180,33 @@ public class selectionController : MonoBehaviour {
 	}
 
 
+    /// <summary>
+    /// adds a single node to the list of currently selected frames
+    /// </summary>
+	private void addListToSelection(GridNodeBehavior targetNode)
+	{
+		GridNodeBehavior nodeToDesel = new GridNodeBehavior();
+        bool isSelected = false;
+        // first check to see if the target node is selected already
+        foreach(GridNodeBehavior node in selectedNodes)
+        {
+            if(node == targetNode)
+            {
+                // node is currently selected, we need to deselect
+                nodeToDesel = node;
+                isSelected = true;
+                break;
+            }
+        }
+        if(isSelected)
+        {
+            deselect(nodeToDesel);
+        } else {
+            targetNode.setSelected(true);
+            selectedNodes.Add(targetNode);
+        }
+	}
+    
     /// <summary>
     /// Adds a list of nodes to the selection
     /// Not sure where this would be used

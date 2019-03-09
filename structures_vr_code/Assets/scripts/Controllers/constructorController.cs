@@ -80,7 +80,7 @@ public class constructorController : MonoBehaviour
 
     /// <summary>
     /// Called by setpoint. Creates a frame between the points pA and pB
-    /// Also does sends the frame to SAP translator
+    /// Also sends the frame to SAP translator
     /// </summary>
     void createFrame(Vector3 pA, Vector3 pB)
     {
