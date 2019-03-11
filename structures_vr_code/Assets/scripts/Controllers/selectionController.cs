@@ -43,7 +43,9 @@ public class selectionController : MonoBehaviour {
 			}
 			case selectionBehaviors.additive:
 			{
+                Debug.Log("ADD FRAME: " + targetFrame.getName());
 				addListToSelection(targetFrame);
+                printSelectedFrames();
 				break;
 			}
 		}
@@ -284,19 +286,29 @@ public class selectionController : MonoBehaviour {
     /// </summary>
     private void removeListFromSelection(List<Frame> targetFrameList)
     {
+        List<int> removeIndicies = new List<int>();
         Frame targetFrame;
-        for(int i=0; i<targetFrameList.Count; i++)
+        int numTarget = targetFrameList.Count;
+
+        for(int i=0; i<numTarget; i++)
         {
             targetFrame = targetFrameList[i];
-            for(int j=0; j<selectedFrames.Count; j++)
+            int numSelected = selectedFrames.Count;
+            for(int j=0; j<numSelected; j++)
             {
                 if(selectedFrames[j].getName() == targetFrame.getName())
                 {
-                    targetFrame.setSelected(false);
-                    selectedFrames.RemoveAt(j);
+                    removeIndicies.Add(j);
                     break;
                 }
             }
+        }
+        int count = 0;
+        foreach (int removeIndex in removeIndicies)
+        {
+            selectedFrames[removeIndex-count].setSelected(false);
+            selectedFrames.RemoveAt(removeIndex-count);
+            count++;
         }
     }
     
@@ -331,6 +343,7 @@ public class selectionController : MonoBehaviour {
     /// </summary>
 	public List<Frame> GetSelectedFrames()
 	{
+        printSelectedFrames();
 		return selectedFrames;
 	}
 

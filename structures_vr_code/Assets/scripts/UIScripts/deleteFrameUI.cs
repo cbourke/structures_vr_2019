@@ -22,13 +22,13 @@ public class deleteFrameUI : MonoBehaviour
     public void onClick() {
         if(isWait) {
             // user has confirmed they want to delete
-            List<Frame> selection = mySelectionController.GetSelectedFrames();
-            mySelectionController.deselect(selection);
+            List<Frame> selection = new List<Frame>();
+            selection = mySelectionController.GetSelectedFrames();
             foreach (Frame f in selection)
             {
-            //    mySelectionController.deselect(f);
                 myConstructorController.deleteFrame(f.getName());
             }
+            mySelectionController.deselect(selection);
             StopCoroutine(deleteCheck());
             buttonText.text = deleteText;
             isWait = false;
