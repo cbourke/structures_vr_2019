@@ -331,11 +331,10 @@ public class selectionController : MonoBehaviour {
 
     /// <summary>
     /// Clears the entire selection
+    /// @TODO impliment
     /// </summary>
     void clearSelections()
 	{
-		selectedFrames.Clear();
-		selectedNodes.Clear();
 	}
 
     /// <summary>

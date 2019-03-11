@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/* Scripts for the Delete UI button */
+/* Contains the logic for deleting a selection of frames */
 public class deleteFrameUI : MonoBehaviour
 {
     public constructorController myConstructorController;

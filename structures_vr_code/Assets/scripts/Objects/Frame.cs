@@ -17,7 +17,7 @@ public class Frame : MonoBehaviour {
     private string sectionPropertyName;
 	private List<string> groupNames;
 	private bool isSelected = false;
-	private frameRelease release;
+	private FrameRelease release;
 
 	private float releaseEndPercentage = 0.1f;
 
@@ -54,7 +54,7 @@ public class Frame : MonoBehaviour {
 		startPos = start;
 		endPos = end;
 		
-		release = new frameRelease();
+		release = new FrameRelease();
 		setRelease();
 
         frameObject.GetComponent<frameReference>().setMyFrame(this);
