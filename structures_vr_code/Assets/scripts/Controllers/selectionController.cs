@@ -14,7 +14,7 @@ public class selectionController : MonoBehaviour {
 
 	private selectionBehaviors selectionBehavior = selectionBehaviors.additive;
 	private List<Frame> selectedFrames = new List<Frame>();
-	private List<GridNodeBehavior> selectedNodes = new List<GridNodeBehavior>();
+	private List<GridNode> selectedNodes = new List<GridNode>();
 
     /// <summary>
     /// Select a single frame
@@ -55,15 +55,16 @@ public class selectionController : MonoBehaviour {
     /// Select a single gridNode
     /// Used by the selection tool
     /// </summary>
-	public void select(GridNodeBehavior targetNode)
+	public void select(GridNode targetNode)
 	{
+        Debug.Log("Select Gridnode");
 		switch(selectionBehavior)
 		{
 			case selectionBehaviors.reset:
 			{
                 // we need to deselect the current frame
                 if(selectedNodes.Count != 0) {
-                    GridNodeBehavior deselNode = selectedNodes[0];
+                    GridNode deselNode = selectedNodes[0];
                     deselect(deselNode);
                     if(deselNode != targetNode)
                     {
@@ -100,7 +101,7 @@ public class selectionController : MonoBehaviour {
     /// it is called by the select single gridnode function
     /// Doesn't actually have a use in the VR enviroment currently
     /// </summary>
-	public void select(List<GridNodeBehavior> targetNodeList)
+	public void select(List<GridNode> targetNodeList)
 	{
 		switch(selectionBehavior)
 		{
@@ -185,12 +186,12 @@ public class selectionController : MonoBehaviour {
     /// <summary>
     /// adds a single node to the list of currently selected frames
     /// </summary>
-	private void addListToSelection(GridNodeBehavior targetNode)
+	private void addListToSelection(GridNode targetNode)
 	{
-		GridNodeBehavior nodeToDesel = new GridNodeBehavior();
+		GridNode nodeToDesel = new GridNode();
         bool isSelected = false;
         // first check to see if the target node is selected already
-        foreach(GridNodeBehavior node in selectedNodes)
+        foreach(GridNode node in selectedNodes)
         {
             if(node == targetNode)
             {
@@ -214,9 +215,9 @@ public class selectionController : MonoBehaviour {
     /// Not sure where this would be used
     /// @TODO probably needs to be fixed and tested if we need to use this
     /// </summary>
-	private void addListToSelection(List<GridNodeBehavior> targetNodeList)
+	private void addListToSelection(List<GridNode> targetNodeList)
 	{
-		foreach(GridNodeBehavior targetNode in targetNodeList)
+		foreach(GridNode targetNode in targetNodeList)
 		{
             if (!selectedNodes.Contains(targetNode))
             {
@@ -241,9 +242,9 @@ public class selectionController : MonoBehaviour {
     /// Deselect a single gridnode
     /// Used by the selection tool
     /// </summary>
-    public void deselect(GridNodeBehavior targetNode)
+    public void deselect(GridNode targetNode)
     {
-        List<GridNodeBehavior> singletonNodeList = new List<GridNodeBehavior>();
+        List<GridNode> singletonNodeList = new List<GridNode>();
         singletonNodeList.Add(targetNode);
         deselect(singletonNodeList);
     }
@@ -267,7 +268,7 @@ public class selectionController : MonoBehaviour {
     /// <summary>
     /// Deselect a list of grid nodes
     /// </summary>
-    public void deselect(List<GridNodeBehavior> targetNodeList)
+    public void deselect(List<GridNode> targetNodeList)
     {
         switch (selectionBehavior)
         {
@@ -317,9 +318,9 @@ public class selectionController : MonoBehaviour {
     /// This is the function that acontains the actual logic for removing frames from a selection
     /// @TODO this probably needs to be rewritten and tested
     /// </summary>
-    private void removeListFromSelection(List<GridNodeBehavior> targetNodeList)
+    private void removeListFromSelection(List<GridNode> targetNodeList)
     {
-        foreach (GridNodeBehavior targetNode in targetNodeList)
+        foreach (GridNode targetNode in targetNodeList)
         {
             if (selectedNodes.Contains(targetNode))
             {
@@ -349,7 +350,7 @@ public class selectionController : MonoBehaviour {
     /// <summary>
     /// Returns the selected grid nodes
     /// </summary>
-	public List<GridNodeBehavior> GetSelectedNodes()
+	public List<GridNode> GetSelectedNodes()
 	{
 		return selectedNodes;
 	}

@@ -117,6 +117,12 @@ public class pointerController : MonoBehaviour {
         setPointerMode(pointerModes.UI);
     }
 
+    /// <summary>
+    /// Sets the pointer mode to the previos Draw/Select mode
+    /// This is needed because draw and select frames are used in the same Ui canvas, so if a user 
+    /// switches off the canvas to a different menu item on the radial menu, we need to save their state
+    /// so when they return the correct pointer is activated
+    /// </summary>
     public void setPointerModeToPreviousDrawSelect()
     {
         switch(drawSelectState) {

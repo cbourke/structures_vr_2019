@@ -4,7 +4,7 @@ using UnityEngine;
 
 /* This class defines a frame and its various properties */
 /* Also used for highlighting frames */
-public class Frame : MonoBehaviour {
+public class Frame {
     private string name;
 	private Vector3 startPos;
 	private Vector3 endPos;
@@ -44,7 +44,7 @@ public class Frame : MonoBehaviour {
     {
 
         sectionPropertyName = section.GetName();
-		frameObject = Instantiate(framePrefab);
+		frameObject = MonoBehaviour.Instantiate(framePrefab);
 
 		trans = frameObject.transform;
 		frameTrans = trans.Find("frame");

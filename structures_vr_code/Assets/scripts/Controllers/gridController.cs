@@ -8,7 +8,7 @@ public class gridController : MonoBehaviour {
 	public pointerController myPointerController;
     public LineRenderer previewLineRenderer;
 	
-	public GameObject node;
+	public GameObject gridNodeObject;
 	private GridNode[, ,] grid;
 	static private float gridSpacing;
 
@@ -18,19 +18,21 @@ public class gridController : MonoBehaviour {
 	/// Each time we spawn a new grid we must delete the old one
     /// </summary>
 	public void createGrid(int gridX, int gridY, int gridZ, float spacing) {
+		destroyNodes();
 		gridSpacing = spacing;
-		// Generates the grid
 		grid = new GridNode[gridX, gridY, gridZ];
 		for(int i=0; i<gridX; i++) {
 			for(int j=0; j<gridY; j++) {
 				for(int k=0; k<gridZ; k++) {
 					Vector3 pos = new Vector3(i*spacing,j*spacing,k*spacing);
-					grid[i,j,k] = new GridNode(pos);
+					GridNode gridNode = new GridNode(pos, gridNodeObject);
+					gridNode.GetGameObject().GetComponent<GridNodeBehavior>().setPreviewLineRenderer(previewLineRenderer);
+					gridNode.GetGameObject().GetComponent<GridNodeBehavior>().setPointerController(myPointerController);
+					grid[i,j,k] = gridNode;
 				}
 			}
 		}
-		destroyNodes();
-		spawnNodes(grid);
+		//spawnNodes(grid);
 
 	}
 
@@ -38,16 +40,16 @@ public class gridController : MonoBehaviour {
     /// Actually spawns in the grid node prefabs
 	/// for each node that is spawned we have to set the line renderer and pointer controller
     /// </summary>
+	/*
 	void spawnNodes(GridNode[, ,] grid) {
         GameObject nodeInstance;
         foreach (GridNode item in grid) {
 			nodeInstance = Instantiate(node, item.position, Quaternion.identity);
-            nodeInstance.GetComponent<GridNodeBehavior>().setPreviewLineRenderer(previewLineRenderer);
-			nodeInstance.GetComponent<GridNodeBehavior>().setPointerController(myPointerController);
 			nodeInstance.transform.parent = gameObject.transform;
 		
 		}	
     }
+	 */
 
     /// <summary>
     /// destroys all the nodes
