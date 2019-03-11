@@ -5,7 +5,7 @@ using UnityEngine;
 /* this class is used to controll the grid */
 public class gridController : MonoBehaviour {
     public constructorController myConstructorController;
-	public PointerController myPointerController;
+	public pointerController myPointerController;
     public LineRenderer previewLineRenderer;
 	
 	public GameObject node;

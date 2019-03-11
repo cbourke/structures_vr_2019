@@ -16,7 +16,7 @@ public class frame_iBeamController : MonoBehaviour
     public GameObject web;  //cubeMid
     public GameObject topFlange; //cubeTop
     public GameObject bottomFlange; //cubeBottom
-    public frameReference reference;
+
     /*
                  |  | - web Thickness
        { +-------------------+

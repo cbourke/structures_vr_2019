@@ -7,27 +7,29 @@ public enum pointerModes
 {
     draw,
     selectFrame,
-    selectNode
+    selectNode,
+    UI
 }
 
 /* This class controlls the pointer, i.e. switches between pointer modes */
 /* NOTE this script is attatched to the right controller scripts, it is not in the gameControllers gameobejct */
-public class PointerController : MonoBehaviour {
+public class pointerController : MonoBehaviour {
     public VRTK_Pointer nodePointer;
     public VRTK_Pointer framePointer;
-    public VRTK_UIPointer UIPointer;
+    public VRTK_Pointer UIPointer;
+    //public VRTK_UIPointer UIPointer;
     public VRTK_Pointer TeleportPointer;
     public selectionController selectionController;
 
     private pointerModes mode;
-    public pointerModes defaultPointerMode;
+    private pointerModes drawSelectState;
 
     /// <summary>
     /// Sets the default pointer mode
     /// </summary>
     void Start () {
         Debug.Log("START POITNER CONTROLLER");
-        setPointerMode(defaultPointerMode);
+        setPointerModeToDraw();
     }
 	
     /// <summary>
@@ -47,13 +49,21 @@ public class PointerController : MonoBehaviour {
     {
         mode = newMode;
         switch(newMode) {
+            case pointerModes.UI:
+            {
+                Debug.Log("Pointer mode: " + newMode);
+                framePointer.gameObject.SetActive(false);
+                nodePointer.gameObject.SetActive(false);
+                UIPointer.gameObject.SetActive(true);
+                break;
+            }
             case pointerModes.draw:
             case pointerModes.selectNode:
             {
                 Debug.Log("Pointer mode: " + newMode);
                 framePointer.gameObject.SetActive(false);
                 nodePointer.gameObject.SetActive(true);
-                
+                UIPointer.gameObject.SetActive(false);
                 break;
             }
             case pointerModes.selectFrame:
@@ -61,6 +71,7 @@ public class PointerController : MonoBehaviour {
                 Debug.Log("Pointer mode: select frame");
                 framePointer.gameObject.SetActive(true);
                 nodePointer.gameObject.SetActive(false);
+                UIPointer.gameObject.SetActive(false);
                 break;
             }
             default: { break; }
@@ -73,6 +84,7 @@ public class PointerController : MonoBehaviour {
     /// </summary>
     public void setPointerModeToDraw()
     {
+        drawSelectState = pointerModes.draw;
         setPointerMode(pointerModes.draw);
     }
 
@@ -82,6 +94,7 @@ public class PointerController : MonoBehaviour {
     /// </summary>
     public void setPointerModeToFrameSelect()
     {
+        drawSelectState = pointerModes.selectFrame;
         setPointerMode(pointerModes.selectFrame);
     }
 
@@ -93,6 +106,31 @@ public class PointerController : MonoBehaviour {
     {
         setPointerMode(pointerModes.selectNode);
     }
-
     
+    /// <summary>
+    /// Sets the pointer mode to only UI
+    /// This is called when the Ui canvas is switched off of a UI function that requires the pointer to 
+    /// hit nodes or frames
+    /// </summary>
+    public void setPointerModeToUI()
+    {
+        setPointerMode(pointerModes.UI);
+    }
+
+    public void setPointerModeToPreviousDrawSelect()
+    {
+        switch(drawSelectState) {
+            case pointerModes.draw:
+            {
+                setPointerModeToDraw();
+                break;
+            }
+            case pointerModes.selectFrame:
+            {
+                setPointerModeToFrameSelect();
+                break;
+            }
+            default: { break; }
+        }
+    }
 }

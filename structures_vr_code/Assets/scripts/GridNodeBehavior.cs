@@ -9,7 +9,7 @@ public class GridNodeBehavior : MonoBehaviour {
     public VRTK_InteractableObject linkedObject;
     public constructorController myConstructorController = null;
     public LineRenderer previewLineRenderer = null;
-    public PointerController pointerController;
+    public pointerController pointerController;
     bool canUse = true;
     private bool isSelected = false;
 
@@ -70,7 +70,7 @@ public class GridNodeBehavior : MonoBehaviour {
     /// <summary>
     /// Sets the pointer controller component
     /// </summary>
-    public void setPointerController(PointerController pc){
+    public void setPointerController(pointerController pc){
         pointerController = pc;
     }
 

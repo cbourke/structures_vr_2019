@@ -4,10 +4,10 @@ using UnityEngine;
 
 /* This class holds a reference to a frame gameobjects frame class and selection controller */
 /* This is needed for the the selection tool */
-public class frameReference : MonoBehaviour
+public class FrameBehavior : MonoBehaviour
 {
     private selectionController mySelectionController;
-    private PointerController myPointerController;
+    private pointerController myPointerController;
 
     private Frame myFrame;
     private bool canUse = true;
@@ -47,7 +47,7 @@ public class frameReference : MonoBehaviour
     /// <summary>
     /// Sets the pointer controller
     /// </summary>
-    public void setMyPointerController(PointerController newPointerController)
+    public void setMyPointerController(pointerController newPointerController)
     {
         myPointerController = newPointerController;
     }
@@ -55,7 +55,7 @@ public class frameReference : MonoBehaviour
     /// <summary>
     /// Returns the pointer controller
     /// </summary>
-    public PointerController getMyPointerController()
+    public pointerController getMyPointerController()
     {
         return myPointerController;
     }

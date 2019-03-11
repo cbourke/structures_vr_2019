@@ -57,7 +57,7 @@ public class Frame : MonoBehaviour {
 		release = new FrameRelease();
 		setRelease();
 
-        frameObject.GetComponent<frameReference>().setMyFrame(this);
+        frameObject.GetComponent<FrameBehavior>().setMyFrame(this);
 		frameHighlighter = frameObject.GetComponent<highlighter>();
 		// scale the frame depending on the section type
 		if(section.type == FrameSectionType.I)
