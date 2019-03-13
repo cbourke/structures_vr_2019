@@ -44,9 +44,9 @@ public class selectionController : MonoBehaviour {
 			}
 			case selectionBehaviors.additive:
 			{
-                Debug.Log("ADD FRAME: " + targetFrame.getName());
 				addListToSelection(targetFrame);
-                printSelectedFrames();
+                //Debug.Log("ADD FRAME: " + targetFrame.getName());
+                //printSelectedFrames();
 				break;
 			}
 		}
@@ -357,11 +357,18 @@ public class selectionController : MonoBehaviour {
         //removeListFromSelection(selectedNodes);
 	}
 
+
+    /// <summary>
+    /// Sets the gridNode currently being drawn with
+    /// </summary>
     public void setDrawNode(GridNode node) {
         drawNode = node;
         drawNode.setSelected(true);
     }
 
+    /// <summary>
+    /// Deselects the gridNode being drawn with
+    /// </summary>
     public void clearDrawNode() {
         drawNode.setSelected(false);
     }
@@ -373,7 +380,6 @@ public class selectionController : MonoBehaviour {
     /// </summary>
 	public List<Frame> GetSelectedFrames()
 	{
-        printSelectedFrames();
 		return selectedFrames;
 	}
 

@@ -55,7 +55,6 @@ public class GridNode
     /// </summary>
 	public void setSelected(bool selected) {
 		isSelected = selected;
-		Debug.Log("frame: " + name + ", select state: " + isSelected);
 		highlightObject();
 	}
 
