@@ -5,6 +5,7 @@ using UnityEngine;
 /* This class defines a gridnode */
 public class GridNode
 {
+	private string name;
 	public gridController myGridController;
 	public Vector3 position {get; set;}
 	private highlighter frameHighlighter;
@@ -54,6 +55,7 @@ public class GridNode
     /// </summary>
 	public void setSelected(bool selected) {
 		isSelected = selected;
+		Debug.Log("frame: " + name + ", select state: " + isSelected);
 		highlightObject();
 	}
 
@@ -72,4 +74,14 @@ public class GridNode
     {
 		return gridNodeObject;
 	}
+
+	public string getName()
+    {
+        return this.name;
+    }
+
+    public void setName(string name)
+    {
+        this.name = name;
+    }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class gridController : MonoBehaviour {
     public constructorController myConstructorController;
 	public pointerController myPointerController;
+	public selectionController mySelectionController;
     public LineRenderer previewLineRenderer;
 	
 	public GameObject gridNodeObject;
@@ -26,8 +27,13 @@ public class gridController : MonoBehaviour {
 				for(int k=0; k<gridZ; k++) {
 					Vector3 pos = new Vector3(i*spacing,j*spacing,k*spacing);
 					GridNode gridNode = new GridNode(pos, gridNodeObject);
+					string gridNodeName = "GridNode=[" + pos.x + ":" + pos.z + ":" + pos.y + "]";
+
+					gridNode.setName(gridNodeName);
 					gridNode.GetGameObject().GetComponent<GridNodeBehavior>().setPreviewLineRenderer(previewLineRenderer);
 					gridNode.GetGameObject().GetComponent<GridNodeBehavior>().setPointerController(myPointerController);
+					gridNode.GetGameObject().GetComponent<GridNodeBehavior>().setSelectionController(mySelectionController);
+
 					grid[i,j,k] = gridNode;
 				}
 			}

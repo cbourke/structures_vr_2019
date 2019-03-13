@@ -14,7 +14,6 @@ public class GridNodeBehavior : MonoBehaviour {
     private selectionController mySelectionController;
 
     bool canUse = true;
-    private bool isSelected = false;
     private GridNode myGridNode;
 
 	void Start () {
@@ -31,7 +30,13 @@ public class GridNodeBehavior : MonoBehaviour {
         {
             switch (myPointerController.getPointerMode()){
                 case pointerModes.draw: {
-                    myConstructorController.setPoint(this.transform.position, buildingObjects.Frame);
+                    bool shouldDeselect = myConstructorController.setPoint(this.transform.position, buildingObjects.Frame);
+                    if(shouldDeselect) {
+                        //deselect all the nodes
+                        mySelectionController.clearDrawNode();
+                    } else {
+                        mySelectionController.setDrawNode(myGridNode);
+                    }
                     canUse = false;
                     break;
                 }
@@ -97,7 +102,7 @@ public class GridNodeBehavior : MonoBehaviour {
     /// <summary>
     /// Sets the selection controller
     /// </summary>
-    public void setMySelectionController(selectionController newSelectionController)
+    public void setSelectionController(selectionController newSelectionController)
     {
         mySelectionController = newSelectionController;
     }
@@ -105,23 +110,8 @@ public class GridNodeBehavior : MonoBehaviour {
     /// <summary>
     /// Returns the selection controller
     /// </summary>
-    public selectionController getMySelectionController()
+    public selectionController getSelectionController()
     {
         return mySelectionController;
     }
-
-    /// <summary>
-    /// Returns selection state
-    /// </summary>
-    public bool getSelected(){
-		return isSelected;
-	}
-
-    /// <summary>
-    /// Sets selection state
-    /// @TODO needs to highlight the node if it is being drawn with
-    /// </summary>
-	public void setSelected(bool selected) {
-		isSelected = selected;
-	}
 }
