@@ -16,11 +16,14 @@ public class OverlayKeyboardSample : MonoBehaviour
 
     public void OnSelect(BaseEventData eventData)
     {
+        Debug.Log("on Select");
         ShowKeyboard(this);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
+        
+        Debug.Log("hide deselect");
         HideKeyboard();
     }
 
@@ -41,6 +44,7 @@ public class OverlayKeyboardSample : MonoBehaviour
     {
         if (activeKeyboard == this)
         {
+            Debug.Log("hide Disable");
             HideKeyboard();
         }
     }
@@ -63,16 +67,18 @@ public class OverlayKeyboardSample : MonoBehaviour
     {
         if (activeKeyboard != null)
         {
+            Debug.LogError("Keyboard is null");
             HideKeyboard();
         }
 
         if (activeKeyboard == null)
         {
+            Debug.Log("Keyboard is NOT null");
             var vr = SteamVR.instance;
             if (vr != null)
             {
                 caller.text = caller.textEntry.text;
-                vr.overlay.ShowKeyboard(0, 0, "Description", 256, caller.text, caller.minimalMode, 0);
+                vr.overlay.ShowKeyboard(1, 0, "Description", 256, caller.text, caller.minimalMode, 0);
             }
 
             activeKeyboard = caller;
@@ -131,6 +137,8 @@ public class OverlayKeyboardSample : MonoBehaviour
             }
             else if (input == "\x1b")
             {
+                Debug.Log("hide keybaord from button");
+
                 // Close the keyboard
                 HideKeyboard();
             }
