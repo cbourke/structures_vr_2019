@@ -1,21 +1,32 @@
 ﻿using UnityEngine;
 using Valve.VR;
+using TMPro;
 
 public class KeyboardSample : MonoBehaviour
 {
-	public UnityEngine.UI.InputField textEntry;
+	public TMP_InputField inputField;
 	public bool minimalMode;
 	static bool keyboardShowing;
 	string text = "";
 	static KeyboardSample activeKeyboard = null;
+	private bool isShow = false;
 
 	// Use this for initialization
 	void Start ()
 	{
-		KeyboardDemo_Clicked();
 		//GetComponent<UIClicker>().Clicked += KeyboardDemo_Clicked;
+		inputField = GetComponent<TMP_InputField>();
 	}
 
+
+
+	void Update()
+	{
+        if (inputField.isFocused && !keyboardShowing)
+        {
+			KeyboardDemo_Clicked();
+        }
+	}
 	void OnEnable()
 	{
         SteamVR_Events.System(EVREventType.VREvent_KeyboardCharInput).Listen(OnKeyboard);
@@ -52,14 +63,14 @@ public class KeyboardSample : MonoBehaviour
 			{
 				text += input;
 			}
-			textEntry.text = text;
+			inputField.text = text;
 		}
 		else
 		{
 			System.Text.StringBuilder textBuilder = new System.Text.StringBuilder(1024);
 			uint size = SteamVR.instance.overlay.GetKeyboardText(textBuilder, 1024);
 			text = textBuilder.ToString();
-            textEntry.text = text;
+            inputField.text = text;
 		}
 	}
 
@@ -79,7 +90,7 @@ public class KeyboardSample : MonoBehaviour
 			activeKeyboard = this;
             int inputMode = (int)EGamepadTextInputMode.k_EGamepadTextInputModeNormal;
             int lineMode = (int)EGamepadTextInputLineMode.k_EGamepadTextInputLineModeSingleLine;
-            SteamVR.instance.overlay.ShowKeyboard(inputMode, lineMode, "Description", 256, textEntry.text, minimalMode, 0);
+            SteamVR.instance.overlay.ShowKeyboard(inputMode, lineMode, "Description", 256, inputField.text, minimalMode, 0);
 		}
 	}
 
