@@ -11,6 +11,8 @@ public class gridController : MonoBehaviour {
 	
 	public GameObject gridNodeObject;
 	private GridNode[, ,] grid;
+    public ScaleGround scaler;
+
 	static private float gridSpacing;
 
 
@@ -38,24 +40,8 @@ public class gridController : MonoBehaviour {
 				}
 			}
 		}
-		//spawnNodes(grid);
-
+        scaler.scale(gridX, gridZ, spacing);
 	}
-
-    /// <summary>
-    /// Actually spawns in the grid node prefabs
-	/// for each node that is spawned we have to set the line renderer and pointer controller
-    /// </summary>
-	/*
-	void spawnNodes(GridNode[, ,] grid) {
-        GameObject nodeInstance;
-        foreach (GridNode item in grid) {
-			nodeInstance = Instantiate(node, item.position, Quaternion.identity);
-			nodeInstance.transform.parent = gameObject.transform;
-		
-		}	
-    }
-	 */
 
     /// <summary>
     /// destroys all the nodes
