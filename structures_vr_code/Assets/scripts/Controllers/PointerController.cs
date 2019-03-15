@@ -13,7 +13,7 @@ public enum pointerModes
 
 /* This class controlls the pointer, i.e. switches between pointer modes */
 /* NOTE this script is attatched to the right controller scripts, it is not in the gameControllers gameobejct */
-public class pointerController : MonoBehaviour {
+public class PointerController : MonoBehaviour {
     public VRTK_Pointer nodePointer;
     public VRTK_Pointer framePointer;
     public VRTK_Pointer UIPointer;

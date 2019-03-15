@@ -12,7 +12,7 @@ public class constructorController : MonoBehaviour
     public selectionController mySelectionController;
     public sectionController mySectionController;
     public xmlController myXmlController;
-    public pointerController myPointerController;
+    public PointerController myPointerController;
 
     public SapTranslatorIpcHandler mySapTranslatorIpcHandler;
     public LineRenderer tempLineRenderer;

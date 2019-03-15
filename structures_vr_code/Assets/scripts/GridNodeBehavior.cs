@@ -10,7 +10,7 @@ public class GridNodeBehavior : MonoBehaviour {
     
     private constructorController myConstructorController;
     private LineRenderer previewLineRenderer;
-    private pointerController myPointerController;
+    private PointerController myPointerController;
     private selectionController mySelectionController;
 
     bool canUse = true;
@@ -79,7 +79,7 @@ public class GridNodeBehavior : MonoBehaviour {
     /// <summary>
     /// Sets the pointer controller component
     /// </summary>
-    public void setPointerController(pointerController pc){
+    public void setPointerController(PointerController pc){
         myPointerController = pc;
     }
 

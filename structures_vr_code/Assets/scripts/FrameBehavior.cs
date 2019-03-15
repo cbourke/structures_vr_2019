@@ -7,7 +7,7 @@ using UnityEngine;
 public class FrameBehavior : MonoBehaviour
 {
     private selectionController mySelectionController;
-    private pointerController myPointerController;
+    private PointerController myPointerController;
 
     private Frame myFrame;
     private bool canUse = true;
@@ -47,7 +47,7 @@ public class FrameBehavior : MonoBehaviour
     /// <summary>
     /// Sets the pointer controller
     /// </summary>
-    public void setMyPointerController(pointerController newPointerController)
+    public void setMyPointerController(PointerController newPointerController)
     {
         myPointerController = newPointerController;
     }
@@ -55,7 +55,7 @@ public class FrameBehavior : MonoBehaviour
     /// <summary>
     /// Returns the pointer controller
     /// </summary>
-    public pointerController getMyPointerController()
+    public PointerController getMyPointerController()
     {
         return myPointerController;
     }
