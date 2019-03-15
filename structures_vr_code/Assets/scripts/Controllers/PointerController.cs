@@ -28,8 +28,7 @@ public class PointerController : MonoBehaviour {
     /// Sets the default pointer mode
     /// </summary>
     void Start () {
-        Debug.Log("START POITNER CONTROLLER");
-        setPointerModeToDraw();
+        setPointerModeToUI();
     }
 	
     /// <summary>
