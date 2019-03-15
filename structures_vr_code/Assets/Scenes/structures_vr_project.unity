@@ -4307,7 +4307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 878d4771f2414dd418303f4b2715bd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myGridController: {fileID: 0}
+  myGridController: {fileID: 1155890635}
 --- !u!1 &1480538731
 GameObject:
   m_ObjectHideFlags: 0
