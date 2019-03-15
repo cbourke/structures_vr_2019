@@ -17,8 +17,8 @@ public class ScaleGround : MonoBehaviour {
 		groundX = ((gridX - 1f) / 2f) * spacing;
 		groundZ = (gridZ - 1f) / 2f * spacing;
 
-		scaleX = (gridX / 5f) * spacing + 0.5f;
-		scaleZ = (gridZ / 5f) * spacing + 0.5f;
+		scaleX = (gridX / 5f) * spacing + 0.6f;
+		scaleZ = (gridZ / 5f) * spacing + 0.6f;
 
 		transform.position = new Vector3(groundX, 0f, groundZ);
 		transform.localScale = new Vector3 (scaleX, 1, scaleZ);
