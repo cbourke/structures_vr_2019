@@ -12,6 +12,8 @@ public class constructorController : MonoBehaviour
     public selectionController mySelectionController;
     public sectionController mySectionController;
     public xmlController myXmlController;
+    public PointerController myPointerController;
+
     public SapTranslatorIpcHandler mySapTranslatorIpcHandler;
     public LineRenderer tempLineRenderer;
     
@@ -35,8 +37,9 @@ public class constructorController : MonoBehaviour
     /// <summary>
     /// Called when a node is clicked with the pointer. Depending on the type passed it determins
     /// if it should store the node clicked or call a function to create the correct building type
+    /// Returns true if the points should be deselected
     /// </summary>
-    public void setPoint(Vector3 point, buildingObjects type)
+    public bool setPoint(Vector3 point, buildingObjects type)
     {
         if (type == buildingObjects.Frame)
         {
@@ -47,10 +50,12 @@ public class constructorController : MonoBehaviour
                     createFrame(framePoints[0], point);
                     framePoints.Clear();
                     tempLineRenderer.enabled = false;
+                    return true;
                 } else
                 {
                     framePoints.Clear();
                     tempLineRenderer.enabled = false; 
+                    return true;
                 }
             }
             else
@@ -60,6 +65,7 @@ public class constructorController : MonoBehaviour
                 tempLineRenderer.enabled = true;
                 tempLineRenderer.SetPosition(0, point);
                 tempLineRenderer.SetPosition(1, point);
+                return false;
             }
         }
         else if (type == buildingObjects.Area)
@@ -74,11 +80,12 @@ public class constructorController : MonoBehaviour
                 areaPoints.Add(point);
             }
         }
+        return false;
     }
 
     /// <summary>
     /// Called by setpoint. Creates a frame between the points pA and pB
-    /// Also does sends the frame to SAP translator
+    /// Also sends the frame to SAP translator
     /// </summary>
     void createFrame(Vector3 pA, Vector3 pB)
     {
@@ -97,8 +104,9 @@ public class constructorController : MonoBehaviour
         } else {
             Debug.LogError("Invalid frame section type passed to createFrame in constructorController");
         }
-        frame.GetGameObject().GetComponent<frameReference>().setMySelectionController(mySelectionController);
-        frame.GetGameObject().GetComponent<frameReference>().setMyFrame(frame);
+        frame.GetGameObject().GetComponent<FrameBehavior>().setMySelectionController(mySelectionController);
+        frame.GetGameObject().GetComponent<FrameBehavior>().setMyPointerController(myPointerController);
+        frame.GetGameObject().GetComponent<FrameBehavior>().setMyFrame(frame);
 
         frameList.Add(frame);
         myXmlController.GetComponent<xmlController>().addFrameToXMLList(pA, pB, mySectionController.GetCurrentFrameSection().GetName());

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/* Scripts for the Delete UI button */
+/* Contains the logic for deleting a selection of frames */
 public class deleteFrameUI : MonoBehaviour
 {
     public constructorController myConstructorController;
@@ -22,7 +24,8 @@ public class deleteFrameUI : MonoBehaviour
     public void onClick() {
         if(isWait) {
             // user has confirmed they want to delete
-            List<Frame> selection = mySelectionController.GetSelectedFrames();
+            List<Frame> selection = new List<Frame>();
+            selection = mySelectionController.GetSelectedFrames();
             foreach (Frame f in selection)
             {
                 myConstructorController.deleteFrame(f.getName());
