@@ -92,6 +92,7 @@ public class OverlayKeyboardSample : MonoBehaviour
             var vr = SteamVR.instance;
             if (vr != null)
             {
+                Debug.Log("Hidekeyboard()");
                 vr.overlay.HideKeyboard();
             }
         }

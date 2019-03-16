@@ -1,32 +1,29 @@
 ﻿using UnityEngine;
 using Valve.VR;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class KeyboardSample : MonoBehaviour
+/* This class handles opening and closing the keyboard */
+/* The majority of this code was copied from the OpenVR github, but it was adapted to work with our project */
+public class keyboardOverlay : MonoBehaviour, ISelectHandler
 {
-	public TMP_InputField inputField;
-	public bool minimalMode;
+	private TMP_InputField inputField;
+	private bool minimalMode = false;
+
 	static bool keyboardShowing;
 	string text = "";
-	static KeyboardSample activeKeyboard = null;
-	private bool isShow = false;
+	static keyboardOverlay activeKeyboard = null;
 
+	
 	// Use this for initialization
 	void Start ()
 	{
-		//GetComponent<UIClicker>().Clicked += KeyboardDemo_Clicked;
 		inputField = GetComponent<TMP_InputField>();
+		if(inputField == null) {
+			Debug.LogError("Object needs a Text Mesh Pro input field!");
+		}
 	}
 
-
-
-	void Update()
-	{
-        if (inputField.isFocused && !keyboardShowing)
-        {
-			KeyboardDemo_Clicked();
-        }
-	}
 	void OnEnable()
 	{
         SteamVR_Events.System(EVREventType.VREvent_KeyboardCharInput).Listen(OnKeyboard);
@@ -58,6 +55,7 @@ public class KeyboardSample : MonoBehaviour
 				var vr = SteamVR.instance;
 				vr.overlay.HideKeyboard();
 				keyboardShowing = false;
+
 			}
 			else
 			{
@@ -76,21 +74,23 @@ public class KeyboardSample : MonoBehaviour
 
     private void OnKeyboardClosed(VREvent_t args)
     {
+		inputField.DeactivateInputField();
         if (activeKeyboard != this)
 			return;
 		keyboardShowing = false;
 		activeKeyboard = null;
     }
 
-	private void KeyboardDemo_Clicked()
+	/// <summary>
+    /// Opens up the keyboard overlay when the input field is selected
+    /// </summary>
+	public void OnSelect(BaseEventData eventData)
 	{
 		if(!keyboardShowing)
 		{
 			keyboardShowing = true;
 			activeKeyboard = this;
-            int inputMode = (int)EGamepadTextInputMode.k_EGamepadTextInputModeNormal;
-            int lineMode = (int)EGamepadTextInputLineMode.k_EGamepadTextInputLineModeSingleLine;
-            SteamVR.instance.overlay.ShowKeyboard(inputMode, lineMode, "Description", 256, inputField.text, minimalMode, 0);
+            SteamVR.instance.overlay.ShowKeyboard(1, 0, "Description", 256, inputField.text, minimalMode, 0);
 		}
 	}
 
