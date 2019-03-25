@@ -36,6 +36,9 @@
     <Reference Include="SAP2000v19">
       <HintPath>..\..\..\..\..\..\Program Files\Computers and Structures\SAP2000 19\SAP2000v19.dll</HintPath>
     </Reference>
+    <Reference Include="SAP2000v20">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Computers and Structures\SAP2000 20\SAP2000v20.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamString.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

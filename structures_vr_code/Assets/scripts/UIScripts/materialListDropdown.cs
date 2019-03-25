@@ -5,7 +5,7 @@ using TMPro;
 
 public class materialListDropdown : MonoBehaviour {
 
-	public GameObject materialController;
+	public materialsController myMaterialController;
 	public TMP_Dropdown dropdown;
 
 	// Use this for initialization
@@ -14,8 +14,8 @@ public class materialListDropdown : MonoBehaviour {
 
 	
 	void OnEnable()
-    {
-		List<BuildingMaterial> materialList = materialController.GetComponent<materialsController>().GetMaterials();
+	{
+		List<BuildingMaterial> materialList = myMaterialController.GetComponent<materialsController>().GetMaterials();
 		dropdown.ClearOptions();
 		List<string> materialNames = new List<string>();
 		
@@ -31,7 +31,7 @@ public class materialListDropdown : MonoBehaviour {
 		}
 		dropdown.AddOptions(materialNames);
 		//dropdown.value = 0;
-    }
+	}
 	
 
 }

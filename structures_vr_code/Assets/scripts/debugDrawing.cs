@@ -2,33 +2,69 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* This file is used to test various functions */
+/* Its a good idea to test things here so it is a more controlled enviroment than doing it in VR */
+/* NOTE that this only runs if the debug gameobject is enabled in the Unity editor */
 public class debugDrawing : MonoBehaviour {
 
-	public GameObject constructorController;
-    public GameObject xmlController;
-    public GameObject materialController;
-    public GameObject sectionController;
-    public GameObject unitsController;
+	public constructorController myConstructorController;
+    public xmlController myXmlController;
+    public materialsController myMaterialController;
+    public sectionController mySectionController;
+    public unitsController myUnitsController;
+    public gridController myGridController;
 
     Vector3 origin = new Vector3(0,0,0);
     Vector3 p1 = new Vector3(1,0,0);
     Vector3 p2 = new Vector3(0,1,0);
-    Vector3 p3 = new Vector3(1,1,0);
+    Vector3 p3 = new Vector3(2,1,0);
     Vector3 p4 = new Vector3(0,2,0);
-    Vector3 p5 = new Vector3(1,2,0);
+    Vector3 p5 = new Vector3(3,2,0);
     Vector3 p6 = new Vector3(0,3,0);
 
-	
-	void Start () {
-        
+    Vector3 p7 = new Vector3(0, 1, 1);
+    Vector3 p8 = new Vector3(2, 1, 1);
+    Vector3 p9 = new Vector3(0, 2, 1);
+    Vector3 p10 = new Vector3(2, 2, 1);
+
+    void Start () {
         //xmlController.GetComponent<xmlController>().sendFileToSap(); //send to SAP2000
         Debug.Log("START DEBUG");
-        testConversions();
+        drawGrid();
+        populateDropdowns();
+        Debug.Log("DEBUG Populated Dropdowns.");
+        testSections();
+        Debug.Log("DEBUG Tested Sections.");
+        testJoints();
+        Debug.Log("DEBUG Tested Joints.");
+        testFrameDeletion();
+        Debug.Log("DEBUG Tested Frame Deletion.");
+
     }
 	
+    /// <summary>
+    /// creates some building materials and frame sections
+    /// this is useful to populate the various UI dropdowns so that you don't have to manualy create these each time 
+    /// </summary>
+    void populateDropdowns()
+    {
+        			
+        myMaterialController.addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
+        myMaterialController.addBuildingMaterial("Steel02", "United States", "steel", "ASTM A500", "Grade C");
+        myMaterialController.addBuildingMaterial("Aluminum01", "United States", "aluminum", "ASTM", "Alloy 6061 T6");
+
+        mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
+        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2f, 0.01f);
+        mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Aluminum01", 0.16f, 0.1f, 0.007f, 0.007f);
+
+    }
+
+    /// <summary>
+    /// Used for testing unit conversions
+    /// </summary>
     void testConversions()
     {
-        unitsController uC = unitsController.GetComponent<unitsController>();
+        unitsController uC = myUnitsController.GetComponent<unitsController>();
         uC.populateDict();
         int lengthMeter = 5;
         int forceNewton = 15;
@@ -83,75 +119,91 @@ public class debugDrawing : MonoBehaviour {
         Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton)+ " tonf");
     }
 
+    /// <summary>
+    /// creates various frame sections and draws a few frames
+    /// </summary>
     void testSections()
     {
-        sectionController.GetComponent<sectionController>().addIFrameSection("Sec_Steel_I", "Steel01", 0.3, 0.12, 0.01, 0.007, 0.12, 0.01);
-        sectionController.GetComponent<sectionController>().addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2, 0.01);
-        sectionController.GetComponent<sectionController>().addTubeFrameSection("Sec_Aluminum_Tube", "Aluminum01", 0.16, 0.1, 0.007, 0.007);
+        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
+        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
+        myConstructorController.setPoint(origin, buildingObjects.Frame);
+		myConstructorController.setPoint(p1, buildingObjects.Frame);
 
-        sectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Steel_I");
-        Debug.Log("Current frame section: " + sectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
-        constructorController.GetComponent<constructorController>().setPoint(origin, buildingObjects.Frame);
-		constructorController.GetComponent<constructorController>().setPoint(p1, buildingObjects.Frame);
+        mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
+        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
+        myConstructorController.setPoint(p2, buildingObjects.Frame);
+		myConstructorController.setPoint(p3, buildingObjects.Frame);
 
-        sectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Steel_Pipe");
-        Debug.Log("Current frame section: " + sectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
-        constructorController.GetComponent<constructorController>().setPoint(p2, buildingObjects.Frame);
-		constructorController.GetComponent<constructorController>().setPoint(p3, buildingObjects.Frame);
-
-        sectionController.GetComponent<sectionController>().SetCurrentFrameSection("Sec_Aluminum_Tube");
-        Debug.Log("Current frame section: " + sectionController.GetComponent<sectionController>().GetCurrentFrameSection().GetName());
-        constructorController.GetComponent<constructorController>().setPoint(p4, buildingObjects.Frame);
-        constructorController.GetComponent<constructorController>().setPoint(p5, buildingObjects.Frame);
+        mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
+        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
+        myConstructorController.setPoint(p4, buildingObjects.Frame);
+        myConstructorController.setPoint(p5, buildingObjects.Frame);
     }
 
+    /// <summary>
+    /// creates a few joint restraints
+    /// </summary>
     void testJoints()
     {
-        constructorController.GetComponent<constructorController>().createJointRestraint(origin, 'f');
-        constructorController.GetComponent<constructorController>().createJointRestraint(p1, 'r');
-        constructorController.GetComponent<constructorController>().createJointRestraint(p1, 'f'); // overwrite
+        myConstructorController.createJointRestraint(origin, 'f');
+        myConstructorController.createJointRestraint(p1, 'r');
+        myConstructorController.createJointRestraint(p1, 'f'); // overwrite
 
-        constructorController.GetComponent<constructorController>().createJointRestraint(p2, 'p');
-        constructorController.GetComponent<constructorController>().createJointRestraint(p3, 'p');
+        myConstructorController.createJointRestraint(p2, 'p');
+        myConstructorController.createJointRestraint(p3, 'p');
 
-        constructorController.GetComponent<constructorController>().createJointRestraint(p4, 'r');
-        constructorController.GetComponent<constructorController>().createJointRestraint(p5, 'r');
-        constructorController.GetComponent<constructorController>().deleteJointRestraint(p5); // delete
+        myConstructorController.createJointRestraint(p4, 'r');
+        myConstructorController.createJointRestraint(p5, 'r');
+        myConstructorController.deleteJointRestraint(p5); // delete JR
 
-        constructorController.GetComponent<constructorController>().createJointRestraint(p6, 'f'); // This is meant to fail, as there is no frame endpoint here
+        myConstructorController.createJointRestraint(p6, 'f'); // This is meant to fail, as there is no frame endpoint here
     }
 
-	void testMaterials()
+    /// <summary>
+    /// creates and deletes frame sections
+    /// </summary>
+    void testFrameDeletion()
     {
+        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
+        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
+        myConstructorController.setPoint(p7, buildingObjects.Frame);
+        myConstructorController.setPoint(p8, buildingObjects.Frame);
+
+        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
+        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
+        myConstructorController.setPoint(p9, buildingObjects.Frame);
+        myConstructorController.setPoint(p10, buildingObjects.Frame);
+
+        string deleteFrameName = "Frame_i=[" + p9.x + ":" + p9.z + ":" + p9.y + "]-j=[" + p10.x + ":" + p10.z + ":" + p10.y + "]";
+        myConstructorController.deleteFrame(deleteFrameName);
+
         
-        // this is broken because the way building materials is being handled has changed
-        /*
-        materialController.GetComponent<materialsController>().addBuildingMaterial("Steel01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A53Grades.GRADE_B);
-        materialController.GetComponent<materialsController>().addBuildingMaterial("Steel02", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.STEEL, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500, BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A500Grades.GRADE_B_fy_46);
-        materialController.GetComponent<materialsController>().addBuildingMaterial("Aluminum01", BuildingMaterialAttributes.Regions.UNITEDSTATES, BuildingMaterialAttributes.Regions.UnitedStatesTypes.ALUMINUM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTM, BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTMGrades.GRADE_Alloy_6063_T6);
-        
-        BuildingMaterial bm1 = new BuildingMaterial();
-        BuildingMaterial bm2 = new BuildingMaterial("I_am_bm_2");
-        BuildingMaterial bm3 = new BuildingMaterial("Three", BuildingMaterialAttributes.Regions.UNITEDSTATES,
-            BuildingMaterialAttributes.Regions.UnitedStatesTypes.ALUMINUM,
-            BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTM,
-            BuildingMaterialAttributes.Regions.UnitedStatesTypes.AluminumStandards.ASTMGrades.GRADE_Alloy_5052_H34);
+    }
 
-        Debug.Log("bm1: " + bm1.GetUserDefinedName() + ", " + bm1.GetRegion() + ", " + bm1.GetMaterialType() + ", " + bm1.GetStandard() + ", " + bm1.GetGrade());
-        Debug.Log("bm2: " + bm2.GetUserDefinedName() + ", " + bm2.GetRegion() + ", " + bm2.GetMaterialType() + ", " + bm2.GetStandard() + ", " + bm2.GetGrade());
-        Debug.Log("bm3: " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
+    /// <summary>
+    /// Draws a few frame sections
+    /// </summary>
+    void drawFrames()
+    {
+        drawGrid();
+        myConstructorController.setPoint(p2, buildingObjects.Frame);
+        myConstructorController.setPoint(p3, buildingObjects.Frame);
 
-        bm3.SetGrade(BuildingMaterialAttributes.Regions.UnitedStatesTypes.SteelStandards.A36Grades.GRADE_36); // Should not work; merely reset grade to aluminum ASTM's first grade option
-        Debug.Log("bm3 (1): " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
+        mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
+        myConstructorController.setPoint(p4, buildingObjects.Frame);
+        myConstructorController.setPoint(p5, buildingObjects.Frame);
 
-        bm3.SetStandard(BuildingMaterialAttributes.Regions.UnitedStatesTypes.RebarStandards.ASTM_A706); // Should not work; merely reset standard to aluminum's first standard option
-        Debug.Log("bm3 (2): " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
+        mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
+        myConstructorController.setPoint(origin, buildingObjects.Frame);
+        myConstructorController.setPoint(p1, buildingObjects.Frame);
 
-        bm3.SetType(503); // Should not work; merely reset standard to United States' first type option
-        Debug.Log("bm3 (3): " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
+    }
 
-        bm3.SetRegion(111); // Should not work; no change should be made.
-        Debug.Log("bm3 (4): " + bm3.GetUserDefinedName() + ", " + bm3.GetRegion() + ", " + bm3.GetMaterialType() + ", " + bm3.GetStandard() + ", " + bm3.GetGrade());
-        */
+    /// <summary>
+    /// generates the grid nodes
+    /// </summary>
+    void drawGrid()
+    {
+        myGridController.createGrid(5, 5, 5, 1f);
     }
 }

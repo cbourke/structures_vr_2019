@@ -9,7 +9,7 @@ using System;
 
 public class materialsUIdropdown : MonoBehaviour {
 
-	public GameObject materialController;
+	public materialsController myMaterialController;
 	public TMP_Dropdown region;
 	public TMP_Dropdown type;
 	public TMP_Dropdown standard;
@@ -20,7 +20,7 @@ public class materialsUIdropdown : MonoBehaviour {
 
 	void Start()
 	{
-		materialDict = materialController.GetComponent<materialDefinitions>().getDict();
+		materialDict = myMaterialController.GetComponent<materialDefinitions>().getDict();
 
 		// region event
         region.onValueChanged.AddListener(delegate {
@@ -36,7 +36,6 @@ public class materialsUIdropdown : MonoBehaviour {
         });
 		
 		List<string> regionList = new List<string>(materialDict.Keys);
-		string regionString = null;
 		
 		setDropdownValues(region, regionList);
 		regionDropdownValueChanged();
@@ -53,6 +52,7 @@ public class materialsUIdropdown : MonoBehaviour {
 		
 		List<string> typeList = new List<string>(materialDict[regionType].Keys);
 		setDropdownValues(type, typeList);
+		typeDropdownValueChanged();
     }
 
     void typeDropdownValueChanged()
@@ -65,6 +65,7 @@ public class materialsUIdropdown : MonoBehaviour {
 
 		List<string> standardList = new List<string>(materialDict[regionType][typeType].Keys);
 		setDropdownValues(standard, standardList);
+		standardDropdownValueChanged();
     }
 
     void standardDropdownValueChanged()
@@ -98,7 +99,7 @@ public class materialsUIdropdown : MonoBehaviour {
 		standardType = standard.options[standard.value].text;
 		gradeType = grade.options[grade.value].text;
 		if(matName.text != null) {
-        	materialController.GetComponent<materialsController>().addBuildingMaterial(matName.text, regionType, typeType, standardType, gradeType);
+        	myMaterialController.GetComponent<materialsController>().addBuildingMaterial(matName.text, regionType, typeType, standardType, gradeType);
 			Debug.Log("material " + matName.text + " created");
 		} else
 		{
