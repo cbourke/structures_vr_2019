@@ -17,14 +17,14 @@ public class unitsController : MonoBehaviour {
 	// stores ratios for unit conversions 
 	// the system defaults to m,N,C
 	// temp conversions handled in function because its not a ratio and theres only 2
-	private Dictionary<string, double> convTable = new Dictionary<string, double>();
+	private Dictionary<string, float> convTable = new Dictionary<string, float>();
   private List<string> unitList = new List<string>();
 
 	/// <summary>
 	/// Populates the unit list with the differnt unit combinations
 	/// The unit list is used by Ui elements to let the user pick their current units
 	/// </summary>
-	void Start()
+	void Awake()
 	{
 		populateDict();
 		unitList.Add("lb, in, F");
@@ -43,7 +43,7 @@ public class unitsController : MonoBehaviour {
 		unitList.Add("Kgf, cm, C");
 		unitList.Add("N, cm, C");
 		unitList.Add("Tonf, cm, C");
-		
+		Debug.Log("Start units");	
 	}
 
 	/// <summary>
@@ -51,6 +51,7 @@ public class unitsController : MonoBehaviour {
 	/// </summary>
 	public List<string> getUnits()
 	{
+		Debug.Log("get units");
 		return unitList;
 	}
 
@@ -59,18 +60,18 @@ public class unitsController : MonoBehaviour {
 	/// </summary>
 	public void populateDict()
 	{
-		this.convTable.Add("m", 1.0);
-		this.convTable.Add("cm", 100.0);
-		this.convTable.Add("mm", 1000.0);
-		this.convTable.Add("ft", 3.281);
-		this.convTable.Add("in", 39.37008);
+		this.convTable.Add("m", 1.0f);
+		this.convTable.Add("cm", 100.0f);
+		this.convTable.Add("mm", 1000.0f);
+		this.convTable.Add("ft", 3.281f);
+		this.convTable.Add("in", 39.37008f);
 
-		this.convTable.Add("N", 1.0);
-		this.convTable.Add("lb", 0.2248);
-		this.convTable.Add("Tonf", 0.0001019716);
-		this.convTable.Add("KN", 0.001);
-		this.convTable.Add("Kip", 0.00022481);
-		this.convTable.Add("Kgf", 0.101972);
+		this.convTable.Add("N", 1.0f);
+		this.convTable.Add("lb", 0.2248f);
+		this.convTable.Add("Tonf", 0.0001019716f);
+		this.convTable.Add("KN", 0.001f);
+		this.convTable.Add("Kip", 0.00022481f);
+		this.convTable.Add("Kgf", 0.101972f);
 	}
 
 	/// <summary>
@@ -124,52 +125,52 @@ public class unitsController : MonoBehaviour {
 	/// <summary>
 	/// takes length in meters and returns user defined units
 	/// </summary>
-	public double getLength(double length)
+	public float getLength(float length)
 	{
-		return Math.Round(length * this.convTable[this.length], this.decimalPlaces);
+		return (float)Math.Round(length * this.convTable[this.length], this.decimalPlaces);
 	}
 	
 	/// <summary>
 	/// get lenght in meters given current unit
 	/// </summary>
-	public double getLengthMeters(double length)
+	public float getLengthMeters(float length)
 	{
-		return Math.Round(length / this.convTable[this.length], this.decimalPlaces);
+		return (float)Math.Round(length / this.convTable[this.length], this.decimalPlaces);
 	}
 
 	/// <summary>
 	//// takes force in Newtons and returns user defined force
 	/// </summary>
-	public double getForce(double force)
+	public float getForce(float force)
 	{
-		return Math.Round(force * this.convTable[this.force], this.decimalPlaces);
+		return (float)Math.Round(force * this.convTable[this.force], this.decimalPlaces);
 	}
 
 	/// <summary>
 	/// returns force in newtons
 	/// </summary>
-	public double getForceNewtons(double force)
+	public float getForceNewtons(float force)
 	{
-		return Math.Round(force / this.convTable[this.force], this.decimalPlaces);
+		return (float)Math.Round(force / this.convTable[this.force], this.decimalPlaces);
 	}
 	
 	/// <summary>
 	/// takes temp in Celcius and returns user defined temp
 	/// </summary>
-	public double getTemperature(double temp) {
+	public float getTemperature(float temp) {
 		if (this.temperature == "C")
 		{
 			return temp;
 		}
-		return Math.Round((temp * 1.8f + 32), this.decimalPlaces);
+		return (float)Math.Round((temp * 1.8f + 32), this.decimalPlaces);
 	}
 
 	/// <summary>
 	/// given a temp in farenheit this converts and returns it as celcius
 	/// </summary>
-	public double getTemperatureCelcius(double temp)
+	public float getTemperatureCelcius(float temp)
 	{
-		return Math.Round(((temp - 32) / 1.8f), this.decimalPlaces);
+		return (float)Math.Round(((temp - 32) / 1.8f), this.decimalPlaces);
 	}
 
 }
