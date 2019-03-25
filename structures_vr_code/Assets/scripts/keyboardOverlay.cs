@@ -2,6 +2,7 @@
 using Valve.VR;
 using TMPro;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 /* This class handles opening and closing the keyboard */
 /* The majority of this code was copied from the OpenVR github, but it was adapted to work with our project */
@@ -86,12 +87,19 @@ public class keyboardOverlay : MonoBehaviour, ISelectHandler
     /// </summary>
 	public void OnSelect(BaseEventData eventData)
 	{
+		StartCoroutine(OpenKeyboard());
+ 
+	}
+
+	IEnumerator OpenKeyboard()
+    {
+        yield return new WaitForSeconds(.5f);
 		if(!keyboardShowing)
 		{
 			keyboardShowing = true;
 			activeKeyboard = this;
             SteamVR.instance.overlay.ShowKeyboard(1, 0, "Description", 256, inputField.text, minimalMode, 0);
 		}
-	}
+    }
 
 }

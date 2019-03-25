@@ -1178,7 +1178,7 @@ GameObject:
   - component: {fileID: 222521841218198462}
   - component: {fileID: 114875064117556342}
   - component: {fileID: 114882489876292784}
-  - component: {fileID: 8912893498250126624}
+  - component: {fileID: 4594490089118156343}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (4)
   m_TagString: Untagged
@@ -1345,7 +1345,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &8912893498250126624
+--- !u!114 &4594490089118156343
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1354,10 +1354,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051772545030448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1053945199625182
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,7 +1448,7 @@ GameObject:
   - component: {fileID: 222986525257154522}
   - component: {fileID: 114068873796322758}
   - component: {fileID: 114505608105528036}
-  - component: {fileID: 8250633604981933103}
+  - component: {fileID: 8561829512783870711}
   m_Layer: 5
   m_Name: Z
   m_TagString: Untagged
@@ -1617,7 +1616,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &8250633604981933103
+--- !u!114 &8561829512783870711
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1626,10 +1625,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1057758761973650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1058968065814930
 GameObject:
   m_ObjectHideFlags: 0
@@ -4288,7 +4286,7 @@ GameObject:
   - component: {fileID: 222676856072119234}
   - component: {fileID: 114100311443816782}
   - component: {fileID: 114204487251316866}
-  - component: {fileID: 1227745279921219775}
+  - component: {fileID: 5286923880314782010}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (2)
   m_TagString: Untagged
@@ -4455,7 +4453,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &1227745279921219775
+--- !u!114 &5286923880314782010
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4464,10 +4462,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1161789912738054}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1162076013527660
 GameObject:
   m_ObjectHideFlags: 0
@@ -9294,7 +9291,7 @@ GameObject:
   - component: {fileID: 222653289292901054}
   - component: {fileID: 114812205064813464}
   - component: {fileID: 114501250929520086}
-  - component: {fileID: 9098949698674759048}
+  - component: {fileID: 309201597681377762}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (3)
   m_TagString: Untagged
@@ -9461,7 +9458,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &9098949698674759048
+--- !u!114 &309201597681377762
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9470,10 +9467,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1351996988793622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1358610675991096
 GameObject:
   m_ObjectHideFlags: 0
@@ -17228,7 +17224,7 @@ GameObject:
   - component: {fileID: 222714828655811416}
   - component: {fileID: 114396053143901588}
   - component: {fileID: 114665740624779700}
-  - component: {fileID: 5439671462980964689}
+  - component: {fileID: 4571874287458751424}
   m_Layer: 5
   m_Name: TextMeshPro - InputField
   m_TagString: Untagged
@@ -17395,7 +17391,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &5439671462980964689
+--- !u!114 &4571874287458751424
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17404,10 +17400,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1641543047274544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1643466447112154
 GameObject:
   m_ObjectHideFlags: 0
@@ -20875,7 +20870,7 @@ GameObject:
   - component: {fileID: 222039722707007790}
   - component: {fileID: 114163969839953314}
   - component: {fileID: 114757369585916582}
-  - component: {fileID: 375928800447030878}
+  - component: {fileID: 533053552643265745}
   m_Layer: 5
   m_Name: spacing
   m_TagString: Untagged
@@ -21043,7 +21038,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &375928800447030878
+--- !u!114 &533053552643265745
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -21052,10 +21047,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1748535957446304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1754406860642906
 GameObject:
   m_ObjectHideFlags: 0
@@ -21708,6 +21702,7 @@ MonoBehaviour:
   myGridController: {fileID: 0}
   myConstructorController: {fileID: 0}
   myUnitsController: {fileID: 0}
+  jointRestraint: {fileID: 0}
 --- !u!1 &1767899728638976
 GameObject:
   m_ObjectHideFlags: 0
@@ -22142,7 +22137,7 @@ GameObject:
   - component: {fileID: 222318711903046834}
   - component: {fileID: 114216713323853764}
   - component: {fileID: 114470008542330976}
-  - component: {fileID: 2986202466941655678}
+  - component: {fileID: 1034459244825500671}
   m_Layer: 5
   m_Name: Y
   m_TagString: Untagged
@@ -22310,7 +22305,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &2986202466941655678
+--- !u!114 &1034459244825500671
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -22319,10 +22314,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1791689074202774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1794538453371568
 GameObject:
   m_ObjectHideFlags: 0
@@ -23120,7 +23114,7 @@ GameObject:
   - component: {fileID: 222784968454765320}
   - component: {fileID: 114383926738500618}
   - component: {fileID: 114126736189419928}
-  - component: {fileID: 2792594423806824832}
+  - component: {fileID: 4103292931795280197}
   m_Layer: 5
   m_Name: TextMeshPro - InputField
   m_TagString: Untagged
@@ -23287,7 +23281,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &2792594423806824832
+--- !u!114 &4103292931795280197
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23296,10 +23290,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1850623611342848}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1857183693028208
 GameObject:
   m_ObjectHideFlags: 0
@@ -23675,7 +23668,7 @@ GameObject:
   - component: {fileID: 222787824811047656}
   - component: {fileID: 114185650137010218}
   - component: {fileID: 114739973582951538}
-  - component: {fileID: 1189196841861386230}
+  - component: {fileID: 5394829418714241440}
   m_Layer: 5
   m_Name: X
   m_TagString: Untagged
@@ -23843,7 +23836,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &1189196841861386230
+--- !u!114 &5394829418714241440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23852,10 +23845,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1873931237279590}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1880949167853986
 GameObject:
   m_ObjectHideFlags: 0
@@ -24548,7 +24540,7 @@ GameObject:
   - component: {fileID: 222867256707911974}
   - component: {fileID: 114651084939355888}
   - component: {fileID: 114597081636392038}
-  - component: {fileID: 3094251213953706513}
+  - component: {fileID: 3748717983111643003}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (1)
   m_TagString: Untagged
@@ -24715,7 +24707,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &3094251213953706513
+--- !u!114 &3748717983111643003
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -24724,10 +24716,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1906654665028414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1910280839638054
 GameObject:
   m_ObjectHideFlags: 0
@@ -29424,7 +29415,7 @@ GameObject:
   - component: {fileID: 7844040677285412480}
   - component: {fileID: 2143419620691199601}
   - component: {fileID: 6235184462007426261}
-  - component: {fileID: 1220856781270731834}
+  - component: {fileID: 1699478122207437461}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (4)
   m_TagString: Untagged
@@ -29591,7 +29582,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &1220856781270731834
+--- !u!114 &1699478122207437461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -29600,10 +29591,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1115005632961597219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1387644005801317403
 GameObject:
   m_ObjectHideFlags: 0
@@ -29616,7 +29606,7 @@ GameObject:
   - component: {fileID: 7239327633547566777}
   - component: {fileID: 7124644000685703925}
   - component: {fileID: 2685669198005509039}
-  - component: {fileID: 9126615061416052444}
+  - component: {fileID: 1031388588239784487}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (3)
   m_TagString: Untagged
@@ -29783,7 +29773,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &9126615061416052444
+--- !u!114 &1031388588239784487
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -29792,10 +29782,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1387644005801317403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1412816934282677334
 GameObject:
   m_ObjectHideFlags: 0
@@ -30153,7 +30142,7 @@ GameObject:
   - component: {fileID: 8734109132728336299}
   - component: {fileID: 1493440663254433362}
   - component: {fileID: 3839892578200519121}
-  - component: {fileID: 514031796526196969}
+  - component: {fileID: 5425195392131491602}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (1)
   m_TagString: Untagged
@@ -30320,7 +30309,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &514031796526196969
+--- !u!114 &5425195392131491602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30329,10 +30318,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1624660364915633354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &1641089221216199437
 GameObject:
   m_ObjectHideFlags: 0
@@ -32497,7 +32485,7 @@ GameObject:
   - component: {fileID: 1445897890174823807}
   - component: {fileID: 1939679894931897937}
   - component: {fileID: 8755028847659234947}
-  - component: {fileID: 4203773742848763048}
+  - component: {fileID: 580157119663557977}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (3)
   m_TagString: Untagged
@@ -32664,7 +32652,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &4203773742848763048
+--- !u!114 &580157119663557977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -32673,10 +32661,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3085853437384896916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &3088768126140621279
 GameObject:
   m_ObjectHideFlags: 0
@@ -32689,7 +32676,7 @@ GameObject:
   - component: {fileID: 5420778601605533195}
   - component: {fileID: 5735183824226659433}
   - component: {fileID: 6697271258414022138}
-  - component: {fileID: 926632616991602259}
+  - component: {fileID: 8663460964909257516}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (1)
   m_TagString: Untagged
@@ -32856,7 +32843,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &926632616991602259
+--- !u!114 &8663460964909257516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -32865,10 +32852,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3088768126140621279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &3108574645836504350
 GameObject:
   m_ObjectHideFlags: 0
@@ -34796,7 +34782,7 @@ GameObject:
   - component: {fileID: 691445036704185700}
   - component: {fileID: 5814824611238908791}
   - component: {fileID: 3837587696335772924}
-  - component: {fileID: 8383828132606921829}
+  - component: {fileID: 4183328522513163837}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (4)
   m_TagString: Untagged
@@ -34963,7 +34949,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &8383828132606921829
+--- !u!114 &4183328522513163837
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -34972,10 +34958,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4586998510763183076}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &4693723516346898150
 GameObject:
   m_ObjectHideFlags: 0
@@ -35295,7 +35280,7 @@ GameObject:
   - component: {fileID: 451252966469449302}
   - component: {fileID: 2556812579492019463}
   - component: {fileID: 784279231088014530}
-  - component: {fileID: 7370329251516085881}
+  - component: {fileID: 874876689361314215}
   m_Layer: 5
   m_Name: TextMeshPro - InputField
   m_TagString: Untagged
@@ -35462,7 +35447,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &7370329251516085881
+--- !u!114 &874876689361314215
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35471,10 +35456,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4934010167064483213}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &4969709890167111813
 GameObject:
   m_ObjectHideFlags: 0
@@ -40419,7 +40403,7 @@ GameObject:
   - component: {fileID: 1349378974769848626}
   - component: {fileID: 3569203050984723499}
   - component: {fileID: 7810260746051531339}
-  - component: {fileID: 1621485095412446007}
+  - component: {fileID: 6723682232989581953}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (2)
   m_TagString: Untagged
@@ -40586,7 +40570,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &1621485095412446007
+--- !u!114 &6723682232989581953
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40595,10 +40579,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7996998889560161980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &8017389151296271110
 GameObject:
   m_ObjectHideFlags: 0
@@ -40611,7 +40594,7 @@ GameObject:
   - component: {fileID: 6829657091127563693}
   - component: {fileID: 8737526770551318274}
   - component: {fileID: 1012582485846002102}
-  - component: {fileID: 9015621495203274874}
+  - component: {fileID: 4647859699676671576}
   m_Layer: 5
   m_Name: TextMeshPro - InputField
   m_TagString: Untagged
@@ -40778,7 +40761,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &9015621495203274874
+--- !u!114 &4647859699676671576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40787,10 +40770,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8017389151296271110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &8093748370051897090
 GameObject:
   m_ObjectHideFlags: 0
@@ -42076,7 +42058,7 @@ GameObject:
   - component: {fileID: 6178142796443780203}
   - component: {fileID: 6053213365997179330}
   - component: {fileID: 1227367687466593022}
-  - component: {fileID: 5340181895292418601}
+  - component: {fileID: 2157375518971744449}
   m_Layer: 5
   m_Name: TextMeshPro - InputField (3)
   m_TagString: Untagged
@@ -42243,7 +42225,7 @@ MonoBehaviour:
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 1
   m_InputValidator: {fileID: 0}
---- !u!114 &5340181895292418601
+--- !u!114 &2157375518971744449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42252,10 +42234,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8690221293378857071}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecce3f724b63824a858c964a8a84e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimalMode: 0
 --- !u!1 &8812199005126263627
 GameObject:
   m_ObjectHideFlags: 0
