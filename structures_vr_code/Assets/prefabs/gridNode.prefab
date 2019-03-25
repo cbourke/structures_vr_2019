@@ -17,8 +17,9 @@ GameObject:
   - component: {fileID: 114477079678662038}
   - component: {fileID: 114480514770625882}
   - component: {fileID: 114749686113930428}
+  - component: {fileID: 804654844121034470}
   m_Layer: 9
-  m_Name: gridNodePrefab
+  m_Name: gridNode
   m_TagString: Grid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,7 +145,7 @@ MonoBehaviour:
   nearTouchHighlight: {r: 0.9339623, g: 0.9334242, b: 0.54187435, a: 0}
   touchHighlight: {r: 1, g: 0.49820757, b: 0, a: 0}
   grabHighlight: {r: 0, g: 0, b: 0, a: 0}
-  useHighlight: {r: 0.033018887, g: 0.5981862, b: 1, a: 0}
+  useHighlight: {r: 1, g: 1, b: 1, a: 0}
   objectToMonitor: {fileID: 0}
   objectToHighlight: {fileID: 0}
   objectHighlighter: {fileID: 114749686113930428}
@@ -162,9 +163,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linkedObject: {fileID: 114347606821000098}
-  myConstructorController: {fileID: 0}
-  previewLineRenderer: {fileID: 0}
-  pointerController: {fileID: 0}
 --- !u!114 &114480514770625882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,3 +307,17 @@ MonoBehaviour:
   customOutlineModels: []
   customOutlineModelPaths: []
   enableSubmeshHighlight: 0
+--- !u!114 &804654844121034470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572682032358450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f175c9c84d6fe944e9e22c75fe44c899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: 53af3aadb7560f64cbe8c895cb5a8d35, type: 2}
+  highlightMesh: {fileID: 1572682032358450}

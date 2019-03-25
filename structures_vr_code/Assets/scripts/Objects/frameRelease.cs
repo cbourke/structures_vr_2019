@@ -4,7 +4,7 @@ using UnityEngine;
 
 /* This class defines a frame release */
 /* The float values are not used by our program, but are needed by SAP */
-public class frameRelease : MonoBehaviour
+public class FrameRelease
 {
     private bool axialStart { get; set; }
     private bool axialEnd { get; set; }
@@ -36,7 +36,7 @@ public class frameRelease : MonoBehaviour
     private float momentMajorStartVal { get; set; }
     private float momentMajorEndVal { get; set; }
 
-	public frameRelease()
+	public FrameRelease()
 	{
         axialStart = true;
         axialEnd = true;

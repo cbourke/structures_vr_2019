@@ -10,17 +10,18 @@ public class ScaleGround : MonoBehaviour {
 	float groundX, groundZ, scaleX, scaleZ;
 
 	// Use this for initialization
-	void Start () {
-		/*
-		groundX = (grid.gridX - 1f) / 2f;
-		groundZ = (grid.gridZ - 1f) / 2f;
+	public void scale (int gridX, int gridZ, float spacing) {
 
-		scaleX = (grid.gridX / 9.5f);
-		scaleZ = (grid.gridZ / 9.5f);
+        print("scaling: " + gridX + " x " + gridZ);
+		
+		groundX = ((gridX - 1f) / 2f) * spacing;
+		groundZ = (gridZ - 1f) / 2f * spacing;
+
+		scaleX = (gridX / 5f) * spacing + 0.6f;
+		scaleZ = (gridZ / 5f) * spacing + 0.6f;
 
 		transform.position = new Vector3(groundX, 0f, groundZ);
 		transform.localScale = new Vector3 (scaleX, 1, scaleZ);
-		 */
 	}
 	
 	// Update is called once per frame

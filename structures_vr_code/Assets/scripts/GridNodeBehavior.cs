@@ -7,11 +7,14 @@ using UnityEngine;
 /* it houses the functions that are called when a node is "used", "unused", etc */
 public class GridNodeBehavior : MonoBehaviour {
     public VRTK_InteractableObject linkedObject;
-    public constructorController myConstructorController = null;
-    public LineRenderer previewLineRenderer = null;
-    public PointerController pointerController;
+    
+    private constructorController myConstructorController;
+    private LineRenderer previewLineRenderer;
+    private PointerController myPointerController;
+    private selectionController mySelectionController;
+
     bool canUse = true;
-    private bool isSelected = false;
+    private GridNode myGridNode;
 
 	void Start () {
         myConstructorController = GameObject.FindWithTag("gameControllers").GetComponent<constructorController>();
@@ -25,17 +28,22 @@ public class GridNodeBehavior : MonoBehaviour {
         Debug.Log("Gridnode USE");
         if (canUse)
         {
-            switch (pointerController.getPointerMode()){
-                case pointerModes.node: {
-                    myConstructorController.setPoint(this.transform.position, buildingObjects.Frame);
+            switch (myPointerController.getPointerMode()){
+                case pointerModes.draw: {
+                    bool shouldDeselect = myConstructorController.setPoint(this.transform.position, buildingObjects.Frame);
+                    if(shouldDeselect) {
+                        //deselect all the nodes
+                        mySelectionController.clearDrawNode();
+                    } else {
+                        mySelectionController.setDrawNode(myGridNode);
+                    }
                     canUse = false;
                     break;
                 }
-                case pointerModes.frame: {
-                    pointerController.selectionController.select(this);
+                case pointerModes.selectNode: {
+                    myPointerController.selectionController.select(myGridNode);
                     break;
-                }
-                    
+                } 
             }
         }
     }
@@ -72,21 +80,38 @@ public class GridNodeBehavior : MonoBehaviour {
     /// Sets the pointer controller component
     /// </summary>
     public void setPointerController(PointerController pc){
-        pointerController = pc;
+        myPointerController = pc;
     }
 
     /// <summary>
-    /// Returns selection state
+    /// Sets the gridNode reference
     /// </summary>
-    public bool getSelected(){
-		return isSelected;
-	}
+    public void setMyGridNode(GridNode newGridNode)
+    {
+        myGridNode = newGridNode;
+    }
 
     /// <summary>
-    /// Sets selection state
-    /// @TODO needs to highlight the node if it is being drawn with
+    /// Returns the gridNode reference
     /// </summary>
-	public void setSelected(bool selected) {
-		isSelected = selected;
-	}
+    public GridNode getMyGridNode()
+    {
+        return myGridNode;
+    }
+
+    /// <summary>
+    /// Sets the selection controller
+    /// </summary>
+    public void setSelectionController(selectionController newSelectionController)
+    {
+        mySelectionController = newSelectionController;
+    }
+
+    /// <summary>
+    /// Returns the selection controller
+    /// </summary>
+    public selectionController getSelectionController()
+    {
+        return mySelectionController;
+    }
 }

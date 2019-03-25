@@ -6,10 +6,13 @@ using UnityEngine;
 public class gridController : MonoBehaviour {
     public constructorController myConstructorController;
 	public PointerController myPointerController;
+	public selectionController mySelectionController;
     public LineRenderer previewLineRenderer;
 	
-	public GameObject node;
-	public static gridNode[, ,] grid;
+	public GameObject gridNodeObject;
+	private GridNode[, ,] grid;
+    public ScaleGround scaler;
+
 	static private float gridSpacing;
 
 
@@ -18,36 +21,27 @@ public class gridController : MonoBehaviour {
 	/// Each time we spawn a new grid we must delete the old one
     /// </summary>
 	public void createGrid(int gridX, int gridY, int gridZ, float spacing) {
+		destroyNodes();
 		gridSpacing = spacing;
-		// Generates the grid
-		grid = new gridNode[gridX, gridY, gridZ];
+		grid = new GridNode[gridX, gridY, gridZ];
 		for(int i=0; i<gridX; i++) {
 			for(int j=0; j<gridY; j++) {
 				for(int k=0; k<gridZ; k++) {
 					Vector3 pos = new Vector3(i*spacing,j*spacing,k*spacing);
-					grid[i,j,k] = new gridNode(pos);
+					GridNode gridNode = new GridNode(pos, gridNodeObject);
+					string gridNodeName = "GridNode=[" + pos.x + ":" + pos.z + ":" + pos.y + "]";
+
+					gridNode.setName(gridNodeName);
+					gridNode.GetGameObject().GetComponent<GridNodeBehavior>().setPreviewLineRenderer(previewLineRenderer);
+					gridNode.GetGameObject().GetComponent<GridNodeBehavior>().setPointerController(myPointerController);
+					gridNode.GetGameObject().GetComponent<GridNodeBehavior>().setSelectionController(mySelectionController);
+
+					grid[i,j,k] = gridNode;
 				}
 			}
 		}
-		destroyNodes();
-		spawnNodes(grid);
-
+        scaler.scale(gridX, gridZ, spacing);
 	}
-
-    /// <summary>
-    /// Actually spawns in the grid node prefabs
-	/// for each node that is spawned we have to set the line renderer and pointer controller
-    /// </summary>
-	void spawnNodes(gridNode[, ,] grid) {
-        GameObject nodeInstance;
-        foreach (gridNode item in grid) {
-			nodeInstance = Instantiate(node, item.position, Quaternion.identity);
-            nodeInstance.GetComponent<GridNodeBehavior>().setPreviewLineRenderer(previewLineRenderer);
-			nodeInstance.GetComponent<GridNodeBehavior>().setPointerController(myPointerController);
-			nodeInstance.transform.parent = gameObject.transform;
-		
-		}	
-    }
 
     /// <summary>
     /// destroys all the nodes
@@ -64,19 +58,4 @@ public class gridController : MonoBehaviour {
 	public static float getSpacing() {
 		return gridSpacing;
 	}
-}
-
-
-/* This class defines a gridnode */
-public class gridNode { 
-	public Vector3 position {get; set;}
-
-	public gridNode(Vector3 pos) {
-		position = pos;
-	}
-
-	public override string ToString()
-    {
-        return "(" + position.x + ", " + position.y + ", " + position.z + ")";
-    }
 }
