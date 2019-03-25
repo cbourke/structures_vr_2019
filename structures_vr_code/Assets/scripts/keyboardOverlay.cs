@@ -93,7 +93,7 @@ public class keyboardOverlay : MonoBehaviour, ISelectHandler
 
 	IEnumerator OpenKeyboard()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.25f);
 		if(!keyboardShowing)
 		{
 			keyboardShowing = true;
