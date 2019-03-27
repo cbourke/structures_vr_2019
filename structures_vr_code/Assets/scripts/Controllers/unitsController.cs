@@ -131,7 +131,7 @@ public class unitsController : MonoBehaviour {
 	}
 	
 	/// <summary>
-	/// get lenght in meters given current unit
+	/// Converts the passed value to meters
 	/// </summary>
 	public float getLengthMeters(float length)
 	{

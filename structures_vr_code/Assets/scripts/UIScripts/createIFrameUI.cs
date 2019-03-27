@@ -19,12 +19,12 @@ public class createIFrameUI : MonoBehaviour
 
     public void createIFrame() {
         string materialName = (materialDropdown.options[materialDropdown.value].text);
-        float heightVal = myUnitsController.getLength(float.Parse(height.text));
-        float tWidthVal = myUnitsController.getLength(float.Parse(topWidth.text));
-        float tThickVal = myUnitsController.getLength(float.Parse(topThick.text));
-        float webVal = myUnitsController.getLength(float.Parse(webThick.text));
-        float bWidthVal = myUnitsController.getLength(float.Parse(botWidth.text));
-        float bThickVal = myUnitsController.getLength(float.Parse(botThick.text));
+        float heightVal = myUnitsController.getLengthMeters(float.Parse(height.text));
+        float tWidthVal = myUnitsController.getLengthMeters(float.Parse(topWidth.text));
+        float tThickVal = myUnitsController.getLengthMeters(float.Parse(topThick.text));
+        float webVal = myUnitsController.getLengthMeters(float.Parse(webThick.text));
+        float bWidthVal = myUnitsController.getLengthMeters(float.Parse(botWidth.text));
+        float bThickVal = myUnitsController.getLengthMeters(float.Parse(botThick.text));
         
         mySectionController.GetComponent<sectionController>().addIFrameSection(IFrameName.text, materialName, heightVal, tWidthVal, tThickVal, webVal, bWidthVal, bThickVal);
     

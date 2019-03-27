@@ -3960,6 +3960,11 @@ PrefabInstance:
       propertyPath: mySectionController
       value: 
       objectReference: {fileID: 1155890639}
+    - target: {fileID: 6616102100678597578, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: myUnitsController
+      value: 
+      objectReference: {fileID: 1155890634}
     - target: {fileID: 8211827165125943416, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: materialController
@@ -3980,6 +3985,11 @@ PrefabInstance:
       propertyPath: mySectionController
       value: 
       objectReference: {fileID: 1155890639}
+    - target: {fileID: 3318294603419331879, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: myUnitsController
+      value: 
+      objectReference: {fileID: 1155890634}
     - target: {fileID: 4268028151157167734, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: sectionController
@@ -3990,6 +4000,11 @@ PrefabInstance:
       propertyPath: mySectionController
       value: 
       objectReference: {fileID: 1155890639}
+    - target: {fileID: 4268028151157167734, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: myUnitsController
+      value: 
+      objectReference: {fileID: 1155890634}
     - target: {fileID: 3170554615532490307, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: materialController
