@@ -44,6 +44,15 @@ public class GridNode
     }
 
 	/// <summary>
+    /// Returns the gridnodes location
+    /// </summary>
+	public Vector3 getLocation()
+    {
+        return position;
+    }
+
+
+	/// <summary>
     /// Returns the selection state of the gridNode
     /// </summary>
 	public bool getSelected(){
