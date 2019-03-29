@@ -40,7 +40,7 @@ public class SapTranslatorIpcHandler : MonoBehaviour
         pipeServer.BeginWaitForConnection(connectionCallback, connectionObject);
         Debug.Log("Waiting for client connection to pipeServer.");
         //string filePath = Application.persistentDataPath + "/" + structureSaveFileName + ".xml";
-        string appPath = Application.streamingAssetsPath + "/SapTranslator.exe";
+        string appPath = System.IO.Path.Combine(Application.streamingAssetsPath, "SapTranslator.exe");
         System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
         myProcess.StartInfo.FileName = appPath;
         //myProcess.StartInfo.Arguments = "\"" + filePath + "\"";
