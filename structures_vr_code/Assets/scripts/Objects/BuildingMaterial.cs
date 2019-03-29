@@ -9,6 +9,7 @@ public class BuildingMaterial {
     private string type;
     private string standard;
     private string grade;
+    public MPIsotropic MPIsotropic { get; set; }
 
 	/// <summary>
     /// If constructed with no arguments (This is needed for xml serialization, I think?)

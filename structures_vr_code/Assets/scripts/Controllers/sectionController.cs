@@ -43,12 +43,14 @@ public class sectionController : MonoBehaviour {
 
     /// <summary>
     /// Add a new FrameSection to the list of FrameSections
+    /// Also tells SAP Translator to set the FrameSection's "SectProps" property
     /// </summary>
     public int addFrameSection(FrameSection frameSection)
     {
         if (findFrameSection(frameSection.GetName()) == null)
         {
             frameSections.Add(frameSection);
+            sapTranslatorIpcHandler.propFrameGetSectProps(frameSection);
             myXmlController.GetComponent<xmlController>().addFrameSectionToXMLList(frameSection);
             return 1;
         }
@@ -71,7 +73,7 @@ public class sectionController : MonoBehaviour {
             name + ", " + buildingMaterialName + ", " + outsideHeight + ", " + topFlangeWidth + ", "
             + topFlangeThickness + ", " + webThickness + ", " + bottomFlangeWidth + ", " + bottomFlangeThickness +")";
         // arguments: (name, matProp, t3, t2, tf, tw, t2b, tfb, [color], [notes], [guid])
-        sapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
+        sapTranslatorIpcHandler.sendString(sapTranslatorCommand);
 
         return addFrameSection(newFrameSection);
     }
@@ -87,7 +89,7 @@ public class sectionController : MonoBehaviour {
         string sapTranslatorCommand = "VRE to SAPTranslator: propFrameSetPipe(" +
             name + ", " + buildingMaterialName + ", " + outsideDiameter + ", " + wallThickness + ")";
         // arguments: (name, matProp, t3, tw, [color], [notes], [guid])
-        sapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
+        sapTranslatorIpcHandler.sendString(sapTranslatorCommand);
 
         return addFrameSection(newFrameSection);
     }
@@ -105,7 +107,7 @@ public class sectionController : MonoBehaviour {
             name + ", " + buildingMaterialName + ", " + outsideDepth + ", " + outsideWidth + ", "
             + flangeThickness + ", " + webThickness + ")";
         // arguments: (name, matProp, t3, t2, tf, tw, [color], [notes], [guid])
-        sapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
+        sapTranslatorIpcHandler.sendString(sapTranslatorCommand);
 
         return addFrameSection(newFrameSection);
     }
@@ -121,7 +123,7 @@ public class sectionController : MonoBehaviour {
             frameSections.Remove(targetFrameSection);
             myXmlController.GetComponent<xmlController>().deleteFrameSectionFromXMLList(name);
 
-            string sapTranslatorCommand = "VRE to SAPTranslator: propFrameSetTube(" + targetFrameSection.GetName() + ")";
+            string sapTranslatorCommand = "VRE to SAPTranslator: propFrameDelete(" + targetFrameSection.GetName() + ")";
             // arguments: (name)
             sapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
         }

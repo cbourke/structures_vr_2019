@@ -50,7 +50,8 @@ public class materialsController : MonoBehaviour {
     /// <summary>
     /// Adds a BuildingMaterial to the list of materials
     /// This is called after a new material is created given its name or name and parameters
-    /// Also sends the data to SAP Translator
+    /// Also sends the data to SAP Translator,
+    /// and tells SAP Translator to set the MPIsotropic object of the material.
     /// </summary>
     public void addBuildingMaterial(BuildingMaterial newMaterial)
     {
@@ -62,8 +63,8 @@ public class materialsController : MonoBehaviour {
             newMaterial.GetMaterialType() + ", " + newMaterial.GetRegion() + ", " + 
             newMaterial.GetStandard() + ", " + newMaterial.GetGrade() + ", " + newMaterial.GetName() + ")";
         // arguments: (matType, region, standard, grade, userName)
-        mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
-
+        mySapTranslatorIpcHandler.sendString(sapTranslatorCommand);
+        mySapTranslatorIpcHandler.propMaterialGetMPIsotropic(newMaterial);
     }
 
     /// <summary>

@@ -90,7 +90,7 @@ public class constructorController : MonoBehaviour
     void createFrame(Vector3 pA, Vector3 pB)
     {
         string frameName = "Frame_i=[" + pA.x + ":" + pA.z + ":" + pA.y + "]-j=[" + pB.x + ":" + pB.z + ":" + pB.y + "]";
-        FrameSectionType type = mySectionController.GetCurrentFrameSection().type;
+        FrameSectionType type = mySectionController.GetCurrentFrameSection().GetFrameSectionType();
         Frame frame = new Frame();
         if(type == FrameSectionType.I)
         {
