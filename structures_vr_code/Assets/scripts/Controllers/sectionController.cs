@@ -50,7 +50,7 @@ public class sectionController : MonoBehaviour {
         if (findFrameSection(frameSection.GetName()) == null)
         {
             frameSections.Add(frameSection);
-            sapTranslatorIpcHandler.propFrameGetSectProps(frameSection);
+            //sapTranslatorIpcHandler.propFrameGetSectProps(frameSection);
             myXmlController.GetComponent<xmlController>().addFrameSectionToXMLList(frameSection);
             return 1;
         }
@@ -73,7 +73,7 @@ public class sectionController : MonoBehaviour {
             name + ", " + buildingMaterialName + ", " + outsideHeight + ", " + topFlangeWidth + ", "
             + topFlangeThickness + ", " + webThickness + ", " + bottomFlangeWidth + ", " + bottomFlangeThickness +")";
         // arguments: (name, matProp, t3, t2, tf, tw, t2b, tfb, [color], [notes], [guid])
-        sapTranslatorIpcHandler.sendString(sapTranslatorCommand);
+        //sapTranslatorIpcHandler.sendString(sapTranslatorCommand);
 
         return addFrameSection(newFrameSection);
     }
@@ -89,7 +89,7 @@ public class sectionController : MonoBehaviour {
         string sapTranslatorCommand = "VRE to SAPTranslator: propFrameSetPipe(" +
             name + ", " + buildingMaterialName + ", " + outsideDiameter + ", " + wallThickness + ")";
         // arguments: (name, matProp, t3, tw, [color], [notes], [guid])
-        sapTranslatorIpcHandler.sendString(sapTranslatorCommand);
+        //sapTranslatorIpcHandler.sendString(sapTranslatorCommand);
 
         return addFrameSection(newFrameSection);
     }
@@ -107,7 +107,7 @@ public class sectionController : MonoBehaviour {
             name + ", " + buildingMaterialName + ", " + outsideDepth + ", " + outsideWidth + ", "
             + flangeThickness + ", " + webThickness + ")";
         // arguments: (name, matProp, t3, t2, tf, tw, [color], [notes], [guid])
-        sapTranslatorIpcHandler.sendString(sapTranslatorCommand);
+        //sapTranslatorIpcHandler.sendString(sapTranslatorCommand);
 
         return addFrameSection(newFrameSection);
     }
