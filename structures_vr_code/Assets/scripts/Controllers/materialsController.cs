@@ -63,8 +63,8 @@ public class materialsController : MonoBehaviour {
             newMaterial.GetMaterialType() + ", " + newMaterial.GetRegion() + ", " + 
             newMaterial.GetStandard() + ", " + newMaterial.GetGrade() + ", " + newMaterial.GetName() + ")";
         // arguments: (matType, region, standard, grade, userName)
-        mySapTranslatorIpcHandler.sendString(sapTranslatorCommand);
-        mySapTranslatorIpcHandler.propMaterialGetMPIsotropic(newMaterial);
+        //mySapTranslatorIpcHandler.sendString(sapTranslatorCommand);
+        //mySapTranslatorIpcHandler.propMaterialGetMPIsotropic(newMaterial);
     }
 
     /// <summary>
