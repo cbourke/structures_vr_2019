@@ -19,7 +19,7 @@ public class SapTranslatorIpcHandler : MonoBehaviour
     {
         String[] args = new string[0];
         // If this is commented out, SAPTranslator will not open
-        createPipeServer(args);
+        //createPipeServer(args);
 
     }
 
