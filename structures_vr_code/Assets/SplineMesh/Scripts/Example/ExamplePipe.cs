@@ -67,5 +67,10 @@ namespace SplineMesh {
                 mb.ComputeIfNeeded();
             }
         }
+
+        public void setMaterial(Material material) {
+            this.material = material;
+            toUpdate = true;
+        }
     }
 }

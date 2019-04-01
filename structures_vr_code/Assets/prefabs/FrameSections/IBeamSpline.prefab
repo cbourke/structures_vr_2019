@@ -407,11 +407,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba3f56943d153e4e88db2df13793c67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myFrame: {fileID: 0}
   web: {fileID: 7920509774333723441}
   topFlange: {fileID: 7920509773000002068}
   bottomFlange: {fileID: 7920509774714803027}
-  reference: {fileID: 1290565281859081754}
 --- !u!114 &1290565281859081754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,6 +562,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 98707ab9e537b9e43a4d018ab0b37f2f, type: 2}
   highlightMesh: {fileID: 7920509774333723441}
+  isNewHighlight: 1
+  frame: {fileID: 1284252179181430087}
 --- !u!1 &7920509774333723441
 GameObject:
   m_ObjectHideFlags: 0
