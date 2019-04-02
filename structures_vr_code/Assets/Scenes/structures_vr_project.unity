@@ -986,6 +986,7 @@ GameObject:
   m_Component:
   - component: {fileID: 295299418}
   - component: {fileID: 295299417}
+  - component: {fileID: 295299419}
   m_Layer: 0
   m_Name: DebugDraw
   m_TagString: Untagged
@@ -1000,7 +1001,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295299416}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4ef2e356e4ce3d43aa895adf5db5cb4, type: 3}
   m_Name: 
@@ -1025,6 +1026,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &295299419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295299416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94be0ae13af75224c9a78980cc2a8910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myConstructorController: {fileID: 0}
+  myXmlController: {fileID: 0}
+  myMaterialController: {fileID: 0}
+  mySectionController: {fileID: 0}
+  myUnitsController: {fileID: 0}
+  myGridController: {fileID: 0}
 --- !u!1 &305919769 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1157275665033092, guid: 55bf230e68be69f439ed024d48fe840f,
