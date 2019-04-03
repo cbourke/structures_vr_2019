@@ -3041,7 +3041,6 @@ GameObject:
   - component: {fileID: 263851303}
   - component: {fileID: 263851302}
   - component: {fileID: 263851301}
-  - component: {fileID: 263851304}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -3148,23 +3147,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263851299}
   m_CullTransparentMesh: 0
---- !u!114 &263851304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 263851299}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd828872d92c3a94090d23b7b719f1e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactWithoutGrab: 0
-  connectedTo: {fileID: 0}
-  direction: 0
-  activationDistance: 1
-  buttonStrength: 5
 --- !u!1001 &265418709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14395,7 +14377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65eb64f0f2fd6d64faddbcf5d7d3bdbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useButton: 3
+  useButton: 4
   controllerEvents: {fileID: 1346259310}
   interactTouch: {fileID: 0}
   interactGrab: {fileID: 0}
@@ -14672,7 +14654,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minThrust: 10
   maxThrust: 15
-  rb: {fileID: 0}
+  duration: 0
+  rb: {fileID: 1374388728}
+  eqButton: {fileID: 263851301}
 --- !u!65 &1374388724
 BoxCollider:
   m_ObjectHideFlags: 0
