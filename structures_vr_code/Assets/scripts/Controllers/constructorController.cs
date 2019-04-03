@@ -89,6 +89,13 @@ public class constructorController : MonoBehaviour
     /// </summary>
     void createFrame(Vector3 pA, Vector3 pB)
     {
+        string dat = ("drawFrame(new Vector3"+pA+", new Vector3"+pB+", buildingObjects.Frame)\n");
+        System.IO.File.AppendAllText("FRAMES.txt", dat);
+        // Write to disk
+        //StreamWriter writer = new StreamWriter("MyPath.txt");
+        //writer.Write(dat);
+
+
         string frameName = "Frame_i=[" + pA.x + ":" + pA.z + ":" + pA.y + "]-j=[" + pB.x + ":" + pB.z + ":" + pB.y + "]";
         FrameSectionType type = mySectionController.GetCurrentFrameSection().GetFrameSectionType();
         Frame frame = new Frame();

@@ -29,16 +29,17 @@ public class debugBuilding : MonoBehaviour {
 
     void Start () {
         //xmlController.GetComponent<xmlController>().sendFileToSap(); //send to SAP2000
-        Debug.Log("START DEBUG");
+
         drawGrid();
         populateDropdowns();
-        Debug.Log("DEBUG Populated Dropdowns.");
-        testSections();
-        Debug.Log("DEBUG Tested Sections.");
+
+        drawIBeams();
+        drawPipes();
+        drawTubes();
+
         testJoints();
-        Debug.Log("DEBUG Tested Joints.");
-        testFrameDeletion();
-        Debug.Log("DEBUG Tested Frame Deletion.");
+
+
 
     }
 	
@@ -47,97 +48,90 @@ public class debugBuilding : MonoBehaviour {
     /// this is useful to populate the various UI dropdowns so that you don't have to manualy create these each time 
     /// </summary>
     void populateDropdowns()
-    {
-        			
-        myMaterialController.addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
+    {	
         myMaterialController.addBuildingMaterial("Steel02", "United States", "steel", "ASTM A500", "Grade C");
         myMaterialController.addBuildingMaterial("Aluminum01", "United States", "aluminum", "ASTM", "Alloy 6061 T6");
 
         mySectionController.addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
-        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2f, 0.01f);
         mySectionController.addTubeFrameSection("Sec_Aluminum_Tube", "Aluminum01", 0.16f, 0.1f, 0.007f, 0.007f);
-
+        mySectionController.addPipeFrameSection("Sec_Steel_Pipe", "Steel02", 0.2f, 0.01f);
+        mySectionController.addPipeFrameSection("Pipe_Small", "Steel02", 0.03f, 0.01f);
     }
 
+    
     /// <summary>
-    /// Used for testing unit conversions
+    /// creates various frame sections and draws a few frames
     /// </summary>
-    void testConversions()
+    void drawIBeams()
     {
-        unitsController uC = myUnitsController.GetComponent<unitsController>();
-        uC.populateDict();
-        int lengthMeter = 5;
-        int forceNewton = 15;
-        int tempCel = 20;
-        uC.setUnits("N, m, C");
-        Debug.Log("Force: " + uC.getForceUnit() + ", Length: " + uC.getLengthUnit() + ", Temp: " + uC.getTempUnit());
-        Debug.Log(tempCel + " Celcius is " + uC.getTemperature(tempCel) + " Celcius"); // correct
-        uC.setUnits("Kip, ft, F");
-        Debug.Log("Force: " + uC.getForceUnit() + ", Length: " + uC.getLengthUnit() + ", Temp: " + uC.getTempUnit());
-        
-        Debug.Log(lengthMeter + " meters is " + uC.getLength(lengthMeter) + " feet"); // correct
-        Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton) + " Kips"); // correct
-        Debug.Log(tempCel + " Celcius is " + uC.getTemperature(tempCel) + " farenheit"); // correct
-        
-        int lengthFeet = 8;
-        int forceKips = 120;
-        int tempFaren = 75;
-        Debug.Log(lengthFeet + " feet is " + uC.getLengthMeters(lengthFeet) + " meters"); // correct
-        Debug.Log(forceKips + "  Kips is " + uC.getForceNewtons(forceKips) + " newtons"); // correct +-2 N
-        Debug.Log(tempFaren + "  farenheit is " + uC.getTemperatureCelcius(tempFaren) + " Celcius"); // correct
+        mySectionController.SetCurrentFrameSection("Pipe_Small");
 
-        int lengthInches = 346;
-        int forceLb = 3;
+        drawFrame(new Vector3(0,0,5), new Vector3(0,2,5), buildingObjects.Frame);
+        drawFrame(new Vector3(5,0,0), new Vector3(5,2,0), buildingObjects.Frame);
+        drawFrame(new Vector3(5,0,5), new Vector3(5,2,5), buildingObjects.Frame);
+        drawFrame(new Vector3(0,2,5), new Vector3(0,3,5), buildingObjects.Frame);
+        drawFrame(new Vector3(5,2,0), new Vector3(5,4,0), buildingObjects.Frame);
+        drawFrame(new Vector3(5,2,5), new Vector3(5,3,5), buildingObjects.Frame);
+        drawFrame(new Vector3(2,0,2), new Vector3(2,2,2), buildingObjects.Frame);
+        drawFrame(new Vector3(2,0,0), new Vector3(2,2,0), buildingObjects.Frame);
+        drawFrame(new Vector3(0,0,2), new Vector3(0,2,2), buildingObjects.Frame);
         
-        uC.setUnits("lb, in, C");
-        Debug.Log(lengthInches + " inches is " + uC.getLengthMeters(lengthInches) + "meters");
-        Debug.Log(forceLb + " lb is " + uC.getForceNewtons(forceLb) + " Newtons");
-        Debug.Log(lengthMeter + " meters is " + uC.getLength(lengthMeter) + " inches");
-        Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton) + " lb");
+        for(int i=2; i<6; i++) {
+            drawFrame(new Vector3(i,4,0), new Vector3(i,3,5), buildingObjects.Frame);
+        }
+        drawFrame(new Vector3(0,3,5), new Vector3(0,3,0), buildingObjects.Frame);
+        drawFrame(new Vector3(2,4,0), new Vector3(2,2,0), buildingObjects.Frame);
+        drawFrame(new Vector3(2,4,0), new Vector3(5,4,0), buildingObjects.Frame);
+        drawFrame(new Vector3(0,2,2), new Vector3(0,3,0), buildingObjects.Frame);
+        drawFrame(new Vector3(0,3,0), new Vector3(2,2,0), buildingObjects.Frame);
+        drawFrame(new Vector3(2,2,2), new Vector3(0,3,0), buildingObjects.Frame);
         
-        int lenghtCM = 400;
-        int forceKN = 2;
-        uC.setUnits("KN, cm, C");
+        drawFrame(new Vector3(0,2,2), new Vector3(0,2,5), buildingObjects.Frame);
+        drawFrame(new Vector3(5,2,0), new Vector3(5,2,5), buildingObjects.Frame);
+        drawFrame(new Vector3(5,2,5), new Vector3(0,2,5), buildingObjects.Frame);
 
-        Debug.Log(lenghtCM + " centimeters is " + uC.getLengthMeters(lenghtCM) + "meters ");
-        Debug.Log(lengthMeter + " meters is " + uC.getLength(lengthMeter) + "cm ");
-        Debug.Log(forceKN + " kn is " + uC.getForceNewtons(forceKN) + " newtons");
-        Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton) + " KN");
-
-        int lengthMM = 3600;
-        int forceKgf = 3;
-        uC.setUnits("Kgf, mm, C");
-
-        Debug.Log(lengthMM + " mm is " + uC.getLengthMeters(lengthMM)+ " meters");
-        Debug.Log(lengthMeter + " meters is " + uC.getLength(lengthMeter)+ " mm");
-        Debug.Log(forceKgf + " kgf is "+ uC.getForceNewtons(forceKgf) + " newtons");
-        Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton) + " Kgf");
+        drawFrame(new Vector3(5,3,5), new Vector3(0,3,5), buildingObjects.Frame);
         
-        int forceTonf = 2;
-        uC.setForceUnit("Tonf");
-        Debug.Log(forceTonf + " tonf is " + uC.getForceNewtons(forceTonf)+ "newtons");
-        Debug.Log(forceNewton + " newtons is " + uC.getForce(forceNewton)+ " tonf");
+        drawFrame(new Vector3(0,2,2), new Vector3(2,2,2), buildingObjects.Frame);
+        drawFrame(new Vector3(2,2,2), new Vector3(2,2,0), buildingObjects.Frame);
+        
+        drawFrame(new Vector3(2,2,0), new Vector3(5,2,0), buildingObjects.Frame);
+        drawFrame(new Vector3(0,3,0), new Vector3(2,3,0), buildingObjects.Frame);
+
+        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
+        drawFrame(new Vector3(0, 0, 2), new Vector3(0, 2, 2), buildingObjects.Frame);
+        drawFrame(new Vector3(0, 0, 5), new Vector3(0, 2, 5), buildingObjects.Frame);
+        drawFrame(new Vector3(5, 0, 5), new Vector3(5, 2, 5), buildingObjects.Frame);
+        drawFrame(new Vector3(2, 2, 0), new Vector3(2, 0, 0), buildingObjects.Frame);
+        drawFrame(new Vector3(5, 0, 0), new Vector3(5, 2, 0), buildingObjects.Frame);
+
+    }
+    
+    /// <summary>
+    /// creates various frame sections and draws a few frames
+    /// </summary>
+    void drawPipes()
+    {
+        mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
+        drawFrame(new Vector3(0, 3, 0), new Vector3(0, 2, 2), buildingObjects.Frame);
+        drawFrame(new Vector3(0, 3, 0), new Vector3(2, 2, 2), buildingObjects.Frame);
+        drawFrame(new Vector3(0, 3, 0), new Vector3(2, 2, 0), buildingObjects.Frame);
     }
 
     /// <summary>
     /// creates various frame sections and draws a few frames
     /// </summary>
-    void testSections()
+    void drawTubes()
     {
-        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
-        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
-        myConstructorController.setPoint(origin, buildingObjects.Frame);
-		myConstructorController.setPoint(p1, buildingObjects.Frame);
-
-        mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
-        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
-        myConstructorController.setPoint(p2, buildingObjects.Frame);
-		myConstructorController.setPoint(p3, buildingObjects.Frame);
-
         mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
-        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
-        myConstructorController.setPoint(p4, buildingObjects.Frame);
-        myConstructorController.setPoint(p5, buildingObjects.Frame);
+        drawFrame(new Vector3(0, 3, 0), new Vector3(5, 3, 0), buildingObjects.Frame);
+        drawFrame(new Vector3(0, 3, 0), new Vector3(0, 3, 5), buildingObjects.Frame);
+        drawFrame(new Vector3(2, 3, 0), new Vector3(2, 4, 0), buildingObjects.Frame);
+        drawFrame(new Vector3(5, 3, 0), new Vector3(5, 4, 0), buildingObjects.Frame);
+        drawFrame(new Vector3(2, 2, 0), new Vector3(5, 2, 0), buildingObjects.Frame);
+        drawFrame(new Vector3(5, 2, 5), new Vector3(5, 2, 0), buildingObjects.Frame);
+        drawFrame(new Vector3(0, 2, 5), new Vector3(0, 2, 2), buildingObjects.Frame);
+        drawFrame(new Vector3(0, 2, 5), new Vector3(5, 2, 5), buildingObjects.Frame);
     }
 
     /// <summary>
@@ -159,51 +153,21 @@ public class debugBuilding : MonoBehaviour {
         myConstructorController.createJointRestraint(p6, 'f'); // This is meant to fail, as there is no frame endpoint here
     }
 
-    /// <summary>
-    /// creates and deletes frame sections
-    /// </summary>
-    void testFrameDeletion()
-    {
-        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
-        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
-        myConstructorController.setPoint(p7, buildingObjects.Frame);
-        myConstructorController.setPoint(p8, buildingObjects.Frame);
+    
 
-        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
-        Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
-        myConstructorController.setPoint(p9, buildingObjects.Frame);
-        myConstructorController.setPoint(p10, buildingObjects.Frame);
-
-        string deleteFrameName = "Frame_i=[" + p9.x + ":" + p9.z + ":" + p9.y + "]-j=[" + p10.x + ":" + p10.z + ":" + p10.y + "]";
-        myConstructorController.deleteFrame(deleteFrameName);
-
-        
-    }
-
-    /// <summary>
-    /// Draws a few frame sections
-    /// </summary>
-    void drawFrames()
-    {
-        drawGrid();
-        myConstructorController.setPoint(p2, buildingObjects.Frame);
-        myConstructorController.setPoint(p3, buildingObjects.Frame);
-
-        mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
-        myConstructorController.setPoint(p4, buildingObjects.Frame);
-        myConstructorController.setPoint(p5, buildingObjects.Frame);
-
-        mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
-        myConstructorController.setPoint(origin, buildingObjects.Frame);
-        myConstructorController.setPoint(p1, buildingObjects.Frame);
-
-    }
+   
 
     /// <summary>
     /// generates the grid nodes
     /// </summary>
     void drawGrid()
     {
-        myGridController.createGrid(5, 5, 5, 1f);
+        myGridController.createGrid(6, 5, 6, 1f);
+    }
+
+    void drawFrame(Vector3 p1, Vector3 p2, buildingObjects obj) {
+        myConstructorController.setPoint(p1, obj);
+		myConstructorController.setPoint(p2, obj);
+
     }
 }

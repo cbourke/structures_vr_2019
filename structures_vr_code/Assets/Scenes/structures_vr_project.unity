@@ -1038,12 +1038,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94be0ae13af75224c9a78980cc2a8910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myConstructorController: {fileID: 0}
-  myXmlController: {fileID: 0}
-  myMaterialController: {fileID: 0}
-  mySectionController: {fileID: 0}
-  myUnitsController: {fileID: 0}
-  myGridController: {fileID: 0}
+  myConstructorController: {fileID: 1155890640}
+  myXmlController: {fileID: 1155890636}
+  myMaterialController: {fileID: 1155890638}
+  mySectionController: {fileID: 1155890639}
+  myUnitsController: {fileID: 1155890634}
+  myGridController: {fileID: 1155890635}
 --- !u!1 &305919769 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1157275665033092, guid: 55bf230e68be69f439ed024d48fe840f,
