@@ -21,6 +21,7 @@ public class shakeGround : MonoBehaviour
     // Update is called once per frame
     void Update () {
         //Debug.Log("update");
+
         if (eq)
         {
             float forceZ = Random.Range(minThrust, maxThrust);
@@ -39,6 +40,13 @@ public class shakeGround : MonoBehaviour
         float endTime = Time.time + duration;
         Debug.Log("EQ Begin");
         eq = !eq;
+        if (eq)
+        {
+            eqButton.GetComponentInChildren<Text>().text = "Stop Earthquake";
+        } else
+        {
+            eqButton.GetComponentInChildren<Text>().text = "Start Earthquake";
+        }
         /*
         while (endTime > Time.time)
         {
