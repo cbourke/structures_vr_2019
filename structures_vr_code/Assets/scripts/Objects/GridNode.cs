@@ -12,6 +12,8 @@ public class GridNode
 	private GameObject gridNodeObject;
 	private bool isSelected = false;
 
+    private float defaultGridSize = 0.05f;
+
 	/// <summary>
     /// Empty constructor
     /// </summary>
@@ -29,7 +31,8 @@ public class GridNode
 		position = pos;
 		gridNodeObject = MonoBehaviour.Instantiate(gridNodePrefab, position, Quaternion.identity);
 		gridNodeObject.transform.parent = myGridController.transform;
-		gridNodeObject.transform.localScale = new Vector3(1/spacing, 1/spacing, 1/spacing); // change its local scale in x y z format
+        Debug.Log("gridSpacing: " + spacing);
+		gridNodeObject.transform.localScale = new Vector3(defaultGridSize*spacing, defaultGridSize*spacing, defaultGridSize*spacing); // change its local scale in x y z format
 
 		frameHighlighter = gridNodeObject.GetComponent<highlighter>();
 		gridNodeObject.GetComponent<GridNodeBehavior>().setMyGridNode(this);
