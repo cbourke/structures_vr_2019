@@ -48,7 +48,6 @@ public class debugDrawing : MonoBehaviour {
     /// </summary>
     void populateDropdowns()
     {
-        			
         myMaterialController.addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
         myMaterialController.addBuildingMaterial("Steel02", "United States", "steel", "ASTM A500", "Grade C");
         myMaterialController.addBuildingMaterial("Aluminum01", "United States", "aluminum", "ASTM", "Alloy 6061 T6");
