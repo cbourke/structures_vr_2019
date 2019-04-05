@@ -237,6 +237,13 @@ namespace SapTranslator
                                 resultsFrameJointForce(arguments);
                                 break;
                             }
+                        case "resultsFrameForce":
+                            {
+                                // arguments: (string name, eItemTypeElm itemTypeElm)
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                resultsFrameForce(arguments);
+                                break;
+                            }
                         case "resultsJointDispl":
                             {
                                 // arguments: (string name, eItemTypeElm itemTypeElm)
@@ -361,7 +368,7 @@ namespace SapTranslator
             //create new blank model
             ret = mySapModel.File.NewBlank();
             //switch to kip-ft-F units
-            ret = mySapModel.SetPresentUnits(eUnits.kip_ft_F);
+            //ret = mySapModel.SetPresentUnits(eUnits.kip_ft_F);
         }
 
 
@@ -783,6 +790,80 @@ namespace SapTranslator
             string[] results = { name, itemType.ToString(), numberResults.ToString(), objResults, elmResults, pointElmResults, loadCaseResults, stepTypeResults, stepNumResults, f1Results, f2Results, f3Results, m1Results, m2Results, m3Results };
 
             string response = "SAPTranslator to VRE: sending 15 result strings:";
+            pipeStreamString.WriteString(response);
+            Console.WriteLine(response);
+            pipeClient.WaitForPipeDrain();
+            for (int i = 0; i < results.Length; i++)
+            {
+                response = results[i];
+                pipeStreamString.WriteString(response);
+                Console.WriteLine(response);
+                pipeClient.WaitForPipeDrain();
+            }
+        }
+
+        static void resultsFrameForce(List<string> arguments)
+        {
+            string name = arguments[0];
+            eItemTypeElm itemType = (eItemTypeElm)Int32.Parse(arguments[1]);
+            int numberResults = 9; // default to 9 arbitrarily
+            string[] obj = new string[9];
+            double[] objSta = new double[9];;
+            string[] elm = new string[9];
+            double[] elmSta = new double[9];
+            string[] loadCase = new string[9];
+            string[] stepType = new string[9];
+            double[] stepNum = new double[9];
+            double[] p = new double[9];
+            double[] v2 = new double[9];
+            double[] v3 = new double[9];
+            double[] t = new double[9];
+            double[] m2 = new double[9];
+            double[] m3 = new double[9];
+
+
+            //we need to do a probing call first to get numberResults
+            ret = mySapModel.Results.FrameForce(name, itemType, ref numberResults,
+                ref obj, ref objSta, ref elm, ref elmSta, ref loadCase, ref stepType,
+                ref stepNum, ref p, ref v2, ref v3, ref t, ref m2, ref m3);
+
+            obj = new string[numberResults];
+            objSta = new double[numberResults];
+            elm = new string[numberResults];
+            elmSta = new double[numberResults];
+            loadCase = new string[numberResults];
+            stepType = new string[numberResults];
+            stepNum = new double[numberResults];
+            p = new double[numberResults];
+            v2 = new double[numberResults];
+            v3 = new double[numberResults];
+            t = new double[numberResults];
+            m2 = new double[numberResults];
+            m3 = new double[numberResults];
+
+            // Now we call for the actual results
+            ret = mySapModel.Results.FrameForce(name, itemType, ref numberResults,
+                ref obj, ref objSta, ref elm, ref elmSta, ref loadCase, ref stepType,
+                ref stepNum, ref p, ref v2, ref v3, ref t, ref m2, ref m3);
+
+            // Now return the results, somehow.
+            string objResults = String.Join("`", obj);
+            string objStaResults = String.Join("`", objSta);
+            string elmResults = String.Join("`", elm);
+            string elmStaResults = String.Join("`", elmSta);
+            string loadCaseResults = String.Join("`", loadCase);
+            string stepTypeResults = String.Join("`", stepType);
+            string stepNumResults = String.Join("`", stepNum);
+            string pResults = String.Join("`", p);
+            string v2Results = String.Join("`", v2);
+            string v3Results = String.Join("`", v3);
+            string tResults = String.Join("`", t);
+            string m2Results = String.Join("`", m2);
+            string m3Results = String.Join("`", m3);
+
+            string[] results = { name, itemType.ToString(), numberResults.ToString(), objResults, objStaResults, elmResults, elmStaResults, loadCaseResults, stepTypeResults, stepNumResults, pResults, v2Results, v3Results, tResults, m2Results, m3Results };
+
+            string response = "SAPTranslator to VRE: sending results of resultsFrameForce:";
             pipeStreamString.WriteString(response);
             Console.WriteLine(response);
             pipeClient.WaitForPipeDrain();

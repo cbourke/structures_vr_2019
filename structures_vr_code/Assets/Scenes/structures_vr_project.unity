@@ -992,7 +992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &295299417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,6 +1011,8 @@ MonoBehaviour:
   mySectionController: {fileID: 1155890639}
   myUnitsController: {fileID: 1155890634}
   myGridController: {fileID: 1155890635}
+  mySapTranslatorIpcHandler: {fileID: 1155890643}
+  myAnalysisController: {fileID: 1155890644}
 --- !u!4 &295299418
 Transform:
   m_ObjectHideFlags: 0
@@ -3186,8 +3188,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4331758c0c357544da1359f629ceec0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myMaterialController: {fileID: 1155890638}
+  mySectionController: {fileID: 1155890639}
+  myConstructorController: {fileID: 1155890640}
   mySapTranslatorIPCHandler: {fileID: 1155890643}
   resultHistorySlots: 2
+  visualizationScale: 1000
+  jointDisplHistory: []
 --- !u!1 &1191773466
 GameObject:
   m_ObjectHideFlags: 0

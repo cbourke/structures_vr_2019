@@ -91,10 +91,15 @@ public class SapTranslatorIpcHandler : MonoBehaviour
                     frameJointForce frameJointForceObject = readResponseResultsFrameJointForce();
                     myAnalysisController.setLatestFrameJointForceResult(frameJointForceObject);
                 }
+                else if (message.Contains("resultsFrameForce"))
+                {
+                    frameForce frameForceObject = readResponseResultsFrameForce();
+                    myAnalysisController.setLatestFrameForceResult(frameForceObject);
+                }
                 else if (message.Contains("resultsJointDispl"))
                 {
                     jointDispl jointDisplObject = readResponseResultsJointDispl();
-                    //TODO myAnalysisController.setLatestFrameJointForceResult(frameJointForceObject);
+                    myAnalysisController.setLatestJointDisplResult(jointDisplObject);
                 }
             }
         }
@@ -160,6 +165,73 @@ public class SapTranslatorIpcHandler : MonoBehaviour
         frameJointForce result = new frameJointForce(name,
             itemType, numberResults, obj, elm, pointElm,
             loadCase, stepType, stepNum, f1, f2, f3, m1, m2, m3);
+
+        return result;
+    }
+
+    private frameForce readResponseResultsFrameForce()
+    {
+        string[] results = new string[17];
+        for (int i = 0; i < results.Length; i++)
+        {
+            results[i] = pipeStreamString.ReadString();
+        }
+
+        //Debug:
+        string resultsAsOneString = String.Join("\n", results);
+        Debug.Log(resultsAsOneString);
+        string messageHeader = results[0];
+        string name = results[1];
+        string itemType = results[2];
+        int numberResults;
+        try
+        {
+            numberResults = int.Parse(results[3], System.Globalization.NumberStyles.Integer);
+        }
+        catch (FormatException)
+        {
+            numberResults = 9;
+        }
+        string[] obj = results[4].Split('`');
+        string[] objStaStrings = results[5].Split('`');
+        string[] elm = results[6].Split('`');
+        string[] elmStaStrings = results[7].Split('`');
+        string[] loadCase = results[8].Split('`');
+        string[] stepType = results[9].Split('`');
+        string[] stepNumStrings = results[10].Split('`');
+        string[] pStrings = results[11].Split('`');
+        string[] v2Strings = results[12].Split('`');
+        string[] v3Strings = results[13].Split('`');
+        string[] tStrings = results[14].Split('`');
+        string[] m2Strings = results[15].Split('`');
+        string[] m3Strings = results[16].Split('`');
+
+        double[] objSta = new double[numberResults];
+        double[] elmSta = new double[numberResults];
+        double[] stepNum = new double[numberResults];
+        double[] p = new double[numberResults];
+        double[] v2 = new double[numberResults];
+        double[] v3 = new double[numberResults];
+        double[] t = new double[numberResults];
+        double[] m2 = new double[numberResults];
+        double[] m3 = new double[numberResults];
+
+        for (int i = 0; i < numberResults; i++)
+        {
+            objSta[i] = Double.Parse(objStaStrings[i]);
+            elmSta[i] = Double.Parse(elmStaStrings[i]);
+            stepNum[i] = Double.Parse(stepNumStrings[i]);
+            p[i] = Double.Parse(pStrings[i]);
+            v2[i] = Double.Parse(v2Strings[i]);
+            v3[i] = Double.Parse(v3Strings[i]);
+            t[i] = Double.Parse(tStrings[i]);
+            m2[i] = Double.Parse(m2Strings[i]);
+            m3[i] = Double.Parse(m3Strings[i]);
+        }
+
+        frameForce result = new frameForce(name,
+            itemType, numberResults, obj, objSta, elm, elmSta,
+            loadCase, stepType, stepNum, p, v2, v3, t, m2, m3);
 
         return result;
     }

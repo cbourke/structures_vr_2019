@@ -177,6 +177,8 @@ public class constructorController : MonoBehaviour
         }
     }
 
+
+
     /// <summary>
     /// Deletes a frame given the frameObjectID. Not sure if this is actually used anywhere
     /// </summary>
@@ -238,6 +240,25 @@ public class constructorController : MonoBehaviour
             }
         }
         i++;
+    }
+
+    /// <summary>
+    /// Finds and returns the frame object with the given name.
+    /// </summary>
+    /// <param name="frameName"></param>
+    public Frame findFrame(string frameName)
+    {
+        Frame result = null;
+        int i = 0;
+        foreach (Frame frameElement in frameList)
+        {
+            if (frameElement.getName() == frameName)
+            {
+                result = frameElement;
+                break;
+            }
+        }
+        return result;
     }
 
     /// <summary>

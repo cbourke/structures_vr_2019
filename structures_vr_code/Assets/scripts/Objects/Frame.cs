@@ -259,5 +259,10 @@ public class Frame {
             frameHighlighter.Unhighlight();
         }
     }
+
+    public double getLength()
+    {
+        return Vector3.Distance(startPos, endPos);
+    }
 }
 

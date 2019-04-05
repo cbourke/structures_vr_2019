@@ -17,8 +17,8 @@ public class sectionController : MonoBehaviour {
     /// Creates a default frame section
     /// </summary>
 	void Awake () {
-        addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
-        currentFrameSection = frameSections[0];
+        //addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
+        //currentFrameSection = frameSections[0];
 	}
 
     /// <summary>
