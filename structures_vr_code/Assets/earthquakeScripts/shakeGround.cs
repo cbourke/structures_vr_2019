@@ -7,7 +7,6 @@ public class shakeGround : MonoBehaviour
 {
     public float minThrust;
     public float maxThrust;
-    public float duration;
     public Rigidbody rb;
     public Button eqButton;
     private bool eq = false;
@@ -37,7 +36,6 @@ public class shakeGround : MonoBehaviour
 
     void shakeOnClick(float minT, float maxT)
     {
-        float endTime = Time.time + duration;
         Debug.Log("EQ Begin");
         eq = !eq;
         if (eq)
