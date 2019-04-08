@@ -203,6 +203,6 @@ public class debugDrawing : MonoBehaviour {
     /// </summary>
     void drawGrid()
     {
-        myGridController.createGrid(5, 5, 5, 1f);
+        myGridController.createGrid(5, 5, 5, 5f);
     }
 }
