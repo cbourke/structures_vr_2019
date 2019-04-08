@@ -8,6 +8,7 @@ public class shakeGround : MonoBehaviour
     public float minThrust;
     public float maxThrust;
     public Rigidbody rb;
+    public Rigidbody buildingRB;
     public Button eqButton;
     private bool eq = false;
 
@@ -40,9 +41,11 @@ public class shakeGround : MonoBehaviour
         eq = !eq;
         if (eq)
         {
+            buildingRB.freezeRotation = false;
             eqButton.GetComponentInChildren<Text>().text = "Stop Earthquake";
         } else
         {
+           buildingRB.freezeRotation = true;
             eqButton.GetComponentInChildren<Text>().text = "Start Earthquake";
         }
         /*
