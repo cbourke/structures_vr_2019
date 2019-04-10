@@ -8,7 +8,9 @@ public class shakeGround : MonoBehaviour
     public float minThrust = 10;
     public float maxThrust = 15;
     public Rigidbody rb;
+    
     public bool shake;
+    public float delay = 0.2f;
 
     public int shakeCount = 5;
     private int dirX = 1;
@@ -24,9 +26,7 @@ public class shakeGround : MonoBehaviour
     void Update()
     {
         if(shake) {
-            for(int i=0; i<shakeCount; i++) {
-                shakeGroundOnClick();
-            }
+            shakeGroundOnClick();
             shake = false;
         }
     }
@@ -35,9 +35,8 @@ public class shakeGround : MonoBehaviour
 
     IEnumerator shakeCoroutine()
     {
-        for(int i=0; i<5; i++) {
-            yield return new WaitForSeconds(.2f);
-            print(Time.time);
+        for(int i=0; i<shakeCount; i++) {
+            yield return new WaitForSeconds(delay);
             addForceToGround();
         }
     }
@@ -55,7 +54,6 @@ public class shakeGround : MonoBehaviour
 
         Vector3 forceNew = new Vector3(thrust*dirX, 0, thrust*dirZ);
         rb.AddForce(forceNew, ForceMode.Impulse);
-        print("force: " + forceNew);
         dirX *= -1;
         dirZ *= -1;
     }
