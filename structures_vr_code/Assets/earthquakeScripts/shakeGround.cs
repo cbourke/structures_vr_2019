@@ -5,56 +5,58 @@ using UnityEngine.UI;
 
 public class shakeGround : MonoBehaviour
 {
-    public float minThrust;
-    public float maxThrust;
+    public float minThrust = 10;
+    public float maxThrust = 15;
     public Rigidbody rb;
-    public Rigidbody buildingRB;
-    public Button eqButton;
-    private bool eq = false;
+    public bool shake;
+
+    public int shakeCount = 5;
+    private int dirX = 1;
+    private int dirZ = 1;
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
-        eqButton.onClick.AddListener(() => shakeOnClick(minThrust, maxThrust));
-    }
-
-    // Update is called once per frame
-    void Update () {
-        //Debug.Log("update");
-
-        if (eq)
-        {
-            float forceZ = Random.Range(minThrust, maxThrust);
-            float forceX = Random.Range(minThrust, maxThrust);
-
-            Vector3 forceNew = new Vector3(forceX, 0, forceZ);
-           
-            rb.AddForce(forceNew, ForceMode.Impulse);
-        }
-        
+        //eqButton.onClick.AddListener(() => shakeOnClick(minThrust, maxThrust));
 
     }
 
-    void shakeOnClick(float minT, float maxT)
+    void Update()
     {
-        Debug.Log("EQ Begin");
-        eq = !eq;
-        if (eq)
-        {
-            buildingRB.freezeRotation = false;
-            eqButton.GetComponentInChildren<Text>().text = "Stop Earthquake";
-        } else
-        {
-           buildingRB.freezeRotation = true;
-            eqButton.GetComponentInChildren<Text>().text = "Start Earthquake";
+        if(shake) {
+            for(int i=0; i<shakeCount; i++) {
+                shakeGroundOnClick();
+            }
+            shake = false;
         }
-        /*
-        while (endTime > Time.time)
-        {
-            float forceX = Random.Range(minT, maxT);
-            Vector3 forceNew = new Vector3(forceX, 0, 0);
-            rb.AddForce(forceNew, ForceMode.Impulse);
+    }
+
+
+
+    IEnumerator shakeCoroutine()
+    {
+        for(int i=0; i<5; i++) {
+            yield return new WaitForSeconds(.2f);
+            print(Time.time);
+            addForceToGround();
         }
-        */
+    }
+
+
+    public void shakeGroundOnClick()
+    {
+        StartCoroutine(shakeCoroutine());
+    }
+
+    private void addForceToGround()
+    {
+        Debug.Log("Shake");
+        float thrust = Random.Range(minThrust, maxThrust);
+
+        Vector3 forceNew = new Vector3(thrust*dirX, 0, thrust*dirZ);
+        rb.AddForce(forceNew, ForceMode.Impulse);
+        print("force: " + forceNew);
+        dirX *= -1;
+        dirZ *= -1;
     }
 }
