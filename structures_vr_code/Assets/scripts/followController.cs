@@ -35,6 +35,8 @@ public class followController : MonoBehaviour
 
         }
 
-        transform.localScale = scaleTarget.transform.localScale;
+        if(scaleTarget != null) {
+            transform.localScale = scaleTarget.transform.localScale;
+        }
     }
 }
