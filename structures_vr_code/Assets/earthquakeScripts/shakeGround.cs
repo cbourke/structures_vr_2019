@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class shakeGround : MonoBehaviour
 {
-    public float minThrust = 10;
-    public float maxThrust = 15;
+    public float minThrust = 20;
+    public float maxThrust = 40;
     public Rigidbody rb;
     
     public bool shake;
@@ -46,13 +46,22 @@ public class shakeGround : MonoBehaviour
         StartCoroutine(shakeCoroutine());
     }
 
+    // (0+x)y = 20          x = 20/y
+    // (1+x)y = 200         (1+20/y)y = 200
+    //                      y+20 = 200
+    //                      y = 180
+    //                      x = 1/9
+
+    // (s+1/90)*180
+    // 20-40
+    // 200-400
     public void changeMagnitude(Scrollbar slider)
     {
-        float magnitude = 20.0f *(slider.value + 1); // 10 - 20
+        float magnitude = (slider.value + (1f/9f))*180;
         Debug.Log("change mag invoked: " + magnitude);
 
-        this.minThrust = 5.0f * magnitude;
-        this.maxThrust = 10.0f * magnitude;
+        this.minThrust = 1f * magnitude;
+        this.maxThrust = 2f * magnitude;
     }
 
     private void addForceToGround()

@@ -10301,7 +10301,7 @@ PrefabInstance:
     - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
         type: 3}
       propertyPath: m_Value
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
         type: 3}
@@ -14162,8 +14162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385e7a1a6ae0ff44a95d286e06c132c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minThrust: 25
-  maxThrust: 50
+  minThrust: 20
+  maxThrust: 40
   rb: {fileID: 1374388728}
   shake: 0
   delay: 0.5
