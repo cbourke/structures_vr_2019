@@ -1981,7 +1981,7 @@ MonoBehaviour:
   invalidCollisionColor: {r: 1, g: 0, b: 0, a: 1}
   tracerVisibility: 0
   cursorVisibility: 0
-  maximumLength: {x: 5, y: Infinity}
+  maximumLength: {x: 20, y: Infinity}
   tracerDensity: 15
   cursorRadius: 0.5
   heightLimitAngle: 42
@@ -7464,7 +7464,7 @@ MonoBehaviour:
   scaleActivationButton: 4
   scaleActivationRequirement: 5
   scaleTrackingController: 3
-  scaleMultiplier: 3
+  scaleMultiplier: 5
   scaleActivationThreshold: 0.002
   minimumScale: {x: 1, y: 1, z: 1}
   maximumScale: {x: Infinity, y: Infinity, z: Infinity}
@@ -7656,7 +7656,7 @@ MonoBehaviour:
   scaleFactor: 0.002
   cursorScaleMultiplier: 7
   cursorMatchTargetRotation: 0
-  cursorDistanceRescale: 1
+  cursorDistanceRescale: 0
   maximumCursorScale: {x: Infinity, y: Infinity, z: Infinity}
   customTracer: {fileID: 0}
   customCursor: {fileID: 0}
