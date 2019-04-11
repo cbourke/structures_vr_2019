@@ -5239,6 +5239,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476769877}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &516346444 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
+    type: 3}
+  m_PrefabInstance: {fileID: 952150215}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2061169968, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &516915124
 GameObject:
   m_ObjectHideFlags: 0
@@ -5680,13 +5692,13 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 104994, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_Name
-      value: sign_lettering
-      objectReference: {fileID: 0}
     - target: {fileID: 105416, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
       propertyPath: m_Name
       value: inner_pilars
+      objectReference: {fileID: 0}
+    - target: {fileID: 104994, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_Name
+      value: sign_lettering
       objectReference: {fileID: 0}
     - target: {fileID: 126700, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
       propertyPath: m_Name
@@ -10266,6 +10278,61 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 792251463118237144, guid: ae2ab117d483d5443b8e426eea89671f,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
+        type: 3}
+      propertyPath: m_Size
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
+        type: 3}
+      propertyPath: m_NumberOfSteps
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1374388723}
+    - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: changeMagnitude
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.UI.Scrollbar, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255561374983648541, guid: ae2ab117d483d5443b8e426eea89671f,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 516346444}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae2ab117d483d5443b8e426eea89671f, type: 3}
 --- !u!1 &958614403
@@ -14095,8 +14162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385e7a1a6ae0ff44a95d286e06c132c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minThrust: 50
-  maxThrust: 100
+  minThrust: 25
+  maxThrust: 50
   rb: {fileID: 1374388728}
   shake: 0
   delay: 0.5
