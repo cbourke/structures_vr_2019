@@ -17,18 +17,34 @@ public class PointerController : MonoBehaviour {
     public VRTK_Pointer nodePointer;
     public VRTK_Pointer framePointer;
     public VRTK_Pointer UIPointer;
+
+    public VRTK_StraightPointerRenderer nodeRenderer;
+    public VRTK_StraightPointerRenderer frameRenderer;
+    public VRTK_StraightPointerRenderer uiRenderer;
+    public GameObject scaleTarget;
+
     //public VRTK_UIPointer UIPointer;
     public VRTK_Pointer TeleportPointer;
     public selectionController selectionController;
 
     private pointerModes mode;
     private pointerModes drawSelectState;
-
+    public float scale = 1;
     /// <summary>
     /// Sets the default pointer mode
     /// </summary>
     void Start () {
         setPointerModeToUI();
+    }
+
+    /// <summary>
+    /// Scale the pointers based on the size of the player
+    /// </summary>
+    void Update()
+    {
+        nodeRenderer.scaleFactor = scaleTarget.transform.localScale.x*.001f;
+        frameRenderer.scaleFactor = scaleTarget.transform.localScale.x*.001f;
+        uiRenderer.scaleFactor = scaleTarget.transform.localScale.x*.001f;
     }
 	
     /// <summary>

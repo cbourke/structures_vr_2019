@@ -3751,8 +3751,13 @@ MonoBehaviour:
   nodePointer: {fileID: 1131705572}
   framePointer: {fileID: 2021243883}
   UIPointer: {fileID: 1969004704}
+  nodeRenderer: {fileID: 1131705571}
+  frameRenderer: {fileID: 2021243882}
+  uiRenderer: {fileID: 1969004703}
+  scaleTarget: {fileID: 1931310775}
   TeleportPointer: {fileID: 602864383}
   selectionController: {fileID: 1155890641}
+  scale: 1
 --- !u!114 &1388622109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5084,6 +5089,10 @@ PrefabInstance:
       propertyPath: followingTarget
       value: 
       objectReference: {fileID: 1931310774}
+    - target: {fileID: 5162993756500092, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
+      propertyPath: scaleTarget
+      value: 
+      objectReference: {fileID: 1931310775}
     - target: {fileID: 1633002114646700, guid: 55bf230e68be69f439ed024d48fe840f, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -7452,7 +7461,7 @@ MonoBehaviour:
   rotationTrackingController: 3
   rotationMultiplier: -0.7
   rotationActivationThreshold: 0.1
-  scaleActivationButton: 0
+  scaleActivationButton: 4
   scaleActivationRequirement: 5
   scaleTrackingController: 3
   scaleMultiplier: 3
@@ -7647,7 +7656,7 @@ MonoBehaviour:
   scaleFactor: 0.002
   cursorScaleMultiplier: 7
   cursorMatchTargetRotation: 0
-  cursorDistanceRescale: 0
+  cursorDistanceRescale: 1
   maximumCursorScale: {x: Infinity, y: Infinity, z: Infinity}
   customTracer: {fileID: 0}
   customCursor: {fileID: 0}
