@@ -12,6 +12,8 @@ public class GridNode
 	private GameObject gridNodeObject;
 	private bool isSelected = false;
 
+    private float defaultGridSize = 0.05f;
+
 	/// <summary>
     /// Empty constructor
     /// </summary>
@@ -24,12 +26,14 @@ public class GridNode
     /// Main constructor for gridnodes
 	/// Takes in the gridnodes location and gridnode prefab object
     /// </summary>
-	public GridNode(Vector3 pos, GameObject gridNodePrefab) {
+	public GridNode(Vector3 pos, GameObject gridNodePrefab, float spacing) {
         myGridController = GameObject.FindWithTag("gameControllers").GetComponent<gridController>();
 		position = pos;
 		gridNodeObject = MonoBehaviour.Instantiate(gridNodePrefab, position, Quaternion.identity);
 		gridNodeObject.transform.parent = myGridController.transform;
-		
+        Debug.Log("gridSpacing: " + spacing);
+		gridNodeObject.transform.localScale = new Vector3(defaultGridSize*spacing, defaultGridSize*spacing, defaultGridSize*spacing); // change its local scale in x y z format
+
 		frameHighlighter = gridNodeObject.GetComponent<highlighter>();
 		gridNodeObject.GetComponent<GridNodeBehavior>().setMyGridNode(this);
 	}
@@ -42,6 +46,15 @@ public class GridNode
     {
         return "(" + position.x + ", " + position.y + ", " + position.z + ")";
     }
+
+	/// <summary>
+    /// Returns the gridnodes location
+    /// </summary>
+	public Vector3 getLocation()
+    {
+        return position;
+    }
+
 
 	/// <summary>
     /// Returns the selection state of the gridNode

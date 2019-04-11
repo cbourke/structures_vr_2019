@@ -10,7 +10,7 @@ public class FrameSection
     public string buildingMaterialName;
     public FrameSectionType type;
     public float[] dimensions = new float[6];
-
+    public SectProps SectProps { get; set; }
     /// <summary>
     /// Empty constructor
     /// </summary>

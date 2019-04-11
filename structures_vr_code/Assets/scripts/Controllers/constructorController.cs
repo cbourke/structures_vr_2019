@@ -89,8 +89,13 @@ public class constructorController : MonoBehaviour
     /// </summary>
     void createFrame(Vector3 pA, Vector3 pB)
     {
+        string dat = ("drawFrame(new Vector3"+pA+", new Vector3"+pB+", buildingObjects.Frame)\n");
+        System.IO.File.AppendAllText("FRAMES.txt", dat);
+
+
+
         string frameName = "Frame_i=[" + pA.x + ":" + pA.z + ":" + pA.y + "]-j=[" + pB.x + ":" + pB.z + ":" + pB.y + "]";
-        FrameSectionType type = mySectionController.GetCurrentFrameSection().type;
+        FrameSectionType type = mySectionController.GetCurrentFrameSection().GetFrameSectionType();
         Frame frame = new Frame();
         if(type == FrameSectionType.I)
         {
@@ -383,124 +388,3 @@ public class constructorController : MonoBehaviour
 }
 
 public class Area { }
-
-
-/* This class defines a joint restraint */
-/* @TODO probably should be moved to its own file */
-public class jointRestraint {
-
-    Vector3 position;
-    bool transX;
-    bool transY;
-    bool transZ;
-    bool rotX;
-    bool rotY;
-    bool rotZ;
-
-    GameObject jointRestraintGameObject;
-
-
-    public jointRestraint(Vector3 position, char type, GameObject jointRestraintPrefab)
-    {
-        this.position = position;
-        jointRestraintGameObject = GameObject.Instantiate(jointRestraintPrefab, position, new Quaternion());
-        setType(type);
-    }
-
-    public void setType(char type)
-    {
-        switch (type)
-        {
-            case 'r': //roller restraint
-                {
-                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(1, 1, 1);
-                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(0, 0, 0);
-                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(0, 0, 0);
-
-                    
-                    transX = true;
-                    transY = false;
-                    transZ = true;
-                    rotX = true;
-                    rotY = true;
-                    rotZ = true;
-                    break;
-                }
-            case 'p': //pin restraint
-                {
-                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(0, 0, 0);
-                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(1, 1, 1);
-                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(0, 0, 0);
-
-                    transX = false;
-                    transY = false;
-                    transZ = false;
-                    rotX = true;
-                    rotY = true;
-                    rotZ = true;
-                    break;
-                }
-            default: //default to fixed restraint
-                {
-                    jointRestraintGameObject.transform.GetChild(0).gameObject.transform.localScale = new Vector3(0, 0, 0);
-                    jointRestraintGameObject.transform.GetChild(1).gameObject.transform.localScale = new Vector3(0, 0, 0);
-                    jointRestraintGameObject.transform.GetChild(2).gameObject.transform.localScale = new Vector3(1, 1, 1);
-
-                    transX = false;
-                    transY = false;
-                    transZ = false;
-                    rotX = false;
-                    rotY = false;
-                    rotZ = false;
-                    break;
-                }
-        }
-    }
-
-    public Vector3 GetPosition()
-    {
-        return position;
-    }
-
-    public bool GetTransX()
-    {
-        return transX;
-    }
-
-    public bool GetTransY()
-    {
-        return transY;
-    }
-
-    public bool GetTransZ()
-    {
-        return transZ;
-    }
-
-    public bool GetRotX()
-    {
-        return rotX;
-    }
-
-    public bool GetRotY()
-    {
-        return rotY;
-    }
-
-    public bool GetRotZ()
-    {
-        return rotZ;
-    }
-
-    public GameObject GetGameObject()
-    {
-        return jointRestraintGameObject;
-    }
-
-    public void SetGameObject(GameObject newObject)
-    {
-        jointRestraintGameObject = newObject;
-    }
-}
-
-
