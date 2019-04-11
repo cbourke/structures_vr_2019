@@ -7,6 +7,7 @@ public class followController : MonoBehaviour
     public float positionInterpolateFactor;
     public float rotationInterpolateFactor;
     public GameObject followingTarget;
+    public GameObject scaleTarget;
 
     // Update is called once per frame
 
@@ -32,6 +33,10 @@ public class followController : MonoBehaviour
             //transform.SetPositionAndRotation(newPosition, newRotationQuaternion);
             transform.SetPositionAndRotation(newPosition, newRotationQuaternion);
 
+        }
+
+        if(scaleTarget != null) {
+            transform.localScale = scaleTarget.transform.localScale;
         }
     }
 }

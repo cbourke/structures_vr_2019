@@ -9,6 +9,9 @@ public class highlighter : MonoBehaviour
     public GameObject highlightMesh;
     private Material unhighlightMaterial;
 
+    public bool isNewHighlight = false;
+    public GameObject frame;
+
     /// <summary>
     /// Saves the meshes current material
     /// </summary>
@@ -21,10 +24,14 @@ public class highlighter : MonoBehaviour
     /// Sets the mesh to the highlight material
     /// </summary>
     public void Highlight() {
-        MeshRenderer[] renderers = highlightMesh.GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer renderer in renderers)
-        {
-            renderer.material = highlightMaterial;
+        if(isNewHighlight) {
+            frame.GetComponent<SplineMesh.ExamplePipe>().setMaterial(highlightMaterial);
+        } else {
+            MeshRenderer[] renderers = highlightMesh.GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer renderer in renderers)
+            {
+                renderer.material = highlightMaterial;
+            }
         }
     }
 
@@ -32,10 +39,14 @@ public class highlighter : MonoBehaviour
     /// Sets the mesh to the origional material
     /// </summary>
     public void Unhighlight() {
-        MeshRenderer[] renderers = highlightMesh.GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer renderer in renderers)
-        {
-            renderer.material = unhighlightMaterial;
+        if(isNewHighlight) {
+            frame.GetComponent<SplineMesh.ExamplePipe>().setMaterial(unhighlightMaterial);
+        } else {
+            MeshRenderer[] renderers = highlightMesh.GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer renderer in renderers)
+            {
+                renderer.material = unhighlightMaterial;
+            }
         }
     }
 }
