@@ -96,7 +96,7 @@ public class SapTranslatorIpcHandler : MonoBehaviour
                     frameForce frameForceObject = readResponseResultsFrameForce();
                     myAnalysisController.setLatestFrameForceResult(frameForceObject);
                 }
-                else if (message.Contains("resultsJointDispl"))
+                else if (message.Contains("resultsJointDispl") || message.Contains("customResultsGetFrameSpecialPointDispl"))
                 {
                     jointDispl jointDisplObject = readResponseResultsJointDispl();
                     myAnalysisController.setLatestJointDisplResult(jointDisplObject);

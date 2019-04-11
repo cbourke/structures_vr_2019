@@ -3122,6 +3122,7 @@ MonoBehaviour:
   mySectionController: {fileID: 1155890639}
   myXmlController: {fileID: 1155890636}
   myPointerController: {fileID: 1388622106}
+  myAnalysisController: {fileID: 1155890644}
   mySapTranslatorIpcHandler: {fileID: 1155890643}
   tempLineRenderer: {fileID: 425715893}
   framePrefabIBeam: {fileID: 7920509773000511727, guid: 5d8c2ae4cabe0d94f94ad3af58c831d8,
@@ -3192,6 +3193,7 @@ MonoBehaviour:
   mySectionController: {fileID: 1155890639}
   myConstructorController: {fileID: 1155890640}
   mySapTranslatorIPCHandler: {fileID: 1155890643}
+  deflectionStationsPerFrame: 15
   resultHistorySlots: 2
   visualizationScale: 1000
   jointDisplHistory: []

@@ -8,6 +8,7 @@ public class analysisController : MonoBehaviour
     public sectionController mySectionController;
     public constructorController myConstructorController;
     public SapTranslatorIpcHandler mySapTranslatorIPCHandler;
+    public int deflectionStationsPerFrame;
     public int resultHistorySlots;
     public float visualizationScale;
 
@@ -38,9 +39,6 @@ public class analysisController : MonoBehaviour
         Debug.Log(debugMessage);
 
         int numResults = resultObject.numberResults;
-        mySapTranslatorIPCHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsJointDispl(" + resultObject.pointElm[1] + ", 0)");
-        mySapTranslatorIPCHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsJointDispl(" + resultObject.pointElm[0] + ", 0)");
-        
     }
 
     public frameForce getLatestFrameForceResult()
@@ -78,119 +76,57 @@ public class analysisController : MonoBehaviour
         }
         string debugMessage = "set latest JointDispl result:\n" + resultObject.ToString();
         Debug.Log(debugMessage);
+
     }
 
 
-    public void visualizeDeformation(frameJointForce frameJointForceInput, frameForce frameForceInput, jointDispl jointDisplInputA, jointDispl jointDisplInputB)
+    public void visualizeDeformation(string frameName, jointDispl specialPointsJointDispl)
     {
-        string frameName = frameJointForceInput.obj[0];
         Frame targetFrame = myConstructorController.findFrame(frameName);
-        FrameSection targetSection = mySectionController.findFrameSection(targetFrame.getSectionPropertyName());
+        targetFrame.setReleaseNeither();
         SplineMesh.Spline targetSpline = targetFrame.GetGameObject().GetComponentInChildren<SplineMesh.Spline>();
-        /*
-        double momentA = latestFrameJointForceResult.m2[0];
-        double momentB = latestFrameJointForceResult.m2[1];
-        double thetaA = jointDisplInput.r2[0];
-        double deltaA = jointDisplInput.u3[0];
-        double length = targetFrame.getLength();
-        FrameSection targetSection = mySectionController.findFrameSection(targetFrame.getSectionPropertyName());
-        double momentOfInertia = targetSection.SectProps.I33;
-        double youngModulus = myMaterialController.findBuildingMaterialWithName(targetSection.GetMaterialName()).MPIsotropic.E;
-        */
-        
+        int numNodesPrevious = targetSpline.nodes.Count;
+        double frameScale = targetFrame.getTransform().localScale.y;
         double frameLength = targetFrame.getLength();
-        double youngModulus = myMaterialController.findBuildingMaterialWithName(targetSection.GetMaterialName()).MPIsotropic.E; //This is constant for a frame span
-        double momentOfInertia = targetSection.SectProps.I33; //This is constant for a frame span
-        ; // This is constant for a frame span
-        // The rest will be recomputed at each segmentation:
-        SplineMesh.SplineNode[] splineNodesForward = new SplineMesh.SplineNode[frameForceInput.numberResults - 1];
-        double[] deflectionsForward = new double[frameForceInput.numberResults];
-        double[] deflectionsBackward = new double[frameForceInput.numberResults];
-        double momentA = -1 * frameForceInput.m3[0];
-        double momentB = frameForceInput.m3[1];
-        //double momentA = frameForceInput.m3[0];
-        //double momentB = -1 * frameForceInput.m3[1];
-        double thetaA = jointDisplInputA.r3[0];
-        double deltaA = jointDisplInputA.u2[0];
-        double length = frameForceInput.objSta[1] - frameForceInput.objSta[0];
-        double totalSpanDistance = 0;
-        for (int i = 1; i <= frameForceInput.numberResults - 2; i++)
+        double baseX = 0;
+        double baseY = 0;
+        double baseZ = 0;
+
+        int maxIndex = specialPointsJointDispl.numberResults - 1;
+        for(int i = 0; i <= maxIndex; i++)
         {
-            double x = length; //frameForceInput.objSta[i];
-            //totalSpanDistance += length;
+            
+            double u1 = specialPointsJointDispl.u1[i];
+            double u2 = specialPointsJointDispl.u2[i];
+            double u3 = specialPointsJointDispl.u3[i];
+            double r1 = specialPointsJointDispl.r1[i];
+            double r2 = specialPointsJointDispl.r2[i];
+            double r3 = specialPointsJointDispl.r3[i];
 
-            //double proportion = totalSpanDistance / frameLength;
+            baseY = (double)i / (double)maxIndex;
 
-            double deflection = deflectionEquation(x, momentA, momentB, thetaA, deltaA, length, youngModulus, momentOfInertia);
-            double angle = angleEquation(x, momentA, momentB, thetaA, length, youngModulus, momentOfInertia);
+            //The mapping of SAP's 1, 2, 3 axes to unity's x, y, z in the frame prefab is:
+            // 1 = y
+            // 2 = x
+            // 3 = z
 
-            //Vector3 newNodePosition = new Vector3(0, (float)proportion, (float)deflection * visualizationScale);
-            //Vector3 newNodeDirection = new Vector3(0, (float)proportion + (float)0.001, (float)deflection * visualizationScale);
-            //SplineMesh.SplineNode newNode = new SplineMesh.SplineNode(newNodePosition, newNodeDirection);
-            //newNode.Up = new Vector3(0, 0, -1);
-            //splineNodesForward[i] = newNode;
-            //targetSpline.InsertNode(0 + i, newNode); //Insert the new node into the spline that controls this frame object's mesh
-            deflectionsForward[i] = deflection;
-            //Now, update the parameters for the next segment:
-            momentA = -1 * frameForceInput.m3[i];
-            momentB = frameForceInput.m3[i + 1];
-            //momentA = frameForceInput.m3[i];
-            //momentB = -1 * frameForceInput.m3[i + 1];
-            thetaA = angle;
-            deltaA = deflection;
-            length = frameForceInput.objSta[i + 1] - frameForceInput.objSta[i];
+            double newPointX = baseX + (-1 * u2 * visualizationScale);
+            double newPointY = baseY + ((u1 / frameScale) * visualizationScale);
+            double newPointZ = baseZ + (-1* u3 * visualizationScale);
+
+            Vector3 nodePosition = new Vector3((float)newPointX, (float)newPointY, (float)newPointZ);
+
+            Vector3 lookAt = new Vector3((float)(newPointX), (float)(newPointY + 0.001), (float)(newPointZ));
+            //lookAt = Quaternion.Euler((float)(r3 / frameScale), (float)(r1), (float)(r2 / frameScale)) * lookAt;
+
+            SplineMesh.SplineNode newSplineNode = new SplineMesh.SplineNode(nodePosition, lookAt);
+            newSplineNode.Up = new Vector3(0, 0, -1);
+            targetSpline.AddNode(newSplineNode);
         }
-
-        //TODO: Now do it in reverse; then we can take the average points between the forward and reverse 
-        SplineMesh.SplineNode[] splineNodesBackward = new SplineMesh.SplineNode[frameForceInput.numberResults - 1];
-        int n = frameForceInput.numberResults - 2;
-        momentA = -1 * frameForceInput.m3[n+1];
-        momentB = frameForceInput.m3[n];
-        //momentA = frameForceInput.m3[n+1];
-        //momentB = -1 * frameForceInput.m3[n];
-        thetaA = jointDisplInputB.r2[0];
-        deltaA = jointDisplInputB.u3[0];
-        length = frameForceInput.objSta[n+1] - frameForceInput.objSta[n];
-        totalSpanDistance = frameLength;
-        for (int i = n; i >= 1; i--)
+        // Remove the nodes used for the previous shape
+        for (int i = 0; i < numNodesPrevious; i++)
         {
-            double x = length;
-            //totalSpanDistance -= length;
-            //double proportion = totalSpanDistance / frameLength;
-
-            double deflection = deflectionEquation(x, momentA, momentB, thetaA, deltaA, length, youngModulus, momentOfInertia);
-            double angle = angleEquation(x, momentA, momentB, thetaA, length, youngModulus, momentOfInertia);
-
-            //Vector3 newNodePosition = new Vector3(0, (float)proportion, (float)deflection * visualizationScale);
-            //Vector3 newNodeDirection = new Vector3(0, (float)proportion + (float)0.001, (float)deflection * visualizationScale);
-            //SplineMesh.SplineNode newNode = new SplineMesh.SplineNode(newNodePosition, newNodeDirection);
-            //newNode.Up = new Vector3(0, 0, -1);
-            //splineNodesBackward[i] = newNode;
-            deflectionsBackward[i] = deflection;
-
-            //Now, update the parameters for the next segment:
-            momentA = -1 * frameForceInput.m3[i];
-            momentB = frameForceInput.m3[i - 1];
-            //momentA = frameForceInput.m3[i];
-            //momentB = -1 * frameForceInput.m3[i - 1];
-            thetaA = angle;
-            deltaA = deflection;
-            length = frameForceInput.objSta[i] - frameForceInput.objSta[i-1];
-        }
-
-        //Now add the spline points
-        totalSpanDistance = 0;
-        for (int i = 1; i <= n; i++)
-        {
-            double averageDeflection = (deflectionsForward[i] + deflectionsBackward[i]) / 2.0;
-            length = frameForceInput.objSta[i] - frameForceInput.objSta[i-1];
-            totalSpanDistance += length;
-            double proportion = totalSpanDistance / frameLength;
-            Vector3 newNodePosition = new Vector3(0, (float)proportion, (float)averageDeflection * visualizationScale);
-            Vector3 newNodeDirection = new Vector3(0, (float)proportion + (float)0.001, (float)averageDeflection * visualizationScale);
-            SplineMesh.SplineNode newNode = new SplineMesh.SplineNode(newNodePosition, newNodeDirection);
-            newNode.Up = new Vector3(0, 0, -1);
-            targetSpline.InsertNode(0 + i, newNode); //Insert the new node into the spline that controls this frame object's mesh
+            targetSpline.RemoveNode(targetSpline.nodes[0]);
         }
 
 

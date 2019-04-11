@@ -132,6 +132,13 @@ namespace SapTranslator
                                 save();
                                 break;
                             }
+                        case "pointObjAddCartesian":
+                            {
+                                // arguments:
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                pointObjAddCartesian(arguments);
+                                break;
+                            }
                         case "frameObjAddByCoord":
                             {
                                 // arguments: (xi, yi, zi, xj, yj, zj, propName, userName)
@@ -264,6 +271,13 @@ namespace SapTranslator
                                 // arguments: (string name)
                                 Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 resultsSetupSetCaseSelectedForOutput(arguments);
+                                break;
+                            }
+                        case "customResultsGetFrameSpecialPointDispl":
+                            {
+                                // arguments: (string frameName)
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                customResultsGetFrameSpecialPointDispl(arguments);
                                 break;
                             }
                     }
@@ -418,6 +432,7 @@ namespace SapTranslator
             double yj = Double.Parse(arguments[4]);
             double zj = Double.Parse(arguments[5]);
             string propName = "Default";
+            int numDeflectionStations = 15;
             if (arguments.Count >= 7)
             {
                 propName = arguments[6];
@@ -427,9 +442,39 @@ namespace SapTranslator
             {
                 userName = arguments[7];
             }
+            if (arguments.Count >= 9)
+            {
+                numDeflectionStations = Int32.Parse(arguments[8]);
+            }
 
             string tempFrameName = "";
             mySapModel.FrameObj.AddByCoord(xi, yi, zi, xj, yj, zj, ref tempFrameName, propName, userName);
+
+            //Add deflection analysis stations (special points) and give them a group assignment
+            string pointGroupName = "specialPoints_" + tempFrameName;
+            mySapModel.GroupDef.SetGroup(pointGroupName, -1, true, false, false, false, false, false, false, false, false, false, false);
+            string coordsys = "Global";
+            string mergeOff = true.ToString();
+            for (int i = 0; i <= numDeflectionStations; i++)
+            {
+                double frameLengthProportion = (double)i / (double)numDeflectionStations;
+                double newPointX = (1 - frameLengthProportion) * xi + frameLengthProportion * xj;
+                double newPointY = (1 - frameLengthProportion) * yi + frameLengthProportion * yj;
+                double newPointZ = (1 - frameLengthProportion) * zi + frameLengthProportion * zj;
+                string newPointName = "p" + i + "_of_" + tempFrameName;
+
+
+                List<string> specialPointArguments = new List<string>();
+                specialPointArguments.Add(newPointX.ToString());
+                specialPointArguments.Add(newPointY.ToString());
+                specialPointArguments.Add(newPointZ.ToString());
+                specialPointArguments.Add(newPointName);
+                specialPointArguments.Add(coordsys);
+                specialPointArguments.Add(mergeOff);
+
+                pointObjAddCartesian(specialPointArguments);
+                mySapModel.PointObj.SetGroupAssign(newPointName, pointGroupName, false, eItemType.Objects);
+            }
         }
 
         static void frameObjDelete(List<string> arguments)
@@ -487,7 +532,7 @@ namespace SapTranslator
             double z = Double.Parse(arguments[2]);
             string pointName = "";
             string userName = "";
-            string cSys = "";
+            string cSys = "Global";
             bool mergeOff = false;
             int mergeNumber = 0;
             if (arguments.Count >= 4)
@@ -960,8 +1005,24 @@ namespace SapTranslator
             mySapModel.Results.Setup.SetCaseSelectedForOutput(name, setting);
         }
 
+        static void customResultsGetFrameSpecialPointDispl(List<string> arguments)
+        {
+            //arguments:
+            // string frameName
+            // 
+            string frameName = arguments[0];
+
+            string specialPointGroupName = "specialPoints_" + frameName;
+            string itemType = "2";
+
+            List<string> resultsJointDisplArguments = new List<string>();
+            resultsJointDisplArguments.Add(specialPointGroupName);
+            resultsJointDisplArguments.Add(itemType);
+
+            resultsJointDispl(resultsJointDisplArguments);
 
 
+        }
 
 
 

@@ -13,7 +13,7 @@ public class constructorController : MonoBehaviour
     public sectionController mySectionController;
     public xmlController myXmlController;
     public PointerController myPointerController;
-
+    public analysisController myAnalysisController;
     public SapTranslatorIpcHandler mySapTranslatorIpcHandler;
     public LineRenderer tempLineRenderer;
     
@@ -115,7 +115,7 @@ public class constructorController : MonoBehaviour
         double yi = pA.y;
 
 
-        string sapTranslatorCommand = "VRE to SAPTranslator: frameObjAddByCoord(" + pA.x + ", " + pA.z + ", " + pA.y + ", " + pB.x + ", " + pB.z + ", " + pB.y + ", " + mySectionController.GetCurrentFrameSection().name + ", " + frameName + ")";
+        string sapTranslatorCommand = "VRE to SAPTranslator: frameObjAddByCoord(" + pA.x + ", " + pA.z + ", " + pA.y + ", " + pB.x + ", " + pB.z + ", " + pB.y + ", " + mySectionController.GetCurrentFrameSection().name + ", " + frameName + ", " + myAnalysisController.deflectionStationsPerFrame + ")";
         mySapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
     }
 

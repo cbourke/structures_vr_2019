@@ -28,7 +28,7 @@ public class debugDrawing : MonoBehaviour {
     Vector3 p8 = new Vector3(2, 1, 1);
     Vector3 p9 = new Vector3(0, 2, 1);
     Vector3 p10 = new Vector3(2, 2, 1);
-
+    string frameName;
     void Start () {
         //xmlController.GetComponent<xmlController>().sendFileToSap(); //send to SAP2000
         
@@ -64,17 +64,18 @@ public class debugDrawing : MonoBehaviour {
 
         if (Input.GetKeyDown("r"))
         {
-            string frameName = "Frame_i=[" + p4.x + ":" + p4.z + ":" + p4.y + "]-j=[" + p5.x + ":" + p5.z + ":" + p5.y + "]";
+            frameName = "Frame_i=[" + p4.x + ":" + p4.z + ":" + p4.y + "]-j=[" + p5.x + ":" + p5.z + ":" + p5.y + "]";
             mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsSetupDeselectAllCasesAndCombosForOutput()");
             mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsSetupSetCaseSelectedForOutput(DEAD, true)");
-            mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsFrameJointForce(" + frameName + ", 0)");
-            mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsFrameForce(" + frameName + ", 0)");
+            //mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsFrameJointForce(" + frameName + ", 0)");
+            //mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsFrameForce(" + frameName + ", 0)");
+            mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: customResultsGetFrameSpecialPointDispl(" + frameName + ")");
 
         }
 
         if (Input.GetKeyDown("v"))
         {
-            myAnalysisController.visualizeDeformation(myAnalysisController.getLatestFrameJointForceResult(), myAnalysisController.getLatestFrameForceResult(), myAnalysisController.getLatestJointDisplResult(), myAnalysisController.jointDisplHistory[1]);
+            myAnalysisController.visualizeDeformation(frameName, myAnalysisController.getLatestJointDisplResult());
         }
     }
 
