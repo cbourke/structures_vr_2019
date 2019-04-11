@@ -48,7 +48,7 @@ public class shakeGround : MonoBehaviour
 
     public void changeMagnitude(Scrollbar slider)
     {
-        float magnitude = 10.0f *(slider.value); // 0 - 10
+        float magnitude = 20.0f *(slider.value + 1); // 10 - 20
         Debug.Log("change mag invoked: " + magnitude);
 
         this.minThrust = 5.0f * magnitude;

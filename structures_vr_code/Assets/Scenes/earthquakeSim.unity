@@ -5692,50 +5692,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 105416, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_Name
-      value: inner_pilars
-      objectReference: {fileID: 0}
-    - target: {fileID: 104994, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_Name
-      value: sign_lettering
-      objectReference: {fileID: 0}
-    - target: {fileID: 126700, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_Name
-      value: metal_sign
-      objectReference: {fileID: 0}
-    - target: {fileID: 148964, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_Name
-      value: front_pillars
-      objectReference: {fileID: 0}
-    - target: {fileID: 167250, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_Name
-      value: Roof
-      objectReference: {fileID: 0}
-    - target: {fileID: 167250, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_TagString
-      value: floor
-      objectReference: {fileID: 0}
-    - target: {fileID: 182680, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_Name
-      value: wall_decals
-      objectReference: {fileID: 0}
-    - target: {fileID: 185458, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_Name
-      value: Front_steps
-      objectReference: {fileID: 0}
-    - target: {fileID: 185458, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_TagString
-      value: floor
-      objectReference: {fileID: 0}
-    - target: {fileID: 188134, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_Name
-      value: floor
-      objectReference: {fileID: 0}
-    - target: {fileID: 188134, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
-      propertyPath: m_TagString
-      value: floor
-      objectReference: {fileID: 0}
     - target: {fileID: 429486, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5791,6 +5747,50 @@ PrefabInstance:
     - target: {fileID: 429486, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 105416, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_Name
+      value: inner_pilars
+      objectReference: {fileID: 0}
+    - target: {fileID: 167250, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_Name
+      value: Roof
+      objectReference: {fileID: 0}
+    - target: {fileID: 167250, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_TagString
+      value: floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 182680, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_Name
+      value: wall_decals
+      objectReference: {fileID: 0}
+    - target: {fileID: 126700, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_Name
+      value: metal_sign
+      objectReference: {fileID: 0}
+    - target: {fileID: 188134, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_Name
+      value: floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 188134, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_TagString
+      value: floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 148964, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_Name
+      value: front_pillars
+      objectReference: {fileID: 0}
+    - target: {fileID: 104994, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_Name
+      value: sign_lettering
+      objectReference: {fileID: 0}
+    - target: {fileID: 185458, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_Name
+      value: Front_steps
+      objectReference: {fileID: 0}
+    - target: {fileID: 185458, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
+      propertyPath: m_TagString
+      value: floor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d37e49a7ff11c64da046512cfdd7743, type: 3}
@@ -14985,7 +14985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1472055386
 Transform:
   m_ObjectHideFlags: 0
@@ -20813,7 +20813,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1975798597
 Transform:
   m_ObjectHideFlags: 0
@@ -20854,7 +20854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1979368842
 Transform:
   m_ObjectHideFlags: 0
