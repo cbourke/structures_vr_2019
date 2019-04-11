@@ -41,10 +41,18 @@ public class shakeGround : MonoBehaviour
         }
     }
 
-
     public void shakeGroundOnClick()
     {
         StartCoroutine(shakeCoroutine());
+    }
+
+    public void changeMagnitude(Scrollbar slider)
+    {
+        float magnitude = 20.0f *(slider.value + 1); // 10 - 20
+        Debug.Log("change mag invoked: " + magnitude);
+
+        this.minThrust = 5.0f * magnitude;
+        this.maxThrust = 10.0f * magnitude;
     }
 
     private void addForceToGround()
