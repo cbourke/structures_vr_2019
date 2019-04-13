@@ -267,6 +267,14 @@ public class constructorController : MonoBehaviour
     }
 
     /// <summary>
+    /// Returns the list of all current frames in the scene
+    /// </summary>
+    public List<Frame> getFrameList()
+    {
+        return frameList;
+    }
+
+    /// <summary>
     /// Creates a joint Restraint. Currently not being used, but in the future will be called by a UI element
     /// @TODO might not work, so be weary of that
     /// </summary>

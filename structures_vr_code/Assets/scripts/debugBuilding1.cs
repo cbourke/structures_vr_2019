@@ -34,8 +34,8 @@ public class debugBuilding1 : MonoBehaviour {
         populateDropdowns();
 
         drawIBeams();
-        drawPipes();
-        drawTubes();
+        //drawPipes();
+        //drawTubes();
 
 
 
@@ -63,8 +63,10 @@ public class debugBuilding1 : MonoBehaviour {
     void drawIBeams()
     {
         mySectionController.SetCurrentFrameSection("Sec_Steel_I");
-        drawFrame(new Vector3(0, 3, 0), new Vector3(0, 3, 6), buildingObjects.Frame);
-        drawFrame(new Vector3(0, 3, 6), new Vector3(6, 3, 6), buildingObjects.Frame);
+        drawFrame(new Vector3(1, 3, 4), new Vector3(1, 0, 4), buildingObjects.Frame);
+        drawFrame(new Vector3(6, 3, 0), new Vector3(6, 0, 0), buildingObjects.Frame);
+        drawFrame(new Vector3(6, 3, 4), new Vector3(6, 0, 4), buildingObjects.Frame);
+        drawFrame(new Vector3(1, 3, 0), new Vector3(1, 0, 0), buildingObjects.Frame);
 
 
     }

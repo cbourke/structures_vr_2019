@@ -265,7 +265,6 @@ namespace SapTranslator
                                 resultsSetupDeselectAllCasesAndCombosForOutput(arguments);
                                 break;
                             }
-
                         case "resultsSetupSetCaseSelectedForOutput":
                             {
                                 // arguments: (string name)
@@ -278,6 +277,13 @@ namespace SapTranslator
                                 // arguments: (string frameName)
                                 Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 customResultsGetFrameSpecialPointDispl(arguments);
+                                break;
+                            }
+                        case "analyzeRunAnalysis":
+                            {
+                                // arguments: none
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                analyzeRunAnalysis(arguments);
                                 break;
                             }
                     }
@@ -454,26 +460,18 @@ namespace SapTranslator
             string pointGroupName = "specialPoints_" + tempFrameName;
             mySapModel.GroupDef.SetGroup(pointGroupName, -1, true, false, false, false, false, false, false, false, false, false, false);
             string coordsys = "Global";
-            string mergeOff = true.ToString();
-            for (int i = 0; i <= numDeflectionStations; i++)
+            bool mergeOff = false;
+            for (int i = 0; i < numDeflectionStations; i++)
             {
                 double frameLengthProportion = (double)i / (double)numDeflectionStations;
                 double newPointX = (1 - frameLengthProportion) * xi + frameLengthProportion * xj;
                 double newPointY = (1 - frameLengthProportion) * yi + frameLengthProportion * yj;
                 double newPointZ = (1 - frameLengthProportion) * zi + frameLengthProportion * zj;
                 string newPointName = "p" + i + "_of_" + tempFrameName;
+                string truePointName = newPointName;
 
-
-                List<string> specialPointArguments = new List<string>();
-                specialPointArguments.Add(newPointX.ToString());
-                specialPointArguments.Add(newPointY.ToString());
-                specialPointArguments.Add(newPointZ.ToString());
-                specialPointArguments.Add(newPointName);
-                specialPointArguments.Add(coordsys);
-                specialPointArguments.Add(mergeOff);
-
-                pointObjAddCartesian(specialPointArguments);
-                mySapModel.PointObj.SetGroupAssign(newPointName, pointGroupName, false, eItemType.Objects);
+                mySapModel.PointObj.AddCartesian(newPointX, newPointY, newPointZ, ref truePointName, userName, coordsys, mergeOff, 0);
+                mySapModel.PointObj.SetGroupAssign(truePointName, pointGroupName, false, eItemType.Objects);
             }
         }
 
@@ -964,6 +962,30 @@ namespace SapTranslator
             ret = mySapModel.Results.JointDispl(name, itemType, ref numberResults,
                 ref obj, ref elm, ref loadCase, ref stepType,
                 ref stepNum, ref u1, ref u2, ref u3, ref r1, ref r2, ref r3);
+            //Transform to global coordinates
+            for (int i = 0; i < numberResults; i++)
+            {
+                double[] matrix = new double[9];
+                
+                mySapModel.PointObj.GetTransformationMatrix(obj[i], ref matrix, true);
+                double uGlobalX = matrix[0] * u1[i] + matrix[1] * u2[i] + matrix[2] * u3[i];
+                double uGlobalY = matrix[3] * u1[i] + matrix[4] * u2[i] + matrix[5] * u3[i];
+                double uGlobalZ = matrix[6] * u1[i] + matrix[7] * u2[i] + matrix[8] * u3[i];
+
+                double rGlobalX = matrix[0] * r1[i] + matrix[1] * r2[i] + matrix[2] * r3[i];
+                double rGlobalY = matrix[3] * r1[i] + matrix[4] * r2[i] + matrix[5] * r3[i];
+                double rGlobalZ = matrix[6] * r1[i] + matrix[7] * r2[i] + matrix[8] * r3[i];
+
+                u1[i] = uGlobalX;
+                u2[i] = uGlobalY;
+                u3[i] = uGlobalZ;
+                r1[i] = rGlobalX;
+                r2[i] = rGlobalY;
+                r3[i] = rGlobalZ;
+
+
+            }
+
 
             // Now return the results, somehow.
             string objResults = String.Join("`", obj);
@@ -1021,7 +1043,11 @@ namespace SapTranslator
 
             resultsJointDispl(resultsJointDisplArguments);
 
+        }
 
+        static void analyzeRunAnalysis(List<string> arguments)
+        {
+            ret = mySapModel.Analyze.RunAnalysis();
         }
 
 

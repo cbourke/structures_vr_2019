@@ -86,11 +86,18 @@ public class analysisController : MonoBehaviour
         targetFrame.setReleaseNeither();
         SplineMesh.Spline targetSpline = targetFrame.GetGameObject().GetComponentInChildren<SplineMesh.Spline>();
         int numNodesPrevious = targetSpline.nodes.Count;
-        double frameScale = targetFrame.getTransform().localScale.y;
+        double frameScale = targetFrame.getTransform().lossyScale.y;
         double frameLength = targetFrame.getLength();
         double baseX = 0;
         double baseY = 0;
         double baseZ = 0;
+        Vector3 basePosition;
+
+        while(targetSpline.nodes.Count < specialPointsJointDispl.numberResults)
+        {
+
+            targetSpline.AddNode(new SplineMesh.SplineNode(Vector3.zero, Vector3.zero));
+        }
 
         int maxIndex = specialPointsJointDispl.numberResults - 1;
         for(int i = 0; i <= maxIndex; i++)
@@ -104,32 +111,61 @@ public class analysisController : MonoBehaviour
             double r3 = specialPointsJointDispl.r3[i];
 
             baseY = (double)i / (double)maxIndex;
+            basePosition = new Vector3((float)baseX, (float)baseY, (float)baseZ);
 
-            //The mapping of SAP's 1, 2, 3 axes to unity's x, y, z in the frame prefab is:
-            // 1 = y
-            // 2 = x
-            // 3 = z
+            Matrix4x4 globalToLocal = transform.worldToLocalMatrix;
+            Matrix4x4 localToGlobal = transform.localToWorldMatrix;
 
-            double newPointX = baseX + (-1 * u2 * visualizationScale);
-            double newPointY = baseY + ((u1 / frameScale) * visualizationScale);
-            double newPointZ = baseZ + (-1* u3 * visualizationScale);
+            Vector3 basePositionGlobal = transform.TransformPoint(basePosition);
 
-            Vector3 nodePosition = new Vector3((float)newPointX, (float)newPointY, (float)newPointZ);
+            double newPointDeltaXGlobal = (-1 * u1) * visualizationScale;
+            double newPointDeltaYGlobal = (-1 * u2) * visualizationScale;
+            double newPointDeltaZGlobal = (-1 * u3) * visualizationScale;
+            Vector3 delta = new Vector3((float)newPointDeltaXGlobal, (float)newPointDeltaYGlobal, (float)newPointDeltaZGlobal);
+            Vector3 deltaLocal = transform.InverseTransformVector(delta);
 
-            Vector3 lookAt = new Vector3((float)(newPointX), (float)(newPointY + 0.001), (float)(newPointZ));
+            //Vector3 newPointGlobal = basePositionGlobal + new Vector3((float)newPointDeltaXGlobal, (float)newPointDeltaYGlobal, (float)newPointDeltaZGlobal);
+
+            //Vector3 newPointLocal = transform.InverseTransformPoint(basePositionGlobal);
+
+            Vector3 newPointLocal = basePosition + deltaLocal;
+
+
+
+
+
+            Vector3 updatedNodePosition = new Vector3(newPointLocal.x, newPointLocal.y, newPointLocal.z);
+            Vector3 updatedNodeDirection = new Vector3(updatedNodePosition.x, updatedNodePosition.y + (float)0.001, updatedNodePosition.z);
+            Vector3 updatedNodeUp = new Vector3(0, 0, -1);
             //lookAt = Quaternion.Euler((float)(r3 / frameScale), (float)(r1), (float)(r2 / frameScale)) * lookAt;
 
-            SplineMesh.SplineNode newSplineNode = new SplineMesh.SplineNode(nodePosition, lookAt);
-            newSplineNode.Up = new Vector3(0, 0, -1);
-            targetSpline.AddNode(newSplineNode);
+            //SplineMesh.SplineNode newSplineNode = new SplineMesh.SplineNode(nodePosition, lookAt);
+            targetSpline.nodes[i].Position = updatedNodePosition;
+            targetSpline.nodes[i].Direction = updatedNodeDirection;
+            targetSpline.nodes[i].Up = updatedNodeUp;
+
         }
-        // Remove the nodes used for the previous shape
-        for (int i = 0; i < numNodesPrevious; i++)
+
+        
+
+    }
+
+    public void visualizeUndeformed(string frameName)
+    {
+        Frame targetFrame = myConstructorController.findFrame(frameName);
+        targetFrame.setReleaseNeither();
+        SplineMesh.Spline targetSpline = targetFrame.GetGameObject().GetComponentInChildren<SplineMesh.Spline>();
+        int numNodesPrevious = targetSpline.nodes.Count;
+
+        while (targetSpline.nodes.Count > 2)
         {
-            targetSpline.RemoveNode(targetSpline.nodes[0]);
+            targetSpline.RemoveNode(targetSpline.nodes[targetSpline.nodes.Count - 1]);
         }
 
-
+        targetSpline.nodes[0].Position = new Vector3(0, 0, 0);
+        targetSpline.nodes[0].Direction = new Vector3(0, (float)0.001, 0);
+        targetSpline.nodes[1].Position = new Vector3(0, 1, 0);
+        targetSpline.nodes[1].Position = new Vector3(0, (float)1.001, 0);
     }
 
     public static double deflectionEquation(double x, double m1, double m2, double thetaA, double deltaA, double length, double youngModulus, double momentOfInertia) //Derived by CIVE 498 students
