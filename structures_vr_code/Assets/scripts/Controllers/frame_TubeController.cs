@@ -19,5 +19,6 @@ public class frame_TubeController : MonoBehaviour
         float flange = outsideDepth - (2*flangeThickness);
         float web = outsideWidth - (2*webThickness);
         center.transform.localScale = new Vector3(web, center.transform.localScale.y, flange);
+        GetComponentInChildren<meshCombiner>().combineMeshes();
     }
 }
