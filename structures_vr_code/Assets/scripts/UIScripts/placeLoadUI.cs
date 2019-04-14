@@ -25,7 +25,8 @@ public class placeLoadUI : MonoBehaviour
             selection = mySelectionController.GetSelectedFrames();
             foreach (Frame f in selection)
             {
-                // TODO
+            string command = "VRE to SAPTranslator: frameObjSetLoadPoint(" + f.getName() + ", DEAD, 1, 10, 0.5, 1000, Global, true, true, 0)";
+                mySapTranslatorIpcHandler.enqueueToOutputBuffer(command);
             }
             
 

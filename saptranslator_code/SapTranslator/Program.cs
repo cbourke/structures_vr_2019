@@ -286,6 +286,13 @@ namespace SapTranslator
                                 analyzeRunAnalysis(arguments);
                                 break;
                             }
+                        case "frameObjSetLoadPoint":
+                            {
+
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                frameObjSetLoadPoint(arguments);
+                                break;
+                            }
                     }
 
                 }
@@ -1062,6 +1069,38 @@ namespace SapTranslator
         static void analyzeRunAnalysis(List<string> arguments)
         {
             ret = mySapModel.Analyze.RunAnalysis();
+        }
+
+        static void frameObjSetLoadPoint(List<string> arguments)
+        {
+            string name = arguments[0];
+            string loadPat = arguments[1];
+            int myType = Int32.Parse(arguments[2]);
+            int dir = Int32.Parse(arguments[3]);
+            double dist = Double.Parse(arguments[4]);
+            double val = Double.Parse(arguments[5]);
+            string cSys = arguments[6];
+            bool relDist = true;
+            bool replace = true;
+            eItemType itemType = eItemType.Objects;
+
+
+            if (arguments.Count > 7)
+            {
+                relDist = Boolean.Parse(arguments[7]);
+                if (arguments.Count > 8)
+                {
+                    replace = Boolean.Parse(arguments[8]);
+                    if (arguments.Count > 9)
+                    {
+                        itemType = (eItemType)(Int32.Parse(arguments[9]));
+                    }
+                }
+            }
+
+
+
+            mySapModel.FrameObj.SetLoadPoint(name, loadPat, myType, dir, dist, val, cSys, relDist, replace, itemType);
         }
 
 

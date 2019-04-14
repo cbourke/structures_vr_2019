@@ -24807,6 +24807,7 @@ GameObject:
   - component: {fileID: 361456977901357218}
   - component: {fileID: 877612234839012269}
   - component: {fileID: 5474751089870558379}
+  - component: {fileID: 2767384372003000746}
   m_Layer: 5
   m_Name: TextMeshPro - InputField
   m_TagString: Untagged
@@ -24996,8 +24997,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c621238c96079e048bb8a41bd8ac8fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: {fileID: 0}
+  value: {fileID: 7524194999377666878}
   myAnalysisController: {fileID: 0}
+--- !u!114 &2767384372003000746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195473434019681003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed5f5f25ce17f04da09103782a289d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &233117367641804404
 GameObject:
   m_ObjectHideFlags: 0
@@ -33632,7 +33645,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4948287196125298604}
         m_MethodName: onClick
         m_Mode: 1
         m_Arguments:
