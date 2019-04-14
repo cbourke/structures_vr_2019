@@ -460,10 +460,22 @@ namespace SapTranslator
             string pointGroupName = "specialPoints_" + tempFrameName;
             mySapModel.GroupDef.SetGroup(pointGroupName, -1, true, false, false, false, false, false, false, false, false, false, false);
             string coordsys = "Global";
-            bool mergeOff = false;
+            bool mergeOff = true;
             for (int i = 0; i < numDeflectionStations; i++)
             {
                 double frameLengthProportion = (double)i / (double)numDeflectionStations;
+                if (i == 0)
+                {
+                    frameLengthProportion += 0.001;
+                } else if (i == numDeflectionStations - 1)
+                {
+
+                }
+                else
+                {
+                    frameLengthProportion -= 0.001;
+                }
+                
                 double newPointX = (1 - frameLengthProportion) * xi + frameLengthProportion * xj;
                 double newPointY = (1 - frameLengthProportion) * yi + frameLengthProportion * yj;
                 double newPointZ = (1 - frameLengthProportion) * zi + frameLengthProportion * zj;
@@ -472,6 +484,7 @@ namespace SapTranslator
 
                 mySapModel.PointObj.AddCartesian(newPointX, newPointY, newPointZ, ref truePointName, userName, coordsys, mergeOff, 0);
                 mySapModel.PointObj.SetGroupAssign(truePointName, pointGroupName, false, eItemType.Objects);
+                mySapModel.PointObj.SetLocalAxes(truePointName, 0.0, 0.0, 0.0, eItemType.Objects);
             }
         }
 
@@ -963,6 +976,7 @@ namespace SapTranslator
                 ref obj, ref elm, ref loadCase, ref stepType,
                 ref stepNum, ref u1, ref u2, ref u3, ref r1, ref r2, ref r3);
             //Transform to global coordinates
+            /*
             for (int i = 0; i < numberResults; i++)
             {
                 double[] matrix = new double[9];
@@ -985,7 +999,7 @@ namespace SapTranslator
 
 
             }
-
+            */
 
             // Now return the results, somehow.
             string objResults = String.Join("`", obj);

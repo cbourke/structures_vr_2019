@@ -103,38 +103,54 @@ public class analysisController : MonoBehaviour
         for(int i = 0; i <= maxIndex; i++)
         {
             
-            double u1 = specialPointsJointDispl.u1[i];
-            double u2 = specialPointsJointDispl.u2[i];
-            double u3 = specialPointsJointDispl.u3[i];
+            double u1 = specialPointsJointDispl.u1[i]; // WAIT global unity x 
+            double u2 = specialPointsJointDispl.u2[i]; // global unity z
+            double u3 = specialPointsJointDispl.u3[i]; // global unity y
             double r1 = specialPointsJointDispl.r1[i];
             double r2 = specialPointsJointDispl.r2[i];
             double r3 = specialPointsJointDispl.r3[i];
 
             baseY = (double)i / (double)maxIndex;
-            basePosition = new Vector3((float)baseX, (float)baseY, (float)baseZ);
 
-            Matrix4x4 globalToLocal = transform.worldToLocalMatrix;
-            Matrix4x4 localToGlobal = transform.localToWorldMatrix;
-
-            Vector3 basePositionGlobal = transform.TransformPoint(basePosition);
-
-            double newPointDeltaXGlobal = (-1 * u1) * visualizationScale;
-            double newPointDeltaYGlobal = (-1 * u2) * visualizationScale;
-            double newPointDeltaZGlobal = (-1 * u3) * visualizationScale;
-            Vector3 delta = new Vector3((float)newPointDeltaXGlobal, (float)newPointDeltaYGlobal, (float)newPointDeltaZGlobal);
-            Vector3 deltaLocal = transform.InverseTransformVector(delta);
-
-            //Vector3 newPointGlobal = basePositionGlobal + new Vector3((float)newPointDeltaXGlobal, (float)newPointDeltaYGlobal, (float)newPointDeltaZGlobal);
-
-            //Vector3 newPointLocal = transform.InverseTransformPoint(basePositionGlobal);
-
-            Vector3 newPointLocal = basePosition + deltaLocal;
+            // Explanation for the following if-else-if block:
+            // If a special point is set exactly at the end of a frame in SAP,
+            // then that points will have a local coordinate system that may not align with every frame that ends on the point.
+            // As a stopgap fix, SAPTranslator currently places the "end" points slightly into the length of the frame (by 0.001 of the frame's length).
+            // This if-else block reflects that positioning in the VR visualization for accuracy.
+            // Currently, the VR environment does not show those last 0.1% of the frame on either end, when showing deformation,
+            // but that shouldn't be a problem just for a general visualization of the result.
+            // It's a problem that needs to be solved if one wishes to be able to click on endpoints specifically and see their exact displacements in VR, though.
+            if (baseY == 0)
+            {
+                baseY += 0.001;
+            } else if (baseY == 1)
+            {
+                baseY -= 0.001;
+            }
 
 
+            Vector3 localBasePosition = new Vector3((float)baseX, (float)baseY, (float)baseZ);
+
+            Vector3 globalBasePosition = targetFrame.getTransform().TransformPoint(localBasePosition);
+
+            //float deltaX = (float)(u2 * visualizationScale);
+            //float deltaY = (float)((u1 / frameScale) * visualizationScale);
+            //float deltaZ = (float)(-1 * u3 * visualizationScale);
+            //Vector3 deltaPosition = new Vector3(deltaX, deltaY, deltaZ);
+
+            Vector3 globalDelta = new Vector3((float)(u1*visualizationScale), (float)(u3 *visualizationScale), (float)(u2 *visualizationScale));
+
+            //Vector3 globalFinal = globalBasePosition + globalDelta;
+
+            //Vector3 localFinal = targetFrame.getTransform().InverseTransformPoint(globalFinal);
+            Vector3 localDelta = targetFrame.getTransform().InverseTransformVector(globalDelta);
+            localDelta.Set(localDelta.x, (float)(localDelta.y / 5.0), localDelta.z);
+            //Vector3 iDontKnowWhyThisIsNecessary = new Vector3(localDelta.z, localDelta.x, localDelta.y);
+            //localFinal.y =  (float)(localFinal.y / frameScale);
 
 
 
-            Vector3 updatedNodePosition = new Vector3(newPointLocal.x, newPointLocal.y, newPointLocal.z);
+        Vector3 updatedNodePosition = localBasePosition + localDelta;
             Vector3 updatedNodeDirection = new Vector3(updatedNodePosition.x, updatedNodePosition.y + (float)0.001, updatedNodePosition.z);
             Vector3 updatedNodeUp = new Vector3(0, 0, -1);
             //lookAt = Quaternion.Euler((float)(r3 / frameScale), (float)(r1), (float)(r2 / frameScale)) * lookAt;

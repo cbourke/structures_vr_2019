@@ -68,6 +68,16 @@ public class debugBuilding1 : MonoBehaviour {
         drawFrame(new Vector3(6, 3, 4), new Vector3(6, 0, 4), buildingObjects.Frame);
         drawFrame(new Vector3(1, 3, 0), new Vector3(1, 0, 0), buildingObjects.Frame);
 
+        drawFrame(new Vector3(1, 3, 4), new Vector3(1, 3, 0), buildingObjects.Frame);
+        drawFrame(new Vector3(6, 3, 4), new Vector3(1, 3, 4), buildingObjects.Frame);
+        drawFrame(new Vector3(6, 3, 0), new Vector3(6, 3, 4), buildingObjects.Frame);
+        drawFrame(new Vector3(1, 3, 0), new Vector3(6, 3, 0), buildingObjects.Frame);
+
+        myConstructorController.createJointRestraint(new Vector3(1, 0, 4), 'f');
+        myConstructorController.createJointRestraint(new Vector3(6, 0, 0), 'r');
+        myConstructorController.createJointRestraint(new Vector3(6, 0, 4), 'r');
+        myConstructorController.createJointRestraint(new Vector3(1, 0, 0), 'f');
+
 
     }
     
