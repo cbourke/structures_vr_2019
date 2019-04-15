@@ -295,8 +295,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 98707ab9e537b9e43a4d018ab0b37f2f, type: 2}
   highlightMesh: {fileID: 7088390897810360666}
-  isNewHighlight: 0
-  frame: {fileID: 0}
+  isNewHighlight: 1
+  frame: {fileID: 4602889394163396169}
 --- !u!1 &4602889394163396169
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mesh: {fileID: 0}
   material: {fileID: 2100000, guid: 44a8c34cc8c91f0429e35386d2a5ec5f, type: 2}
-  rotation: {x: 0, y: 0, z: 0}
+  rotation: {x: 90, y: 0, z: 90}
 --- !u!114 &7021675224935337315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,8 +419,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodes:
-  - position: {x: 5, y: 0, z: 0}
-    direction: {x: 5, y: 0, z: -3}
+  - position: {x: 0, y: 0, z: 0}
+    direction: {x: 0, y: 0.001, z: 0}
     up: {x: 0, y: 1, z: 0}
     scale: {x: 1, y: 1}
     roll: 0
@@ -429,8 +429,8 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - position: {x: 10, y: 0, z: 0}
-    direction: {x: 10, y: 0, z: 3}
+  - position: {x: 0, y: 1, z: 0}
+    direction: {x: 0, y: 1.001, z: 0}
     up: {x: 0, y: 1, z: 0}
     scale: {x: 1, y: 1}
     roll: 0
@@ -441,8 +441,8 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   curves:
   - n1:
-      position: {x: 5, y: 0, z: 0}
-      direction: {x: 5, y: 0, z: -3}
+      position: {x: 0, y: 0, z: 0}
+      direction: {x: 0, y: 0.001, z: 0}
       up: {x: 0, y: 1, z: 0}
       scale: {x: 1, y: 1}
       roll: 0
@@ -452,8 +452,8 @@ MonoBehaviour:
         m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
     n2:
-      position: {x: 10, y: 0, z: 0}
-      direction: {x: 10, y: 0, z: 3}
+      position: {x: 0, y: 1, z: 0}
+      direction: {x: 0, y: 1.001, z: 0}
       up: {x: 0, y: 1, z: 0}
       scale: {x: 1, y: 1}
       roll: 0
@@ -467,7 +467,7 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  Length: 7.5348897
+  Length: 1
   CurveChanged:
     m_PersistentCalls:
       m_Calls: []

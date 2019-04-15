@@ -290,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mesh: {fileID: 0}
   material: {fileID: 2100000, guid: 44a8c34cc8c91f0429e35386d2a5ec5f, type: 2}
-  rotation: {x: 0, y: 0, z: 0}
+  rotation: {x: 90, y: 0, z: 90}
 --- !u!114 &1543881412936933560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,5 +744,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 98707ab9e537b9e43a4d018ab0b37f2f, type: 2}
   highlightMesh: {fileID: 5341210982579228415}
-  isNewHighlight: 0
-  frame: {fileID: 0}
+  isNewHighlight: 1
+  frame: {fileID: 5323194293171507108}

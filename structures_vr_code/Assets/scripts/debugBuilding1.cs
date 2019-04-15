@@ -34,7 +34,7 @@ public class debugBuilding1 : MonoBehaviour {
         populateDropdowns();
 
         drawIBeams();
-        //drawPipes();
+        drawPipes();
         //drawTubes();
 
 
@@ -68,15 +68,32 @@ public class debugBuilding1 : MonoBehaviour {
         drawFrame(new Vector3(6, 3, 4), new Vector3(6, 0, 4), buildingObjects.Frame);
         drawFrame(new Vector3(1, 3, 0), new Vector3(1, 0, 0), buildingObjects.Frame);
 
-        drawFrame(new Vector3(1, 3, 4), new Vector3(1, 3, 0), buildingObjects.Frame);
+        //drawFrame(new Vector3(1, 3, 4), new Vector3(1, 3, 0), buildingObjects.Frame);
         drawFrame(new Vector3(6, 3, 4), new Vector3(1, 3, 4), buildingObjects.Frame);
-        drawFrame(new Vector3(6, 3, 0), new Vector3(6, 3, 4), buildingObjects.Frame);
-        drawFrame(new Vector3(1, 3, 0), new Vector3(6, 3, 0), buildingObjects.Frame);
+        //drawFrame(new Vector3(6, 3, 0), new Vector3(6, 3, 4), buildingObjects.Frame);
+        //drawFrame(new Vector3(1, 3, 0), new Vector3(6, 3, 0), buildingObjects.Frame);
 
         myConstructorController.createJointRestraint(new Vector3(1, 0, 4), 'f');
-        myConstructorController.createJointRestraint(new Vector3(6, 0, 0), 'r');
-        myConstructorController.createJointRestraint(new Vector3(6, 0, 4), 'r');
+        myConstructorController.createJointRestraint(new Vector3(6, 0, 0), 'f');
+        myConstructorController.createJointRestraint(new Vector3(6, 0, 4), 'f');
         myConstructorController.createJointRestraint(new Vector3(1, 0, 0), 'f');
+
+        drawFrame(new Vector3(1, 3, 0), new Vector3(1, 3, 4), buildingObjects.Frame);
+        drawFrame(new Vector3(0, 3, 0), new Vector3(0, 3, 4), buildingObjects.Frame);
+        drawFrame(new Vector3(0, 3, 4), new Vector3(0, 3, 5), buildingObjects.Frame);
+        drawFrame(new Vector3(0, 3, 5), new Vector3(1, 3, 6), buildingObjects.Frame);
+        drawFrame(new Vector3(1, 3, 6), new Vector3(6, 3, 6), buildingObjects.Frame);
+
+        drawFrame(new Vector3(2, 3, 4), new Vector3(2, 0, 4), buildingObjects.Frame);
+        drawFrame(new Vector3(3, 3, 4), new Vector3(3, 0, 4), buildingObjects.Frame);
+        drawFrame(new Vector3(4, 3, 4), new Vector3(4, 0, 4), buildingObjects.Frame);
+        drawFrame(new Vector3(5, 3, 4), new Vector3(5, 0, 4), buildingObjects.Frame);
+
+        myConstructorController.createJointRestraint(new Vector3(2, 0, 4), 'p');
+        myConstructorController.createJointRestraint(new Vector3(3, 0, 4), 'p');
+        myConstructorController.createJointRestraint(new Vector3(4, 0, 4), 'p');
+        myConstructorController.createJointRestraint(new Vector3(5, 0, 4), 'p');
+
 
 
     }
@@ -86,7 +103,7 @@ public class debugBuilding1 : MonoBehaviour {
     /// </summary>
     void drawPipes()
     {
-        mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
+        //mySectionController.SetCurrentFrameSection("Sec_Steel_Pipe");
         //roof
         drawFrame(new Vector3(6, 4, 0), new Vector3(6, 3, 4), buildingObjects.Frame);
         drawFrame(new Vector3(6, 3, 4), new Vector3(6, 3, 6), buildingObjects.Frame);
@@ -127,7 +144,7 @@ public class debugBuilding1 : MonoBehaviour {
     /// </summary>
     void drawTubes()
     {
-        mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
+        //mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
         
         drawFrame(new Vector3(1, 3, 4), new Vector3(1, 0, 4), buildingObjects.Frame);
         drawFrame(new Vector3(6, 3, 0), new Vector3(6, 0, 0), buildingObjects.Frame);
