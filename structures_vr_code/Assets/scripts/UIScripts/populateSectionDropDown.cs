@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/* Attatched to toolsUI -> Draw -> Edit -> Section */
+/* Used to populate the sections dropdown on the draw pane */
+/* Whenever the UI draw pane is enabled it gets the list of sections from the section controller and updates the dropdown */
 public class populateSectionDropDown : MonoBehaviour
 {
     public sectionController mySectionController;

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-/* Scripts for the Delete UI button */
-/* Contains the logic for deleting a selection of frames */
+/* Attatched to toolsUI -> Draw -> Selection -> Place Load */
+/* Script for placing a load */
 public class placeLoadUI : MonoBehaviour
 {
     public constructorController myConstructorController;

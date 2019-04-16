@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/* Attatched to toolsUI -> Joint */
+/* Contains the UI functions for joint restraints */
 public class jointRestraintUI : MonoBehaviour
 {
     public TMP_Dropdown typeDropdown;

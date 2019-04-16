@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/* Attatched to toolsUI -> File -> new model -> Create New */
+/* Removes all previous models and generates a new grid */
 public class createNewProject : MonoBehaviour {
 
 	public TMP_InputField xText;

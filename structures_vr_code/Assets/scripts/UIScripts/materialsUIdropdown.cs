@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System;
 
+/* Attatched to toolsUI -> Draw -> Materials */
+/* Populates each of the dropdowns for the material definitions */
+/* When a dropdown is updated, each sub dropdown must be updated */
 public class materialsUIdropdown : MonoBehaviour {
 
 	public materialsController myMaterialController;

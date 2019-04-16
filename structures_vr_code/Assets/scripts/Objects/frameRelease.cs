@@ -36,6 +36,9 @@ public class FrameRelease
     private float momentMajorStartVal { get; set; }
     private float momentMajorEndVal { get; set; }
 
+    /// <summary>
+    /// Object constructor
+    /// </summary>
 	public FrameRelease()
 	{
         axialStart = true;

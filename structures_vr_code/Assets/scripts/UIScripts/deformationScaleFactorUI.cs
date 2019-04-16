@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/* doesn't work, or not implimentation not finished */
 public class deformationScaleFactorUI : MonoBehaviour
 {
     public TMPro.TMP_Text value;

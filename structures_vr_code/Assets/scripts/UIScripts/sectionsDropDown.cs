@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/* Attatched to toolsUI -> Define -> Frame Sections -> Dropdown */
+/* Toggles the gameobjects containing the different define frame section panels */
+
 public class sectionsDropDown : MonoBehaviour {
 
     TMP_Dropdown m_Dropdown;
