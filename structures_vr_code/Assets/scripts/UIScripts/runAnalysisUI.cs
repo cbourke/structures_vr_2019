@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-/* Scripts for the Delete UI button */
-/* Contains the logic for deleting a selection of frames */
+/* Attatched to toolsUI -> Draw -> Selection -> Run Analysis */
+/* Runs the SAP analysis */
 public class runAnalysisUI : MonoBehaviour
 {
     public constructorController myConstructorController;

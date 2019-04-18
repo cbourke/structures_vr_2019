@@ -23,13 +23,13 @@ public class PointerController : MonoBehaviour {
     public VRTK_StraightPointerRenderer uiRenderer;
     public GameObject scaleTarget;
 
-    //public VRTK_UIPointer UIPointer;
     public VRTK_Pointer TeleportPointer;
     public selectionController selectionController;
 
     private pointerModes mode;
     private pointerModes drawSelectState;
     public float scale = 1;
+
     /// <summary>
     /// Sets the default pointer mode
     /// </summary>

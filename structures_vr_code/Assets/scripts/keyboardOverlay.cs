@@ -6,6 +6,7 @@ using System.Collections;
 
 /* This class handles opening and closing the keyboard */
 /* The majority of this code was copied from the OpenVR github, but it was adapted to work with our project */
+/* This script should be attatched to any UI text input field that would need keyboard input */
 public class keyboardOverlay : MonoBehaviour, ISelectHandler
 {
 	private TMP_InputField inputField;

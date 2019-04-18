@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/* Attatched to toolsUI -> Define -> Frame Sections -> Tube -> Create */
+/* Creates a new Tube  */
 public class createTubeUI : MonoBehaviour
 {
-
     public TMP_InputField depth;
     public TMP_InputField width;
     public TMP_InputField flange;

@@ -17,6 +17,10 @@ public class jointRestraint {
     GameObject jointRestraintGameObject;
 
 
+    /// <summary>
+    /// Defines a joint restraint
+    /// Uses the GameObject passed in to spawn a new restraint
+    /// </summary>
     public jointRestraint(Vector3 position, char type, GameObject jointRestraintPrefab)
     {
         this.position = position;
@@ -24,6 +28,10 @@ public class jointRestraint {
         setType(type);
     }
 
+    /// <summary>
+    /// Sets the joint restraints type
+    /// Available types are: roller, pin, fixed
+    /// </summary>
     public void setType(char type)
     {
         switch (type)

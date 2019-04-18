@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/* Attatched to toolsUI -> Define -> Frame Sections -> I-Frame -> Create */
+/* Creates a new I Frame section */
 public class createIFrameUI : MonoBehaviour
 {
-
     public TMP_InputField height;
     public TMP_InputField topWidth;
     public TMP_InputField topThick;

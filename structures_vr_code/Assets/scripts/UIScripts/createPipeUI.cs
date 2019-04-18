@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/* Attatched to toolsUI -> Define -> Frame Sections -> Pipe -> Create */
+/* Creates a new Pipe  */
 public class createPipeUI : MonoBehaviour
 {
-
     public TMP_InputField diameter;
     public TMP_InputField thickness;
     public TMP_InputField tubeName;

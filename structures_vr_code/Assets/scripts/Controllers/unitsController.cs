@@ -139,7 +139,7 @@ public class unitsController : MonoBehaviour {
 	}
 
 	/// <summary>
-	//// takes force in Newtons and returns user defined force
+	/// takes force in Newtons and returns user defined force
 	/// </summary>
 	public float getForce(float force)
 	{
