@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Abstraction of the parameters set by the CSI OAPI function "SapObject.SapModel.Results.FrameForce(...)".
+/// The data members of this class correspond to parameters used by SapObject.SapModel.Results.FrameForce(...)".
+/// For more information on OAPI functions, consult CSI_OAPI_Documentation.chm in your SAP2000 installation directory.
+/// </summary>
 public class frameForce : MonoBehaviour
 {
     public string name;

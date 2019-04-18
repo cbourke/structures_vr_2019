@@ -4,9 +4,17 @@ using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
+
+/// <summary>
+/// This class contains a single function: combineMeshes().
+/// It combines the meshes of the GameObject's children into a single mesh.
+/// </summary>
 public class meshCombiner : MonoBehaviour
 {
-    // Start is called before the first frame update
+    /// <summary>
+    /// Combine the meshes of the GameObject's children into a single mesh,
+    /// and set the GameObjects's "ExamplePipe" script to activate and use that mesh (for use with a SplineMesh spline).
+    /// </summary>
     public void combineMeshes()
     {
         Quaternion oldRotation = transform.rotation;

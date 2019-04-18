@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Abstraction of the parameters set by the CSI OAPI function "SapObject.SapModel.PropFrame.GetSectProps(...)".
+/// The data members of this class correspond to parameters used by SapObject.SapModel.PropFrame.GetSectProps(...).
+/// For more information on OAPI functions, consult CSI_OAPI_Documentation.chm in your SAP2000 installation directory.
+/// </summary>
 public class SectProps : MonoBehaviour
 {
     public SectProps(string name, double area, double as2, double as3, double torsion, double i22, double i33, double s22, double s33, double z22, double z33, double r22, double r33)

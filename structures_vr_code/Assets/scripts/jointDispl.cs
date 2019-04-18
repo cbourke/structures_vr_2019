@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Abstraction of the parameters set by the CSI OAPI function "SapObject.SapModel.Results.JointDispl(...)".
+/// The data members of this class correspond to parameters used by SapObject.SapModel.Results.JointDispl(...).
+/// For more information on OAPI functions, consult CSI_OAPI_Documentation.chm in your SAP2000 installation directory.
+/// </summary>
 public class jointDispl : MonoBehaviour
 {
     public string name;
@@ -19,6 +24,7 @@ public class jointDispl : MonoBehaviour
     public double[] r2;
     public double[] r3;
 
+    //Constructor; simply sets all the data member values.
     public jointDispl(string name, string itemType, int numberResults, string[] obj, string[] elm, string[] loadCase, string[] stepType,
     double[] stepNum, double[] u1, double[] u2, double[] u3, double[] r1, double[] r2, double[] r3)
     {
@@ -38,6 +44,10 @@ public class jointDispl : MonoBehaviour
         this.r3 = r3;
     }
 
+    /// <summary>
+    /// Prints the data members of this object in a human-readable format.
+    /// Used for debugging.
+    /// </summary>
     public override string ToString()
     {
         string result = "";
