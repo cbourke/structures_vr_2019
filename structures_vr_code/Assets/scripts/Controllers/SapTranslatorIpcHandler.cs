@@ -31,18 +31,51 @@ public class SapTranslatorIpcHandler : MonoBehaviour
         }
     }
 
+    /*
+     * 
+public static void ExecProcess(string name, string args)
+{
+    Process p = new Process();
+    p.StartInfo.FileName = name;
+    p.StartInfo.Arguments = args;
+    p.StartInfo.RedirectStandardError = true;
+    p.StartInfo.RedirectStandardOutput = true;
+    p.StartInfo.CreateNoWindow = true;
+    p.StartInfo.UseShellExecute = false;
+    p.Start();
+
+    string log = p.StandardOutput.ReadToEnd();
+    string errorLog = p.StandardError.ReadToEnd();
+
+    p.WaitForExit();
+    p.Close();
+}
+     */
+
     public void createPipeServer(string[] args)
     {
+        Debug.Log("Creating PipeServer...");
         pipeServer = new NamedPipeServerStream("vrPipe", PipeDirection.InOut, 1);
         Debug.Log("Created pipeServer.");
         System.Object connectionObject = new System.Object();
         AsyncCallback connectionCallback = new AsyncCallback(onClientConnect);
         pipeServer.BeginWaitForConnection(connectionCallback, connectionObject);
         Debug.Log("Waiting for client connection to pipeServer.");
+
+
         //string filePath = Application.persistentDataPath + "/" + structureSaveFileName + ".xml";
         string appPath = System.IO.Path.Combine(Application.streamingAssetsPath, "SapTranslator.exe");
+        Debug.Log("Declaring process instance");
         System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
         myProcess.StartInfo.FileName = appPath;
+        //myProcess.StartInfo.Arguments = "";
+        //myProcess.StartInfo.WorkingDirectory = Application.streamingAssetsPath;
+        //myProcess.StartInfo.UseShellExecute = true;
+        //myProcess.StartInfo.CreateNoWindow = true;
+        //myProcess.StartInfo.RedirectStandardError = true;
+        //string errorLog = myProcess.StandardError.ReadToEnd();
+        //Debug.Log(errorLog);
+
         //myProcess.StartInfo.Arguments = "\"" + filePath + "\"";
         myProcess.Start();
     }
