@@ -5591,6 +5591,11 @@ PrefabInstance:
       propertyPath: m_inputSource
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8883020165631024512, guid: 55bf230e68be69f439ed024d48fe840f,
+        type: 3}
+      propertyPath: m_text
+      value: 1000.0
+      objectReference: {fileID: 0}
     - target: {fileID: 853878340846216789, guid: 55bf230e68be69f439ed024d48fe840f,
         type: 3}
       propertyPath: m_inputSource
