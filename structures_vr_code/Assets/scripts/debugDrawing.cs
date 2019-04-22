@@ -13,6 +13,8 @@ public class debugDrawing : MonoBehaviour {
     public sectionController mySectionController;
     public unitsController myUnitsController;
     public gridController myGridController;
+    public SapTranslatorIpcHandler mySapTranslatorIpcHandler;
+    public analysisController myAnalysisController;
 
     Vector3 origin = new Vector3(0,0,0);
     Vector3 p1 = new Vector3(1,0,0);
@@ -26,29 +28,63 @@ public class debugDrawing : MonoBehaviour {
     Vector3 p8 = new Vector3(2, 1, 1);
     Vector3 p9 = new Vector3(0, 2, 1);
     Vector3 p10 = new Vector3(2, 2, 1);
-
+    string frameName;
     void Start () {
         //xmlController.GetComponent<xmlController>().sendFileToSap(); //send to SAP2000
-        Debug.Log("START DEBUG");
-        drawGrid();
-        populateDropdowns();
-        Debug.Log("DEBUG Populated Dropdowns.");
-        testSections();
-        Debug.Log("DEBUG Tested Sections.");
-        testJoints();
-        Debug.Log("DEBUG Tested Joints.");
-        testFrameDeletion();
-        Debug.Log("DEBUG Tested Frame Deletion.");
+        
+
+        
 
     }
-	
+
+    private void Update()
+    {
+        if (Input.GetKeyDown("d")) {
+            Debug.Log("START DEBUG");
+            drawGrid();
+            populateDropdowns();
+            Debug.Log("DEBUG Populated Dropdowns.");
+            //testSections();
+            mySectionController.SetCurrentFrameSection("Sec_Steel_I");
+            Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
+            myConstructorController.setPoint(p4, buildingObjects.Frame);
+            myConstructorController.setPoint(p5, buildingObjects.Frame);
+
+            Debug.Log("DEBUG Tested Sections.");
+            //testJoints();
+            myConstructorController.createJointRestraint(p4, 'f');
+            myConstructorController.createJointRestraint(p5, 'f');
+
+            Debug.Log("DEBUG Tested Joints.");
+            //testFrameDeletion();
+            //Debug.Log("DEBUG Tested Frame Deletion.");
+
+            
+        }
+
+        if (Input.GetKeyDown("r"))
+        {
+            frameName = "Frame_i=[" + p4.x + ":" + p4.z + ":" + p4.y + "]-j=[" + p5.x + ":" + p5.z + ":" + p5.y + "]";
+            mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsSetupDeselectAllCasesAndCombosForOutput()");
+            mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsSetupSetCaseSelectedForOutput(DEAD, true)");
+            //mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsFrameJointForce(" + frameName + ", 0)");
+            //mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: resultsFrameForce(" + frameName + ", 0)");
+            mySapTranslatorIpcHandler.enqueueToOutputBuffer("VRE to SAPTranslator: customResultsGetFrameSpecialPointDispl(" + frameName + ")");
+
+        }
+
+        if (Input.GetKeyDown("v"))
+        {
+            myAnalysisController.visualizeDeformation(frameName, myAnalysisController.getLatestJointDisplResult());
+        }
+    }
+
     /// <summary>
     /// creates some building materials and frame sections
     /// this is useful to populate the various UI dropdowns so that you don't have to manualy create these each time 
     /// </summary>
     void populateDropdowns()
     {
-        			
         myMaterialController.addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
         myMaterialController.addBuildingMaterial("Steel02", "United States", "steel", "ASTM A500", "Grade C");
         myMaterialController.addBuildingMaterial("Aluminum01", "United States", "aluminum", "ASTM", "Alloy 6061 T6");
@@ -124,7 +160,7 @@ public class debugDrawing : MonoBehaviour {
     /// </summary>
     void testSections()
     {
-        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
+        mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube"); 
         Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
         myConstructorController.setPoint(origin, buildingObjects.Frame);
 		myConstructorController.setPoint(p1, buildingObjects.Frame);
@@ -134,7 +170,7 @@ public class debugDrawing : MonoBehaviour {
         myConstructorController.setPoint(p2, buildingObjects.Frame);
 		myConstructorController.setPoint(p3, buildingObjects.Frame);
 
-        mySectionController.SetCurrentFrameSection("Sec_Aluminum_Tube");
+        mySectionController.SetCurrentFrameSection("Sec_Steel_I");
         Debug.Log("Current frame section: " + mySectionController.GetCurrentFrameSection().GetName());
         myConstructorController.setPoint(p4, buildingObjects.Frame);
         myConstructorController.setPoint(p5, buildingObjects.Frame);
@@ -204,6 +240,6 @@ public class debugDrawing : MonoBehaviour {
     /// </summary>
     void drawGrid()
     {
-        myGridController.createGrid(5, 5, 5, 1f);
+        myGridController.createGrid(5, 5, 5, 5f);
     }
 }

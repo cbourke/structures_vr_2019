@@ -20,6 +20,7 @@ public class Frame {
 	private FrameRelease release;
 
 	private float releaseEndPercentage = 0.1f;
+    private float defaultReleaseSize = 0.05f;
 
 	private Transform trans;
 	private Transform frameTrans;
@@ -112,7 +113,7 @@ public class Frame {
 		float releasePercent = (gridController.getSpacing()*(releaseEndPercentage))/(distance);
 
 		startPosRelease = Vector3.Lerp(startPos, endPos, releasePercent);
-		scaleFrame(startPosRelease, endPos);
+		scaleFrame(startPosRelease, endPos, distance);
 
 	}
 
@@ -129,7 +130,7 @@ public class Frame {
 		float releasePercent = (gridController.getSpacing()*(releaseEndPercentage))/(distance);
 
 		endPosRelease = Vector3.Lerp(endPos, startPos, releasePercent);
-		scaleFrame(startPos, endPosRelease);
+		scaleFrame(startPos, endPosRelease, distance);
 
 	}
 
@@ -145,10 +146,9 @@ public class Frame {
 		float distance = between.magnitude;
 
 		float releasePercent = (gridController.getSpacing()*(releaseEndPercentage))/(distance);
-
 		startPosRelease = Vector3.Lerp(startPos, endPos, releasePercent);
 		endPosRelease = Vector3.Lerp(endPos, startPos, releasePercent);
-		scaleFrame(startPosRelease, endPosRelease);
+		scaleFrame(startPosRelease, endPosRelease, distance);
 	}
 
     /// <summary>
@@ -157,14 +157,16 @@ public class Frame {
 	public void setReleaseNeither() {
 		releaseStartTrans.gameObject.SetActive(false);
 		releaseEndTrans.gameObject.SetActive(false);
-		scaleFrame(startPos, endPos);
+		Vector3 between = endPos - startPos;
+		float distance = between.magnitude;
+		scaleFrame(startPos, endPos, distance);
 	}
 
     /// <summary>
     /// This function actually scales the frame according to the release state
 	/// should only be called by one of the setRelease functions in this class
     /// </summary>
-	private void scaleFrame(Vector3 startPoint, Vector3 endPoint)
+	private void scaleFrame(Vector3 startPoint, Vector3 endPoint, float length)
 	{
 		Vector3 between = endPoint - startPoint;
 		float distance = between.magnitude;
@@ -176,8 +178,13 @@ public class Frame {
 		frameTrans.localScale = new Vector3(1, distance, 1);
 
 		float releaseDist = 0.0375f;
-		releaseEndTrans.localPosition = new Vector3(0, distance+releaseDist, 0);
-		releaseStartTrans.localPosition = new Vector3(0, -releaseDist, 0);
+		float releaseDistNew = (length - distance)/5f;
+		releaseEndTrans.localPosition = new Vector3(0, distance+releaseDistNew, 0);
+		releaseStartTrans.localPosition = new Vector3(0, -releaseDistNew, 0);
+		
+		float scaleSize = defaultReleaseSize * gridController.getSpacing();
+		releaseStartTrans.localScale = new Vector3(scaleSize, scaleSize, scaleSize);
+		releaseEndTrans.localScale = new Vector3(scaleSize, scaleSize, scaleSize);
 	}
 
 	public Transform getTransform()
@@ -258,6 +265,11 @@ public class Frame {
         } else {
             frameHighlighter.Unhighlight();
         }
+    }
+
+    public double getLength()
+    {
+        return Vector3.Distance(startPos, endPos);
     }
 }
 

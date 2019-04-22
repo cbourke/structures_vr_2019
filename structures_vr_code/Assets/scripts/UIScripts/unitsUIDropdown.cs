@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/* Attatched to toolsUI -> File -> file functions -> Units */
+/* This script generates a list of all the possible units */
+/* When a new option is selected it updates the current units being used */
 public class unitsUIDropdown : MonoBehaviour
 {
     public unitsController unitCtr;

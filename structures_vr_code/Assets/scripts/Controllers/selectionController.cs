@@ -354,7 +354,7 @@ public class selectionController : MonoBehaviour {
     /// </summary>
     public void clearNodeSelection()
 	{
-        //removeListFromSelection(selectedNodes);
+        deselect(selectedNodes);
 	}
 
 

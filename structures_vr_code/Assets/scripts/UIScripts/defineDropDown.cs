@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/*  Attatched to toolsUI -> Define -> Dropdown */
+/*  Controls switching between the UI panes for defining 
+    materials, secitons, and groups (Currently there is no group functionality) */
+/*  Toggles each gameobject on and off depending on which is active */
+/*  There is probably a better way of doing this */
 public class defineDropDown : MonoBehaviour {
-
     TMP_Dropdown m_Dropdown;
     public GameObject material;
     public GameObject section;

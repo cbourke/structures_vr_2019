@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Used to make the UI panel follow the players contrtoller */
+/* Also scales the UI panel in according to the players scale */
 public class followController : MonoBehaviour
 {
     public float positionInterpolateFactor;
     public float rotationInterpolateFactor;
     public GameObject followingTarget;
+    public GameObject scaleTarget;
 
     // Update is called once per frame
 
@@ -32,6 +35,10 @@ public class followController : MonoBehaviour
             //transform.SetPositionAndRotation(newPosition, newRotationQuaternion);
             transform.SetPositionAndRotation(newPosition, newRotationQuaternion);
 
+        }
+
+        if(scaleTarget != null) {
+            transform.localScale = scaleTarget.transform.localScale;
         }
     }
 }

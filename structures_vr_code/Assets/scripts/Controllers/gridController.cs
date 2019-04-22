@@ -28,7 +28,7 @@ public class gridController : MonoBehaviour {
 			for(int j=0; j<gridY; j++) {
 				for(int k=0; k<gridZ; k++) {
 					Vector3 pos = new Vector3(i*spacing,j*spacing,k*spacing);
-					GridNode gridNode = new GridNode(pos, gridNodeObject);
+					GridNode gridNode = new GridNode(pos, gridNodeObject, spacing);
 					string gridNodeName = "GridNode=[" + pos.x + ":" + pos.z + ":" + pos.y + "]";
 
 					gridNode.setName(gridNodeName);

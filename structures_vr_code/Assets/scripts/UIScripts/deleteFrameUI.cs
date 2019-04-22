@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/* Attatched to toolsUI -> Draw -> Selection -> Delete */
 /* Scripts for the Delete UI button */
 /* Contains the logic for deleting a selection of frames */
 public class deleteFrameUI : MonoBehaviour

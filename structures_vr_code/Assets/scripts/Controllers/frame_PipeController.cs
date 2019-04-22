@@ -18,5 +18,7 @@ public class frame_PipeController : MonoBehaviour
         trans.localScale = new Vector3(diameter, trans.localScale.y, diameter);
         float centerThickness = diameter - (2*thickness);
         center.transform.localScale = new Vector3(centerThickness, center.transform.localScale.y, centerThickness);
+
+        GetComponentInChildren<meshCombiner>().combineMeshes();
     }
 }

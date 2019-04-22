@@ -17,8 +17,8 @@ public class sectionController : MonoBehaviour {
     /// Creates a default frame section
     /// </summary>
 	void Awake () {
-        addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
-        currentFrameSection = frameSections[0];
+        //addIFrameSection("Sec_Steel_I", "Steel01", 0.3f, 0.12f, 0.01f, 0.007f, 0.12f, 0.01f);
+        //currentFrameSection = frameSections[0];
 	}
 
     /// <summary>
@@ -43,12 +43,18 @@ public class sectionController : MonoBehaviour {
 
     /// <summary>
     /// Add a new FrameSection to the list of FrameSections
+    /// Also tells SAP Translator to set the FrameSection's "SectProps" property (currently commented-out)
     /// </summary>
     public int addFrameSection(FrameSection frameSection)
     {
         if (findFrameSection(frameSection.GetName()) == null)
         {
             frameSections.Add(frameSection);
+            if (frameSections.Count == 1)
+            {
+                SetCurrentFrameSection(frameSection.GetName());
+            }
+            //sapTranslatorIpcHandler.propFrameGetSectProps(frameSection);
             myXmlController.GetComponent<xmlController>().addFrameSectionToXMLList(frameSection);
             return 1;
         }
@@ -121,7 +127,7 @@ public class sectionController : MonoBehaviour {
             frameSections.Remove(targetFrameSection);
             myXmlController.GetComponent<xmlController>().deleteFrameSectionFromXMLList(name);
 
-            string sapTranslatorCommand = "VRE to SAPTranslator: propFrameSetTube(" + targetFrameSection.GetName() + ")";
+            string sapTranslatorCommand = "VRE to SAPTranslator: propFrameDelete(" + targetFrameSection.GetName() + ")";
             // arguments: (name)
             sapTranslatorIpcHandler.enqueueToOutputBuffer(sapTranslatorCommand);
         }

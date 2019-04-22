@@ -19,14 +19,15 @@ namespace SapTranslator
         private static cSapModel mySapModel;
         private static string modelDirectory;
         private static string modelName;
-
+        private static StreamString pipeStreamString;
+        private static NamedPipeClientStream pipeClient;
 
         static void Main(string[] args)
         {
-            NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "vrPipe", PipeDirection.InOut, PipeOptions.None);
+            pipeClient = new NamedPipeClientStream(".", "vrPipe", PipeDirection.InOut, PipeOptions.None);
             Console.WriteLine("Connecting to VRE server via named pipe \"vrPipe\"...\n");
             pipeClient.Connect();
-            StreamString pipeStreamString = new StreamString(pipeClient);
+            pipeStreamString = new StreamString(pipeClient);
 
             while (pipeClient.IsConnected) {
                 readStreamForCommand(pipeStreamString);
@@ -101,7 +102,7 @@ namespace SapTranslator
 
 
             if (reciever.Equals("SAPTranslator")) {
-                Console.WriteLine("SAPTranslator: I recognize that I am being addressed.");
+                Console.WriteLine("SAPTranslator: acknowledging reciept of a message from " + sender + ".");
                 if (message.Substring(22).Equals("Beginning inter-process communication. Do you read me?"))
                 {
                     respondToPipeConnectionStart(pipeStreamString);
@@ -112,14 +113,14 @@ namespace SapTranslator
                     {
                         case "initialize":
                             {
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 initialize(arguments);
                                 break;
                             }
                         case "saveAs":
                             {
                                 // arguments: (modelDirectory, modelName)
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 saveAs(arguments);
                                 break;
                             }
@@ -127,14 +128,21 @@ namespace SapTranslator
                         case "save":
                             {
                                 // arguments: ()
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 save();
+                                break;
+                            }
+                        case "pointObjAddCartesian":
+                            {
+                                // arguments:
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                pointObjAddCartesian(arguments);
                                 break;
                             }
                         case "frameObjAddByCoord":
                             {
                                 // arguments: (xi, yi, zi, xj, yj, zj, propName, userName)
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 frameObjAddByCoord(arguments);
                                 ret = mySapModel.View.RefreshView(0, false);
                                 break;
@@ -142,33 +150,33 @@ namespace SapTranslator
                         case "frameObjDelete":
                             {
                                 // arguments: (name)
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 frameObjDelete(arguments);
                                 ret = mySapModel.View.RefreshView(0, false);
                                 break;
                             }
                         case "frameObjSetSection":
                             {
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 frameObjSetSection(arguments);
                                 break;
                             }
                         case "frameObjSetSelected":
                             {
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 frameObjSetSelected(arguments);
                                 break;
                             }
                         case "pointCoordSetRestraint":
                             {
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 pointCoordSetRestraint(arguments);
                                 ret = mySapModel.View.RefreshView(0, false);
                                 break;
                             }
                         case "pointCoordDeleteRestraint":
                             {
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 pointCoordDeleteRestraint(arguments);
                                 ret = mySapModel.View.RefreshView(0, false);
                                 break;
@@ -176,43 +184,113 @@ namespace SapTranslator
                         case "propMaterialAddMaterial":
                             {
                                 // arguments: (matType, region, standard, grade, userName)
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowleging command: \"" + functionName + "\"");
                                 propMaterialAddMaterial(arguments);
                                 break;
                             }
                         case "propMaterialDelete":
                             {
                                 // arguments: (name)
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 propMaterialDelete(arguments);
+                                break;
+                            }
+                        case "propMaterialGetMPIsotropic":
+                            {
+                                // arguments: (name)
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                propMaterialGetMPIsotropic(arguments);
                                 break;
                             }
                         case "propFrameSetISection":
                             {
                                 // arguments: (name, matProp, t3, t2, tf, tw, t2b, tfb, [color], [notes], [guid])
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 propFrameSetISection(arguments);
                                 break;
                             }
                         case "propFrameSetPipe":
                             {
                                 // arguments: (name, matProp, t3, tw, [color], [notes], [guid])
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 propFrameSetPipe(arguments);
                                 break;
                             }
                         case "propFrameSetTube":
                             {
                                 // arguments: (name, matProp, t3, t2, tf, tw, [color], [notes], [guid])
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 propFrameSetTube(arguments);
                                 break;
                             }
                         case "propFrameDelete":
                             {
                                 // arguments: (name)
-                                Console.WriteLine("SAPTranslator: I recognize command: \"" + functionName + "\"");
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
                                 propFrameDelete(arguments);
+                                break;
+                            }
+                        case "propFrameGetSectProps":
+                            {
+                                // arguments: (name)
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                propFrameGetSectProps(arguments);
+                                break;
+                            }
+                        case "resultsFrameJointForce":
+                            {
+                                // arguments: (string name, eItemTypeElm itemTypeElm)
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                resultsFrameJointForce(arguments);
+                                break;
+                            }
+                        case "resultsFrameForce":
+                            {
+                                // arguments: (string name, eItemTypeElm itemTypeElm)
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                resultsFrameForce(arguments);
+                                break;
+                            }
+                        case "resultsJointDispl":
+                            {
+                                // arguments: (string name, eItemTypeElm itemTypeElm)
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                resultsJointDispl(arguments);
+                                break;
+                            }
+                        case "resultsSetupDeselectAllCasesAndCombosForOutput":
+                            {
+                                // no arguments
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                resultsSetupDeselectAllCasesAndCombosForOutput(arguments);
+                                break;
+                            }
+                        case "resultsSetupSetCaseSelectedForOutput":
+                            {
+                                // arguments: (string name)
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                resultsSetupSetCaseSelectedForOutput(arguments);
+                                break;
+                            }
+                        case "customResultsGetFrameSpecialPointDispl":
+                            {
+                                // arguments: (string frameName)
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                customResultsGetFrameSpecialPointDispl(arguments);
+                                break;
+                            }
+                        case "analyzeRunAnalysis":
+                            {
+                                // arguments: none
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                analyzeRunAnalysis(arguments);
+                                break;
+                            }
+                        case "frameObjSetLoadPoint":
+                            {
+
+                                Console.WriteLine("SAPTranslator: acknowledging command: \"" + functionName + "\"");
+                                frameObjSetLoadPoint(arguments);
                                 break;
                             }
                     }
@@ -317,7 +395,7 @@ namespace SapTranslator
             //create new blank model
             ret = mySapModel.File.NewBlank();
             //switch to kip-ft-F units
-            ret = mySapModel.SetPresentUnits(eUnits.kip_ft_F);
+            //ret = mySapModel.SetPresentUnits(eUnits.kip_ft_F);
         }
 
 
@@ -367,6 +445,7 @@ namespace SapTranslator
             double yj = Double.Parse(arguments[4]);
             double zj = Double.Parse(arguments[5]);
             string propName = "Default";
+            int numDeflectionStations = 15;
             if (arguments.Count >= 7)
             {
                 propName = arguments[6];
@@ -376,9 +455,44 @@ namespace SapTranslator
             {
                 userName = arguments[7];
             }
+            if (arguments.Count >= 9)
+            {
+                numDeflectionStations = Int32.Parse(arguments[8]);
+            }
 
             string tempFrameName = "";
             mySapModel.FrameObj.AddByCoord(xi, yi, zi, xj, yj, zj, ref tempFrameName, propName, userName);
+
+            //Add deflection analysis stations (special points) and give them a group assignment
+            string pointGroupName = "specialPoints_" + tempFrameName;
+            mySapModel.GroupDef.SetGroup(pointGroupName, -1, true, false, false, false, false, false, false, false, false, false, false);
+            string coordsys = "Global";
+            bool mergeOff = true;
+            for (int i = 0; i < numDeflectionStations; i++)
+            {
+                double frameLengthProportion = (double)i / (double)numDeflectionStations;
+                if (i == 0)
+                {
+                    frameLengthProportion += 0.001;
+                } else if (i == numDeflectionStations - 1)
+                {
+
+                }
+                else
+                {
+                    frameLengthProportion -= 0.001;
+                }
+                
+                double newPointX = (1 - frameLengthProportion) * xi + frameLengthProportion * xj;
+                double newPointY = (1 - frameLengthProportion) * yi + frameLengthProportion * yj;
+                double newPointZ = (1 - frameLengthProportion) * zi + frameLengthProportion * zj;
+                string newPointName = "p" + i + "_of_" + tempFrameName;
+                string truePointName = newPointName;
+
+                mySapModel.PointObj.AddCartesian(newPointX, newPointY, newPointZ, ref truePointName, userName, coordsys, mergeOff, 0);
+                mySapModel.PointObj.SetGroupAssign(truePointName, pointGroupName, false, eItemType.Objects);
+                mySapModel.PointObj.SetLocalAxes(truePointName, 0.0, 0.0, 0.0, eItemType.Objects);
+            }
         }
 
         static void frameObjDelete(List<string> arguments)
@@ -436,7 +550,7 @@ namespace SapTranslator
             double z = Double.Parse(arguments[2]);
             string pointName = "";
             string userName = "";
-            string cSys = "";
+            string cSys = "Global";
             bool mergeOff = false;
             int mergeNumber = 0;
             if (arguments.Count >= 4)
@@ -586,6 +700,37 @@ namespace SapTranslator
             mySapModel.PropFrame.SetTube(name, matProp, t3, t2, tf, tw, color, notes, guid);
         }
 
+        static void propFrameGetSectProps(List<string> arguments)
+        {
+            string name = arguments[0]; // The name of an existing frame section property.
+            double area = 0; // The name of an existing frame section property.
+            double as2 = 0;
+            double as3 = 0;
+            double torsion = 0;
+            double i22 = 0;
+            double i33 = 0;
+            double s22 = 0;
+            double s33 = 0;
+            double z22 = 0;
+            double z33 = 0;
+            double r22 = 0;
+            double r33 = 0;
+            ret = mySapModel.PropFrame.GetSectProps(name, ref area, ref as2, ref as3, ref torsion, ref i22, ref i33, ref s22, ref s33, ref z22, ref z33, ref r22, ref r33);
+
+            string[] results = { name, area.ToString(), as2.ToString(), as3.ToString(), torsion.ToString(), i22.ToString(), i33.ToString(),
+                s22.ToString(), s33.ToString(), z22.ToString(), z33.ToString(), r22.ToString(), r33.ToString()};
+
+            string responseHeader = "SAPTranslator to VRE: sending results of PropFrame.GetSectProps:";
+            pipeStreamString.WriteString(responseHeader);
+            Console.WriteLine(responseHeader);
+
+            for (int i = 0; i < results.Length; i++)
+            {
+                pipeStreamString.WriteString(results[i]);
+                Console.WriteLine(results[i]);
+            }
+        }
+
         static void propFrameDelete(List<String> arguments)
         {
             string name = arguments[0];
@@ -621,6 +766,357 @@ namespace SapTranslator
 
             mySapModel.PropMaterial.Delete(name);
         }
+
+        static void propMaterialGetMPIsotropic(List<string> arguments)
+        {
+            string name = arguments[0]; // The name of an existing material property.
+            double e = 0;
+            double u = 0;
+            double a = 0;
+            double g = 0;
+
+            ret = mySapModel.PropMaterial.GetMPIsotropic(name, ref e, ref u, ref a, ref g);
+
+            string[] results = { name, e.ToString(), u.ToString(), a.ToString(), g.ToString()};
+
+            string responseHeader = "SAPTranslator to VRE: sending results of PropMaterial.GetMPIsotropic:";
+            pipeStreamString.WriteString(responseHeader);
+            Console.WriteLine(responseHeader);
+
+            for (int i = 0; i < results.Length; i++)
+            {
+                pipeStreamString.WriteString(results[i]);
+                Console.WriteLine(results[i]);
+            }
+        }
+
+        static void resultsFrameJointForce(List<string> arguments)
+        {
+            string name = arguments[0];
+            eItemTypeElm itemType = (eItemTypeElm) Int32.Parse(arguments[1]);
+            int numberResults = 1; // default to 1 arbitrarily
+            string[] obj = new string[1];
+            //double[] objSta = new double[1];;
+            string[] elm = new string[1];
+            //double[] elmSta = new double[1];;
+            string[] pointElm = new string[1];
+            string[] loadCase = new string[1];
+            string[] stepType = new string[1];
+            double[] stepNum = new double[1];
+            double[] f1 = new double[1];
+            double[] f2 = new double[1];
+            double[] f3 = new double[1];
+            double[] m1 = new double[1];
+            double[] m2 = new double[1];
+            double[] m3 = new double[1];
+
+
+            //we need to do a probing call first to get numberResults
+            ret = mySapModel.Results.FrameJointForce(name, itemType, ref numberResults,
+                ref obj, ref elm, ref pointElm, ref loadCase, ref stepType,
+                ref stepNum, ref f1, ref f2, ref f3, ref m1, ref m2, ref m3); 
+
+            obj = new string[numberResults];
+            //objSta = new double[numberResults];
+            elm = new string[numberResults];
+            //elmSta = new double[numberResults];
+            pointElm = new string[numberResults];
+            loadCase = new string[numberResults];
+            stepType = new string[numberResults];
+            stepNum = new double[numberResults];
+            f1 = new double[numberResults];
+            f2 = new double[numberResults];
+            f3 = new double[numberResults];
+            m1 = new double[numberResults];
+            m2 = new double[numberResults];
+            m3 = new double[numberResults];
+
+            // Now we call for the actual results
+            ret = mySapModel.Results.FrameJointForce(name, itemType, ref numberResults,
+                ref obj, ref elm, ref pointElm, ref loadCase, ref stepType,
+                ref stepNum, ref f1, ref f2, ref f3, ref m1, ref m2, ref m3);
+
+            // Now return the results, somehow.
+            string objResults = String.Join("`", obj);
+            string elmResults = String.Join("`", elm);
+            string pointElmResults = String.Join("`", pointElm);
+            string loadCaseResults = String.Join("`", loadCase);
+            string stepTypeResults = String.Join("`", stepType);
+            string stepNumResults = String.Join("`", stepNum);
+            string f1Results = String.Join("`", f1);
+            string f2Results = String.Join("`", f2);
+            string f3Results = String.Join("`", f3);
+            string m1Results = String.Join("`", m1);
+            string m2Results = String.Join("`", m2);
+            string m3Results = String.Join("`", m3);
+
+            string[] results = { name, itemType.ToString(), numberResults.ToString(), objResults, elmResults, pointElmResults, loadCaseResults, stepTypeResults, stepNumResults, f1Results, f2Results, f3Results, m1Results, m2Results, m3Results };
+
+            string response = "SAPTranslator to VRE: sending 15 result strings:";
+            pipeStreamString.WriteString(response);
+            Console.WriteLine(response);
+            pipeClient.WaitForPipeDrain();
+            for (int i = 0; i < results.Length; i++)
+            {
+                response = results[i];
+                pipeStreamString.WriteString(response);
+                Console.WriteLine(response);
+                pipeClient.WaitForPipeDrain();
+            }
+        }
+
+        static void resultsFrameForce(List<string> arguments)
+        {
+            string name = arguments[0];
+            eItemTypeElm itemType = (eItemTypeElm)Int32.Parse(arguments[1]);
+            int numberResults = 9; // default to 9 arbitrarily
+            string[] obj = new string[9];
+            double[] objSta = new double[9];;
+            string[] elm = new string[9];
+            double[] elmSta = new double[9];
+            string[] loadCase = new string[9];
+            string[] stepType = new string[9];
+            double[] stepNum = new double[9];
+            double[] p = new double[9];
+            double[] v2 = new double[9];
+            double[] v3 = new double[9];
+            double[] t = new double[9];
+            double[] m2 = new double[9];
+            double[] m3 = new double[9];
+
+
+            //we need to do a probing call first to get numberResults
+            ret = mySapModel.Results.FrameForce(name, itemType, ref numberResults,
+                ref obj, ref objSta, ref elm, ref elmSta, ref loadCase, ref stepType,
+                ref stepNum, ref p, ref v2, ref v3, ref t, ref m2, ref m3);
+
+            obj = new string[numberResults];
+            objSta = new double[numberResults];
+            elm = new string[numberResults];
+            elmSta = new double[numberResults];
+            loadCase = new string[numberResults];
+            stepType = new string[numberResults];
+            stepNum = new double[numberResults];
+            p = new double[numberResults];
+            v2 = new double[numberResults];
+            v3 = new double[numberResults];
+            t = new double[numberResults];
+            m2 = new double[numberResults];
+            m3 = new double[numberResults];
+
+            // Now we call for the actual results
+            ret = mySapModel.Results.FrameForce(name, itemType, ref numberResults,
+                ref obj, ref objSta, ref elm, ref elmSta, ref loadCase, ref stepType,
+                ref stepNum, ref p, ref v2, ref v3, ref t, ref m2, ref m3);
+
+            // Now return the results, somehow.
+            string objResults = String.Join("`", obj);
+            string objStaResults = String.Join("`", objSta);
+            string elmResults = String.Join("`", elm);
+            string elmStaResults = String.Join("`", elmSta);
+            string loadCaseResults = String.Join("`", loadCase);
+            string stepTypeResults = String.Join("`", stepType);
+            string stepNumResults = String.Join("`", stepNum);
+            string pResults = String.Join("`", p);
+            string v2Results = String.Join("`", v2);
+            string v3Results = String.Join("`", v3);
+            string tResults = String.Join("`", t);
+            string m2Results = String.Join("`", m2);
+            string m3Results = String.Join("`", m3);
+
+            string[] results = { name, itemType.ToString(), numberResults.ToString(), objResults, objStaResults, elmResults, elmStaResults, loadCaseResults, stepTypeResults, stepNumResults, pResults, v2Results, v3Results, tResults, m2Results, m3Results };
+
+            string response = "SAPTranslator to VRE: sending results of resultsFrameForce:";
+            pipeStreamString.WriteString(response);
+            Console.WriteLine(response);
+            pipeClient.WaitForPipeDrain();
+            for (int i = 0; i < results.Length; i++)
+            {
+                response = results[i];
+                pipeStreamString.WriteString(response);
+                Console.WriteLine(response);
+                pipeClient.WaitForPipeDrain();
+            }
+        }
+
+        static void resultsJointDispl(List<string> arguments)
+        {
+            string name = arguments[0];
+            eItemTypeElm itemType = (eItemTypeElm)Int32.Parse(arguments[1]);
+            int numberResults = 1; // default to 1 arbitrarily
+            string[] obj = new string[1];
+            //double[] objSta = new double[1];;
+            string[] elm = new string[1];
+            //double[] elmSta = new double[1];;
+            string[] loadCase = new string[1];
+            string[] stepType = new string[1];
+            double[] stepNum = new double[1];
+            double[] u1 = new double[1];
+            double[] u2 = new double[1];
+            double[] u3 = new double[1];
+            double[] r1 = new double[1];
+            double[] r2 = new double[1];
+            double[] r3 = new double[1];
+
+
+            //we need to do a probing call first to get numberResults
+            ret = mySapModel.Results.JointDispl(name, itemType, ref numberResults,
+                ref obj, ref elm, ref loadCase, ref stepType,
+                ref stepNum, ref u1, ref u2, ref u3, ref r1, ref r2, ref r3);
+
+            obj = new string[numberResults];
+            //objSta = new double[numberResults];
+            elm = new string[numberResults];
+            //elmSta = new double[numberResults];
+            loadCase = new string[numberResults];
+            stepType = new string[numberResults];
+            stepNum = new double[numberResults];
+            u1 = new double[numberResults];
+            u2 = new double[numberResults];
+            u3 = new double[numberResults];
+            r1 = new double[numberResults];
+            r2 = new double[numberResults];
+            r3 = new double[numberResults];
+
+            // Now we call for the actual results
+            ret = mySapModel.Results.JointDispl(name, itemType, ref numberResults,
+                ref obj, ref elm, ref loadCase, ref stepType,
+                ref stepNum, ref u1, ref u2, ref u3, ref r1, ref r2, ref r3);
+            //Transform to global coordinates
+            /*
+            for (int i = 0; i < numberResults; i++)
+            {
+                double[] matrix = new double[9];
+                
+                mySapModel.PointObj.GetTransformationMatrix(obj[i], ref matrix, true);
+                double uGlobalX = matrix[0] * u1[i] + matrix[1] * u2[i] + matrix[2] * u3[i];
+                double uGlobalY = matrix[3] * u1[i] + matrix[4] * u2[i] + matrix[5] * u3[i];
+                double uGlobalZ = matrix[6] * u1[i] + matrix[7] * u2[i] + matrix[8] * u3[i];
+
+                double rGlobalX = matrix[0] * r1[i] + matrix[1] * r2[i] + matrix[2] * r3[i];
+                double rGlobalY = matrix[3] * r1[i] + matrix[4] * r2[i] + matrix[5] * r3[i];
+                double rGlobalZ = matrix[6] * r1[i] + matrix[7] * r2[i] + matrix[8] * r3[i];
+
+                u1[i] = uGlobalX;
+                u2[i] = uGlobalY;
+                u3[i] = uGlobalZ;
+                r1[i] = rGlobalX;
+                r2[i] = rGlobalY;
+                r3[i] = rGlobalZ;
+
+
+            }
+            */
+
+            // Now return the results, somehow.
+            string objResults = String.Join("`", obj);
+            string elmResults = String.Join("`", elm);
+            string loadCaseResults = String.Join("`", loadCase);
+            string stepTypeResults = String.Join("`", stepType);
+            string stepNumResults = String.Join("`", stepNum);
+            string u1Results = String.Join("`", u1);
+            string u2Results = String.Join("`", u2);
+            string u3Results = String.Join("`", u3);
+            string r1Results = String.Join("`", r1);
+            string r2Results = String.Join("`", r2);
+            string r3Results = String.Join("`", r3);
+
+            string[] results = { name, itemType.ToString(), numberResults.ToString(), objResults, elmResults, loadCaseResults, stepTypeResults, stepNumResults, u1Results, u2Results, u3Results, r1Results, r2Results, r3Results };
+
+            string response = "SAPTranslator to VRE: sending results of resultsJointDispl:";
+            pipeStreamString.WriteString(response);
+            Console.WriteLine(response);
+            pipeClient.WaitForPipeDrain();
+            for (int i = 0; i < results.Length; i++)
+            {
+                response = results[i];
+                pipeStreamString.WriteString(response);
+                Console.WriteLine(response);
+                pipeClient.WaitForPipeDrain();
+            }
+        }
+
+        static void resultsSetupDeselectAllCasesAndCombosForOutput(List<string> arguments)
+        {
+            mySapModel.Results.Setup.DeselectAllCasesAndCombosForOutput();
+        }
+
+        static void resultsSetupSetCaseSelectedForOutput(List<string> arguments)
+        {
+            string name = arguments[0];
+            bool setting = Boolean.Parse(arguments[1]);
+            mySapModel.Results.Setup.SetCaseSelectedForOutput(name, setting);
+        }
+
+        static void customResultsGetFrameSpecialPointDispl(List<string> arguments)
+        {
+            //arguments:
+            // string frameName
+            // 
+            string frameName = arguments[0];
+
+            string specialPointGroupName = "specialPoints_" + frameName;
+            string itemType = "2";
+
+            List<string> resultsJointDisplArguments = new List<string>();
+            resultsJointDisplArguments.Add(specialPointGroupName);
+            resultsJointDisplArguments.Add(itemType);
+
+            resultsJointDispl(resultsJointDisplArguments);
+
+        }
+
+        static void analyzeRunAnalysis(List<string> arguments)
+        {
+            ret = mySapModel.Analyze.RunAnalysis();
+        }
+
+        static void frameObjSetLoadPoint(List<string> arguments)
+        {
+            string name = arguments[0];
+            string loadPat = arguments[1];
+            int myType = Int32.Parse(arguments[2]);
+            int dir = Int32.Parse(arguments[3]);
+            double dist = Double.Parse(arguments[4]);
+            double val = Double.Parse(arguments[5]);
+            string cSys = arguments[6];
+            bool relDist = true;
+            bool replace = true;
+            eItemType itemType = eItemType.Objects;
+
+
+            if (arguments.Count > 7)
+            {
+                relDist = Boolean.Parse(arguments[7]);
+                if (arguments.Count > 8)
+                {
+                    replace = Boolean.Parse(arguments[8]);
+                    if (arguments.Count > 9)
+                    {
+                        itemType = (eItemType)(Int32.Parse(arguments[9]));
+                    }
+                }
+            }
+
+
+
+            mySapModel.FrameObj.SetLoadPoint(name, loadPat, myType, dir, dist, val, cSys, relDist, replace, itemType);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         static void generateStructure(string[] args) //args[0] should be the xml file path to pull structure from
         {

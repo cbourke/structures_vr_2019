@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/* Attatched to toolsUI -> Define -> Frame Sections -> I-Frame -> DropDown */
+/* Attatched to toolsUI -> Define -> Frame Sections -> Pipe -> DropDown */
+/* Attatched to toolsUI -> Define -> Frame Sections -> Tube -> DropDown */
+/* There may be other places this script exists */
+/* This script gets a list of defined building materials from the materialsController
+   and populates the dropdown that is passed in with the values */
 public class materialListDropdown : MonoBehaviour {
 
 	public materialsController myMaterialController;
