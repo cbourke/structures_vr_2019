@@ -89,8 +89,9 @@ public class constructorController : MonoBehaviour
     /// </summary>
     void createFrame(Vector3 pA, Vector3 pB)
     {
-        string dat = ("drawFrame(new Vector3"+pA+", new Vector3"+pB+", buildingObjects.Frame)\n");
-        System.IO.File.AppendAllText("FRAMES.txt", dat);
+        // The below two lines will record every frame draw to a text file
+        //string dat = ("drawFrame(new Vector3"+pA+", new Vector3"+pB+", buildingObjects.Frame)\n");
+        //System.IO.File.AppendAllText("FRAMES.txt", dat);
 
 
 

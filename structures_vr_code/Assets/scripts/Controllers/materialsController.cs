@@ -15,7 +15,7 @@ public class materialsController : MonoBehaviour {
     /// </summary>
     void Awake()
     {
-        //currentMaterial = addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
+        currentMaterial = addBuildingMaterial("Steel01", "United States", "steel", "ASTM A36", "Grade 36");
     }
 
     /// <summary>
